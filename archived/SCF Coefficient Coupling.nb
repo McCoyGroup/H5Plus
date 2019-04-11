@@ -1,0 +1,512 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     17554,        504]
+NotebookOptionsPosition[     15621,        472]
+NotebookOutlinePosition[     16050,        489]
+CellTagsIndexPosition[     16007,        486]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Adiabatic (Diabatic?) Coupling Pt. 2 (SCF)", "Section",
+ CellChangeTimes->{{3.755898086937888*^9, 
+  3.755898098489422*^9}},ExpressionUUID->"3c61f8fa-d2f3-4a25-b429-\
+a962a539a3e7"],
+
+Cell[TextData[{
+ "Given an adiabatic potential parametrized at grid point ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     SubscriptBox["a", "i"], ",", " ", 
+     SubscriptBox["s", "j"]}], ")"}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "1062bcc9-5c5b-4fda-a1a6-ca7408128b36"],
+ " we can obtain the optimal separable wavefunctions in our remaining two \
+degrees of freedom ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    TemplateBox[{RowBox[{"1", ",", "0"}]},
+     "Ket"], 
+    RowBox[{"i", "\[InvisibleSpace]", "j"}]], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "ce14d606-129a-4d5f-9bb0-2982e43ed2c0"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    TemplateBox[{RowBox[{"0", ",", "1"}]},
+     "Ket"], 
+    RowBox[{"i", "\[InvisibleSpace]", "j"}]], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "5cd3f41f-9842-4908-80b2-b080ba561f34"],
+ ". We can also obtain the true wavefunction in the remaining two degrees of \
+freedom ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    TemplateBox[{SubscriptBox[
+       StyleBox["H", FontSlant -> "Plain"], "2"]},
+     "Ket"], 
+    RowBox[{"i", "\[InvisibleSpace]", "j"}]], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "9069731e-eb34-40b8-8dc3-9105c087c72b"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.7558981204912243`*^9, 3.75589827399158*^9}, {
+  3.755898310521935*^9, 3.7558983500871058`*^9}, {3.755898382677305*^9, 
+  3.755898386029868*^9}, {3.755898490084681*^9, 
+  3.75589849227757*^9}},ExpressionUUID->"317e2e1a-143d-48a4-9702-\
+9e9cc05886f8"],
+
+Cell[TextData[{
+ "We\[CloseCurlyQuote]ll then express ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    TemplateBox[{SubscriptBox[
+       StyleBox["H", FontSlant -> "Plain"], "2"]},
+     "Ket"], 
+    RowBox[{"i", "\[InvisibleSpace]", "j"}]], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "b96efa27-db22-4c28-9b50-d24af5dc0251"],
+ " as an expansion in these two separable wavefunction:"
+}], "Text",
+ CellChangeTimes->{{3.755898352366243*^9, 
+  3.7558984015176373`*^9}},ExpressionUUID->"8828697a-b121-42a5-a4cb-\
+382551139c28"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox[
+    TemplateBox[{SubscriptBox[
+       StyleBox["H", FontSlant -> "Plain"], "2"]},
+     "Ket"], 
+    RowBox[{"i", "\[InvisibleSpace]", "j"}]], "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      SubscriptBox["\[Alpha]", 
+       RowBox[{"i", "\[InvisibleSpace]", "j"}]], 
+      SubscriptBox[
+       TemplateBox[{RowBox[{"1", ",", "0"}]},
+        "Ket"], 
+       RowBox[{"\[InvisibleSpace]", 
+        RowBox[{"i", "\[InvisibleSpace]", "j"}]}]]}], "+", 
+     RowBox[{
+      SubscriptBox["\[Beta]", 
+       RowBox[{"i", "\[InvisibleSpace]", "j"}]], 
+      SubscriptBox[
+       TemplateBox[{RowBox[{"0", ",", "1"}]},
+        "Ket"], 
+       RowBox[{"i", "\[InvisibleSpace]", "j"}]]}]}], "=", 
+    RowBox[{
+     SubscriptBox[
+      OverscriptBox["c", "\[RightVector]"], 
+      RowBox[{"i", "\[InvisibleSpace]", "j"}]], "\[CenterDot]", 
+     SubscriptBox["B", 
+      RowBox[{"i", "\[InvisibleSpace]", "j"}]]}]}]}], 
+  TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.755898445208897*^9, 3.755898497623474*^9}, {
+  3.755986916028886*^9, 
+  3.7559870061007843`*^9}},ExpressionUUID->"6215d232-02fa-4bfe-afab-\
+bae3fb3941e4"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"where", " ", 
+    SubscriptBox["B", 
+     RowBox[{"i", "\[InvisibleSpace]", "j"}]], " ", "is", " ", "just", " ", 
+    "the", " ", "basis", " ", "of", " ", "these", " ", "two", " ", 
+    "separable", " ", "functions"}], TraditionalForm]],ExpressionUUID->
+  "acd0b3e6-79a2-4998-83a3-49a71851ebdb"],
+ "."
+}], "ExpositoryText",
+ CellChangeTimes->{{3.75598700811077*^9, 
+  3.755987009379059*^9}},ExpressionUUID->"37bdbd63-f233-43c5-ab1d-\
+c154f72df8f2"],
+
+Cell["\<\
+We can of course do this for any grid points. Now when we want to compute \
+overlaps across grid points we have something like:\
+\>", "Text",
+ CellChangeTimes->{{3.755898524799899*^9, 3.755898533305003*^9}, {
+  3.755898570853773*^9, 3.755898580726121*^9}, {3.755898624162271*^9, 
+  3.7558986438656883`*^9}, {3.7558986835148706`*^9, 
+  3.755898697066057*^9}},ExpressionUUID->"6f2fc06d-cbfa-48fa-b47f-\
+6977df1adf91"],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      RowBox[{
+       SubscriptBox[
+        TemplateBox[{SubscriptBox[
+           StyleBox["H", FontSlant -> "Plain"], "2"]},
+         "Bra"], 
+        RowBox[{"i", "\[InvisibleSpace]", "j"}]], 
+       SubscriptBox[
+        TemplateBox[{SubscriptBox[
+           StyleBox["H", FontSlant -> "Plain"], "2"]},
+         "Ket"], 
+        RowBox[{
+         RowBox[{"i", "'"}], "\[InvisibleSpace]", 
+         RowBox[{"j", "'"}]}]]}], "=", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          SubscriptBox["\[Alpha]", 
+           RowBox[{"i", "\[InvisibleSpace]", "j"}]], 
+          SubscriptBox[
+           TemplateBox[{RowBox[{"1", ",", "0"}]},
+            "Bra"], 
+           RowBox[{"\[InvisibleSpace]", 
+            RowBox[{"i", "\[InvisibleSpace]", "j"}]}]]}], "+", 
+         RowBox[{
+          SubscriptBox["\[Beta]", 
+           RowBox[{"i", "\[InvisibleSpace]", "j"}]], 
+          SubscriptBox[
+           TemplateBox[{RowBox[{"0", ",", "1"}]},
+            "Bra"], 
+           RowBox[{"i", "\[InvisibleSpace]", "j"}]]}]}], ")"}], 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          SubscriptBox["\[Alpha]", 
+           RowBox[{
+            RowBox[{"i", "\[InvisibleSpace]", "'"}], 
+            RowBox[{"j", "'"}]}]], 
+          SubscriptBox[
+           TemplateBox[{RowBox[{"1", ",", "0"}]},
+            "Ket"], 
+           RowBox[{"\[InvisibleSpace]", 
+            RowBox[{
+             RowBox[{"i", "\[InvisibleSpace]", "'"}], 
+             RowBox[{"j", "'"}]}]}]]}], "+", 
+         RowBox[{
+          SubscriptBox["\[Beta]", 
+           RowBox[{
+            RowBox[{"i", "\[InvisibleSpace]", "'"}], 
+            RowBox[{"j", "'"}]}]], 
+          SubscriptBox[
+           TemplateBox[{RowBox[{"0", ",", "1"}]},
+            "Ket"], 
+           RowBox[{
+            RowBox[{"i", "\[InvisibleSpace]", "'"}], 
+            RowBox[{"j", "'"}]}]]}]}], ")"}]}]}]},
+    {
+     RowBox[{"=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          SubscriptBox["\[Alpha]", 
+           RowBox[{"i", "\[InvisibleSpace]", "j"}]], 
+          SubscriptBox["\[Alpha]", 
+           RowBox[{
+            RowBox[{"i", "\[InvisibleSpace]", "'"}], 
+            RowBox[{"j", "'"}]}]]}], ")"}], 
+        SubscriptBox[
+         TemplateBox[{RowBox[{"1", ",", "0"}]},
+          "Bra"], 
+         RowBox[{"\[InvisibleSpace]", 
+          RowBox[{"i", "\[InvisibleSpace]", "j"}]}]], 
+        SubscriptBox[
+         TemplateBox[{RowBox[{"1", ",", "0"}]},
+          "Ket"], 
+         RowBox[{"\[InvisibleSpace]", 
+          RowBox[{
+           RowBox[{"i", "\[InvisibleSpace]", "'"}], 
+           RowBox[{"j", "'"}]}]}]]}], "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          SubscriptBox["\[Beta]", 
+           RowBox[{"i", "\[InvisibleSpace]", "j"}]], 
+          SubscriptBox["\[Alpha]", 
+           RowBox[{
+            RowBox[{"i", "\[InvisibleSpace]", "'"}], 
+            RowBox[{"j", "'"}]}]]}], ")"}], 
+        SubscriptBox[
+         TemplateBox[{RowBox[{"0", ",", "1"}]},
+          "Bra"], 
+         RowBox[{"i", "\[InvisibleSpace]", "j"}]], 
+        SubscriptBox[
+         TemplateBox[{RowBox[{"1", ",", "0"}]},
+          "Ket"], 
+         RowBox[{"\[InvisibleSpace]", 
+          RowBox[{
+           RowBox[{"i", "\[InvisibleSpace]", "'"}], 
+           RowBox[{"j", "'"}]}]}]]}], "+", "\[LineSeparator]", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          SubscriptBox["\[Alpha]", 
+           RowBox[{"i", "\[InvisibleSpace]", "j"}]], 
+          SubscriptBox["\[Beta]", 
+           RowBox[{
+            RowBox[{"i", "\[InvisibleSpace]", "'"}], 
+            RowBox[{"j", "'"}]}]]}], ")"}], 
+        SubscriptBox[
+         TemplateBox[{RowBox[{"1", ",", "0"}]},
+          "Bra"], 
+         RowBox[{"\[InvisibleSpace]", 
+          RowBox[{"i", "\[InvisibleSpace]", "j"}]}]], 
+        SubscriptBox[
+         TemplateBox[{RowBox[{"0", ",", "1"}]},
+          "Ket"], 
+         RowBox[{"\[InvisibleSpace]", 
+          RowBox[{
+           RowBox[{"i", "\[InvisibleSpace]", "'"}], 
+           RowBox[{"j", "'"}]}]}]]}], "+", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          SubscriptBox["\[Beta]", 
+           RowBox[{"i", "\[InvisibleSpace]", "j"}]], 
+          SubscriptBox["\[Beta]", 
+           RowBox[{
+            RowBox[{"i", "\[InvisibleSpace]", "'"}], 
+            RowBox[{"j", "'"}]}]]}], ")"}], 
+        SubscriptBox[
+         TemplateBox[{RowBox[{"0", ",", "1"}]},
+          "Bra"], 
+         RowBox[{"i", "\[InvisibleSpace]", "j"}]], 
+        SubscriptBox[
+         TemplateBox[{RowBox[{"0", ",", "1"}]},
+          "Ket"], 
+         RowBox[{"\[InvisibleSpace]", 
+          RowBox[{
+           RowBox[{"i", "\[InvisibleSpace]", "'"}], 
+           RowBox[{"j", "'"}]}]}]]}]}]}]}
+   }], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.755898445208897*^9, 3.755898497623474*^9}, {
+  3.755898648961976*^9, 3.755898732362849*^9}, {3.755898824839031*^9, 
+  3.755898834734565*^9}, {3.755898909004228*^9, 3.755898954151885*^9}, {
+  3.755901285932156*^9, 
+  3.755901405950275*^9}},ExpressionUUID->"fdd9d217-e6d8-421c-8c8b-\
+2c9c779d4aae"],
+
+Cell["\<\
+Then we introduce the (invalid) assumption\[LongDash]read approximation\
+\[LongDash]that\
+\>", "Text",
+ CellChangeTimes->{{3.755901407782196*^9, 
+  3.755901428893923*^9}},ExpressionUUID->"45da0e03-3eed-4ffd-9b80-\
+3ce5ab2ff702"],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      RowBox[{
+       SubscriptBox[
+        TemplateBox[{RowBox[{"1", ",", "0"}]},
+         "Bra"], 
+        RowBox[{"\[InvisibleSpace]", 
+         RowBox[{"i", "\[InvisibleSpace]", "j"}]}]], 
+       SubscriptBox[
+        TemplateBox[{RowBox[{"1", ",", "0"}]},
+         "Ket"], 
+        RowBox[{"\[InvisibleSpace]", 
+         RowBox[{
+          RowBox[{"i", "\[InvisibleSpace]", "'"}], 
+          RowBox[{"j", "'"}]}]}]]}], "=", "1"}]},
+    {
+     RowBox[{
+      RowBox[{
+       SubscriptBox[
+        TemplateBox[{RowBox[{"1", ",", "0"}]},
+         "Bra"], 
+        RowBox[{"\[InvisibleSpace]", 
+         RowBox[{"i", "\[InvisibleSpace]", "j"}]}]], 
+       SubscriptBox[
+        TemplateBox[{RowBox[{"0", ",", "1"}]},
+         "Ket"], 
+        RowBox[{"\[InvisibleSpace]", 
+         RowBox[{
+          RowBox[{"i", "\[InvisibleSpace]", "'"}], 
+          RowBox[{"j", "'"}]}]}]]}], "=", "0"}]}
+   }], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.755901414960012*^9, 
+  3.755901458781619*^9}},ExpressionUUID->"5db4a7e8-5629-46cc-8ed7-\
+6948d7385855"],
+
+Cell["\<\
+and of course the equivalent for the other pair. This obviously is not true, \
+but what this gives us is that\
+\>", "Text",
+ CellChangeTimes->{{3.755901464262636*^9, 
+  3.755901480437717*^9}},ExpressionUUID->"fbf207a5-7843-4afd-8b00-\
+78541e791ee2"],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      RowBox[{
+       SubscriptBox[
+        TemplateBox[{SubscriptBox[
+           StyleBox["H", FontSlant -> "Plain"], "2"]},
+         "Bra"], 
+        RowBox[{"i", "\[InvisibleSpace]", "j"}]], 
+       SubscriptBox[
+        TemplateBox[{SubscriptBox[
+           StyleBox["H", FontSlant -> "Plain"], "2"]},
+         "Ket"], 
+        RowBox[{
+         RowBox[{"i", "'"}], "\[InvisibleSpace]", 
+         RowBox[{"j", "'"}]}]]}], "=", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         SubscriptBox["\[Alpha]", 
+          RowBox[{"i", "\[InvisibleSpace]", "j"}]], 
+         SubscriptBox["\[Alpha]", 
+          RowBox[{
+           RowBox[{"i", "\[InvisibleSpace]", "'"}], 
+           RowBox[{"j", "'"}]}]]}], ")"}], "+", 
+       RowBox[{"(", 
+        RowBox[{
+         SubscriptBox["\[Beta]", 
+          RowBox[{"i", "\[InvisibleSpace]", "j"}]], 
+         SubscriptBox["\[Beta]", 
+          RowBox[{
+           RowBox[{"i", "\[InvisibleSpace]", "'"}], 
+           RowBox[{"j", "'"}]}]]}], ")"}]}]}]},
+    {
+     RowBox[{"=", 
+      RowBox[{
+       SubscriptBox[
+        OverscriptBox["c", "\[RightVector]"], 
+        RowBox[{"i", "\[InvisibleSpace]", "j"}]], "\[CenterDot]", 
+       SubscriptBox[
+        OverscriptBox["c", "\[RightVector]"], 
+        RowBox[{
+         RowBox[{"i", "'"}], "\[InvisibleSpace]", 
+         RowBox[{"j", "'"}]}]]}]}]}
+   }], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.755901484274431*^9, 3.7559014943212423`*^9}, {
+  3.7559869022908573`*^9, 3.755986903884088*^9}, {3.75598701527332*^9, 
+  3.755987036354087*^9}},ExpressionUUID->"80574e24-95ce-4242-893c-\
+45f43c7978cd"],
+
+Cell["\<\
+and it allows us to treat the basis as in this sense equivalent over the \
+entire space we span which cleans up some questions of correctness (I \
+think...?)\
+\>", "Text",
+ CellChangeTimes->{{3.755901508139163*^9, 
+  3.755901574196004*^9}},ExpressionUUID->"80a3be0b-e861-40ee-812c-\
+1d5694500b45"],
+
+Cell["\<\
+Finally, to get the entire S matrix we multiply into T we just need to get \
+every pair of coupled states like this. Assuming we have the total \
+coefficient matrix for reach grid point and unwrap it as a vector\
+\>", "Text",
+ CellChangeTimes->{{3.7559870454564867`*^9, 3.7559871458232183`*^9}, 
+   3.755987227333391*^9},ExpressionUUID->"b91fb886-3208-42e0-998c-\
+2eea9c4ea992"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"C", "=", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      SubscriptBox[
+       OverscriptBox["c", "\[RightVector]"], "\[Lambda]"], " ", ":", " ", 
+      RowBox[{"\[Lambda]", "\[Element]", "\[CapitalLambda]"}]}], "}"}], " ", 
+    "for", " ", "the", " ", "appropriate", " ", "indexing", " ", "set", " ", 
+    "\[CapitalLambda]"}]}], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.755987154762351*^9, 
+  3.755987268997035*^9}},ExpressionUUID->"8787f408-f3b6-4e0e-b8f2-\
+0ebad1cc5a6f"],
+
+Cell[TextData[{
+ "then ",
+ StyleBox["C",
+  FontSlant->"Italic"],
+ " is actually a ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"2", "\[Cross]", "N"}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "0c23340f-702f-4af0-8627-937e6483212c"],
+ " matrix and we simply have:"
+}], "Text",
+ CellChangeTimes->{{3.755987224717245*^9, 3.755987231518559*^9}, {
+  3.7559872803247967`*^9, 
+  3.7559873191732893`*^9}},ExpressionUUID->"f65347db-f30c-4107-b4be-\
+c53d2a82fb06"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"S", "=", 
+   RowBox[{
+    RowBox[{"C", "\[Transpose]"}], "\[InvisibleSpace]", "C"}]}], 
+  TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.755987235706167*^9, 
+  3.755987321445557*^9}},ExpressionUUID->"30a4e067-316d-416c-9fd0-\
+bf5df0e8753b"]
+}, Open  ]]
+},
+WindowSize->{808, 755},
+WindowMargins->{{Automatic, 202}, {45, Automatic}},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->FrontEnd`FileName[{"UWTools"}, "ExplorationStyle.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 187, 3, 66, "Section",ExpressionUUID->"3c61f8fa-d2f3-4a25-b429-a962a539a3e7"],
+Cell[770, 27, 1618, 46, 96, "Text",ExpressionUUID->"317e2e1a-143d-48a4-9702-9e9cc05886f8"],
+Cell[2391, 75, 549, 15, 41, "Text",ExpressionUUID->"8828697a-b121-42a5-a4cb-382551139c28"],
+Cell[2943, 92, 1182, 35, 40, "ExpositoryMathCentered",ExpressionUUID->"6215d232-02fa-4bfe-afab-bae3fb3941e4"],
+Cell[4128, 129, 502, 13, 38, "ExpositoryText",ExpressionUUID->"37bdbd63-f233-43c5-ab1d-c154f72df8f2"],
+Cell[4633, 144, 425, 8, 56, "Text",ExpressionUUID->"6f2fc06d-cbfa-48fa-b47f-6977df1adf91"],
+Cell[5061, 154, 5208, 151, 105, "ExpositoryMathCentered",ExpressionUUID->"fdd9d217-e6d8-421c-8c8b-2c9c779d4aae"],
+Cell[10272, 307, 238, 6, 34, "Text",ExpressionUUID->"45da0e03-3eed-4ffd-9b80-3ce5ab2ff702"],
+Cell[10513, 315, 1123, 35, 69, "ExpositoryMathCentered",ExpressionUUID->"5db4a7e8-5629-46cc-8ed7-6948d7385855"],
+Cell[11639, 352, 259, 6, 34, "Text",ExpressionUUID->"fbf207a5-7843-4afd-8b00-78541e791ee2"],
+Cell[11901, 360, 1683, 49, 65, "ExpositoryMathCentered",ExpressionUUID->"80574e24-95ce-4242-893c-45f43c7978cd"],
+Cell[13587, 411, 307, 7, 56, "Text",ExpressionUUID->"80a3be0b-e861-40ee-812c-1d5694500b45"],
+Cell[13897, 420, 388, 7, 56, "Text",ExpressionUUID->"b91fb886-3208-42e0-998c-2eea9c4ea992"],
+Cell[14288, 429, 538, 13, 37, "ExpositoryMathCentered",ExpressionUUID->"8787f408-f3b6-4e0e-b8f2-0ebad1cc5a6f"],
+Cell[14829, 444, 478, 15, 35, "Text",ExpressionUUID->"f65347db-f30c-4107-b4be-c53d2a82fb06"],
+Cell[15310, 461, 295, 8, 34, "ExpositoryMathCentered",ExpressionUUID->"30a4e067-316d-416c-9fd0-bf5df0e8753b"]
+}, Open  ]]
+}
+]
+*)
+

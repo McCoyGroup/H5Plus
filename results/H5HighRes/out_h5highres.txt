@@ -1,0 +1,43 @@
+StringForm["Initializing `1` indices ....", "IsotopeData"]
+StringForm["Initializing `1` indices ....", "IsotopeData"]
+StringForm["Initializing `1` indices ....", "IsotopeData"]
+StringForm["Initializing `1` indices ....", "IsotopeData"]
+StringForm["Initializing `1` indices ....", "IsotopeData"]
+"Generating r1/r2 wavefunctions..."
+"Generated r1/r2 wavefunctions"
+"Generating SCF coefficients..."
+"SCF coefficients calculated"
+"Rephasing SCF wavefunctions"
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing disagreement by sampling direction. Be careful."
+"Got 10000 SCF wavefunctions"
+"Rephased SCF wavefunctions"
+"Generating one quantum overlap matrix"
+"Generating two quanta overlap matrix"
+"Generating 4D wavefunctions..."
+"Generating No Quanta Wavefunction"
+"Making kinetic energy"
+"Making potential energy"
+"Making grid"
+"Diagonalizing"
+"Generating One Quantum Wavefunction"
+"Dimensions of coupling matrix {20000, 20000} of type List at 3200000152 \
+bytes"
+"Making kinetic energy"
+"Making potential energy"
+"Making grid"
+"Diagonalizing"
+"Generating Two Quanta Wavefunction"
+"Dimensions of coupling matrix {} of type Symbol at 0 bytes"
+"Making kinetic energy"
+
+Out[1]= Removed["$$Failure"]
+
+

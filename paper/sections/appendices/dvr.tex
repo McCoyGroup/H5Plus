@@ -1,0 +1,35 @@
+% \input{../../config}
+% \begin{document}
+
+Discrete variable representation (DVR) in its most general sense may be viewed as a change of basis from a finite basis representation (FBR) in delocalized functions $ \Phi^{\mathrm{FBR}}=\{\phi_i^{\mathrm{FBR}} \} $ to a basis that is perfectly localized at given points in our domain. In one dimension, we do this by defining our coordinate representation as show in Equation \ref{eq:dvr_diag}.
+
+\loadeq{dvr_diag}
+
+By diagonalizing this we obtain a new grid of eigenvalues, $ X^{ \mathrm{DVR}} $ and a transformation matrix, $ Q^{ \mathrm{DVR} } $, to a new localized basis, $\Phi^{ \mathrm{DVR} } $. Mathematically, given any operator $O$ with a finite basis representation $O^{\mathrm{FBR}}$ , we can compute its representation in the DVR basis $O^{ \mathrm{DVR} }$ by Equation \ref{eq:dvr_operator_transf}.
+
+\loadeq{dvr_operator_transf}
+
+What is special about this new basis is that in this basis any operator that is a purely a function of the system coordinate has a diagonal representation. In particular, this means that our potential can simply be represented by its value at each grid point obtained by diagonalizing the coordinate operator.
+
+\subsection{N-Dimensional Generalization}
+For multidimensional systems we may take a set of 1D DVR bases for each coordinate and construct a direct product basis. What this means is that in $N$ dimensions we have a set of $N$ DVR bases, ${\Phi^{\mathrm{DVR}}_i}$, and $N$ sets of corresponding grid points, ${X_i}$. Our basis functions are then defined as in \refeq{dvr_multi_basis}.
+
+\loadeq{dvr_multi_basis}
+
+This means then that in the absence of coupling in the kinetic energy our multidimensional Hamiltonian has elements that look like
+
+\loadeq{dvr_multi_Ham}
+
+In the higher-dimensional systems we also use a potential optimized DVR to allow for a significant contraction of our basis. To generate a potential optimized DVR one first solves a set of 1D problems nearly exactly using a 1D DVR with a large number of basis functions and then uses these basis functions to construct our multidimensional DVR. This allows us to contract our basis as the constructed grid is better adapted to the form of the potential, meaning we need fewer functions to appropriately span the solution space. \EDIT
+
+\subsection{Evaluation of Expectation Values}
+
+Discrete variable representation is closely related to Gaussian quadrature methods, which have been used since the time of Gauss to provide nearly exact methods for numerical integration\cite{Light2007}. These methods similarly involve choosing a family of weighting functions and obtaining a set of corresponding gridpoints. Given a particular weighting function $\gamma(x)$ and its corresponding set of gridpoints ${x_i}$, the integral of a function $f(x)$ over the domain of the quadrature may be calculated by \refeq{quadrature}.
+
+\loadeq{quadrature}
+
+In DVR the wavefunction becomes our $\gamma(x)$ and the gridpoints are the gridpoints we used when calculating the DVR wavefunctions so we obtain the expression given in \refeq{dvr_expect}. Since our DVR wavefunctions come setting up a representation of our Hamtiltonian and diagonalizing this can be further simplified into a simple dot product, which can be significantly faster for modern programming languages to compute.
+
+\loadeq{dvr_expect}
+
+% \end{document}

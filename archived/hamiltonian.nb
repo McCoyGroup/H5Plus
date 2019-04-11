@@ -1,0 +1,2023 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     68231,       2015]
+NotebookOptionsPosition[     61573,       1925]
+NotebookOutlinePosition[     62002,       1942]
+CellTagsIndexPosition[     61959,       1939]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    SubscriptBox[
+     StyleBox["H",
+      FontSlant->"Plain"], "5"], "+"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "e53ee36d-ff4d-4e7d-a932-b33df1f33bcf"],
+ " Hamiltonian"
+}], "Section",
+ CellChangeTimes->{{3.75700601640843*^9, 
+  3.7570060269988117`*^9}},ExpressionUUID->"4ad040e3-860e-4cb3-b4e1-\
+e708524ded71"],
+
+Cell["\<\
+We start with a basic Hamiltonian with a guess for the form of our coupling:\
+\>", "Text",
+ CellChangeTimes->{{3.7570060312540293`*^9, 3.7570060449261417`*^9}, {
+  3.757006461598875*^9, 3.757006471191531*^9}, {3.757098263652896*^9, 
+  3.757098270010988*^9}},ExpressionUUID->"233656d1-51e2-41bd-94ab-\
+8f8b3c6a6209"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["H",
+     FontSlant->"Plain"], "(", 
+    RowBox[{
+     SubscriptBox["R", "1"], ",", " ", 
+     SubscriptBox["R", "2"], ",", " ", 
+     SubscriptBox["r", "1"], ",", " ", 
+     SubscriptBox["r", "2"]}], ")"}], "=", 
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["\[HBar]", "2"], "(", 
+     RowBox[{
+      FractionBox[
+       SuperscriptBox[
+        SubscriptBox["p", 
+         SubscriptBox["R", "1"]], "2"], 
+       RowBox[{"2", 
+        SubscriptBox["\[Mu]", 
+         SubscriptBox["R", "1"]]}]], "+", 
+      FractionBox[
+       SuperscriptBox[
+        SubscriptBox["p", 
+         SubscriptBox["R", "2"]], "2"], 
+       RowBox[{"2", 
+        SubscriptBox["\[Mu]", 
+         SubscriptBox["R", "2"]]}]], "+", 
+      FractionBox[
+       SuperscriptBox[
+        SubscriptBox["p", 
+         SubscriptBox["r", "1"]], "2"], 
+       RowBox[{"2", 
+        SubscriptBox["\[Mu]", 
+         SubscriptBox["r", "1"]]}]], "+", 
+      FractionBox[
+       SuperscriptBox[
+        SubscriptBox["p", 
+         SubscriptBox["r", "2"]], "2"], 
+       RowBox[{"2", 
+        SubscriptBox["\[Mu]", 
+         SubscriptBox["r", "2"]]}]], "+", 
+      FractionBox[
+       RowBox[{
+        SubscriptBox["p", 
+         SubscriptBox["R", "1"]], 
+        SubscriptBox["p", 
+         SubscriptBox["R", "2"]]}], 
+       SubscriptBox["\[Mu]", 
+        SubscriptBox["R", "12"]]]}], ")"}], "+", 
+    RowBox[{"V", "(", 
+     RowBox[{
+      SubscriptBox["R", "1"], ",", " ", 
+      SubscriptBox["R", "2"], ",", " ", 
+      SubscriptBox["r", "1"], ",", " ", 
+      SubscriptBox["r", "2"]}], ")"}]}]}], 
+  TraditionalForm]], "ExpositoryMathCentered",
+ InitializationCell->True,
+ CellChangeTimes->{{3.757006475893936*^9, 3.757006488815289*^9}, {
+   3.757006599937698*^9, 3.757006605736623*^9}, {3.757007259953251*^9, 
+   3.7570072982031727`*^9}, {3.75700740921341*^9, 3.757007470640327*^9}, 
+   3.7570091592872066`*^9, {3.7570209928918123`*^9, 3.757021006081296*^9}, {
+   3.757021036953154*^9, 
+   3.757021040425013*^9}},ExpressionUUID->"6438dd25-7d6f-4e29-a39b-\
+028d028da757"],
+
+Cell[CellGroupData[{
+
+Cell["Ansatz:", "Subsubsection",
+ CellChangeTimes->{{3.757011360244554*^9, 
+  3.7570113694818087`*^9}},ExpressionUUID->"f361ddae-8a0f-483c-89c5-\
+85a5eb1d8780"],
+
+Cell["We want to eliminate the cross term:", "Text",
+ CellChangeTimes->{{3.757007473224107*^9, 3.75700748435286*^9}, {
+  3.757011354507742*^9, 
+  3.757011356777627*^9}},ExpressionUUID->"6580b25a-f965-4d14-9fd0-\
+df616c546580"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["P", 
+    RowBox[{
+     SubscriptBox["R", "1"], 
+     SubscriptBox["R", "2"]}]], "=", 
+   FractionBox[
+    RowBox[{
+     SubscriptBox["p", 
+      SubscriptBox["R", "1"]], 
+     SubscriptBox["p", 
+      SubscriptBox["R", "2"]]}], 
+    SubscriptBox["\[Mu]", 
+     SubscriptBox["R", "12"]]]}], TraditionalForm]], "ExpositoryMathCentered",\
+
+ CellChangeTimes->{{3.757007487488071*^9, 3.757007488122993*^9}, {
+   3.757009138740045*^9, 3.757009157575115*^9}, {3.75700937502781*^9, 
+   3.75700937528379*^9}, 
+   3.757021044903645*^9},ExpressionUUID->"76577e86-3fe1-4281-976a-\
+be6d6b8672ba"],
+
+Cell["And to do so we think about what we have here:", "Text",
+ CellChangeTimes->{{3.757007500057901*^9, 3.757007503096387*^9}, {
+  3.757007618229254*^9, 
+  3.7570076267223873`*^9}},ExpressionUUID->"64265c63-cd08-46fe-b6db-\
+185a37b61714"],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      SubscriptBox["p", 
+       SubscriptBox["R", "1"]], "=", 
+      RowBox[{
+       SubscriptBox["\[Mu]", 
+        SubscriptBox["R", "1"]], 
+       FractionBox["\[PartialD]", 
+        RowBox[{"\[PartialD]", 
+         SubscriptBox["R", "1"]}]]}]}]},
+    {
+     RowBox[{
+      SubscriptBox["p", 
+       SubscriptBox["R", "2"]], "=", 
+      RowBox[{
+       SubscriptBox["\[Mu]", 
+        SubscriptBox["R", "2"]], 
+       FractionBox["\[PartialD]", 
+        RowBox[{"\[PartialD]", 
+         SubscriptBox["R", "2"]}]]}]}]}
+   }], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.757007630195512*^9, 3.757007688514286*^9}, {
+  3.7570078055667343`*^9, 
+  3.7570078061879177`*^9}},ExpressionUUID->"b163cb9f-38ab-4279-8ec0-\
+79a64c060141"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Change of Basis:", "Subsubsection",
+ CellChangeTimes->{{3.757011365648787*^9, 
+  3.757011368072569*^9}},ExpressionUUID->"f2aa1ce2-5b69-4d41-a30c-\
+92c717680327"],
+
+Cell["By moving to a different coordinate system where we have", "Text",
+ CellChangeTimes->{{3.757007756853451*^9, 3.757007794068516*^9}, {
+  3.757008469563945*^9, 
+  3.757008472434065*^9}},ExpressionUUID->"f481d67d-91fc-422a-93b6-\
+e83676767e9d"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   OverscriptBox["r", 
+    StyleBox["\[RightVector]",
+     FontSize->18]], "=", 
+   RowBox[{"(", 
+    RowBox[{"\[Alpha]", ",", " ", "\[Beta]", ",", " ", 
+     SubscriptBox["r", "1"], ",", " ", 
+     SubscriptBox["r", "2"]}], ")"}]}], 
+  TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.757008474045397*^9, 3.75700848274527*^9}, {
+  3.7570097193605337`*^9, 3.757009766545624*^9}, {3.757009905219934*^9, 
+  3.757009916412355*^9}, {3.7570099707149773`*^9, 
+  3.757009972650977*^9}},ExpressionUUID->"de048687-230c-4116-a90a-\
+e0d5bc7ab7d4"],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      RowBox[{
+       SubscriptBox["\[Mu]", 
+        SubscriptBox["R", "12"]], 
+       SubscriptBox["P", 
+        RowBox[{
+         SubscriptBox["R", "1"], 
+         SubscriptBox["R", "2"]}]], 
+       RowBox[{"\[Psi]", "(", 
+        OverscriptBox["r", 
+         StyleBox["\[RightVector]",
+          FontSize->18]], ")"}]}], "=", 
+      RowBox[{
+       FractionBox[
+        SuperscriptBox["\[PartialD]", "2"], 
+        RowBox[{
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["R", "1"]}], 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["R", "2"]}]}]], 
+       RowBox[{"\[Psi]", "(", 
+        OverscriptBox["r", 
+         StyleBox["\[RightVector]",
+          FontSize->18]], ")"}]}]}]},
+    {
+     RowBox[{"=", 
+      RowBox[{
+       FractionBox["\[PartialD]", 
+        RowBox[{"\[PartialD]", 
+         SubscriptBox["R", "1"]}]], 
+       RowBox[{
+        UnderscriptBox["\[Sum]", "l"], 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           FractionBox["\[PartialD]", 
+            RowBox[{"\[PartialD]", 
+             SubscriptBox["r", "l"]}]], 
+           RowBox[{"\[Psi]", "(", 
+            OverscriptBox["r", 
+             StyleBox["\[RightVector]",
+              FontSize->18]], ")"}]}], 
+          RowBox[{
+           FractionBox["\[PartialD]", 
+            RowBox[{"\[PartialD]", 
+             SubscriptBox["R", "2"]}]], 
+           SubscriptBox["r", "l"]}]}], ")"}]}]}]}]},
+    {
+     RowBox[{"=", 
+      RowBox[{
+       RowBox[{
+        UnderscriptBox["\[Sum]", "l"], 
+        RowBox[{
+         RowBox[{
+          FractionBox["\[PartialD]", 
+           RowBox[{"\[PartialD]", 
+            SubscriptBox["R", "1"]}]], 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             FractionBox["\[PartialD]", 
+              RowBox[{"\[PartialD]", 
+               SubscriptBox["r", "l"]}]], "\[Psi]"}], 
+            RowBox[{"(", 
+             OverscriptBox["r", 
+              StyleBox["\[RightVector]",
+               FontSize->18]], ")"}]}], ")"}]}], 
+         RowBox[{
+          FractionBox["\[PartialD]", 
+           RowBox[{"\[PartialD]", 
+            SubscriptBox["R", "2"]}]], 
+          SubscriptBox["r", "l"]}]}]}], "+", 
+       RowBox[{
+        RowBox[{
+         FractionBox["\[PartialD]", 
+          RowBox[{"\[PartialD]", 
+           SubscriptBox["r", "l"]}]], 
+         RowBox[{"\[Psi]", "(", 
+          OverscriptBox["r", 
+           StyleBox["\[RightVector]",
+            FontSize->18]], ")"}]}], 
+        RowBox[{"(", 
+         RowBox[{
+          FractionBox[
+           SuperscriptBox["\[PartialD]", "2"], 
+           RowBox[{
+            RowBox[{"\[PartialD]", 
+             SubscriptBox["R", "1"]}], 
+            RowBox[{"\[PartialD]", 
+             SubscriptBox["R", "2"]}]}]], 
+          SubscriptBox["r", "l"]}], ")"}]}]}]}]},
+    {
+     RowBox[{"=", 
+      RowBox[{
+       RowBox[{
+        UnderscriptBox["\[Sum]", "l"], " ", 
+        RowBox[{
+         UnderscriptBox["\[Sum]", "m"], 
+         RowBox[{
+          RowBox[{
+           FractionBox[
+            SuperscriptBox["\[PartialD]", "2"], 
+            RowBox[{
+             RowBox[{"\[PartialD]", 
+              SubscriptBox["r", "l"]}], 
+             RowBox[{"\[PartialD]", 
+              SubscriptBox["r", "m"]}]}]], 
+           RowBox[{"\[Psi]", "(", 
+            OverscriptBox["r", 
+             StyleBox["\[RightVector]",
+              FontSize->18]], ")"}]}], 
+          RowBox[{
+           FractionBox["\[PartialD]", 
+            RowBox[{"\[PartialD]", 
+             SubscriptBox["R", "1"]}]], 
+           SubscriptBox["r", "m"]}], 
+          RowBox[{
+           FractionBox["\[PartialD]", 
+            RowBox[{"\[PartialD]", 
+             SubscriptBox["R", "2"]}]], 
+           SubscriptBox["r", "l"]}]}]}]}], "+", 
+       RowBox[{
+        RowBox[{
+         FractionBox["\[PartialD]", 
+          RowBox[{"\[PartialD]", 
+           SubscriptBox["r", "l"]}]], "\[Psi]"}], 
+        RowBox[{"(", 
+         OverscriptBox["r", 
+          StyleBox["\[RightVector]",
+           FontSize->18]], ")"}], 
+        RowBox[{"(", 
+         RowBox[{
+          FractionBox[
+           SuperscriptBox["\[PartialD]", "2"], 
+           RowBox[{
+            RowBox[{"\[PartialD]", 
+             SubscriptBox["R", "1"]}], 
+            RowBox[{"\[PartialD]", 
+             SubscriptBox["R", "2"]}]}]], 
+          SubscriptBox["r", "l"]}], ")"}]}]}]}]}
+   }], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.757007795142552*^9, 3.7570078271874313`*^9}, {
+   3.75700825055163*^9, 3.757008260703843*^9}, {3.757009356755879*^9, 
+   3.757009457332749*^9}, {3.757009624131632*^9, 3.7570097102877007`*^9}, {
+   3.757009774978673*^9, 3.757009796746585*^9}, {3.7570098328977413`*^9, 
+   3.7570099897949257`*^9}, {3.75701004309862*^9, 3.757010087388549*^9}, {
+   3.75701013045186*^9, 3.757010167457159*^9}, {3.7570104210380583`*^9, 
+   3.757010526540766*^9}, {3.75701061557137*^9, 3.757010621454946*^9}, {
+   3.757010805411854*^9, 3.757010807420081*^9}, 
+   3.757021052165154*^9},ExpressionUUID->"93f9b61e-2af6-4568-8ca9-\
+534986b5071c"],
+
+Cell["\<\
+Then to evaluate this it makes sense to look at the Jacobian for the system:\
+\>", "Text",
+ CellChangeTimes->{{3.757007985310363*^9, 3.7570080281184273`*^9}, {
+  3.7570101810934687`*^9, 
+  3.757010198043253*^9}},ExpressionUUID->"2f30df5c-97eb-46ce-95f4-\
+705a80545863"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"J", "=", 
+   RowBox[{"(", GridBox[{
+      {
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["R", "1"]}]], "\[Alpha]"}], 
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["R", "1"]}]], "\[Beta]"}], 
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["R", "1"]}]], 
+        SubscriptBox["r", "1"]}], 
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["R", "1"]}]], 
+        SubscriptBox["r", "2"]}]},
+      {
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["R", "2"]}]], "\[Alpha]"}], 
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["R", "2"]}]], "\[Beta]"}], 
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["R", "2"]}]], 
+        SubscriptBox["r", "1"]}], 
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["R", "2"]}]], 
+        SubscriptBox["r", "2"]}]},
+      {
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["r", "1"]}]], "\[Alpha]"}], 
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["r", "1"]}]], "\[Beta]"}], 
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["r", "1"]}]], 
+        SubscriptBox["r", "1"]}], 
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["r", "1"]}]], 
+        SubscriptBox["r", "2"]}]},
+      {
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["r", "2"]}]], "\[Alpha]"}], 
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["r", "2"]}]], "\[Beta]"}], 
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["r", "2"]}]], 
+        SubscriptBox["r", "1"]}], 
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["r", "2"]}]], 
+        SubscriptBox["r", "2"]}]}
+     }], ")"}]}], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.7570080308041*^9, 3.757008041102087*^9}, {
+  3.757008110410585*^9, 3.757008168842473*^9}, {3.757008283964512*^9, 
+  3.757008342215728*^9}, {3.757008401265999*^9, 3.757008416673973*^9}, {
+  3.757009441557485*^9, 3.7570094424771843`*^9}, {3.7570102042450733`*^9, 
+  3.757010205794341*^9}},ExpressionUUID->"e3096f74-2120-47d6-8590-\
+fcb1dce32637"],
+
+Cell[TextData[{
+ "Let\[CloseCurlyQuote]s then make the assumption that \[Alpha] and \[Beta] \
+are linear functions in ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["R", "1"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "dc975d07-e760-4747-80fd-aeb4144d4904"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["R", "2"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "a42af77f-729e-44e1-9054-722cc0b478f6"],
+ " giving us:"
+}], "Text",
+ CellChangeTimes->{{3.757008529432253*^9, 3.757008546719751*^9}, {
+  3.757020212049992*^9, 
+  3.757020231442256*^9}},ExpressionUUID->"4035bc19-4833-47f3-a630-\
+d43baa3f0707"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["J", 
+    OverscriptBox["r", "\[RightVector]"]], "=", 
+   RowBox[{"(", GridBox[{
+      {
+       SubscriptBox["Q", "\[Alpha]\[Alpha]"], 
+       SubscriptBox["Q", "\[Beta]\[Alpha]"], " ", " "},
+      {
+       SubscriptBox["Q", "\[Alpha]\[Beta]"], 
+       SubscriptBox["Q", "\[Beta]\[Beta]"], " ", " "},
+      {" ", " ", "1", " "},
+      {" ", " ", " ", "1"}
+     }], ")"}]}], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.757008555062385*^9, 3.757008589439766*^9}, {
+  3.757010536490115*^9, 3.757010553491496*^9}, {3.757010853499167*^9, 
+  3.757010860514861*^9}, {3.757010897945097*^9, 3.757010908569618*^9}, {
+  3.757010978695736*^9, 
+  3.757010984784273*^9}},ExpressionUUID->"968cff13-3059-4d02-aec0-\
+a09f09f5b8ea"],
+
+Cell[TextData[{
+ "Where ",
+ Cell[BoxData[
+  FormBox["Q", TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "c39ede18-2b0d-4033-b73b-7a0a599f9925"],
+ " is the change of basis matrix. Therefore overall we have:"
+}], "Text",
+ CellChangeTimes->{{3.757008591245903*^9, 3.757008593368246*^9}, {
+  3.757010211252646*^9, 
+  3.757010253330031*^9}},ExpressionUUID->"54b77242-8504-4db7-9f7f-\
+73c0d2934580"],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      RowBox[{
+       SubscriptBox["\[Mu]", 
+        SubscriptBox["R", "12"]], 
+       SubscriptBox["P", 
+        RowBox[{
+         SubscriptBox["R", "1"], 
+         SubscriptBox["R", "2"]}]], 
+       RowBox[{"\[Psi]", "(", 
+        OverscriptBox["r", 
+         StyleBox["\[RightVector]",
+          FontSize->18]], ")"}]}], "=", 
+      RowBox[{
+       RowBox[{
+        UnderscriptBox["\[Sum]", "l"], " ", 
+        RowBox[{
+         UnderscriptBox["\[Sum]", "m"], 
+         RowBox[{
+          RowBox[{
+           FractionBox[
+            SuperscriptBox["\[PartialD]", "2"], 
+            RowBox[{
+             RowBox[{"\[PartialD]", 
+              SubscriptBox["r", "l"]}], 
+             RowBox[{"\[PartialD]", 
+              SubscriptBox["r", "m"]}]}]], 
+           RowBox[{"\[Psi]", "(", 
+            OverscriptBox["r", 
+             StyleBox["\[RightVector]",
+              FontSize->18]], ")"}]}], 
+          RowBox[{
+           FractionBox["\[PartialD]", 
+            RowBox[{"\[PartialD]", 
+             SubscriptBox["R", "1"]}]], 
+           SubscriptBox["r", "m"]}], 
+          RowBox[{
+           FractionBox["\[PartialD]", 
+            RowBox[{"\[PartialD]", 
+             SubscriptBox["R", "2"]}]], 
+           SubscriptBox["r", "l"]}]}]}]}], "+", 
+       RowBox[{
+        RowBox[{
+         FractionBox["\[PartialD]", 
+          RowBox[{"\[PartialD]", 
+           SubscriptBox["r", "l"]}]], 
+         RowBox[{"\[Psi]", "(", 
+          OverscriptBox["r", 
+           StyleBox["\[RightVector]",
+            FontSize->18]], ")"}]}], 
+        RowBox[{"(", 
+         RowBox[{
+          FractionBox[
+           SuperscriptBox["\[PartialD]", "2"], 
+           RowBox[{
+            RowBox[{"\[PartialD]", 
+             SubscriptBox["R", "1"]}], 
+            RowBox[{"\[PartialD]", 
+             SubscriptBox["R", "2"]}]}]], 
+          SubscriptBox["r", "l"]}], ")"}]}]}]}]},
+    {
+     RowBox[{"=", 
+      RowBox[{
+       UnderscriptBox[
+        RowBox[{"\[Sum]", "\[Sum]"}], 
+        RowBox[{"n", ",", 
+         RowBox[{"m", "\[Element]", 
+          RowBox[{"{", 
+           RowBox[{"\[Alpha]", ",", "\[Beta]"}], "}"}]}]}]], 
+       RowBox[{
+        FractionBox[
+         SuperscriptBox["\[PartialD]", "2"], 
+         RowBox[{
+          RowBox[{"\[PartialD]", "n"}], 
+          RowBox[{"\[PartialD]", "m"}]}]], 
+        RowBox[{"\[Psi]", "(", 
+         OverscriptBox["r", 
+          StyleBox["\[RightVector]",
+           FontSize->18]], ")"}]}], 
+       SubscriptBox["Q", 
+        RowBox[{"\[Alpha]", "\[InvisibleSpace]", "m"}]], 
+       SubscriptBox["Q", 
+        RowBox[{"n", "\[InvisibleSpace]", "\[Beta]"}]]}]}]}
+   }], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.757007795142552*^9, 3.7570078271874313`*^9}, {
+  3.75700825055163*^9, 3.757008260703843*^9}, {3.757009356755879*^9, 
+  3.757009457332749*^9}, {3.757009624131632*^9, 3.7570097102877007`*^9}, {
+  3.757009774978673*^9, 3.757009796746585*^9}, {3.7570098328977413`*^9, 
+  3.7570099897949257`*^9}, {3.75701004309862*^9, 3.757010087388549*^9}, {
+  3.75701013045186*^9, 3.757010167457159*^9}, {3.757010333071643*^9, 
+  3.757010380941518*^9}, {3.757010640398437*^9, 3.7570107556674757`*^9}, {
+  3.75701079472365*^9, 3.757010882546124*^9}, {3.757010931454371*^9, 
+  3.757011002303238*^9}, {3.757011070127511*^9, 3.757011104027761*^9}, {
+  3.757021059287088*^9, 
+  3.757021060935194*^9}},ExpressionUUID->"9f615cef-d236-492b-ab3f-\
+db7aa1680ee5"],
+
+Cell[TextData[{
+ "Then as \[Psi] is an ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["L", "2"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "05345512-2107-484f-8b49-1b6a4abebdf2"],
+ " function, we have Fubini\[CloseCurlyQuote]s theorem so:"
+}], "Text",
+ CellChangeTimes->{{3.757011023446014*^9, 
+  3.75701104154342*^9}},ExpressionUUID->"c148587c-8369-46ba-9fe7-\
+94d90db4ecb9"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    FractionBox[
+     SuperscriptBox["\[PartialD]", "2"], 
+     RowBox[{
+      RowBox[{"\[PartialD]", "n"}], 
+      RowBox[{"\[PartialD]", "m"}]}]], 
+    RowBox[{"\[Psi]", "(", 
+     OverscriptBox["r", 
+      StyleBox["\[RightVector]",
+       FontSize->18]], ")"}]}], "=", 
+   RowBox[{
+    FractionBox[
+     SuperscriptBox["\[PartialD]", "2"], 
+     RowBox[{
+      RowBox[{"\[PartialD]", "m"}], 
+      RowBox[{"\[PartialD]", "n"}]}]], 
+    RowBox[{"\[Psi]", "(", 
+     OverscriptBox["r", 
+      StyleBox["\[RightVector]",
+       FontSize->18]], ")"}]}]}], TraditionalForm]], "ExpositoryMathCentered",\
+
+ CellChangeTimes->{{3.7570110462609587`*^9, 3.757011054438665*^9}, {
+  3.7570110856206512`*^9, 
+  3.757011108696879*^9}},ExpressionUUID->"5cce61fa-b20d-4f9f-80b8-\
+df16f1017c61"],
+
+Cell["Giving us", "Text",
+ CellChangeTimes->{{3.757011113231297*^9, 
+  3.757011119212923*^9}},ExpressionUUID->"6db2ec82-2116-45fe-9f5d-\
+14e1cf3da878"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SubscriptBox["\[Mu]", 
+     SubscriptBox["R", "12"]], 
+    SubscriptBox["P", 
+     RowBox[{
+      SubscriptBox["R", "1"], 
+      SubscriptBox["R", "2"]}]], 
+    RowBox[{"\[Psi]", "(", 
+     OverscriptBox["r", 
+      StyleBox["\[RightVector]",
+       FontSize->18]], ")"}]}], "=", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["Q", 
+      RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Alpha]"}]], 
+     SubscriptBox["Q", 
+      RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Beta]"}]], 
+     RowBox[{
+      FractionBox[
+       SuperscriptBox["\[PartialD]", "2"], 
+       RowBox[{"\[PartialD]", 
+        SuperscriptBox["\[Alpha]", "2"]}]], 
+      RowBox[{"\[Psi]", "(", 
+       OverscriptBox["r", 
+        StyleBox["\[RightVector]",
+         FontSize->18]], ")"}]}]}], "+", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox["Q", 
+         RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Alpha]"}]], 
+        SubscriptBox["Q", 
+         RowBox[{"\[Beta]", "\[InvisibleSpace]", "\[Beta]"}]]}], "+", 
+       RowBox[{
+        SubscriptBox["Q", 
+         RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Beta]"}]], 
+        SubscriptBox["Q", 
+         RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Beta]"}]]}]}], ")"}], 
+     RowBox[{
+      FractionBox[
+       SuperscriptBox["\[PartialD]", "2"], 
+       RowBox[{
+        RowBox[{"\[PartialD]", "\[Alpha]"}], 
+        RowBox[{"\[PartialD]", "\[Beta]"}]}]], 
+      RowBox[{"\[Psi]", "(", 
+       OverscriptBox["r", 
+        StyleBox["\[RightVector]",
+         FontSize->18]], ")"}]}]}], "+", 
+    RowBox[{
+     SubscriptBox["Q", 
+      RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Beta]"}]], 
+     SubscriptBox["Q", 
+      RowBox[{"\[Beta]", "\[InvisibleSpace]", "\[Beta]"}]], 
+     RowBox[{
+      FractionBox[
+       SuperscriptBox["\[PartialD]", "2"], 
+       RowBox[{"\[PartialD]", 
+        SuperscriptBox["\[Beta]", "2"]}]], 
+      RowBox[{"\[Psi]", "(", 
+       OverscriptBox["r", 
+        StyleBox["\[RightVector]",
+         FontSize->18]], ")"}]}]}]}]}], 
+  TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.7570111215932083`*^9, 3.75701121084352*^9}, {
+   3.757011243618881*^9, 3.7570112617396*^9}, {3.757018700419159*^9, 
+   3.7570187008114567`*^9}, {3.757018731164452*^9, 3.75701878562562*^9}, 
+   3.7570210623909492`*^9},ExpressionUUID->"5d482d92-ef47-45c0-9a8c-\
+2f1ca8c1fd61"],
+
+Cell["\<\
+And so we want a change of basis where the terms are equal in magnitude and \
+opposite in sign. A nice CoB to apply then could look like \
+\>", "Text",
+ CellChangeTimes->{{3.757011455073522*^9, 3.757011521119096*^9}, {
+  3.757018763868465*^9, 
+  3.757018769770063*^9}},ExpressionUUID->"081b159b-c835-417b-85d4-\
+264e3b49c44e"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"Q", "=", 
+   RowBox[{
+    FractionBox["1", 
+     SqrtBox["2"]], 
+    RowBox[{"(", GridBox[{
+       {"1", "1"},
+       {"1", 
+        RowBox[{"-", "1"}]}
+      }], ")"}]}]}], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.757011522314847*^9, 3.757011570140699*^9}, {
+  3.757020286398864*^9, 3.757020287814361*^9}, {3.757020430861947*^9, 
+  3.7570204338852262`*^9}},ExpressionUUID->"89c651f1-f31c-49c4-9191-\
+895dee101a78"],
+
+Cell["Which has the nice property of also being a unitary matrix", "Text",
+ CellChangeTimes->{{3.757011571492795*^9, 3.757011582877838*^9}, {
+   3.757020245565213*^9, 3.757020246258811*^9}, {3.757020293245654*^9, 
+   3.7570203012864923`*^9}, {3.757020337659483*^9, 3.757020350761381*^9}, 
+   3.757020439441114*^9},ExpressionUUID->"70db5d11-9a4c-4644-b77b-\
+5d4a78981b24"],
+
+Cell["Thus overall we have", "Text",
+ CellChangeTimes->{{3.7570209869561777`*^9, 3.7570209892744226`*^9}, {
+  3.757021064674605*^9, 
+  3.7570210667610197`*^9}},ExpressionUUID->"54ed29e4-58cd-434b-9116-\
+9aeecd7c779b"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SubscriptBox["P", 
+     RowBox[{
+      SubscriptBox["R", "1"], 
+      SubscriptBox["R", "2"]}]], 
+    RowBox[{"\[Psi]", "(", 
+     OverscriptBox["r", 
+      StyleBox["\[RightVector]",
+       FontSize->18]], ")"}]}], " ", "=", " ", 
+   RowBox[{
+    FractionBox["1", 
+     SubscriptBox["\[Mu]", 
+      SubscriptBox["R", "12"]]], 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       SubscriptBox["Q", 
+        RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Alpha]"}]], 
+       SubscriptBox["Q", 
+        RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Beta]"}]], 
+       RowBox[{
+        FractionBox[
+         SuperscriptBox["\[PartialD]", "2"], 
+         RowBox[{"\[PartialD]", 
+          SuperscriptBox["\[Alpha]", "2"]}]], 
+        RowBox[{"\[Psi]", "(", 
+         OverscriptBox["r", 
+          StyleBox["\[RightVector]",
+           FontSize->18]], ")"}]}]}], "+", 
+      RowBox[{
+       SubscriptBox["Q", 
+        RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Beta]"}]], 
+       SubscriptBox["Q", 
+        RowBox[{"\[Beta]", "\[InvisibleSpace]", "\[Beta]"}]], 
+       RowBox[{
+        FractionBox[
+         SuperscriptBox["\[PartialD]", "2"], 
+         RowBox[{"\[PartialD]", 
+          SuperscriptBox["\[Beta]", "2"]}]], 
+        RowBox[{"\[Psi]", "(", 
+         OverscriptBox["r", 
+          StyleBox["\[RightVector]",
+           FontSize->18]], ")"}]}]}]}], ")"}]}]}], 
+  TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.7570210709061213`*^9, 
+  3.757021105927587*^9}},ExpressionUUID->"23e18dca-b801-4d61-b967-\
+3c95c94a37f0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Adjustment of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["p", "2"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "40371ce0-07b7-4a1e-a819-273d07ea8933"],
+ " terms:"
+}], "Subsubsection",
+ CellChangeTimes->{{3.757011378768515*^9, 
+  3.75701138751335*^9}},ExpressionUUID->"b0f4b757-78c7-497d-81c6-\
+79afcee621f1"],
+
+Cell["\<\
+In this new basis we also need to handle the terms that look like:\
+\>", "Text",
+ CellChangeTimes->{{3.757011391000173*^9, 
+  3.75701140549686*^9}},ExpressionUUID->"787815d7-6d6e-4d8b-a21d-\
+00cdbec4670d"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   FractionBox[
+    SuperscriptBox[
+     SubscriptBox["p", 
+      SubscriptBox["R", "1"]], "2"], 
+    RowBox[{"2", 
+     SubscriptBox["\[Mu]", 
+      SubscriptBox["R", "1"]]}]], " ", "and", " ", 
+   FractionBox[
+    SuperscriptBox[
+     SubscriptBox["p", 
+      SubscriptBox["R", "2"]], "2"], 
+    RowBox[{"2", 
+     SubscriptBox["\[Mu]", 
+      SubscriptBox["R", "2"]]}]]}], 
+  TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.7570111215932083`*^9, 3.75701121084352*^9}, {
+  3.757011243618881*^9, 3.7570112617396*^9}, {3.757018121577783*^9, 
+  3.7570181414499617`*^9}},ExpressionUUID->"a97dfbcf-ca06-47d7-8741-\
+2b9447ad9e96"],
+
+Cell["To do this we apply the same process as before:", "Text",
+ CellChangeTimes->{{3.757018163904447*^9, 
+  3.7570181767758093`*^9}},ExpressionUUID->"2f9b58cb-9f6a-4902-aa79-\
+ba515e02acfb"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    SuperscriptBox[
+     SubscriptBox["p", 
+      SubscriptBox["R", "1"]], "2"], 
+    RowBox[{"\[Psi]", "(", 
+     OverscriptBox["r", 
+      StyleBox["\[RightVector]",
+       FontSize->18]], ")"}]}], "=", 
+   RowBox[{
+    RowBox[{
+     UnderscriptBox["\[Sum]", "l"], " ", 
+     RowBox[{
+      UnderscriptBox["\[Sum]", "m"], 
+      RowBox[{
+       RowBox[{
+        FractionBox[
+         SuperscriptBox["\[PartialD]", "2"], 
+         RowBox[{
+          RowBox[{"\[PartialD]", 
+           SubscriptBox["r", "l"]}], 
+          RowBox[{"\[PartialD]", 
+           SubscriptBox["r", "m"]}]}]], 
+        RowBox[{"\[Psi]", "(", 
+         OverscriptBox["r", 
+          StyleBox["\[RightVector]",
+           FontSize->18]], ")"}]}], 
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["R", "1"]}]], 
+        SubscriptBox["r", "m"]}], 
+       RowBox[{
+        FractionBox["\[PartialD]", 
+         RowBox[{"\[PartialD]", 
+          SubscriptBox["R", "1"]}]], 
+        SubscriptBox["r", "l"]}]}]}]}], "+", 
+    RowBox[{
+     RowBox[{
+      FractionBox["\[PartialD]", 
+       RowBox[{"\[PartialD]", 
+        SubscriptBox["r", "l"]}]], 
+      RowBox[{"\[Psi]", "(", 
+       OverscriptBox["r", 
+        StyleBox["\[RightVector]",
+         FontSize->18]], ")"}]}], 
+     RowBox[{"(", 
+      RowBox[{
+       FractionBox[
+        SuperscriptBox["\[PartialD]", "2"], 
+        RowBox[{"\[PartialD]", 
+         SuperscriptBox[
+          SubscriptBox["R", "1"], "2"]}]], 
+       SubscriptBox["r", "l"]}], ")"}]}]}]}], 
+  TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.7570111215932083`*^9, 3.75701121084352*^9}, {
+  3.757011243618881*^9, 3.7570112617396*^9}, {3.757018121577783*^9, 
+  3.7570181414499617`*^9}, {3.757018179995666*^9, 
+  3.757018240378351*^9}},ExpressionUUID->"ea1007be-9e76-4af0-a7c6-\
+91935ed1bc18"],
+
+Cell[TextData[{
+ "Which again condenses cleanly as the second term is 0 as \[Alpha] and \
+\[Beta] are linear in ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["R", "1"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "dd0e97ed-0616-4480-a56f-725b53fcd016"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["R", "2"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "3b15acb9-333d-4fd0-8a7a-446ab81c9716"],
+ ", giving us:"
+}], "Text",
+ CellChangeTimes->{{3.7570182429061527`*^9, 
+  3.757018315657284*^9}},ExpressionUUID->"ce985c21-16e9-4439-ad01-\
+a90934184852"],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      RowBox[{
+       SuperscriptBox[
+        SubscriptBox["p", 
+         SubscriptBox["R", "1"]], "2"], 
+       RowBox[{"\[Psi]", "(", 
+        OverscriptBox["r", 
+         StyleBox["\[RightVector]",
+          FontSize->18]], ")"}]}], "=", 
+      RowBox[{
+       UnderscriptBox["\[Sum]", "l"], " ", 
+       RowBox[{
+        UnderscriptBox["\[Sum]", "m"], 
+        RowBox[{
+         RowBox[{
+          FractionBox[
+           SuperscriptBox["\[PartialD]", "2"], 
+           RowBox[{
+            RowBox[{"\[PartialD]", 
+             SubscriptBox["r", "l"]}], 
+            RowBox[{"\[PartialD]", 
+             SubscriptBox["r", "m"]}]}]], 
+          RowBox[{"\[Psi]", "(", 
+           OverscriptBox["r", 
+            StyleBox["\[RightVector]",
+             FontSize->18]], ")"}]}], 
+         RowBox[{
+          FractionBox["\[PartialD]", 
+           RowBox[{"\[PartialD]", 
+            SubscriptBox["R", "1"]}]], 
+          SubscriptBox["r", "m"]}], 
+         RowBox[{
+          FractionBox["\[PartialD]", 
+           RowBox[{"\[PartialD]", 
+            SubscriptBox["R", "1"]}]], 
+          SubscriptBox["r", "l"]}]}]}]}]}]},
+    {
+     RowBox[{"=", 
+      RowBox[{
+       RowBox[{
+        SuperscriptBox[
+         SubscriptBox["Q", "\[Alpha]\[Alpha]"], "2"], 
+        RowBox[{
+         FractionBox[
+          SuperscriptBox["\[PartialD]", "2"], 
+          RowBox[{"\[PartialD]", 
+           SuperscriptBox["\[Alpha]", "2"]}]], 
+         RowBox[{"\[Psi]", "(", 
+          OverscriptBox["r", 
+           StyleBox["\[RightVector]",
+            FontSize->18]], ")"}]}]}], "+", 
+       RowBox[{"2", 
+        SubscriptBox["Q", 
+         RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Alpha]"}]], 
+        SubscriptBox["Q", 
+         RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Beta]"}]], 
+        RowBox[{
+         FractionBox[
+          SuperscriptBox["\[PartialD]", "2"], 
+          RowBox[{
+           RowBox[{"\[PartialD]", "\[Alpha]"}], 
+           RowBox[{"\[PartialD]", "\[Beta]"}]}]], 
+         RowBox[{"\[Psi]", "(", 
+          OverscriptBox["r", 
+           StyleBox["\[RightVector]",
+            FontSize->18]], ")"}]}]}], "+", 
+       RowBox[{
+        SuperscriptBox[
+         SubscriptBox["Q", "\[Alpha]\[Beta]"], "2"], 
+        RowBox[{
+         FractionBox[
+          SuperscriptBox["\[PartialD]", "2"], 
+          RowBox[{"\[PartialD]", 
+           SuperscriptBox["\[Beta]", "2"]}]], 
+         RowBox[{"\[Psi]", "(", 
+          OverscriptBox["r", 
+           StyleBox["\[RightVector]",
+            FontSize->18]], ")"}]}]}]}]}]},
+    {
+     RowBox[{
+      RowBox[{
+       SuperscriptBox[
+        SubscriptBox["p", 
+         SubscriptBox["R", "2"]], "2"], "\[Psi]", 
+       RowBox[{"(", 
+        OverscriptBox["r", 
+         StyleBox["\[RightVector]",
+          FontSize->18]], ")"}]}], "=", 
+      RowBox[{
+       UnderscriptBox["\[Sum]", "l"], " ", 
+       RowBox[{
+        UnderscriptBox["\[Sum]", "m"], 
+        RowBox[{
+         RowBox[{
+          FractionBox[
+           SuperscriptBox["\[PartialD]", "2"], 
+           RowBox[{
+            RowBox[{"\[PartialD]", 
+             SubscriptBox["r", "l"]}], 
+            RowBox[{"\[PartialD]", 
+             SubscriptBox["r", "m"]}]}]], "\[Psi]"}], 
+         RowBox[{"(", 
+          OverscriptBox["r", 
+           StyleBox["\[RightVector]",
+            FontSize->18]], ")"}], 
+         RowBox[{
+          FractionBox["\[PartialD]", 
+           RowBox[{"\[PartialD]", 
+            SubscriptBox["R", "2"]}]], 
+          SubscriptBox["r", "m"]}], 
+         RowBox[{
+          FractionBox["\[PartialD]", 
+           RowBox[{"\[PartialD]", 
+            SubscriptBox["R", "2"]}]], 
+          SubscriptBox["r", "l"]}]}]}]}]}]},
+    {
+     RowBox[{"=", 
+      RowBox[{
+       RowBox[{
+        SuperscriptBox[
+         SubscriptBox["Q", "\[Alpha]\[Beta]"], "2"], 
+        RowBox[{
+         FractionBox[
+          SuperscriptBox["\[PartialD]", "2"], 
+          RowBox[{"\[PartialD]", 
+           SuperscriptBox["\[Alpha]", "2"]}]], "\[Psi]"}], 
+        RowBox[{"(", 
+         OverscriptBox["r", 
+          StyleBox["\[RightVector]",
+           FontSize->18]], ")"}]}], "+", 
+       RowBox[{"2", 
+        SubscriptBox["Q", 
+         RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Beta]"}]], 
+        SubscriptBox["Q", 
+         RowBox[{"\[Beta]", "\[InvisibleSpace]", "\[Beta]"}]], 
+        RowBox[{
+         FractionBox[
+          SuperscriptBox["\[PartialD]", "2"], 
+          RowBox[{
+           RowBox[{"\[PartialD]", "\[Alpha]"}], 
+           RowBox[{"\[PartialD]", "\[Beta]"}]}]], "\[Psi]"}], 
+        RowBox[{"(", 
+         OverscriptBox["r", 
+          StyleBox["\[RightVector]",
+           FontSize->18]], ")"}]}], "+", 
+       RowBox[{
+        SuperscriptBox[
+         SubscriptBox["Q", "\[Beta]\[Beta]"], "2"], 
+        RowBox[{
+         FractionBox[
+          SuperscriptBox["\[PartialD]", "2"], 
+          RowBox[{"\[PartialD]", 
+           SuperscriptBox["\[Beta]", "2"]}]], "\[Psi]"}], 
+        RowBox[{"(", 
+         OverscriptBox["r", 
+          StyleBox["\[RightVector]",
+           FontSize->18]], ")"}]}]}]}]}
+   }], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.757018302768902*^9, 3.757018326906701*^9}, {
+  3.757018459318823*^9, 3.7570186055495777`*^9}, {3.757018819106943*^9, 
+  3.75701887028144*^9}, {3.757018991474991*^9, 3.7570190948884783`*^9}, {
+  3.757019138763062*^9, 
+  3.75701919296246*^9}},ExpressionUUID->"1c953f5d-7659-4ea0-acb7-\
+b99c7419b34e"],
+
+Cell[TextData[{
+ "Which looks bad because we have cross terms in there, but in the ",
+ StyleBox["total",
+  FontSlant->"Italic"],
+ " Hamiltonian we have:"
+}], "Text",
+ CellChangeTimes->{{3.757019073711583*^9, 3.757019136285438*^9}, {
+  3.757019200543665*^9, 
+  3.757019222823357*^9}},ExpressionUUID->"2329d545-f6cc-459e-91c6-\
+0f6254834e65"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    FractionBox["1", 
+     RowBox[{"2", 
+      SubscriptBox["\[Mu]", 
+       SubscriptBox["R", "1"]]}]], 
+    SuperscriptBox[
+     SubscriptBox["p", 
+      SubscriptBox["R", "1"]], "2"], 
+    RowBox[{"\[Psi]", "(", 
+     OverscriptBox["r", 
+      StyleBox["\[RightVector]",
+       FontSize->18]], ")"}]}], "+", 
+   RowBox[{
+    FractionBox["1", 
+     RowBox[{"2", 
+      SubscriptBox["\[Mu]", 
+       SubscriptBox["R", "2"]]}]], 
+    SuperscriptBox[
+     SubscriptBox["p", 
+      SubscriptBox["R", "2"]], "2"], 
+    RowBox[{"\[Psi]", "(", 
+     OverscriptBox["r", 
+      StyleBox["\[RightVector]",
+       FontSize->18]], ")"}], " "}]}], 
+  TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.757019232093811*^9, 
+  3.7570193601609583`*^9}},ExpressionUUID->"80a2d7e1-3096-4987-bbfa-\
+b74205718873"],
+
+Cell["And so our cross terms end up looking like:", "Text",
+ CellChangeTimes->{{3.757019293809373*^9, 3.757019301354548*^9}, 
+   3.7570193634728203`*^9},ExpressionUUID->"7a27c1ca-fa98-4657-a8f8-\
+babfd4f69819"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       SubscriptBox["Q", 
+        RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Alpha]"}]], 
+       SubscriptBox["Q", 
+        RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Beta]"}]]}], 
+      SubscriptBox["\[Mu]", 
+       SubscriptBox["R", "1"]]], 
+     RowBox[{
+      FractionBox[
+       SuperscriptBox["\[PartialD]", "2"], 
+       RowBox[{
+        RowBox[{"\[PartialD]", "\[Alpha]"}], 
+        RowBox[{"\[PartialD]", "\[Beta]"}]}]], 
+      RowBox[{"\[Psi]", "(", 
+       OverscriptBox["r", 
+        StyleBox["\[RightVector]",
+         FontSize->18]], ")"}]}]}], " ", "+", " ", 
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       SubscriptBox["Q", 
+        RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Beta]"}]], 
+       SubscriptBox["Q", 
+        RowBox[{"\[Beta]", "\[InvisibleSpace]", "\[Beta]"}]]}], 
+      SubscriptBox["\[Mu]", 
+       SubscriptBox["R", "2"]]], 
+     RowBox[{
+      FractionBox[
+       SuperscriptBox["\[PartialD]", "2"], 
+       RowBox[{
+        RowBox[{"\[PartialD]", "\[Alpha]"}], 
+        RowBox[{"\[PartialD]", "\[Beta]"}]}]], 
+      RowBox[{"\[Psi]", "(", 
+       OverscriptBox["r", 
+        StyleBox["\[RightVector]",
+         FontSize->18]], ")"}]}]}]}], " ", "=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      FractionBox[
+       RowBox[{
+        SubscriptBox["Q", 
+         RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Alpha]"}]], 
+        SubscriptBox["Q", 
+         RowBox[{"\[Alpha]", "\[InvisibleSpace]", "\[Beta]"}]]}], 
+       SubscriptBox["\[Mu]", 
+        SubscriptBox["R", "1"]]], "+", 
+      FractionBox[
+       RowBox[{
+        SubscriptBox["Q", 
+         RowBox[{"\[Beta]", "\[InvisibleSpace]", "\[Alpha]"}]], 
+        SubscriptBox["Q", 
+         RowBox[{"\[Beta]", "\[InvisibleSpace]", "\[Beta]"}]]}], 
+       SubscriptBox["\[Mu]", 
+        SubscriptBox["R", "2"]]]}], ")"}], 
+    RowBox[{
+     FractionBox[
+      SuperscriptBox["\[PartialD]", "2"], 
+      RowBox[{
+       RowBox[{"\[PartialD]", "\[Alpha]"}], 
+       RowBox[{"\[PartialD]", "\[Beta]"}]}]], 
+     RowBox[{"\[Psi]", "(", 
+      OverscriptBox["r", 
+       StyleBox["\[RightVector]",
+        FontSize->18]], ")"}]}]}]}], 
+  TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.7570193648179407`*^9, 3.75701940090282*^9}, {
+  3.757019451035776*^9, 3.7570194732747707`*^9}, {3.757020402753065*^9, 
+  3.757020405369532*^9}},ExpressionUUID->"a4246650-efad-4c1b-8cb0-\
+20f13e6793d8"],
+
+Cell[TextData[{
+ "Then if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Mu]", 
+     SubscriptBox["R", "1"]], "=", " ", 
+    SubscriptBox["\[Mu]", 
+     SubscriptBox["R", "2"]]}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "1b0dad18-211f-4028-bdec-4b0441093cbb"],
+ " we once again have cancellation of our terms. Which is to say, the \
+symmetry in our system saves us. "
+}], "Text",
+ CellChangeTimes->{{3.7570194166180277`*^9, 3.757019442512331*^9}, {
+   3.757019475302891*^9, 3.757019512879798*^9}, 
+   3.757019551040386*^9},ExpressionUUID->"c3a7de70-706d-4550-8800-\
+6d270fe6fee6"],
+
+Cell["Next, combining our pure derivative terms we have:", "Text",
+ CellChangeTimes->{{3.7570195533013687`*^9, 
+  3.757019561982154*^9}},ExpressionUUID->"8fb3510b-8f60-427d-9ccc-\
+59c60f137b90"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     FractionBox["1", 
+      RowBox[{"2", 
+       SubscriptBox["\[Mu]", 
+        SubscriptBox["R", "1"]]}]], 
+     SuperscriptBox[
+      SubscriptBox["p", 
+       SubscriptBox["R", "1"]], "2"], 
+     RowBox[{"\[Psi]", "(", 
+      OverscriptBox["r", 
+       StyleBox["\[RightVector]",
+        FontSize->18]], ")"}]}], "+", 
+    RowBox[{
+     FractionBox["1", 
+      RowBox[{"2", 
+       SubscriptBox["\[Mu]", 
+        SubscriptBox["R", "2"]]}]], 
+     SuperscriptBox[
+      SubscriptBox["p", 
+       SubscriptBox["R", "2"]], "2"], 
+     RowBox[{"\[Psi]", "(", 
+      OverscriptBox["r", 
+       StyleBox["\[RightVector]",
+        FontSize->18]], ")"}]}]}], " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       FractionBox[
+        SuperscriptBox[
+         SubscriptBox["Q", "\[Alpha]\[Alpha]"], "2"], 
+        RowBox[{"2", 
+         SubscriptBox["\[Mu]", 
+          SubscriptBox["R", "1"]]}]], "+", 
+       FractionBox[
+        SuperscriptBox[
+         SubscriptBox["Q", "\[Alpha]\[Beta]"], "2"], 
+        RowBox[{"2", 
+         SubscriptBox["\[Mu]", 
+          SubscriptBox["R", "2"]]}]]}], ")"}], 
+     RowBox[{
+      FractionBox[
+       SuperscriptBox["\[PartialD]", "2"], 
+       RowBox[{"\[PartialD]", 
+        SuperscriptBox["\[Alpha]", "2"]}]], 
+      RowBox[{"\[Psi]", "(", 
+       OverscriptBox["r", 
+        StyleBox["\[RightVector]",
+         FontSize->18]], ")"}]}]}], "+", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       FractionBox[
+        SuperscriptBox[
+         SubscriptBox["Q", "\[Alpha]\[Beta]"], "2"], 
+        RowBox[{"2", 
+         SubscriptBox["\[Mu]", 
+          SubscriptBox["R", "1"]]}]], "+", 
+       FractionBox[
+        SuperscriptBox[
+         SubscriptBox["Q", "\[Beta]\[Beta]"], "2"], 
+        RowBox[{"2", 
+         SubscriptBox["\[Mu]", 
+          SubscriptBox["R", "2"]]}]]}], ")"}], 
+     RowBox[{
+      FractionBox[
+       SuperscriptBox["\[PartialD]", "2"], 
+       RowBox[{"\[PartialD]", 
+        SuperscriptBox["\[Beta]", "2"]}]], 
+      RowBox[{"\[Psi]", "(", 
+       OverscriptBox["r", 
+        StyleBox["\[RightVector]",
+         FontSize->18]], ")"}]}]}]}]}], 
+  TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.757019596606657*^9, 3.7570196417337914`*^9}, {
+  3.757019677590075*^9, 3.7570197585109463`*^9}, {3.757019978073773*^9, 
+  3.757019978431419*^9}},ExpressionUUID->"d5cf83be-1462-4221-9b5c-\
+4a7e673b8819"],
+
+Cell[TextData[{
+ "Then making use of the fact that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     SubscriptBox["Q", 
+      RowBox[{"\[InvisibleSpace]", 
+       RowBox[{"i", "\[InvisibleSpace]", "j"}]}]], "2"], "=", 
+    RowBox[{
+     SuperscriptBox[
+      SubscriptBox["Q", 
+       RowBox[{"n", "\[InvisibleSpace]", "m"}]], "2"], "=", 
+     FractionBox["1", "2"]}]}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "f49c85e3-652d-4778-87c5-46cbb6475fdd"],
+ ", again by choice of basis, and once again that  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Mu]", 
+     SubscriptBox["R", "1"]], "=", " ", 
+    SubscriptBox["\[Mu]", 
+     SubscriptBox["R", "2"]]}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "83603cad-9e8c-4ec5-939c-173c861193fc"],
+ " we get:"
+}], "Text",
+ CellChangeTimes->{{3.757019760030129*^9, 
+  3.7570198769589853`*^9}},ExpressionUUID->"2ea9908e-8077-41fc-8c83-\
+0e2f9888805b"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     FractionBox["1", 
+      RowBox[{"2", 
+       SubscriptBox["\[Mu]", 
+        SubscriptBox["R", "1"]]}]], 
+     SuperscriptBox[
+      SubscriptBox["p", 
+       SubscriptBox["R", "1"]], "2"], 
+     RowBox[{"\[Psi]", "(", 
+      OverscriptBox["r", 
+       StyleBox["\[RightVector]",
+        FontSize->18]], ")"}]}], "+", 
+    RowBox[{
+     FractionBox["1", 
+      RowBox[{"2", 
+       SubscriptBox["\[Mu]", 
+        SubscriptBox["R", "2"]]}]], 
+     SuperscriptBox[
+      SubscriptBox["p", 
+       SubscriptBox["R", "2"]], "2"], 
+     RowBox[{"\[Psi]", "(", 
+      OverscriptBox["r", 
+       StyleBox["\[RightVector]",
+        FontSize->18]], ")"}]}]}], " ", "=", 
+   RowBox[{
+    RowBox[{
+     FractionBox["1", 
+      RowBox[{"2", 
+       SubscriptBox["\[Mu]", 
+        SubscriptBox["R", "1"]]}]], 
+     RowBox[{
+      FractionBox[
+       SuperscriptBox["\[PartialD]", "2"], 
+       RowBox[{"\[PartialD]", 
+        SuperscriptBox["\[Alpha]", "2"]}]], 
+      RowBox[{"\[Psi]", "(", 
+       OverscriptBox["r", 
+        StyleBox["\[RightVector]",
+         FontSize->18]], ")"}]}]}], "+", 
+    RowBox[{
+     FractionBox["1", 
+      RowBox[{"2", 
+       SubscriptBox["\[Mu]", 
+        SubscriptBox["R", "2"]]}]], 
+     RowBox[{
+      FractionBox[
+       SuperscriptBox["\[PartialD]", "2"], 
+       RowBox[{"\[PartialD]", 
+        SuperscriptBox["\[Beta]", "2"]}]], 
+      RowBox[{"\[Psi]", "(", 
+       OverscriptBox["r", 
+        StyleBox["\[RightVector]",
+         FontSize->18]], ")"}]}]}]}]}], 
+  TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.757019847131735*^9, 3.757019894552555*^9}, {
+  3.757019976538722*^9, 
+  3.757019988790287*^9}},ExpressionUUID->"a6c18980-1cfd-48be-94c8-\
+298afdf61f85"],
+
+Cell["Finally, then we add it all up, giving us:", "Text",
+ CellChangeTimes->{{3.75702114100104*^9, 
+  3.757021150239604*^9}},ExpressionUUID->"6a8aca85-ffe3-44f3-95f9-\
+581bc7c6b0d6"],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      SubscriptBox[
+       StyleBox["T",
+        FontSlant->"Plain"], "\[Alpha]\[Beta]"], "=", 
+      RowBox[{
+       SuperscriptBox["\[HBar]", "2"], "(", 
+       RowBox[{
+        RowBox[{
+         FractionBox["1", 
+          RowBox[{"2", 
+           SubscriptBox["\[Mu]", 
+            SubscriptBox["R", "1"]]}]], 
+         SuperscriptBox[
+          SubscriptBox["p", 
+           SubscriptBox["R", "1"]], "2"], 
+         RowBox[{"\[Psi]", "(", 
+          OverscriptBox["r", 
+           StyleBox["\[RightVector]",
+            FontSize->18]], ")"}]}], "+", 
+        RowBox[{
+         FractionBox["1", 
+          RowBox[{"2", 
+           SubscriptBox["\[Mu]", 
+            SubscriptBox["R", "2"]]}]], 
+         SuperscriptBox[
+          SubscriptBox["p", 
+           SubscriptBox["R", "2"]], "2"], 
+         RowBox[{"\[Psi]", "(", 
+          OverscriptBox["r", 
+           StyleBox["\[RightVector]",
+            FontSize->18]], ")"}]}], " ", "+", 
+        RowBox[{
+         SubscriptBox["P", 
+          RowBox[{
+           SubscriptBox["R", "1"], 
+           SubscriptBox["R", "2"]}]], 
+         RowBox[{"\[Psi]", "(", 
+          OverscriptBox["r", 
+           StyleBox["\[RightVector]",
+            FontSize->18]], ")"}]}]}], ")"}]}]},
+    {
+     RowBox[{"=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         SuperscriptBox["\[HBar]", "2"], "(", " ", 
+         RowBox[{
+          FractionBox["1", 
+           RowBox[{"2", 
+            SubscriptBox["\[Mu]", 
+             SubscriptBox["R", "1"]]}]], "+", 
+          FractionBox["1", 
+           SubscriptBox["\[Mu]", 
+            SubscriptBox["R", "12"]]]}], ")"}], 
+        RowBox[{
+         FractionBox[
+          SuperscriptBox["\[PartialD]", "2"], 
+          RowBox[{"\[PartialD]", 
+           SuperscriptBox["\[Alpha]", "2"]}]], 
+         RowBox[{"\[Psi]", "(", 
+          OverscriptBox["r", 
+           StyleBox["\[RightVector]",
+            FontSize->18]], ")"}]}]}], "+", 
+       RowBox[{
+        RowBox[{
+         SuperscriptBox["\[HBar]", "2"], "(", " ", 
+         RowBox[{
+          FractionBox["1", 
+           RowBox[{"2", 
+            SubscriptBox["\[Mu]", 
+             SubscriptBox["R", "1"]]}]], "-", 
+          FractionBox["1", 
+           SubscriptBox["\[Mu]", 
+            SubscriptBox["R", "12"]]]}], ")"}], 
+        RowBox[{
+         FractionBox[
+          SuperscriptBox["\[PartialD]", "2"], 
+          RowBox[{"\[PartialD]", 
+           SuperscriptBox["\[Beta]", "2"]}]], 
+         RowBox[{"\[Psi]", "(", 
+          OverscriptBox["r", 
+           StyleBox["\[RightVector]",
+            FontSize->18]], ")"}]}]}]}]}]}
+   }], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.7570211630102177`*^9, 3.757021180961014*^9}, {
+   3.757021246349456*^9, 3.75702125982401*^9}, {3.757021304617674*^9, 
+   3.7570213760726433`*^9}, 
+   3.7570228184571867`*^9},ExpressionUUID->"c9cf89ee-d5de-4317-8333-\
+ef5768954683"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Reduced Masses", "Subsubsection",
+ CellChangeTimes->{{3.7570221712156467`*^9, 
+  3.757022173888586*^9}},ExpressionUUID->"729395f7-70f1-4eb6-a00f-\
+60b381292315"],
+
+Cell[TextData[{
+ "In our equations we have a pile of different reduced masses. The question \
+then is what they should be. For ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", 
+    SubscriptBox["R", "1"]], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "62ca0e5e-b1bb-4d3f-9866-0caca1969f82"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", 
+    SubscriptBox["R", "2"]], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "1b6b4b3d-d359-470a-b97f-41952d6ef799"],
+ ", being coordinates that connect a ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    SubscriptBox[
+     StyleBox["H",
+      FontSlant->"Plain"], "3"], "+"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "e7887efa-a2e9-4793-9743-8854fa9e7521"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    StyleBox["H",
+     FontSlant->"Plain"], "2"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "e3b19ae7-e91a-4230-af05-2c271851417b"],
+ " we would expect a standard reduced mass there, something like:"
+}], "Text",
+ CellChangeTimes->{{3.757022182761417*^9, 3.757022258697365*^9}, {
+  3.7570222939322453`*^9, 3.757022295419841*^9}, {3.7570223762385283`*^9, 
+  3.757022387383112*^9}, {3.7570985061446953`*^9, 3.757098506510594*^9}, {
+  3.757099574392458*^9, 3.757099575977282*^9}, {3.75709985325791*^9, 
+  3.7570998538159*^9}},ExpressionUUID->"a89ec316-65b0-46db-a059-686e4a41b1dc"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["\[Mu]", 
+    SubscriptBox["R", "1"]], "=", 
+   RowBox[{
+    SubscriptBox["\[Mu]", 
+     SubscriptBox["R", "2"]], "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       SubscriptBox["m", 
+        SubscriptBox[
+         StyleBox["H",
+          FontSlant->"Plain"], "2"]], 
+       SubscriptBox["m", 
+        SuperscriptBox[
+         SubscriptBox[
+          StyleBox["H",
+           FontSlant->"Plain"], "3"], "+"]]}], 
+      RowBox[{"\[VeryThinSpace]", 
+       RowBox[{"(", 
+        RowBox[{
+         SubscriptBox["m", 
+          SubscriptBox[
+           StyleBox["H",
+            FontSlant->"Plain"], "2"]], "+", 
+         SubscriptBox["m", 
+          SuperscriptBox[
+           SubscriptBox[
+            StyleBox["H",
+             FontSlant->"Plain"], "3"], "+"]]}], ")"}]}]], "=", 
+     RowBox[{
+      FractionBox[
+       RowBox[{"6", 
+        SuperscriptBox[
+         SubscriptBox["m", 
+          SuperscriptBox[
+           StyleBox["H",
+            FontSlant->"Plain"], "+"]], "2"]}], 
+       RowBox[{"5", 
+        SubscriptBox["m", 
+         SuperscriptBox[
+          StyleBox["H",
+           FontSlant->"Plain"], "+"]]}]], "=", 
+      RowBox[{
+       FractionBox["6", "5"], 
+       SubscriptBox["m", 
+        StyleBox["H",
+         FontSlant->"Plain"]]}]}]}]}]}], 
+  TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.757022390858795*^9, 3.757022405197476*^9}, {
+  3.757022456759601*^9, 3.757022477679819*^9}, {3.757022598790965*^9, 
+  3.75702263140475*^9}, {3.7570985190477457`*^9, 3.757098668431123*^9}, {
+  3.757099581843384*^9, 3.757099640729652*^9}, {3.757099856148567*^9, 
+  3.757099889073628*^9}},ExpressionUUID->"cd1af2d6-2154-4f0f-b805-\
+ed9e08752817"],
+
+Cell[TextData[{
+ "For the ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", 
+    SubscriptBox["R", "12"]], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "1ebb61b9-d0d9-4b13-aa22-528265287026"],
+ " term it\[CloseCurlyQuote]s a bit vaguer what we should do...it\
+\[CloseCurlyQuote]s probably just an ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    StyleBox["H",
+     FontSlant->"Plain"], "+"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "d475d91d-0e10-43d2-950e-bae7c1c6423e"],
+ " mass though since we\[CloseCurlyQuote]re basically just talking about how \
+the two ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    StyleBox["H",
+     FontSlant->"Plain"], "+"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "ce0ca34e-4e7f-42a2-9d21-c0cf2fe3b2fe"],
+ " coordinates couple. Or it might be a reduced mass of H with itself, like"
+}], "Text",
+ CellChangeTimes->{{3.757022481958151*^9, 3.7570225719743967`*^9}, {
+  3.7570226625783453`*^9, 
+  3.7570226745469*^9}},ExpressionUUID->"693de25d-5cb6-4e2f-9895-69cae61e6d2f"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox["\[Mu]", 
+    SubscriptBox["R", "12"]], "=", 
+   RowBox[{
+    FractionBox[
+     SuperscriptBox[
+      SubscriptBox["m", 
+       StyleBox["H",
+        FontSlant->"Plain"]], "2"], 
+     RowBox[{"2", 
+      SubscriptBox["m", 
+       StyleBox["H",
+        FontSlant->"Plain"]]}]], "=", 
+    RowBox[{
+     FractionBox["1", "2"], 
+     SubscriptBox["m", 
+      StyleBox["H",
+       FontSlant->"Plain"]]}]}]}], TraditionalForm]], "ExpositoryMathCentered",\
+
+ CellChangeTimes->{{3.7570226784885607`*^9, 3.757022699385475*^9}, {
+  3.757098853633614*^9, 
+  3.757098867399329*^9}},ExpressionUUID->"c36bfbce-f3e2-4cc7-bcd8-\
+2383c699dfd8"],
+
+Cell["\<\
+So expressing both of our coefficients like this we get something like:\
+\>", "Text",
+ CellChangeTimes->{{3.757022573725037*^9, 3.757022595725268*^9}, {
+   3.757022653106583*^9, 3.7570226537351017`*^9}, 
+   3.757099905505589*^9},ExpressionUUID->"794c554e-6852-4f6a-a836-\
+d1f08536c1bf"],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        FractionBox["1", 
+         RowBox[{"2", 
+          SubscriptBox["\[Mu]", 
+           SubscriptBox["R", "1"]]}]], "+", 
+        FractionBox["1", 
+         SubscriptBox["\[Mu]", 
+          SubscriptBox["R", "12"]]]}], "=."}], ".."}]},
+    {
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        FractionBox["1", 
+         RowBox[{"2", 
+          SubscriptBox["\[Mu]", 
+           SubscriptBox["R", "1"]]}]], "-", 
+        FractionBox["1", 
+         SubscriptBox["\[Mu]", 
+          SubscriptBox["R", "12"]]]}], "=."}], ".."}]}
+   }], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.75709991689624*^9, 
+  3.757099928114098*^9}},ExpressionUUID->"0f41073d-7e0e-456c-913b-\
+b3f3fa6ae0c1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Final Hamiltonian", "Subsubsection",
+ CellChangeTimes->{{3.757099211041605*^9, 
+  3.7570992275812473`*^9}},ExpressionUUID->"ce969655-a073-49c7-a791-\
+f39302257154"],
+
+Cell[TextData[{
+ "Taking all this to rewrite a final Hamiltonian in this new basis we\
+\[CloseCurlyQuote]ll let ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"s", "=", "\[Alpha]"}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "835300ee-ebfc-4385-b39b-2f68173b9ccf"],
+ " for the symmetric combination of our base coordinates and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", " ", "=", " ", "\[Beta]"}], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "8a16547c-f4e1-4a96-a090-9acdca2c10f3"],
+ " for the anti-symmetric combination. With that, we have:"
+}], "Text",
+ CellChangeTimes->{{3.757099188550137*^9, 
+  3.757099313233626*^9}},ExpressionUUID->"7028885d-64ac-4324-bedd-\
+399adbc70479"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["H",
+     FontSlant->"Plain"], "(", 
+    RowBox[{"a", ",", " ", "s", ",", " ", 
+     SubscriptBox["r", "1"], ",", " ", 
+     SubscriptBox["r", "2"]}], ")"}], "=", 
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["\[HBar]", "2"], "(", 
+     RowBox[{
+      FractionBox[
+       SuperscriptBox[
+        SubscriptBox["p", "a"], "2"], 
+       RowBox[{"2", "\[InvisibleSpace]", 
+        SubscriptBox["\[Mu]", "a"]}]], "+", 
+      FractionBox[
+       SuperscriptBox[
+        SubscriptBox["p", "s"], "2"], 
+       RowBox[{"2", "\[InvisibleSpace]", 
+        SubscriptBox["\[Mu]", "s"]}]], "+", 
+      FractionBox[
+       SuperscriptBox[
+        SubscriptBox["p", 
+         SubscriptBox["r", "1"]], "2"], 
+       RowBox[{"2", "\[InvisibleSpace]", 
+        SubscriptBox["\[Mu]", 
+         SubscriptBox["r", "1"]]}]], "+", 
+      FractionBox[
+       SuperscriptBox[
+        SubscriptBox["p", 
+         SubscriptBox["r", "2"]], "2"], 
+       RowBox[{"2", "\[InvisibleSpace]", 
+        SubscriptBox["\[Mu]", 
+         SubscriptBox["r", "2"]]}]]}], ")"}], "+", 
+    RowBox[{"V", "(", 
+     RowBox[{"a", ",", " ", "s", ",", " ", 
+      SubscriptBox["r", "1"], ",", " ", 
+      SubscriptBox["r", "2"]}], ")"}]}]}], 
+  TraditionalForm]], "ExpositoryMathCentered",
+ InitializationCell->True,
+ CellChangeTimes->{{3.757006475893936*^9, 3.757006488815289*^9}, {
+   3.757006599937698*^9, 3.757006605736623*^9}, {3.757007259953251*^9, 
+   3.7570072982031727`*^9}, {3.75700740921341*^9, 3.757007470640327*^9}, 
+   3.7570091592872066`*^9, {3.7570209928918123`*^9, 3.757021006081296*^9}, {
+   3.757021036953154*^9, 3.757021040425013*^9}, {3.757099324448657*^9, 
+   3.75709935587136*^9}, {3.757099386339579*^9, 
+   3.757099387707521*^9}},ExpressionUUID->"46702f04-8463-42e1-8284-\
+85f82e234cbc"],
+
+Cell[TextData[{
+ "Which is kinetically decoupled. Our masses, ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", "a"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "139a2537-1256-4e4e-8ad8-b2f26cebc649"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", "s"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "c4cb32ea-8953-4dce-9c30-84e917465b06"],
+ " are then defined by:"
+}], "Text",
+ CellChangeTimes->{{3.757099370415289*^9, 
+  3.757099400692212*^9}},ExpressionUUID->"d9044a53-d794-4d49-a93b-\
+41f01571aa56"],
+
+Cell["\<\
+Just to make sure that everything works nicely with the math from before.\
+\>", "Text",
+ CellChangeTimes->{{3.7570994623213987`*^9, 
+  3.7570994747141037`*^9}},ExpressionUUID->"29aed73c-70ec-4602-960d-\
+021b6962b3d6"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Reference", "Section",
+ CellChangeTimes->{
+  3.7570998364048777`*^9, {3.757099948434*^9, 
+   3.757099951411434*^9}},ExpressionUUID->"dee6486c-ece4-49d0-9d3e-\
+fdb67ef5bd7a"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   RowBox[{
+    StyleBox["H",
+     FontSlant->"Plain"], "(", 
+    RowBox[{"a", ",", " ", "s", ",", " ", 
+     SubscriptBox["r", "1"], ",", " ", 
+     SubscriptBox["r", "2"]}], ")"}], "=", 
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["\[HBar]", "2"], "(", 
+     RowBox[{
+      FractionBox[
+       SuperscriptBox[
+        SubscriptBox["p", "a"], "2"], 
+       RowBox[{"2", "\[InvisibleSpace]", 
+        SubscriptBox["\[Mu]", "a"]}]], "+", 
+      FractionBox[
+       SuperscriptBox[
+        SubscriptBox["p", "s"], "2"], 
+       RowBox[{"2", "\[InvisibleSpace]", 
+        SubscriptBox["\[Mu]", "s"]}]], "+", 
+      FractionBox[
+       SuperscriptBox[
+        SubscriptBox["p", 
+         SubscriptBox["r", "1"]], "2"], 
+       RowBox[{"2", "\[InvisibleSpace]", 
+        SubscriptBox["\[Mu]", 
+         SubscriptBox["r", "1"]]}]], "+", 
+      FractionBox[
+       SuperscriptBox[
+        SubscriptBox["p", 
+         SubscriptBox["r", "2"]], "2"], 
+       RowBox[{"2", "\[InvisibleSpace]", 
+        SubscriptBox["\[Mu]", 
+         SubscriptBox["r", "2"]]}]]}], ")"}], "+", 
+    RowBox[{"V", "(", 
+     RowBox[{"a", ",", " ", "s", ",", " ", 
+      SubscriptBox["r", "1"], ",", " ", 
+      SubscriptBox["r", "2"]}], ")"}]}]}], 
+  TraditionalForm]], "ExpositoryMathCentered",
+ InitializationCell->True,
+ CellChangeTimes->{{3.757006475893936*^9, 3.757006488815289*^9}, {
+   3.757006599937698*^9, 3.757006605736623*^9}, {3.757007259953251*^9, 
+   3.7570072982031727`*^9}, {3.75700740921341*^9, 3.757007470640327*^9}, 
+   3.7570091592872066`*^9, {3.7570209928918123`*^9, 3.757021006081296*^9}, {
+   3.757021036953154*^9, 3.757021040425013*^9}, {3.757099324448657*^9, 
+   3.75709935587136*^9}, {3.757099386339579*^9, 
+   3.757099387707521*^9}},ExpressionUUID->"bdd8d33c-ff05-41e8-9dc0-\
+f5863aae2861"]
+}, Open  ]]
+},
+WindowSize->{808, 755},
+WindowMargins->{{301, Automatic}, {13, Automatic}},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->FrontEnd`FileName[{"UWTools"}, "ExplorationStyle.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 405, 13, 66, "Section",ExpressionUUID->"4ad040e3-860e-4cb3-b4e1-e708524ded71"],
+Cell[988, 37, 325, 6, 34, "Text",ExpressionUUID->"233656d1-51e2-41bd-94ab-8f8b3c6a6209"],
+Cell[1316, 45, 2094, 65, 62, "ExpositoryMathCentered",ExpressionUUID->"6438dd25-7d6f-4e29-a39b-028d028da757",
+ InitializationCell->True],
+Cell[CellGroupData[{
+Cell[3435, 114, 160, 3, 43, "Subsubsection",ExpressionUUID->"f361ddae-8a0f-483c-89c5-85a5eb1d8780"],
+Cell[3598, 119, 226, 4, 34, "Text",ExpressionUUID->"6580b25a-f965-4d14-9fd0-df616c546580"],
+Cell[3827, 125, 635, 20, 56, "ExpositoryMathCentered",ExpressionUUID->"76577e86-3fe1-4281-976a-be6d6b8672ba"],
+Cell[4465, 147, 239, 4, 34, "Text",ExpressionUUID->"64265c63-cd08-46fe-b6db-185a37b61714"],
+Cell[4707, 153, 802, 26, 95, "ExpositoryMathCentered",ExpressionUUID->"b163cb9f-38ab-4279-8ec0-79a64c060141"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5546, 184, 167, 3, 43, "Subsubsection",ExpressionUUID->"f2aa1ce2-5b69-4d41-a30c-92c717680327"],
+Cell[5716, 189, 247, 4, 34, "Text",ExpressionUUID->"f481d67d-91fc-422a-93b6-e83676767e9d"],
+Cell[5966, 195, 589, 15, 34, "ExpositoryMathCentered",ExpressionUUID->"de048687-230c-4116-a90a-e0d5bc7ab7d4"],
+Cell[6558, 212, 5114, 153, 203, "ExpositoryMathCentered",ExpressionUUID->"93f9b61e-2af6-4568-8ca9-534986b5071c"],
+Cell[11675, 367, 279, 6, 34, "Text",ExpressionUUID->"2f30df5c-97eb-46ce-95f4-705a80545863"],
+Cell[11957, 375, 2887, 86, 179, "ExpositoryMathCentered",ExpressionUUID->"e3096f74-2120-47d6-8590-fcb1dce32637"],
+Cell[14847, 463, 660, 19, 35, "Text",ExpressionUUID->"4035bc19-4833-47f3-a630-d43baa3f0707"],
+Cell[15510, 484, 788, 20, 95, "ExpositoryMathCentered",ExpressionUUID->"968cff13-3059-4d02-aec0-a09f09f5b8ea"],
+Cell[16301, 506, 416, 11, 35, "Text",ExpressionUUID->"54b77242-8504-4db7-9f7f-73c0d2934580"],
+Cell[16720, 519, 3480, 97, 113, "ExpositoryMathCentered",ExpressionUUID->"9f615cef-d236-492b-ab3f-db7aa1680ee5"],
+Cell[20203, 618, 404, 11, 35, "Text",ExpressionUUID->"c148587c-8369-46ba-9fe7-94d90db4ecb9"],
+Cell[20610, 631, 828, 27, 54, "ExpositoryMathCentered",ExpressionUUID->"5cce61fa-b20d-4f9f-80b8-df16f1017c61"],
+Cell[21441, 660, 151, 3, 34, "Text",ExpressionUUID->"6db2ec82-2116-45fe-9f5d-14e1cf3da878"],
+Cell[21595, 665, 2415, 71, 58, "ExpositoryMathCentered",ExpressionUUID->"5d482d92-ef47-45c0-9a8c-2f1ca8c1fd61"],
+Cell[24013, 738, 336, 7, 56, "Text",ExpressionUUID->"081b159b-c835-417b-85d4-264e3b49c44e"],
+Cell[24352, 747, 476, 14, 54, "ExpositoryMathCentered",ExpressionUUID->"89c651f1-f31c-49c4-9191-895dee101a78"],
+Cell[24831, 763, 371, 5, 34, "Text",ExpressionUUID->"70db5d11-9a4c-4644-b77b-5d4a78981b24"],
+Cell[25205, 770, 217, 4, 34, "Text",ExpressionUUID->"54ed29e4-58cd-434b-9116-9aeecd7c779b"],
+Cell[25425, 776, 1592, 49, 59, "ExpositoryMathCentered",ExpressionUUID->"23e18dca-b801-4d61-b967-3c95c94a37f0"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27054, 830, 357, 11, 43, "Subsubsection",ExpressionUUID->"b0f4b757-78c7-497d-81c6-79afcee621f1"],
+Cell[27414, 843, 215, 5, 34, "Text",ExpressionUUID->"787815d7-6d6e-4d8b-a21d-00cdbec4670d"],
+Cell[27632, 850, 680, 21, 62, "ExpositoryMathCentered",ExpressionUUID->"a97dfbcf-ca06-47d7-8741-2b9447ad9e96"],
+Cell[28315, 873, 191, 3, 34, "Text",ExpressionUUID->"2f9b58cb-9f6a-4902-aa79-ba515e02acfb"],
+Cell[28509, 878, 1916, 61, 62, "ExpositoryMathCentered",ExpressionUUID->"ea1007be-9e76-4af0-a7c6-91935ed1bc18"],
+Cell[30428, 941, 608, 18, 35, "Text",ExpressionUUID->"ce985c21-16e9-4439-ad01-a90934184852"],
+Cell[31039, 961, 5498, 166, 203, "ExpositoryMathCentered",ExpressionUUID->"1c953f5d-7659-4ea0-acb7-b99c7419b34e"],
+Cell[36540, 1129, 340, 9, 34, "Text",ExpressionUUID->"2329d545-f6cc-459e-91c6-0f6254834e65"],
+Cell[36883, 1140, 859, 30, 56, "ExpositoryMathCentered",ExpressionUUID->"80a2d7e1-3096-4987-bbfa-b74205718873"],
+Cell[37745, 1172, 210, 3, 34, "Text",ExpressionUUID->"7a27c1ca-fa98-4657-a8f8-babfd4f69819"],
+Cell[37958, 1177, 2496, 75, 59, "ExpositoryMathCentered",ExpressionUUID->"a4246650-efad-4c1b-8cb0-20f13e6793d8"],
+Cell[40457, 1254, 624, 17, 60, "Text",ExpressionUUID->"c3a7de70-706d-4550-8800-6d270fe6fee6"],
+Cell[41084, 1273, 194, 3, 34, "Text",ExpressionUUID->"8fb3510b-8f60-427d-9ccc-59c60f137b90"],
+Cell[41281, 1278, 2472, 81, 61, "ExpositoryMathCentered",ExpressionUUID->"d5cf83be-1462-4221-9b5c-4a7e673b8819"],
+Cell[43756, 1361, 979, 30, 66, "Text",ExpressionUUID->"2ea9908e-8077-41fc-8c83-0e2f9888805b"],
+Cell[44738, 1393, 1777, 61, 59, "ExpositoryMathCentered",ExpressionUUID->"a6c18980-1cfd-48be-94c8-298afdf61f85"],
+Cell[46518, 1456, 183, 3, 34, "Text",ExpressionUUID->"6a8aca85-ffe3-44f3-95f9-581bc7c6b0d6"],
+Cell[46704, 1461, 2955, 91, 107, "ExpositoryMathCentered",ExpressionUUID->"c9cf89ee-d5de-4317-8333-ef5768954683"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[49696, 1557, 167, 3, 43, "Subsubsection",ExpressionUUID->"729395f7-70f1-4eb6-a00f-60b381292315"],
+Cell[49866, 1562, 1454, 39, 82, "Text",ExpressionUUID->"a89ec316-65b0-46db-a059-686e4a41b1dc"],
+Cell[51323, 1603, 1737, 56, 61, "ExpositoryMathCentered",ExpressionUUID->"cd1af2d6-2154-4f0f-b805-ed9e08752817"],
+Cell[53063, 1661, 1094, 30, 83, "Text",ExpressionUUID->"693de25d-5cb6-4e2f-9895-69cae61e6d2f"],
+Cell[54160, 1693, 678, 24, 56, "ExpositoryMathCentered",ExpressionUUID->"c36bfbce-f3e2-4cc7-bcd8-2383c699dfd8"],
+Cell[54841, 1719, 296, 6, 34, "Text",ExpressionUUID->"794c554e-6852-4f6a-a836-d1f08536c1bf"],
+Cell[55140, 1727, 792, 27, 101, "ExpositoryMathCentered",ExpressionUUID->"0f41073d-7e0e-456c-913b-b3f3fa6ae0c1"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[55969, 1759, 170, 3, 43, "Subsubsection",ExpressionUUID->"ce969655-a073-49c7-a791-f39302257154"],
+Cell[56142, 1764, 729, 18, 58, "Text",ExpressionUUID->"7028885d-64ac-4324-bedd-399adbc70479"],
+Cell[56874, 1784, 1823, 50, 62, "ExpositoryMathCentered",ExpressionUUID->"46702f04-8463-42e1-8284-85f82e234cbc",
+ InitializationCell->True],
+Cell[58700, 1836, 573, 17, 35, "Text",ExpressionUUID->"d9044a53-d794-4d49-a93b-41f01571aa56"],
+Cell[59276, 1855, 227, 5, 34, "Text",ExpressionUUID->"29aed73c-70ec-4602-960d-021b6962b3d6"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[59552, 1866, 179, 4, 66, "Section",ExpressionUUID->"dee6486c-ece4-49d0-9d3e-fdb67ef5bd7a"],
+Cell[59734, 1872, 1823, 50, 62, "ExpositoryMathCentered",ExpressionUUID->"bdd8d33c-ff05-41e8-9dc0-f5863aae2861",
+ InitializationCell->True]
+}, Open  ]]
+}
+]
+*)
+

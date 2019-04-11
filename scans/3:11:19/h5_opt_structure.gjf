@@ -1,0 +1,22 @@
+%Chk=h5_opt.chk             ! set the checkpoint file
+
+#Opt=VeryTight              ! Tight optimization
+#NoSymm
+
+This is an optimized structure of H5+
+
+1, 1                        ! +1 charge in a single state
+H                           ! 1: upper LHS H
+X   1 d1                    ! 2: dummy atom center of LHS
+H   2 R1   1 90.            ! 3: central H
+H   2 d1   3 90.   1 180.   ! 4: lower LHS H -- set up this way to avoid 180 deg angles
+X   3 x5D  2 90.   1 0.     ! 5: dummy to avoid 180 deg angle
+X   3 R2   5 90.   2 180.   ! 6: dummy atom center of RHS
+H   6 d2   3 90.   5 90.    ! 7: upper RHS H
+H   6 d2   3 90.   5 -90.   ! 8: lower RHS H
+  Variables:
+    d1   0.795831           ! chosen to give good scanning range
+    d2   0.795831           ! chosen to give good scanning range
+    x5D 10.0                ! effectively arbitrary
+    R1   1.510716           ! optimized basic structure to get this
+    R2   1.510716           ! optimized basic structure to get this

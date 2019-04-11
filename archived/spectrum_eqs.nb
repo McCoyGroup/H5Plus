@@ -1,0 +1,530 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     18632,        522]
+NotebookOptionsPosition[     16333,        485]
+NotebookOutlinePosition[     16815,        504]
+CellTagsIndexPosition[     16772,        501]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Computing Transition Moments in Contracted Basis", "Subsection",
+ CellChangeTimes->{{3.7417248694747458`*^9, 
+  3.741724877075431*^9}},ExpressionUUID->"9ae0fb00-9417-4482-ae7b-\
+ea13f8ce79bf"],
+
+Cell["This is what I want", "Text",
+ CellChangeTimes->{{3.741160148529114*^9, 3.7411601548341618`*^9}, {
+  3.741724824822307*^9, 
+  3.741724825356502*^9}},ExpressionUUID->"b6b172ae-2e04-4218-acdd-\
+a1e66068d82f"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   TemplateBox[{SubscriptBox["\[Psi]", "i"]},
+    "Bra"], "\[Mu]", 
+   TemplateBox[{SubscriptBox["\[Psi]", "0"]},
+    "Ket"]}], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.741160080323496*^9, 3.7411601338988123`*^9}, {
+  3.741273415080674*^9, 3.741273417423275*^9}, {3.741273960524291*^9, 
+  3.741273994004612*^9}},ExpressionUUID->"d2c7220e-a338-44cb-95db-\
+1c00a42019ca"],
+
+Cell["My basis is ", "Text",
+ CellChangeTimes->{{3.741709902730466*^9, 
+  3.741709910422214*^9}},ExpressionUUID->"f9905a29-3f25-4c85-9047-\
+89385cfc028d"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   TemplateBox[{SubscriptBox["n", "r"]},
+    "Ket"], 
+   TemplateBox[{SubscriptBox["N", "R"]},
+    "Ket"]}], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.74170991334748*^9, 
+  3.741709914130444*^9}},ExpressionUUID->"12dc7ec1-3a9e-417a-b7b2-\
+007ae94d6034"],
+
+Cell["So my wavefunctions look like:", "Text",
+ CellChangeTimes->{{3.741275085784449*^9, 3.741275092664222*^9}, {
+  3.741709918778846*^9, 
+  3.741709923185092*^9}},ExpressionUUID->"29aa325f-0075-4a50-8d6f-\
+c65878b7684e"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   TemplateBox[{SubscriptBox["\[Psi]", "i"]},
+    "Ket"], "=", 
+   RowBox[{
+    SubscriptBox["\[Sum]", 
+     RowBox[{"\[VeryThinSpace]", 
+      RowBox[{
+       SubscriptBox["N", "R"], ",", 
+       SubscriptBox["n", "r"]}]}]], 
+    RowBox[{
+     SubsuperscriptBox["c", 
+      RowBox[{
+       SubscriptBox["N", "R"], ",", 
+       SubscriptBox["n", "r"]}], 
+      RowBox[{"(", "i", ")"}]], 
+     TemplateBox[{SubscriptBox["n", "r"]},
+      "Ket"], 
+     TemplateBox[{SubscriptBox["N", "R"]},
+      "Ket"]}]}]}], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.7412742955066566`*^9, 3.741274299485643*^9}, {
+  3.741274366190969*^9, 3.7412743823247013`*^9}, {3.7412744511655073`*^9, 
+  3.7412744762889843`*^9}, {3.741274523677374*^9, 3.741274573867536*^9}, {
+  3.7412747079492617`*^9, 3.741274708709227*^9}, {3.741274754372855*^9, 
+  3.7412748030042763`*^9}, {3.7412749249418297`*^9, 3.7412749394827423`*^9}, {
+  3.741274978495891*^9, 3.741274992548933*^9}, {3.741275071674878*^9, 
+  3.7412750722249317`*^9}, {3.741275145576191*^9, 3.7412751642935333`*^9}, {
+  3.7417240177076674`*^9, 3.741724019265916*^9}, {3.741724058052643*^9, 
+  3.7417240678189783`*^9}},ExpressionUUID->"30bb581b-62e9-404b-adec-\
+54027b810e54"],
+
+Cell["And so", "Text",
+ CellChangeTimes->{{3.7412744962851562`*^9, 
+  3.741274497051683*^9}},ExpressionUUID->"59c252bd-1429-4411-b27f-\
+819afe865a27"],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      RowBox[{
+       TemplateBox[{SubscriptBox["\[Psi]", "i"]},
+        "Bra"], "\[Mu]", 
+       TemplateBox[{SubscriptBox["\[Psi]", "0"]},
+        "Ket"]}], "=", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         SubscriptBox["\[Sum]", 
+          RowBox[{
+           SubscriptBox["N", "R"], ",", "\[VeryThinSpace]", 
+           SubscriptBox["n", "r"]}]], 
+         RowBox[{
+          SubsuperscriptBox["c", 
+           RowBox[{
+            SubscriptBox["N", "R"], ",", 
+            SubscriptBox["n", "r"]}], 
+           RowBox[{"(", "i", ")"}]], 
+          TemplateBox[{SubscriptBox["n", "r"]},
+           "Bra"], 
+          TemplateBox[{SubscriptBox["N", "R"]},
+           "Bra"]}]}], ")"}], 
+       RowBox[{"\[Mu]", "(", 
+        RowBox[{
+         SubscriptBox["\[Sum]", 
+          RowBox[{"\[VeryThinSpace]", 
+           RowBox[{
+            SubscriptBox["M", "R"], ",", "\[VeryThinSpace]", 
+            SubscriptBox["m", "r"]}]}]], 
+         RowBox[{
+          SubsuperscriptBox["c", 
+           RowBox[{
+            SubscriptBox["M", "R"], ",", 
+            SubscriptBox["m", "r"]}], 
+           RowBox[{"(", "0", ")"}]], 
+          TemplateBox[{SubscriptBox["m", "r"]},
+           "Ket"], 
+          TemplateBox[{SubscriptBox["M", "R"]},
+           "Ket"]}]}], ")"}]}]}]},
+    {
+     RowBox[{"=", 
+      RowBox[{
+       SubscriptBox["\[Sum]", 
+        RowBox[{
+         SubscriptBox["N", "R"], ",", "\[VeryThinSpace]", 
+         SubscriptBox["n", "r"]}]], 
+       RowBox[{
+        SubscriptBox["\[Sum]", 
+         RowBox[{"\[VeryThinSpace]", 
+          RowBox[{
+           SubscriptBox["M", "R"], ",", "\[VeryThinSpace]", 
+           SubscriptBox["m", "r"]}]}]], 
+        RowBox[{
+         SubsuperscriptBox["c", 
+          RowBox[{
+           SubscriptBox["N", "R"], ",", 
+           SubscriptBox["n", "r"]}], 
+          RowBox[{"(", "i", ")"}]], 
+         SubsuperscriptBox["c", 
+          RowBox[{
+           SubscriptBox["M", "R"], ",", 
+           SubscriptBox["m", "r"]}], 
+          RowBox[{"(", "0", ")"}]], 
+         TemplateBox[{SubscriptBox["N", "R"]},
+          "Bra"], 
+         TemplateBox[{SubscriptBox["n", "r"]},
+          "Bra"], 
+         RowBox[{"\[Mu]", "(", 
+          RowBox[{
+           SubscriptBox["r", "1"], ",", " ", 
+           RowBox[{
+            SubscriptBox["r", "2"], ";", "s"}], ",", " ", "a"}], ")"}], 
+         TemplateBox[{SubscriptBox["m", "r"]},
+          "Ket"], 
+         TemplateBox[{SubscriptBox["M", "R"]},
+          "Ket"]}]}]}]}]}
+   }], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.741160080323496*^9, 3.7411601338988123`*^9}, {
+   3.741273415080674*^9, 3.741273417423275*^9}, {3.741273960524291*^9, 
+   3.741273994004612*^9}, {3.741275107753991*^9, 3.741275125482305*^9}, {
+   3.741275170938121*^9, 3.741275174927575*^9}, {3.74127523312374*^9, 
+   3.7412752903132133`*^9}, {3.741275338394517*^9, 3.7412753838343563`*^9}, 
+   3.741275438616678*^9, {3.741275499520269*^9, 3.7412755539911327`*^9}, {
+   3.741275776968686*^9, 3.7412757951835546`*^9}, {3.741276193399953*^9, 
+   3.7412761963332872`*^9}, {3.741709988992618*^9, 3.741709998211794*^9}, {
+   3.7417133333921347`*^9, 3.741713384429735*^9}, {3.741713420166754*^9, 
+   3.7417134225012903`*^9}, {3.7417139149059677`*^9, 3.741713941804282*^9}, {
+   3.7417239910154057`*^9, 3.741724048596835*^9}, {3.741724088533474*^9, 
+   3.741724186578198*^9}, {3.7417243164189262`*^9, 3.7417243207257853`*^9}, {
+   3.7417249700808783`*^9, 
+   3.741724999579813*^9}},ExpressionUUID->"afa8c485-f683-422c-a0a6-\
+7538d70cbfad"],
+
+Cell["Then as we have DVR basis functions", "Text",
+ CellChangeTimes->{{3.741724923459445*^9, 
+  3.741724928979423*^9}},ExpressionUUID->"96368d80-9bdc-44a0-907b-\
+cdf78863c1dd"],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      RowBox[{
+       TemplateBox[{SubscriptBox["N", "R"]},
+        "Bra"], 
+       TemplateBox[{SubscriptBox["n", "r"]},
+        "Bra"], 
+       RowBox[{"\[Mu]", "(", 
+        RowBox[{
+         SubscriptBox["r", "1"], ",", " ", 
+         RowBox[{
+          SubscriptBox["r", "2"], ";", "s"}], ",", " ", "a"}], ")"}], 
+       TemplateBox[{SubscriptBox["m", "r"]},
+        "Ket"], 
+       TemplateBox[{SubscriptBox["M", "R"]},
+        "Ket"]}], "=", 
+      RowBox[{
+       TemplateBox[{SubscriptBox["n", "r"]},
+        "Bra"], 
+       RowBox[{"\[Mu]", "(", 
+        RowBox[{
+         SubscriptBox["r", "1"], ",", " ", 
+         RowBox[{
+          SubscriptBox["r", "2"], ";", "s"}], ",", " ", "a"}], ")"}], 
+       TemplateBox[{SubscriptBox["m", "r"]},
+        "Ket"], 
+       TemplateBox[{RowBox[{
+           SubscriptBox["N", "R"], " "}],RowBox[{" ", 
+           SubscriptBox["M", "R"]}]},
+        "BraKet"]}]}]},
+    {
+     RowBox[{"=", 
+      RowBox[{
+       TemplateBox[{SubscriptBox["n", "r"]},
+        "Bra"], 
+       RowBox[{"\[Mu]", "(", 
+        RowBox[{
+         SubscriptBox["r", "1"], ",", " ", 
+         RowBox[{
+          SubscriptBox["r", "2"], ";", "s"}], ",", " ", "a"}], ")"}], 
+       TemplateBox[{SubscriptBox["m", "r"]},
+        "Ket"], 
+       SubscriptBox["\[Delta]", 
+        RowBox[{
+         SubscriptBox["N", "R"], 
+         SubscriptBox["M", "R"]}]]}]}]}
+   }], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.74172493156733*^9, 
+  3.741724965878695*^9}},ExpressionUUID->"c35c1f04-2ddb-45b6-a7d5-\
+08dde73e0540"],
+
+Cell["Therefore we get", "Text",
+ CellChangeTimes->{{3.741724971826851*^9, 
+  3.741724974314748*^9}},ExpressionUUID->"acd95d6d-bde0-46a4-8437-\
+12f8f661f765"],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      RowBox[{
+       TemplateBox[{SubscriptBox["\[Psi]", "i"]},
+        "Bra"], "\[Mu]", 
+       TemplateBox[{SubscriptBox["\[Psi]", "0"]},
+        "Ket"]}], "=", 
+      RowBox[{
+       SubscriptBox["\[Sum]", 
+        RowBox[{
+         SubscriptBox["N", "R"], ",", "\[VeryThinSpace]", 
+         SubscriptBox["n", "r"]}]], 
+       RowBox[{
+        SubscriptBox["\[Sum]", 
+         RowBox[{"\[VeryThinSpace]", 
+          RowBox[{
+           SubscriptBox["M", "R"], ",", "\[VeryThinSpace]", 
+           SubscriptBox["m", "r"]}]}]], 
+        RowBox[{
+         SubsuperscriptBox["c", 
+          RowBox[{
+           SubscriptBox["N", "R"], ",", 
+           SubscriptBox["n", "r"]}], 
+          RowBox[{"(", "i", ")"}]], 
+         SubsuperscriptBox["c", 
+          RowBox[{
+           SubscriptBox["M", "R"], ",", 
+           SubscriptBox["m", "r"]}], 
+          RowBox[{"(", "0", ")"}]], 
+         TemplateBox[{SubscriptBox["n", "r"]},
+          "Bra"], 
+         RowBox[{"\[Mu]", "(", 
+          RowBox[{
+           SubscriptBox["r", "1"], ",", " ", 
+           RowBox[{
+            SubscriptBox["r", "2"], ";", "s"}], ",", " ", "a"}], ")"}], 
+         TemplateBox[{SubscriptBox["m", "r"]},
+          "Ket"], 
+         SubscriptBox["\[Delta]", 
+          RowBox[{
+           SubscriptBox["N", "R"], 
+           SubscriptBox["M", "R"]}]]}]}]}]}]},
+    {
+     RowBox[{"=", 
+      RowBox[{
+       SubscriptBox["\[Sum]", 
+        SubscriptBox["N", "R"]], 
+       RowBox[{
+        SubscriptBox["\[Sum]", 
+         RowBox[{"\[VeryThinSpace]", 
+          RowBox[{
+           SubscriptBox["n", "r"], ",", 
+           SubscriptBox["m", "r"]}]}]], 
+        RowBox[{
+         SubsuperscriptBox["c", 
+          RowBox[{
+           SubscriptBox["N", "R"], ",", 
+           SubscriptBox["n", "r"]}], 
+          RowBox[{"(", "i", ")"}]], 
+         SubsuperscriptBox["c", 
+          RowBox[{
+           SubscriptBox["N", "R"], ",", 
+           SubscriptBox["m", "r"]}], 
+          RowBox[{"(", "0", ")"}]], 
+         TemplateBox[{SubscriptBox["n", "r"]},
+          "Bra"], 
+         RowBox[{"\[Mu]", "(", 
+          RowBox[{
+           SubscriptBox["r", "1"], ",", " ", 
+           RowBox[{
+            SubscriptBox["r", "2"], ";", "s"}], ",", " ", "a"}], ")"}], 
+         TemplateBox[{SubscriptBox["m", "r"]},
+          "Ket"]}]}]}]}]}
+   }], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.741724976726076*^9, 
+  3.741725003495018*^9}},ExpressionUUID->"a52f6b78-fb37-445b-875e-\
+7f1efb903551"],
+
+Cell[TextData[{
+ "Then defining a transition matrix for each ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["N", "R"], TraditionalForm]],
+  FormatType->"TraditionalForm",ExpressionUUID->
+  "e0fa04c5-09aa-4596-ae1e-4d05f58dd894"],
+ " by:"
+}], "Text",
+ CellChangeTimes->{{3.7417102351237926`*^9, 3.7417102446342163`*^9}, {
+  3.741710285832982*^9, 3.74171028683272*^9}, {3.741710642035952*^9, 
+  3.741710648106677*^9}, {3.741713811518269*^9, 3.741713811805449*^9}, {
+  3.741725013491167*^9, 
+  3.741725017145151*^9}},ExpressionUUID->"acecfd06-805d-449d-b18e-\
+dadef9caa531"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubscriptBox[
+    StyleBox["M",
+     FontSlant->"Plain"], 
+    RowBox[{
+     SubscriptBox["N", "R"], ",", 
+     SubscriptBox["m", "r"], ",", 
+     SubscriptBox["n", "r"]}]], "=", 
+   RowBox[{
+    TemplateBox[{SubscriptBox["m", "r"]},
+     "Bra"], 
+    SuperscriptBox["\[Mu]", 
+     RowBox[{"(", 
+      SubscriptBox["N", "R"], ")"}]], 
+    TemplateBox[{SubscriptBox["n", "r"]},
+     "Ket"]}]}], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.741710256035187*^9, 3.7417102758415203`*^9}, {
+  3.741710308602524*^9, 3.7417103088889093`*^9}, {3.74171048439235*^9, 
+  3.741710488077818*^9}, {3.741723430711492*^9, 3.7417234655639887`*^9}, {
+  3.7417236217229156`*^9, 
+  3.741723671993677*^9}},ExpressionUUID->"cc4c6e4f-3fe1-43b2-adb8-\
+6ea767ecca5d"],
+
+Cell["Letting ", "Text",
+ CellChangeTimes->{{3.741724191768682*^9, 
+  3.741724192743421*^9}},ExpressionUUID->"54ed5888-2f67-4ea3-a0b2-\
+2f0eb1848ee0"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   SubsuperscriptBox["c", 
+    SubscriptBox["N", "R"], 
+    RowBox[{"(", "i", ")"}]], "=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      SubsuperscriptBox["c", 
+       RowBox[{
+        SubscriptBox["N", "R"], ",", "1"}], 
+       RowBox[{"(", "0", ")"}]], ",", " ", 
+      SubsuperscriptBox["c", 
+       RowBox[{
+        SubscriptBox["N", "R"], ",", "2"}], 
+       RowBox[{"(", "0", ")"}]], ",", " ", "\[Ellipsis]", ",", " ", 
+      SubsuperscriptBox["c", 
+       RowBox[{
+        SubscriptBox["N", "R"], ",", "\[Nu]"}], 
+       RowBox[{"(", "0", ")"}]]}], ")"}], " ", "where", " ", "\[Nu]", " ", 
+    "is", " ", "max", 
+    RowBox[{"{", 
+     SubscriptBox["n", "r"], "}"}]}]}], 
+  TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.741724209734014*^9, 
+  3.7417242910455227`*^9}},ExpressionUUID->"8fc4b735-600e-447e-9cb5-\
+d7cbaccaa908"],
+
+Cell["\<\
+Then average these with the coefficients to get a transition moment per state:\
+\>", "Text",
+ CellChangeTimes->{{3.741710310640333*^9, 3.74171031638455*^9}, {
+  3.7417104425034227`*^9, 3.741710468405439*^9}, {3.741710499761511*^9, 
+  3.7417105028103447`*^9}, {3.74171300333284*^9, 3.7417130105470257`*^9}, {
+  3.7417238536021633`*^9, 3.74172393063599*^9}, {3.741725066705884*^9, 
+  3.7417250718882437`*^9}},ExpressionUUID->"7365567f-1046-429a-9514-\
+8d126e8700ac"],
+
+Cell[BoxData[
+ FormBox[GridBox[{
+    {
+     RowBox[{
+      SubscriptBox[
+       StyleBox["T",
+        FontSlant->"Plain"], 
+       SubscriptBox["N", "r"]], "=", 
+      RowBox[{
+       SubscriptBox["\[Sum]", 
+        RowBox[{"\[VeryThinSpace]", 
+         RowBox[{
+          SubscriptBox["n", "r"], ",", 
+          SubscriptBox["m", "r"]}]}]], 
+       RowBox[{
+        SubsuperscriptBox["c", 
+         RowBox[{
+          SubscriptBox["N", "R"], ",", 
+          SubscriptBox["n", "r"]}], 
+         RowBox[{"(", "i", ")"}]], 
+        SubsuperscriptBox["c", 
+         RowBox[{
+          SubscriptBox["N", "R"], ",", 
+          SubscriptBox["m", "r"]}], 
+         RowBox[{"(", "0", ")"}]], 
+        SubscriptBox[
+         StyleBox["M",
+          FontSlant->"Plain"], 
+         RowBox[{
+          SubscriptBox["N", "R"], ",", 
+          SubscriptBox["n", "r"], ",", 
+          SubscriptBox["m", "r"]}]]}]}]}]},
+    {
+     RowBox[{"=", 
+      RowBox[{
+       SuperscriptBox[
+        RowBox[{"(", 
+         SubsuperscriptBox["c", 
+          SubscriptBox["N", "R"], 
+          RowBox[{"(", "i", ")"}]], ")"}], "\[Transpose]"], 
+       SubscriptBox[
+        StyleBox["M",
+         FontSlant->"Plain"], 
+        SubscriptBox["N", "R"]], 
+       SubsuperscriptBox["c", 
+        SubscriptBox["N", "R"], 
+        RowBox[{"(", "0", ")"}]]}]}]}
+   }], TraditionalForm]], "ExpositoryMathCentered",
+ CellChangeTimes->{{3.7417104516507387`*^9, 3.7417104803349247`*^9}, {
+  3.741710546597735*^9, 3.741710600093459*^9}, {3.741723693208372*^9, 
+  3.741723727423128*^9}, {3.741723812662733*^9, 3.7417238266051073`*^9}, {
+  3.741723934395567*^9, 3.741723984435891*^9}, {3.7417243237120447`*^9, 
+  3.741724351988551*^9}},ExpressionUUID->"a834748b-628e-4aaf-a83a-\
+975673f92b1d"]
+}, Open  ]]
+},
+WindowSize->{808, 755},
+WindowMargins->{{191, Automatic}, {Automatic, 0}},
+PrintingCopies->1,
+PrintingPageRange->{1, Automatic},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->FrontEnd`FileName[{"UWTools"}, "ExplorationStyle.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 198, 3, 53, "Subsection",ExpressionUUID->"9ae0fb00-9417-4482-ae7b-ea13f8ce79bf"],
+Cell[781, 27, 212, 4, 34, "Text",ExpressionUUID->"b6b172ae-2e04-4218-acdd-a1e66068d82f"],
+Cell[996, 33, 430, 10, 37, "ExpositoryMathCentered",ExpressionUUID->"d2c7220e-a338-44cb-95db-1c00a42019ca"],
+Cell[1429, 45, 154, 3, 34, "Text",ExpressionUUID->"f9905a29-3f25-4c85-9047-89385cfc028d"],
+Cell[1586, 50, 313, 9, 37, "ExpositoryMathCentered",ExpressionUUID->"12dc7ec1-3a9e-417a-b7b2-007ae94d6034"],
+Cell[1902, 61, 221, 4, 34, "Text",ExpressionUUID->"29aa325f-0075-4a50-8d6f-c65878b7684e"],
+Cell[2126, 67, 1265, 30, 44, "ExpositoryMathCentered",ExpressionUUID->"30bb581b-62e9-404b-adec-54027b810e54"],
+Cell[3394, 99, 150, 3, 34, "Text",ExpressionUUID->"59c252bd-1429-4411-b27f-819afe865a27"],
+Cell[3547, 104, 3606, 95, 81, "ExpositoryMathCentered",ExpressionUUID->"afa8c485-f683-422c-a0a6-7538d70cbfad"],
+Cell[7156, 201, 177, 3, 34, "Text",ExpressionUUID->"96368d80-9bdc-44a0-907b-cdf78863c1dd"],
+Cell[7336, 206, 1612, 51, 63, "ExpositoryMathCentered",ExpressionUUID->"c35c1f04-2ddb-45b6-a7d5-08dde73e0540"],
+Cell[8951, 259, 158, 3, 34, "Text",ExpressionUUID->"acd95d6d-bde0-46a4-8437-12f8f661f765"],
+Cell[9112, 264, 2547, 78, 77, "ExpositoryMathCentered",ExpressionUUID->"a52f6b78-fb37-445b-875e-7f1efb903551"],
+Cell[11662, 344, 569, 14, 36, "Text",ExpressionUUID->"acecfd06-805d-449d-b18e-dadef9caa531"],
+Cell[12234, 360, 802, 23, 39, "ExpositoryMathCentered",ExpressionUUID->"cc4c6e4f-3fe1-43b2-adb8-6ea767ecca5d"],
+Cell[13039, 385, 150, 3, 34, "Text",ExpressionUUID->"54ed5888-2f67-4ea3-a0b2-2f0eb1848ee0"],
+Cell[13192, 390, 893, 27, 42, "ExpositoryMathCentered",ExpressionUUID->"8fc4b735-600e-447e-9cb5-d7cbaccaa908"],
+Cell[14088, 419, 474, 8, 34, "Text",ExpressionUUID->"7365567f-1046-429a-9514-8d126e8700ac"],
+Cell[14565, 429, 1752, 53, 75, "ExpositoryMathCentered",ExpressionUUID->"a834748b-628e-4aaf-a83a-975673f92b1d"]
+}, Open  ]]
+}
+]
+*)
+

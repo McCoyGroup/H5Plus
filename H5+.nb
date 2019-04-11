@@ -1,0 +1,193 @@
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[         0,          0]
+NotebookDataLength[      6657,        192]
+NotebookOptionsPosition[      1178,         47]
+NotebookOutlinePosition[      6547,        187]
+CellTagsIndexPosition[      6504,        184]
+WindowTitle->EasyIDE: H5+
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["\<\
+#!/bin/bash
+#SBATCH --job-name=H5_old_spectrum
+#SBATCH --nodes=1
+#SBATCH --time=0-08:00:00
+#SBATCH --mem=118G
+#SBATCH --workdir=/gscratch/chem/b3m2a1/H5+
+#SBATCH --partition=ckpt
+#SBATCH --account=stf-ckpt
+#SBATCH --mail-type=ALL
+
+# load environment
+module load mathematica_11.2
+
+# debugging information
+echo \"**** Job Debugging Information ****\"
+echo \"This job will run on $SLURM_JOB_NODELIST\"
+echo \"\"
+echo \"ENVIRONMENT VARIABLES\"
+set
+echo \"**********************************************\"
+
+# run job
+
+wolframscript -file /gscratch/chem/b3m2a1/H5+/jobs/SpectrumScript.wl H5Old
+
+exit 0
+\
+\>", "Input",
+ CellChangeTimes->{{3.764003803501647*^9, 
+  3.7640038057706833`*^9}},ExpressionUUID->"3e3109e0-306d-45e2-8c8e-\
+c92330f441e7"]
+},
+NotebookEventActions->{{"MenuCommand", "Save"} :> 
+  EasyIDE`Notebooks`Manipulation`IDESave[
+    EvaluationNotebook[]], PassEventsDown -> True, EvaluationOrder -> After},
+WindowSize->{808, 755},
+WindowMargins->{{1, Automatic}, {Automatic, 0}},
+WindowTitle->"EasyIDE: H5+",
+TaggingRules->{
+ "IndentCharacter" -> "  ", 
+  "EasyIDE" -> {
+   "Tabs" -> {
+     "h5_debugging" -> {
+       "File" -> "/Users/Mark/Documents/UW/Research/H5+/h5_debugging.nb"}, 
+      "Spectrum_Script" -> {
+       "File" -> "/Users/Mark/Documents/UW/Research/H5+/Spectrum_Script.nb"}, 
+      "SpectrumScript" -> {
+       "File" -> 
+        "/Users/Mark/Documents/UW/Research/H5+/jobs/SpectrumScript.wl"}, 
+      "SpectrumScript.nb" -> {
+       "File" -> 
+        "/Users/Mark/Documents/UW/Research/H5+/Common/SpectrumScript.nb"}, 
+      "H5Old" -> {
+       "File" -> "/Users/Mark/Documents/UW/Research/H5+/jobs/H5Old.sh"}}, 
+    "FileViewer" -> {"Visible" -> True}, 
+    "Toolbars" -> {"Column" -> None, "Tags" -> {}, "Cells" -> {}}, 
+    "Project" -> {"Directory" -> "/Users/Mark/Documents/UW/Research/H5+/"}, 
+    "ActiveTab" -> "H5Old", "StyleSheet" -> 
+    FrontEnd`FileName[{"EasyIDE", "Extensions"}, "LightMode-Text.nb"], 
+    "FileToolbar" -> None, 
+    "Options" -> {
+     WindowSize -> {808, 755}, 
+      WindowMargins -> {{124, Automatic}, {36, Automatic}}, Visible -> False, 
+      FrontEndVersion -> 
+      "11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, 2018)", 
+      StyleDefinitions -> "Default.nb"}, "AutoGeneratePackage" -> False, 
+    "SavingAction" -> None}},
+DynamicUpdating->Automatic,
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[
+    StyleDefinitions -> 
+     FrontEnd`FileName[{"EasyIDE", "Extensions"}, "LightMode-Text.nb"]]], 
+   Cell[
+    CellGroupData[{
+      Cell[
+      "FileViewerStyles", "Subsubsubsubsection", 
+       CellGroupingRules -> {"SectionGrouping", 200}, CellTags -> 
+       "FileViewerStyles"], 
+      Cell[
+       StyleData["Title"], CellMargins -> {{217, Inherited}, {10, 30}}], 
+      Cell[
+       StyleData["Chapter"], CellMargins -> {{217, Inherited}, {10, 15}}], 
+      Cell[
+       StyleData["Subchapter"], CellMargins -> {{253, Inherited}, {8, 20}}], 
+      Cell[
+       StyleData["Section"], CellMargins -> {{217, Inherited}, {8, 18}}], 
+      Cell[
+       StyleData["Subsection"], 
+       CellMargins -> {{240.34765625, 3.}, {8., 20.}}], 
+      Cell[
+       StyleData["Subsubsection"], 
+       CellMargins -> {{256, Inherited}, {8, 12}}], 
+      Cell[
+       StyleData["Subsubsubsection"], 
+       CellMargins -> {{256, Inherited}, {2, 10}}], 
+      Cell[
+       StyleData["Subsubsubsubsection"], 
+       CellMargins -> {{256, Inherited}, {2, 10}}], 
+      Cell[
+       StyleData["Input"], CellMargins -> {{256, 10}, {5, 8}}], 
+      Cell[
+       StyleData["Code"], CellMargins -> {{256, 10}, {10, 10}}], 
+      Cell[
+       StyleData["Output"], CellMargins -> {{256, 10}, {12, 5}}], 
+      Cell[
+       StyleData["Text"], CellMargins -> {{256, 10}, {7, 8}}], 
+      Cell[
+       StyleData["Item"], CellMargins -> {{271, 10}, {4, 8}}], 
+      Cell[
+       StyleData["ItemParagraph"], CellMargins -> {{271, 10}, {4, 1}}], 
+      Cell[
+       StyleData["Subitem"], CellMargins -> {{295, 12}, {4, 4}}], 
+      Cell[
+       StyleData["SubitemParagraph"], CellMargins -> {{295, 12}, {4, 1}}], 
+      Cell[
+       StyleData["Echo"], 
+       CellMargins -> {{256, Inherited}, {Inherited, Inherited}}], 
+      Cell[
+       StyleData["Print"], 
+       CellMargins -> {{256, Inherited}, {Inherited, Inherited}}], 
+      Cell[
+       StyleData["PrintTemporary"], 
+       CellMargins -> {{250, Inherited}, {Inherited, Inherited}}], 
+      Cell[
+       StyleData["CellInsertionPointCell"], CellMargins -> {{207, 0}, {0, 0}},
+        Magnification -> 1], 
+      Cell[
+       StyleData["CodeChapter"], CellMargins -> {{217, Inherited}, {10, 15}}], 
+      Cell[
+       StyleData["CodeSection"], CellMargins -> {{217, Inherited}, {8, 18}}], 
+      
+      Cell[
+       StyleData["CodeSubsection"], 
+       CellMargins -> {{245, Inherited}, {Inherited, Inherited}}], 
+      Cell[
+       StyleData["CodeSubsubsection"], 
+       CellMargins -> {{249, Inherited}, {Inherited, Inherited}}], 
+      Cell[
+       StyleData["CodeSubsubsubsection"], 
+       CellMargins -> {{253, Inherited}, {Inherited, Inherited}}], 
+      Cell[
+       StyleData["CodeSubsubsubsubsection"], 
+       CellMargins -> {{257, Inherited}, {Inherited, Inherited}}], 
+      Cell[
+       StyleData["CodeInput"], 
+       CellMargins -> {{257, Inherited}, {Inherited, Inherited}}], 
+      Cell[
+       StyleData["InputChapter"], 
+       CellMargins -> {{217, Inherited}, {10, 15}}], 
+      Cell[
+       StyleData["InputSection"], CellMargins -> {{240.3477, 3.}, {8., 12.}}], 
+      Cell[
+       StyleData["InputSubsection"], 
+       CellMargins -> {{256, Inherited}, {8, 12}}]}, Closed]]}, Visible -> 
+  False, TaggingRules -> {
+   "EasyIDE" -> {"FileViewer" -> {"Visible" -> False}}}, FrontEndVersion -> 
+  "11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, 2018)", 
+  StyleDefinitions -> "PrivateStylesheetFormatting.nb"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[426, 14, 748, 31, 605, "Input",ExpressionUUID->"3e3109e0-306d-45e2-8c8e-c92330f441e7"]
+}
+]
+*)
+

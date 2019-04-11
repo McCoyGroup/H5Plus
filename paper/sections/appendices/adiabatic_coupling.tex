@@ -1,0 +1,20 @@
+%\input{../../config}
+%\begin{document}
+
+The coupling between our adiabatic potential energy surfaces arises in the change of our basic \htwo{} wavefunctions for different values of $a$ and $s$. That is, given two shared \hplus{} positions, $(a_i, s_j)$ and $(a_{i'}, s_{j'})$ we will obtain two different \htwo{} families wavefunctions $\phi^{\mhtwo}_{n}(r_1, r_2 ; a_i, s_j)$ and $\phi^{\mhtwo}_{n'}(r_1, r_2, a_{i'}, s_{j'})$. The nature of this change means that when we compute the overlap matrix across gridpoints and states we obtain elements that look like Equation \refeq{overlap_elements}.
+% A sample of these \htwo wavefunctions at different gridpoints is shown in \reffig{htwos_across_grid}
+
+\loadeq{overlap_elements}
+
+Here we should note that in the case of $a_{i}=a_{i'}$ and $s_{j}=s_{j'}$ we have the standard orthogonality relationship for eigenfunctions as shown in \refeq{overlap_orthog}.
+
+\loadeq{overlap_orthog}
+
+Outside of this special case, however, the need not be $0$ or $1$. This introduces coupling between surfaces into our Hamiltonian as in Equation \refeq{coupled_surf_ham}.
+
+\loadeq{coupled_surf_ham}
+
+We see here that there is no coupling in the potential energy as it is diagonal in the DVR basis. All of the coupling in this case comes in the kinetic energy and is determined by the overlap of the \htwo{} states at different gridpoints.
+ % An illustration of this coupling is in Figure \ref{fig:adiabat_coupled_ham}.
+
+%\end{document}

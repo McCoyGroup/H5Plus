@@ -1,0 +1,478 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     21486,        470]
+NotebookOptionsPosition[     20016,        438]
+NotebookOutlinePosition[     20390,        455]
+CellTagsIndexPosition[     20347,        452]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{"Get", "@", 
+  "\"\<~/Documents/UW/Research/H5+/Common/H5Core.m\>\""}], "\n", 
+ RowBox[{"<<", "ChemTools`DVR`"}], "\[IndentingNewLine]", 
+ RowBox[{"<<", "ChemTools`Wavefunctions`"}], "\[IndentingNewLine]", 
+ RowBox[{"<<", "ChemTools`DataStructures`"}], "\[IndentingNewLine]", 
+ RowBox[{"<<", "ChemTools`Spectroscopy`"}]}], "Input",
+ CellChangeTimes->{{3.750008076792406*^9, 3.750008096091104*^9}, 
+   3.756131132773386*^9, {3.7571031019925327`*^9, 3.757103105823854*^9}},
+ CellLabel->"In[2]:=",ExpressionUUID->"087c083e-ec28-4619-b65e-3dbb3073dc66"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"saMainGrid", "=", 
+   RowBox[{"$H5DVR", "[", "\"\<Grid\>\"", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"saGrid", "=", 
+   RowBox[{"saMainGrid", "[", "\"\<Points\>\"", "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.738600324036819*^9, 3.738600353586584*^9}, {
+  3.7386098225214663`*^9, 3.738609824948983*^9}, {3.738614008763254*^9, 
+  3.73861401096229*^9}, {3.7422648406364098`*^9, 3.742264852314206*^9}, {
+  3.744750441791654*^9, 3.744750442155787*^9}, {3.7536010008767567`*^9, 
+  3.753601026356306*^9}, {3.753602637342009*^9, 3.7536026449468927`*^9}, {
+  3.7561499569884663`*^9, 3.756149959616074*^9}, {3.757344354258081*^9, 
+  3.75734436184923*^9}},ExpressionUUID->"cda92de9-e190-4c5e-9b7f-\
+e1960bddcb84"],
+
+Cell[BoxData[{
+ RowBox[{"h2SAPot", "//", "Clear"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"h2SAPot", "[", 
+   RowBox[{"{", 
+    RowBox[{"a_", ",", " ", "s_"}], "}"}], "]"}], ":=", "\[IndentingNewLine]", 
+  RowBox[{"If", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"With", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"R1R2", "=", 
+         RowBox[{
+          RowBox[{"RotationMatrix", "[", 
+           RowBox[{
+            RowBox[{"-", "\[Pi]"}], "/", "4"}], "]"}], ".", 
+          RowBox[{"{", 
+           RowBox[{"a", ",", " ", "s"}], "}"}]}]}], ",", " ", 
+        RowBox[{"bounds", "=", 
+         RowBox[{"H5FullInterpPot", "[", 
+          RowBox[{"[", 
+           RowBox[{"1", ",", " ", "3"}], "]"}], "]"}]}]}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"AllTrue", "[", 
+       RowBox[{"R1R2", ",", " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"bounds", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "<=", "#", "<", 
+          RowBox[{"bounds", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}], "&"}]}], "]"}]}], 
+     "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"h5PotCutVec", "[", 
+     RowBox[{"{", 
+      RowBox[{
+      "a", ",", " ", "s", ",", " ", "Automatic", ",", " ", "Automatic"}], 
+      "}"}], "]"}], ",", "\[IndentingNewLine]", "$Failed"}], 
+   "\[IndentingNewLine]", "]"}]}]}], "Input",
+ CellChangeTimes->{{3.7386003625944366`*^9, 3.738600371985814*^9}, {
+   3.738603918225898*^9, 3.7386039551649227`*^9}, {3.7386098333648567`*^9, 
+   3.738609857182663*^9}, {3.738612068166306*^9, 3.738612070756476*^9}, {
+   3.738612168932646*^9, 3.738612189034616*^9}, {3.7386122527025747`*^9, 
+   3.738612261256266*^9}, {3.7386122962959957`*^9, 3.738612367358974*^9}, {
+   3.738612400176401*^9, 3.7386124027005177`*^9}, {3.742178389715143*^9, 
+   3.742178520395451*^9}, {3.742178562423058*^9, 3.742178594653269*^9}, {
+   3.7421788020189533`*^9, 3.742178858384389*^9}, {3.742178902828765*^9, 
+   3.7421789142492313`*^9}, {3.7421802654289217`*^9, 3.742180266531019*^9}, {
+   3.7421808227131233`*^9, 3.742180833792638*^9}, {3.7421808849563513`*^9, 
+   3.7421809103475027`*^9}, {3.742180965110235*^9, 3.742180965946213*^9}, 
+   3.742181083946302*^9, {3.742181171293356*^9, 3.742181253937222*^9}, 
+   3.742183486811425*^9, {3.742183924841072*^9, 3.742183926691185*^9}, {
+   3.742184205756753*^9, 3.742184207379163*^9}, {3.742184253444003*^9, 
+   3.742184256130295*^9}, {3.742184642941605*^9, 3.742184643705871*^9}},
+ CellLabel->"In[20]:=",ExpressionUUID->"383e5438-85f0-4dcf-be3f-f5cd32477766"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"h2SCFGrid", "=", "\[IndentingNewLine]", 
+   RowBox[{"$H2DVR", "[", 
+    RowBox[{"\"\<Grid\>\"", ",", "\[IndentingNewLine]", 
+     RowBox[{"\"\<Points\>\"", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"60", ",", " ", "60"}], "}"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"\"\<PotentialOptimize\>\"", "\[Rule]", "False"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.755895939054476*^9, 3.755895973066475*^9}, {
+   3.755896335567666*^9, 3.755896340094911*^9}, 3.7559819005754337`*^9, 
+   3.755982533782464*^9, {3.755996592420143*^9, 3.7559965942010183`*^9}, {
+   3.755997664115162*^9, 3.7559976665753403`*^9}, {3.7573442906267443`*^9, 
+   3.757344290801724*^9}},
+ CellLabel->"In[22]:=",ExpressionUUID->"6a516fca-7354-4cf4-9c5a-ebef06b5fcb2"],
+
+Cell[BoxData[{
+ RowBox[{"h2SCFWavefunction", "//", "Clear"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"h2SCFWavefunction", "[", "\[IndentingNewLine]", 
+    RowBox[{"pot_CompiledFunction", ",", "\[IndentingNewLine]", 
+     RowBox[{"states", ":", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"_Integer", ",", " ", "_Integer"}], "}"}], ".."}], "}"}]}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{"n", ":", 
+      RowBox[{"_Integer", "|", "Automatic"}], ":", "Automatic"}]}], 
+    "\[IndentingNewLine]", "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"WavefunctionsObject", "[", "\[IndentingNewLine]", 
+    RowBox[{
+    "\"\<SCF\>\"", ",", "\[IndentingNewLine]", "$H2SingleDVR", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"GridFunctionObject", "[", "\[IndentingNewLine]", 
+      RowBox[{"h2SCFGrid", ",", "\[IndentingNewLine]", 
+       RowBox[{"pot", "@", 
+        RowBox[{"h2SCFGrid", "[", "\"\<Points\>\"", "]"}]}]}], 
+      "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"\"\<StateVectors\>\"", "\[Rule]", "states"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<MaxIterations\>\"", "\[Rule]", "n"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"h2SCFWavefunction", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a_", ",", " ", "s_"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"states", ":", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"_Integer", ",", " ", "_Integer"}], "}"}], ".."}], "}"}]}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{"n", ":", 
+      RowBox[{"_Integer", "|", "Automatic"}], ":", "Automatic"}]}], 
+    "\[IndentingNewLine]", "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"pot", "=", 
+       RowBox[{"h2SAPot", "[", 
+        RowBox[{"{", 
+         RowBox[{"a", ",", " ", "s"}], "}"}], "]"}]}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"pot", "===", "$Failed"}], ",", "\[IndentingNewLine]", 
+       "$Failed", ",", "\[IndentingNewLine]", 
+       RowBox[{"h2SCFWavefunction", "[", "\[IndentingNewLine]", 
+        RowBox[{
+        "pot", ",", "\[IndentingNewLine]", "states", ",", 
+         "\[IndentingNewLine]", "n"}], "\[IndentingNewLine]", "]"}]}], 
+      "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"h2SCFWavefunctionData", "//", "Clear"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"h2SCFWavefunctionData", "[", "\[IndentingNewLine]", 
+    RowBox[{"pot_CompiledFunction", ",", "\[IndentingNewLine]", 
+     RowBox[{"states", ":", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"_Integer", ",", " ", "_Integer"}], "}"}], ".."}], "}"}]}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{"its", ":", 
+      RowBox[{"_Integer", "|", "Automatic"}], ":", "Automatic"}]}], 
+    "\[IndentingNewLine]", "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{
+   "ChemTools`Wavefunctions`Package`SelfConsistentWavefunctions", "[", 
+    "\[IndentingNewLine]", 
+    RowBox[{"$H2SingleDVR", ",", "\[IndentingNewLine]", 
+     RowBox[{"GridFunctionObject", "[", "\[IndentingNewLine]", 
+      RowBox[{"h2SCFGrid", ",", "\[IndentingNewLine]", 
+       RowBox[{"pot", "@", 
+        RowBox[{"h2SCFGrid", "[", "\"\<Points\>\"", "]"}]}]}], 
+      "\[IndentingNewLine]", "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"\"\<StateVectors\>\"", "\[Rule]", "states"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<MaxIterations\>\"", "\[Rule]", "its"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7500095094990664`*^9, 3.750009587867111*^9}, {
+   3.7500096418265676`*^9, 3.750009643494831*^9}, {3.750009684102909*^9, 
+   3.7500097218050213`*^9}, {3.750010407826641*^9, 3.75001042056207*^9}, 
+   3.7500104525729628`*^9, {3.750011161862878*^9, 3.750011194691389*^9}, {
+   3.7500112371644773`*^9, 3.750011253226528*^9}, {3.750011447002714*^9, 
+   3.7500114738063393`*^9}, {3.750011525277876*^9, 3.7500115465531588`*^9}, {
+   3.750011604669718*^9, 3.750011644262453*^9}, {3.7500116918556013`*^9, 
+   3.750011722090723*^9}, {3.750011779565028*^9, 3.7500118419129*^9}, {
+   3.750017787196432*^9, 3.750017819522703*^9}, {3.7500178528143167`*^9, 
+   3.750017962321149*^9}, 3.7500180301988983`*^9, {3.750018140428204*^9, 
+   3.750018204292746*^9}, {3.750018263103168*^9, 3.750018335803183*^9}, {
+   3.750018368655155*^9, 3.750018477713501*^9}, {3.750018687576778*^9, 
+   3.7500187214543133`*^9}, {3.750018813870063*^9, 3.7500188184628*^9}, {
+   3.750019325958385*^9, 3.750019339938998*^9}, {3.7500194296305428`*^9, 
+   3.7500194300982122`*^9}, {3.750019711311267*^9, 3.7500197614771347`*^9}, {
+   3.750020151461976*^9, 3.7500202296047277`*^9}, {3.7500202713819304`*^9, 
+   3.750020310299859*^9}, {3.75002038954452*^9, 3.750020399399523*^9}, {
+   3.750020735853537*^9, 3.750020753361464*^9}, 3.750020787691684*^9, {
+   3.750020850451076*^9, 3.750020890839486*^9}, {3.7500210033305597`*^9, 
+   3.7500211500741987`*^9}, {3.750023835864579*^9, 3.750023934513764*^9}, {
+   3.7500241456989813`*^9, 3.75002415255471*^9}, 3.750024440774068*^9, {
+   3.750024811229383*^9, 3.750024835047988*^9}, {3.750024990603437*^9, 
+   3.750025073406787*^9}, {3.7500251698333817`*^9, 3.7500252584605827`*^9}, {
+   3.750026118167328*^9, 3.750026119355721*^9}, {3.7500261550184593`*^9, 
+   3.750026204401412*^9}, {3.750026481225659*^9, 3.750026541308765*^9}, 
+   3.7500265927385283`*^9, {3.750026971415984*^9, 3.750027026915435*^9}, 
+   3.7500271543153954`*^9, {3.7500277658184357`*^9, 3.75002785742342*^9}, {
+   3.750027889842613*^9, 3.7500279391682*^9}, {3.755895833546261*^9, 
+   3.755895836536778*^9}, {3.755895870529175*^9, 3.755895873656013*^9}, {
+   3.755895976776313*^9, 3.755896033647717*^9}, {3.7558960734734488`*^9, 
+   3.755896091182761*^9}, {3.755896123009433*^9, 3.75589612335085*^9}, {
+   3.755896167824472*^9, 3.755896232253992*^9}, {3.755896284464015*^9, 
+   3.755896294945848*^9}, {3.755896462407709*^9, 3.755896494863839*^9}, {
+   3.7559016701102123`*^9, 3.755901671299128*^9}, {3.755901749242343*^9, 
+   3.7559017505036917`*^9}, {3.755902014147543*^9, 3.755902111712451*^9}, {
+   3.755977462827969*^9, 3.75597748246565*^9}, {3.7559792756692257`*^9, 
+   3.755979280107912*^9}, {3.755979348451664*^9, 3.7559793607565804`*^9}, {
+   3.755979690554264*^9, 3.7559797337730207`*^9}, {3.7559805721833487`*^9, 
+   3.7559805961617947`*^9}, {3.75598108862255*^9, 3.755981111345644*^9}, {
+   3.7559816877326736`*^9, 3.75598168794796*^9}, {3.757344314381547*^9, 
+   3.7573443175704527`*^9}},
+ CellLabel->"In[23]:=",ExpressionUUID->"1cf168e9-8ca7-4e20-88e5-70232e44755a"],
+
+Cell[BoxData[{
+ RowBox[{"h2SCFCoeffData", "//", "Clear"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"h2SCFCoeffData", "[", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{"a_", ",", " ", "s_"}], "}"}], 
+   RowBox[{"(*", 
+    RowBox[{",", "\[IndentingNewLine]", 
+     RowBox[{"wfns", ":", 
+      RowBox[{"{", "__Integer", "}"}]}]}], "*)"}], "\[IndentingNewLine]", 
+   "]"}], ":=", "\[IndentingNewLine]", 
+  RowBox[{"Module", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"pot", "=", 
+       RowBox[{"h2SAPot", "[", 
+        RowBox[{"{", 
+         RowBox[{"a", ",", " ", "s"}], "}"}], "]"}]}], ",", 
+      "\[IndentingNewLine]", "wfs", ",", "\[IndentingNewLine]", "wfs2D", ",", 
+      "\[IndentingNewLine]", "coeffs", ",", "\[IndentingNewLine]", "expand"}],
+      "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"pot", "===", "$Failed"}], ",", "\[IndentingNewLine]", 
+      "$Failed", ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"wfs", "=", "\[IndentingNewLine]", 
+        RowBox[{"h2SCFWavefunction", "[", "\[IndentingNewLine]", 
+         RowBox[{"pot", ",", "\[IndentingNewLine]", 
+          RowBox[{"{", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"1", ",", " ", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+            " ", 
+            RowBox[{"{", 
+             RowBox[{"1", ",", " ", "2"}], "}"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"2", ",", " ", "1"}], "}"}], ",", " ", 
+            "\[IndentingNewLine]", 
+            RowBox[{"{", 
+             RowBox[{"3", ",", " ", "1"}], "}"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"2", ",", " ", "2"}], "}"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"1", ",", " ", "3"}], "}"}], ",", "\[IndentingNewLine]", 
+            
+            RowBox[{"{", 
+             RowBox[{"4", ",", " ", "1"}], "}"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"2", ",", " ", "3"}], "}"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"3", ",", " ", "2"}], "}"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"1", ",", " ", "4"}], "}"}]}], "\[IndentingNewLine]", 
+           "}"}]}], "\[IndentingNewLine]", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"wfs2D", "=", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"$H2DVR", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"\"\<Points\>\"", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{"60", ",", " ", "60"}], "}"}]}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"\"\<PotentialOptimize\>\"", "\[Rule]", "False"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"\"\<PotentialFunction\>\"", "\[Rule]", "pot"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"\"\<NumberOfWavefunctions\>\"", "\[Rule]", "10"}]}], 
+          "\[IndentingNewLine]", "]"}], "[", "\"\<Wavefunctions\>\"", "]"}]}],
+        ";", 
+       RowBox[{"(*", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"coeffs", "=", 
+          RowBox[{
+           RowBox[{"wfs2D", "[", 
+            RowBox[{"[", 
+             RowBox[{"{", 
+              RowBox[{"2", ",", " ", "3"}], "}"}], "]"}], "]"}], "@", 
+           RowBox[{"\"\<Overlaps\>\"", "[", "wfs", "]"}]}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"expand", "=", "\[IndentingNewLine]", 
+          RowBox[{"Map", "[", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"Function", "[", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"#", "@", 
+                RowBox[{"\"\<Add\>\"", "[", "#2", "]"}]}], "&"}], "@@", 
+              "\[IndentingNewLine]", 
+              RowBox[{"MapThread", "[", 
+               RowBox[{"Scale", ",", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"wfs", "[", "\"\<Wavefunctions\>\"", "]"}], ",", 
+                  "#"}], "}"}]}], "]"}]}], "\[IndentingNewLine]", "]"}], ",", 
+            "\[IndentingNewLine]", "coeffs"}], "\[IndentingNewLine]", "]"}]}],
+          ";", "\[IndentingNewLine]", 
+         RowBox[{"expand", "=", 
+          RowBox[{"WavefunctionsObject", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"wfs", "[", "\"\<Energies\>\"", "]"}], ",", " ", 
+              "expand"}], "}"}], ",", " ", 
+            RowBox[{
+             RowBox[{"expand", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], "[", "\"\<Grid\>\"", "]"}]}], 
+           "]"}]}], ";"}], "*)"}], "\[IndentingNewLine]", 
+       RowBox[{"<|", 
+        RowBox[{"(*", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"\"\<Coefficients\>\"", "->", "coeffs"}], ","}], " ", 
+         "*)"}], "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"\"\<SCFWavefunctions\>\"", "->", "wfs"}], ",", " ", 
+         "\[IndentingNewLine]", 
+         RowBox[{"\"\<DVRWavefunctions\>\"", "->", "wfs2D"}]}], 
+        RowBox[{"(*", 
+         RowBox[{",", "\[IndentingNewLine]", 
+          RowBox[{"\"\<ExpansionWavefunctions\>\"", "\[Rule]", "expand"}]}], 
+         "*)"}], "\[IndentingNewLine]", "|>"}]}]}], "\[IndentingNewLine]", 
+     "]"}]}], "\[IndentingNewLine]", "]"}]}]}], "Input",
+ CellChangeTimes->{{3.755901969826437*^9, 3.75590199535301*^9}, {
+   3.755902114632306*^9, 3.755902297586977*^9}, {3.7559023303267727`*^9, 
+   3.755902455736073*^9}, {3.755904547285879*^9, 3.755904654506433*^9}, {
+   3.755967208376379*^9, 3.755967238740172*^9}, {3.755976624500194*^9, 
+   3.75597662572068*^9}, {3.755976893692944*^9, 3.755976896046804*^9}, {
+   3.7559977022607927`*^9, 3.755997704205274*^9}, 3.757110015947858*^9, {
+   3.757184915879159*^9, 3.757184916191264*^9}, {3.757185666009997*^9, 
+   3.757185684898992*^9}, {3.757282899373543*^9, 3.757282935026513*^9}, 
+   3.757282978835269*^9, {3.7572830192779922`*^9, 3.757283070244713*^9}},
+ CellLabel->"In[28]:=",ExpressionUUID->"f80d4849-2c7e-4e2d-8aab-d21a36dda298"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"cdataFull", "=", 
+    RowBox[{"h2SCFCoeffData", "/@", "saGrid"}]}], ";"}], "//", 
+  "AbsoluteTiming"}]], "Input",
+ CellChangeTimes->{{3.75596784155403*^9, 3.755967864152708*^9}, 
+   3.756001460445938*^9, {3.757185696858873*^9, 3.757185698038463*^9}, 
+   3.757283096717814*^9},
+ CellLabel->"In[30]:=",ExpressionUUID->"0c8d9de4-2e1c-418b-ade8-f613ad9eb408"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"18929.778428`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{3.7573633123804617`*^9},
+ CellLabel->"Out[30]=",ExpressionUUID->"2bd58a9d-4905-4e95-b86a-2505293b680e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"18929", "/", "3600"}], "//", "N"}]], "Input",
+ CellChangeTimes->{{3.757363373793921*^9, 3.75736337785922*^9}},
+ CellLabel->"In[33]:=",ExpressionUUID->"76d08ffa-940e-42b1-8dff-e517a3498300"],
+
+Cell[BoxData["5.258055555555556`"], "Output",
+ CellChangeTimes->{3.757363378095294*^9},
+ CellLabel->"Out[33]=",ExpressionUUID->"c8060fb2-7b3b-4488-884f-d5f390b7be09"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{
+  "\"\<~/Documents/UW/Research/H5+/results/coeffs_and_wfns4.mx\>\"", ",", " ",
+    "cdataFull"}], "]"}]], "Input",
+ CellChangeTimes->{{3.755967866139084*^9, 3.755967898095566*^9}, {
+   3.756041879591134*^9, 3.7560418811827917`*^9}, 3.757112603092342*^9, {
+   3.757344345019004*^9, 3.757344347576654*^9}},
+ CellLabel->"In[31]:=",ExpressionUUID->"314eda6b-6102-4797-b24d-5f2b1619f481"],
+
+Cell[BoxData["\<\"~/Documents/UW/Research/H5+/results/coeffs_and_wfns4.mx\"\>\
+"], "Output",
+ CellChangeTimes->{3.757363357250176*^9},
+ CellLabel->"Out[31]=",ExpressionUUID->"291423b6-3a72-4e0c-aabc-cb6a32159ccb"]
+}, Open  ]]
+},
+Evaluator->"Third",
+WindowSize->{808, 755},
+WindowMargins->{{Automatic, 134}, {Automatic, 0}},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 573, 9, 115, "Input",ExpressionUUID->"087c083e-ec28-4619-b65e-3dbb3073dc66"],
+Cell[1134, 31, 767, 15, 52, "Input",ExpressionUUID->"cda92de9-e190-4c5e-9b7f-e1960bddcb84"],
+Cell[1904, 48, 2595, 54, 199, "Input",ExpressionUUID->"383e5438-85f0-4dcf-be3f-f5cd32477766"],
+Cell[4502, 104, 816, 15, 115, "Input",ExpressionUUID->"6a516fca-7354-4cf4-9c5a-ebef06b5fcb2"],
+Cell[5321, 121, 6825, 129, 976, "Input",ExpressionUUID->"1cf168e9-8ca7-4e20-88e5-70232e44755a"],
+Cell[12149, 252, 6094, 133, 1060, "Input",ExpressionUUID->"f80d4849-2c7e-4e2d-8aab-d21a36dda298"],
+Cell[CellGroupData[{
+Cell[18268, 389, 402, 9, 30, "Input",ExpressionUUID->"0c8d9de4-2e1c-418b-ade8-f613ad9eb408"],
+Cell[18673, 400, 211, 4, 34, "Output",ExpressionUUID->"2bd58a9d-4905-4e95-b86a-2505293b680e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18921, 409, 224, 4, 30, "Input",ExpressionUUID->"76d08ffa-940e-42b1-8dff-e517a3498300"],
+Cell[19148, 415, 166, 2, 34, "Output",ExpressionUUID->"c8060fb2-7b3b-4488-884f-d5f390b7be09"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19351, 422, 433, 8, 30, "Input",ExpressionUUID->"314eda6b-6102-4797-b24d-5f2b1619f481"],
+Cell[19787, 432, 213, 3, 34, "Output",ExpressionUUID->"291423b6-3a72-4e0c-aabc-cb6a32159ccb"]
+}, Open  ]]
+}
+]
+*)
+

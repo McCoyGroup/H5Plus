@@ -1,0 +1,875 @@
+Notebook[{Cell[CellGroupData[{Cell["Spectrum Script", "Chapter"], 
+     Cell["3/3/2019", "Text"], 
+     Cell["Calculate spectrum of specified H5+ system", "Text"], 
+     Cell[CellGroupData[{Cell["Average Field (Adiabatic Treatment)", 
+         "Section"], Cell["We'll protect ourselves by sticking this \
+$HistoryLength = 0 here... (for local use only)", "Text"], 
+        Cell[BoxData[{RowBox[{RowBox[{"$HistoryLength", " ", "=", " ", "0"}], 
+             ";"}], "\n", RowBox[{RowBox[{"Clear", " ", "@@", " ", RowBox[
+                {"Unprotect", "[", "Out", "]"}]}], ";"}], "\n"}], "Code"], 
+        Cell["On the server do this:", "Text"], 
+        Cell[BoxData[{RowBox[{RowBox[{RowBox[{"$runContext", " ", "=", " ", 
+                 RowBox[{"$ScriptCommandLine", "[", RowBox[{"[", RowBox[
+                      {"-", "1"}], "]"}], "]"}]}], ";"}], "\n"}], "\n", 
+           RowBox[{RowBox[{"PacletManager`PacletDirectoryAdd", "[", 
+               "\"/gscratch/chem/b3m2a1/Mathematica/Paclets\"", "]"}], ";"}], 
+           "\n", RowBox[{RowBox[{"$Path", " ", "=", " ", RowBox[
+                {"DeleteDuplicates", "@", "\n", "   ", RowBox[{"Append", "[", 
+                   RowBox[{"$Path", ",", " ", 
+                     "\"/gscratch/chem/b3m2a1/H5+/Common\""}], "]"}]}]}], 
+             ";"}], "\n", RowBox[{RowBox[{"$out", " ", "=", " ", "\n", "  ", 
+               RowBox[{"OpenWrite", "[", "\n", "    ", RowBox[
+                  {"FileNameJoin", "@", RowBox[{"{", RowBox[{"\"outs\"", ",", 
+                       " ", "\n", "      ", RowBox[{"\"out_\"", " ", "<>", 
+                         " ", RowBox[{"ToLowerCase", "[", "$runContext", 
+                          "]"}], " ", "<>", " ", "\".txt\""}]}], "}"}]}], 
+                 "]"}]}], ";"}], "\n", RowBox[{RowBox[{"$Output", " ", "=", 
+               " ", "\n", "   ", RowBox[{"Prepend", "[", RowBox[{"$Output", 
+                   ",", " ", "$out"}], "]"}]}], ";"}], "\n", 
+           RowBox[{RowBox[{"$log", " ", "=", " ", "\n", "  ", RowBox[
+                {"OpenWrite", "[", "\n", "    ", RowBox[{"FileNameJoin", "@", 
+                   RowBox[{"{", RowBox[{"\"logs\"", ",", " ", "\n", "      ", 
+                       RowBox[{"\"log_\"", " ", "<>", " ", RowBox[
+                          {"ToLowerCase", "[", "$runContext", "]"}], " ", 
+                         "<>", " ", "\".txt\""}]}], "}"}]}], "]"}]}], ";"}], 
+           "\n", RowBox[{RowBox[{"$Messages", " ", "=", " ", "\n", "  ", 
+               RowBox[{"Join", "[", RowBox[{RowBox[{"{", RowBox[{"$log", ",", 
+                       " ", "$out"}], "}"}], ",", " ", "$Messages"}], 
+                 "]"}]}], ";"}]}], "Code"], 
+        Cell[CellGroupData[{Cell["Set Up Environment", "Subsection"], 
+           Cell[BoxData[{RowBox[{RowBox[{"Do", "[", RowBox[{RowBox[{"If", 
+                      "[", RowBox[{RowBox[{"StringEndsQ", "[", RowBox[
+                          {"$Context", ",", " ", "\"`Private`\""}], "]"}], 
+                        ",", " ", RowBox[{"End", "[", "]"}]}], "]"}], ",", 
+                    " ", "10"}], "]"}], ";"}], "\n", RowBox[{RowBox[
+                 {"Do", "[", RowBox[{RowBox[{"If", "[", RowBox[{RowBox[
+                         {"$Context", " ", "=!=", " ", "\"Global`\""}], ",", 
+                        " ", RowBox[{"EndPackage", "[", "]"}]}], "]"}], ",", 
+                    "  ", "10"}], "]"}], ";"}], "\n", RowBox[{RowBox[
+                 {"BeginPackage", "[", RowBox[{"$runContext", " ", "<>", " ", 
+                    "\"`\""}], "]"}], ";"}], "\n"}], "Code"], 
+           Cell[CellGroupData[{Cell["Declare Exported Symbols", 
+               "Subsubsection"], Cell[
+               "All of these will end up being dumped to file", "Text"], 
+              Cell[BoxData[{RowBox[{RowBox[{RowBox[{"$OverlapMatrices", "::", 
+                       "usage"}], " ", "=", " ", "\n", "  ", 
+                     "\"The overlap matrices used in the coupling\""}], 
+                   ";"}], "\n", RowBox[{RowBox[{RowBox[{"$Wavefunctions", 
+                       "::", "usage"}], " ", "=", " ", 
+                     "\"The 4D wavefunctions used in the end\""}], ";"}], 
+                 "\n", RowBox[{RowBox[{RowBox[{"$FullWavefunctions", "::", 
+                       "usage"}], " ", "=", " ", "\n", "  ", 
+                     "\"The full set of 4D wavefunctions generated\""}], 
+                   ";"}], "\n", RowBox[{RowBox[{RowBox[{"$ZeroPointEnergies", 
+                       "::", "usage"}], " ", "=", " ", 
+                     "\"The ZPEs of all the wavefunctions\""}], ";"}], "\n", 
+                 RowBox[{RowBox[{RowBox[{"$RawSpectra", "::", "usage"}], " ", 
+                     "=", " ", 
+                     "\"The raw data used for building the spectra\""}], 
+                   ";"}], "\n", RowBox[{RowBox[{RowBox[{"$Spectra", "::", 
+                       "usage"}], " ", "=", " ", 
+                     "\"The chunks of the spectra generated\""}], ";"}], 
+                 "\n"}], "Code"]}, Open]], Cell[CellGroupData[
+             {Cell["Declare Package Symbols", "Subsubsection"], 
+              Cell["These are shared between the scripts and should be \
+changed up to get new behavior", "Text"], Cell[BoxData[
+                {RowBox[{RowBox[{"BeginPackage", "[", "\"`Package`\"", "]"}], 
+                   ";"}], "\n"}], "Code"], Cell[CellGroupData[
+                {Cell["Inputs", "Subsubsubsection"], Cell[BoxData[
+                   {RowBox[{RowBox[{RowBox[{"$fullPot", "::", "usage"}], " ", 
+                        "=", " ", "\"The 4D potential for the problem\""}], 
+                      ";"}], "\n", RowBox[{RowBox[{RowBox[{"$fullDipoleSurf", 
+                          "::", "usage"}], " ", "=", " ", 
+                        "\"The 4D dipole surfaces for the problem\""}], 
+                      ";"}], "\n"}], "Code"]}, Open]], Cell[CellGroupData[
+                {Cell["Basis Options", "Subsubsubsection"], Cell[BoxData[
+                   {RowBox[{"$saBasisSize", ";"}], "\n", RowBox[
+                     {"$saExtendedBasisScaling", ";"}], "\n", RowBox[
+                     {"$r1r2BasisSize", ";"}], "\n", RowBox[
+                     {"$r1r2SCFBasisSize", ";"}]}], "Code"]}, Open]], 
+              Cell[CellGroupData[{Cell["Chunking", "Subsubsubsection"], 
+                 Cell[BoxData[RowBox[{"chunkCount", ";"}]], "Code"]}, Open]], 
+              Cell[CellGroupData[{Cell["State Specs", "Subsubsubsection"], 
+                 Cell[BoxData[{RowBox[{"oneQuantumPhaseCorrection", ";"}], 
+                    "\n", RowBox[{"twoQuantaPhaseCorrection", ";"}]}], 
+                  "Code"]}, Open]], Cell[CellGroupData[{Cell["DVRs", 
+                  "Subsubsubsection"], Cell[BoxData[{RowBox[{RowBox[
+                       {RowBox[{"$saDVR", "::", "usage"}], " ", "=", " ", 
+                        "\"The DVR for the s/a problem\""}], ";"}], "\n", 
+                    RowBox[{RowBox[{RowBox[{"$r1r2DVR", "::", "usage"}], " ", 
+                        "=", " ", "\"The DVR for the r1/r2 problem\""}], 
+                      ";"}], "\n", RowBox[{RowBox[{RowBox[{"$r1r21DDVR", 
+                          "::", "isage"}], " ", "=", " ", 
+                        "\"The DVR to the 1D r1 or r2 problem\""}], ";"}], 
+                    "\n"}], "Code"]}, Open]], Cell[CellGroupData[
+                {Cell["End", "Subsubsubsection"], Cell[BoxData[
+                   {RowBox[{RowBox[{"EndPackage", "[", "]"}], ";"}], "\n"}], 
+                  "Code"]}, Open]]}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell["Begin Private Section", "Subsection"], 
+           Cell[BoxData[RowBox[{RowBox[{"Begin", "[", "\"`Private`\"", "]"}], 
+               ";"}]], "Code"], Cell["This'll load some settings that need to \
+load *before* SpectrumScript", "Text"], Cell[BoxData[
+             {RowBox[{RowBox[{RowBox[{"Begin", "[", "\"`DoublePrivate`\"", 
+                    "]"}], ";"}], "\n"}], "\n", RowBox[{RowBox[{"Quiet", "@", 
+                  RowBox[{"Get", "[", "\n", " ", RowBox[{"FileNameJoin", "@", 
+                      RowBox[{"{", "\n", "   ", RowBox[{RowBox[
+                          {"DirectoryName", "[", RowBox[
+                          {"$ScriptCommandLine", "[", RowBox[{"[", RowBox[
+                          {"-", "2"}], "]"}], "]"}], "]"}], ",", "\n", "   ", 
+                          RowBox[{RowBox[{RowBox[{"StringSplit", "[", RowBox[
+                          {"$Context", ",", " ", "\"`\""}], "]"}], "[", 
+                          RowBox[{"[", "1", "]"}], "]"}], "<>", " ", 
+                          "\".wl\""}]}], "\n", "   ", "}"}]}], "\n", " ", 
+                    "]"}]}], "\n", " "}], "\n", RowBox[{RowBox[
+                 {RowBox[{"If", "[", RowBox[{RowBox[{"ValueQ", "[", 
+                        "$calculationType", "]"}], ",", " ", RowBox[
+                       {"H5Core`$H5CalculationMode", " ", "=", " ", 
+                        "$calculationType"}]}], "]"}], ";"}], "\n", " "}], 
+              "\n", RowBox[{RowBox[{"End", "[", "]"}], ";"}]}], "Code"], 
+           Cell[BoxData[RowBox[{"<<", "SpectrumScript`"}]], "Code"]}, Open]], 
+        Cell[CellGroupData[{Cell["Common", "Subsection"], 
+           Cell["These symbols get shared across all the scripts", "Text"], 
+           Cell[BoxData[RowBox[{"Get", "[", "\n", " ", RowBox[
+                {"FileNameJoin", "@", RowBox[{"{", "\n", "   ", RowBox[
+                    {RowBox[{"DirectoryName", "[", RowBox[
+                        {"$ScriptCommandLine", "[", RowBox[{"[", RowBox[
+                          {"-", "2"}], "]"}], "]"}], "]"}], ",", "\n", "   ", 
+                     RowBox[{RowBox[{RowBox[{"StringSplit", "[", RowBox[
+                          {"$Context", ",", " ", "\"`\""}], "]"}], "[", 
+                         RowBox[{"[", "1", "]"}], "]"}], "<>", " ", 
+                       "\".wl\""}]}], "\n", "   ", "}"}]}], "\n", " ", 
+               "]"}]], "Code"], Cell[CellGroupData[{Cell["SA Grid", 
+               "Subsubsection"], Cell[BoxData[RowBox[{"If", "[", 
+                  RowBox[{RowBox[{"IntegerQ", "[", "$saBasisSize", "]"}], 
+                    ",", " ", "\n", "  ", RowBox[{"$saBasisSize", " ", "=", 
+                      " ", RowBox[{"{", RowBox[{"$saBasisSize", ",", " ", 
+                          "$saBasisSize"}], "}"}]}]}], "\n", "  ", "]"}]], 
+               "Code"], Cell[BoxData[{RowBox[{RowBox[{"saMainGrid", " ", "=", 
+                     " ", RowBox[{"$saDVR", "[", RowBox[{"\"Grid\"", ",", 
+                         " ", RowBox[{"\"Points\"", " ", "->", " ", 
+                          "$saBasisSize"}]}], "]"}]}], ";"}], "\n", 
+                 RowBox[{RowBox[{"saGrid", " ", "=", " ", RowBox[
+                      {"saMainGrid", "[", "\"Points\"", "]"}]}], ";"}]}], 
+               "Code"]}, Open]], Cell[CellGroupData[{Cell["SA Extended Grid", 
+               "Subsubsection"], Cell[BoxData[{RowBox[{RowBox[
+                    {"$saExtendedBasisSize", "=", "\n", "  ", RowBox[
+                      {"Replace", "[", RowBox[{"$saExtendedBasisSize", ",", 
+                         " ", RowBox[{RowBox[{"Except", "[", RowBox[
+                          {"_Integer", "|", RowBox[{"{", RowBox[{"_Integer", 
+                          ",", " ", "_Integer"}], "}"}]}], "]"}], "->", 
+                          "$saBasisSize"}]}], "]"}]}], ";"}], "\n", 
+                 RowBox[{"If", "[", RowBox[{RowBox[{"IntegerQ", "[", 
+                       "$saExtendedBasisSize", "]"}], ",", " ", "\n", "  ", 
+                     RowBox[{"$saExtendedBasisSize", " ", "=", " ", RowBox[
+                        {"{", RowBox[{"$saBasisSize", ",", " ", 
+                          "$saBasisSize"}], "}"}]}]}], "\n", "  ", "]"}]}], 
+               "Code"], Cell[BoxData[{RowBox[{RowBox[{"saExtendedGridObject", 
+                     " ", "=", " ", "\n", "  ", RowBox[{"$saDVR", "[", 
+                       RowBox[{"\"Grid\"", ",", " ", "\n", "   ", RowBox[
+                          {"\"Points\"", " ", "->", " ", 
+                          "$saExtendedBasisSize"}]}], "\n", "   ", "]"}]}], 
+                   ";"}], "\n", RowBox[{RowBox[{"saExtendedGrid", " ", "=", 
+                     " ", RowBox[{"saExtendedGridObject", "[", "\"Points\"", 
+                       "]"}]}], ";"}], "\n", RowBox[{RowBox[
+                    {"$saNewBasiSize", " ", "=", " ", 
+                     "$saExtendedBasisSize"}], ";"}]}], "Code"]}, Open]], 
+           Cell[CellGroupData[{Cell["r1r2Potential", "Subsubsection"], 
+              Cell[BoxData[{RowBox[{"r1r2Potential", " ", "//", " ", 
+                   "Clear"}], "\n", RowBox[{RowBox[{RowBox[{"r1r2Potential", 
+                       "[", RowBox[{"{", RowBox[{"a_", ",", " ", "s_"}], 
+                         "}"}], "]"}], " ", ":=", "\n", "  ", RowBox[
+                      {"getR1R2Potential", "[", RowBox[{"$fullPot", ",", " ", 
+                         RowBox[{"{", RowBox[{"a", ",", " ", "s"}], "}"}]}], 
+                       "]"}]}], ";"}]}], "Code"]}, Open]], 
+           Cell[CellGroupData[{Cell["r1r2GridObject", "Subsubsection"], 
+              Cell[BoxData[{RowBox[{RowBox[{"r1r2GridObject", " ", "=", " ", 
+                     RowBox[{"$r1r2DVR", "[", "\"Grid\"", "]"}]}], ";"}], 
+                 "\n", RowBox[{RowBox[{"r1r2Grid", " ", "=", " ", RowBox[
+                      {"r1r2GridObject", "[", "\"Grid\"", "]"}]}], ";"}], 
+                 "\n", RowBox[{RowBox[{"r1r2GridPts", " ", "=", " ", 
+                     RowBox[{"r1r2GridObject", "[", "\"Points\"", "]"}]}], 
+                   ";"}]}], "Code"]}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell["Core Data", "Subsection"], 
+           Cell[CellGroupData[{Cell["r1r2Wavefunctions", "Subsubsection"], 
+              Cell[
+               "Get Subscript[H, 2] wavefunctions parametrized by (s, a)", 
+               "Text"], Cell[BoxData[RowBox[{"debugPrint", "[", 
+                  "\"Generating r1/r2 wavefunctions...\"", "]"}]], "Code"], 
+              Cell[BoxData[RowBox[{RowBox[{"r1r2Wavefunctions", " ", "//", 
+                    " ", RowBox[{"cachedLoad", "@", "\n", "   ", RowBox[
+                       {"getR1R2Wavefunctions", "[", "\n", "    ", RowBox[
+                         {"$r1r2DVR", ",", " ", "r1r2Potential", ",", " ", 
+                          "\n", "    ", "r1r2GridObject", ",", " ", 
+                          "saMainGrid"}], "\n", "    ", "]"}]}]}], ";"}]], 
+               "Code"], Cell[BoxData[RowBox[{RowBox[{"r1r2PotMinima", " ", 
+                    "//", " ", RowBox[{"cachedLoad", "@", "\n", "   ", 
+                      RowBox[{"getR1R2PotentialMin", "[", "\n", "    ", 
+                        RowBox[{"r1r2Potential", ",", " ", "\n", "    ", 
+                          "r1r2GridObject", ",", " ", "\n", "    ", 
+                          "saMainGrid"}], "\n", "    ", "]"}]}]}], ";"}]], 
+               "Code"], Cell[BoxData[RowBox[{RowBox[
+                   {"cleanedR1R2Wavefunctions", " ", "=", " ", "\n", "  ", 
+                    RowBox[{RowBox[{"AssociationMap", "[", "\n", "    ", 
+                        RowBox[{RowBox[{"With", "[", RowBox[{RowBox[{"{", 
+                          RowBox[{RowBox[{"pt", "=", RowBox[{"#", "[", RowBox[
+                          {"[", "1", "]"}], "]"}]}], ",", " ", RowBox[{"v", 
+                          "=", RowBox[{"#", "[", RowBox[{"[", "2", "]"}], 
+                          "]"}]}]}], "}"}], ",", "\n", "      ", RowBox[
+                          {"pt", "->", RowBox[{"If", "[", RowBox[{RowBox[
+                          {"!", RowBox[{"gridMemberQ", "[", RowBox[{"pt", 
+                          ",", " ", "$fullPot"}], "]"}]}], ",", " ", 
+                          "$Failed", ",", " ", "v"}], "]"}]}]}], "\n", 
+                          "      ", "]"}], "&"}], "\n", "    ", "]"}], "@", 
+                      "r1r2Wavefunctions"}]}], ";"}]], "Code"], 
+              Cell[BoxData[RowBox[{"debugPrint", "[", 
+                  "\"Generated r1/r2 wavefunctions\"", "]"}]], "Code"]}, 
+             Open]], Cell[CellGroupData[{Cell["SCF Procedure", 
+               "Subsubsection"], Cell[CellGroupData[
+                {Cell["SCF Wavefunction Computation", "Subsubsubsection"], 
+                 Cell[BoxData[{RowBox[{RowBox[{RowBox[{"r1r2SCFGrid", " ", 
+                          "=", " ", RowBox[{"scfGrid", "[", RowBox[
+                          {"$r1r2DVR", ",", " ", "$r1r2SCFBasisSize"}], 
+                          "]"}]}], ";"}], "\n"}], "\n", RowBox[
+                     {RowBox[{"r1r2SCFStates", " ", "=", "\n", "  ", 
+                        RowBox[{"{", "\n", "   ", RowBox[{RowBox[{"{", 
+                          RowBox[{"1", ",", " ", "1"}], "}"}], ",", "\n", 
+                          "    ", RowBox[{"{", RowBox[{"1", ",", " ", "2"}], 
+                          "}"}], ",", " ", RowBox[{"{", RowBox[{"2", ",", 
+                          " ", "1"}], "}"}], ",", " ", "\n", "   ", RowBox[
+                          {"{", RowBox[{"3", ",", " ", "1"}], "}"}], ",", 
+                          " ", RowBox[{"{", RowBox[{"2", ",", " ", "2"}], 
+                          "}"}], ",", " ", RowBox[{"{", RowBox[{"1", ",", 
+                          " ", "3"}], "}"}], ",", "\n", "   ", RowBox[{"{", 
+                          RowBox[{"4", ",", " ", "1"}], "}"}], ",", " ", 
+                          RowBox[{"{", RowBox[{"2", ",", " ", "3"}], "}"}], 
+                          ",", " ", RowBox[{"{", RowBox[{"3", ",", " ", 
+                          "2"}], "}"}], ",", " ", RowBox[{"{", RowBox[{"1", 
+                          ",", " ", "4"}], "}"}]}], "\n", "   ", "}"}]}], 
+                      ";"}]}], "Code"], Cell[BoxData[RowBox[{"debugPrint", 
+                     "[", "\"Generating SCF coefficients...\"", "]"}]], 
+                  "Code"], Cell[BoxData[{RowBox[{RowBox[{RowBox[
+                         {"coeffChunkingLength", " ", "=", "\n", "  ", 
+                          RowBox[{"Floor", "[", RowBox[{RowBox[{"(", RowBox[
+                          {"Times", "@@", "$saBasisSize"}], ")"}], "/", 
+                          "chunkCount"}], "]"}]}], ";"}], "\n"}], "\n", 
+                    RowBox[{RowBox[{"loadChunk", "[", "n_", "]"}], ":=", 
+                      "\n", "  ", RowBox[{"With", "[", "\n", "    ", 
+                        RowBox[{RowBox[{"{", "\n", "     ", RowBox[{RowBox[
+                          {"chunk", " ", "=", "\n", "      ", RowBox[
+                          {"ToExpression", "[", "\n", "       ", RowBox[
+                          {RowBox[{"\"coeffChunk\"", " ", "<>", " ", RowBox[
+                          {"ToString", "[", "n", "]"}]}], ",", " ", "\n", 
+                          "       ", "StandardForm", ",", "\n", "       ", 
+                          RowBox[{"Function", "[", RowBox[{"Null", ",", "  ", 
+                          RowBox[{RowBox[{"Clear", "[", "#", "]"}], ";", " ", 
+                          "#"}], ",", " ", "HoldAllComplete"}], "]"}]}], 
+                          "\n", "       ", "]"}]}], ",", "\n", "     ", 
+                          RowBox[{"grid", " ", "=", " ", "\n", "      ", 
+                          RowBox[{"saGrid", "[", RowBox[{"[", "\n", 
+                          "        ", RowBox[{RowBox[{"1", " ", "+", " ", 
+                          RowBox[{RowBox[{"(", RowBox[{"n", " ", "-", " ", 
+                          "1"}], ")"}], "*", "coeffChunkingLength"}]}], " ", 
+                          ";;", " ", "\n", "        ", RowBox[{"n", "*", 
+                          "coeffChunkingLength"}]}], "\n", "        ", "]"}], 
+                          "]"}]}]}], "\n", "     ", "}"}], ",", "\n", "    ", 
+                          RowBox[{RowBox[{"cachedLoad", "[", "\n", "     ", 
+                          RowBox[{"chunk", ",", "\n", "     ", RowBox[
+                          {"AssociationMap", "[", "\n", "      ", RowBox[
+                          {RowBox[{RowBox[{"scfCoeffData", "[", "\n", 
+                          "        ", RowBox[{"$r1r21DDVR", ",", "\n", 
+                          "        ", "$r1r2DVR", ",", "\n", "        ", 
+                          "r1r2SCFGrid", ",", "\n", "        ", 
+                          "r1r2Potential", ",", "\n", "        ", 
+                          "r1r2SCFStates", ",", "\n", "        ", "#", ",", 
+                          "\n", "        ", "$r1r2SCFBasisSize"}], "\n", 
+                          "        ", "]"}], " ", "&"}], ",", " ", "\n", 
+                          "      ", "grid"}], "\n", "      ", "]"}]}], "\n", 
+                          "     ", "]"}], ";", "\n", "    ", "chunk"}]}], 
+                        "\n", "    ", "]"}]}]}], "Code"], Cell[BoxData[
+                   RowBox[{"coefficientData", " ", "=", "\n", "  ", 
+                     RowBox[{"Module", "[", "\n", "    ", RowBox[
+                        {RowBox[{"{", "\n", "      ", RowBox[{"chunks", "=", 
+                          RowBox[{"<|", "|>"}]}], "\n", "      ", "}"}], ",", 
+                         "\n", "    ", RowBox[{RowBox[{"Do", "[", "\n", 
+                          "      ", RowBox[{RowBox[{RowBox[{"chunks", " ", 
+                          "=", " ", RowBox[{"Join", "[", RowBox[{"chunks", 
+                          ",", " ", RowBox[{"loadChunk", "[", "n", "]"}]}], 
+                          "]"}]}], ";", "\n", "      ", RowBox[{"If", "[", 
+                          RowBox[{RowBox[{RowBox[{"Length", "@", "chunks"}], 
+                          " ", "==", " ", RowBox[{"Times", "@@", 
+                          "$saBasisSize"}]}], ",", "\n", "        ", RowBox[
+                          {"Return", "[", RowBox[{"chunks", ",", " ", "Do"}], 
+                          "]"}]}], "\n", "        ", "]"}]}], ",", "\n", 
+                          "      ", RowBox[{"{", RowBox[{"n", ",", " ", 
+                          "chunkCount"}], "}"}]}], "\n", "      ", "]"}], 
+                          ";", "\n", "    ", "chunks"}]}], "\n", "    ", 
+                       "]"}]}]], "Code"], Cell[BoxData[RowBox[
+                    {RowBox[{"cleanedCoefficientData", " ", "=", "\n", "  ", 
+                       RowBox[{RowBox[{"AssociationMap", "[", "\n", "    ", 
+                          RowBox[{RowBox[{"With", "[", RowBox[{RowBox[{"{", 
+                          RowBox[{RowBox[{"pt", "=", RowBox[{"#", "[", RowBox[
+                          {"[", "1", "]"}], "]"}]}], ",", " ", RowBox[{"v", 
+                          "=", RowBox[{"#", "[", RowBox[{"[", "2", "]"}], 
+                          "]"}]}]}], "}"}], ",", "\n", "      ", RowBox[
+                          {"pt", "->", RowBox[{"If", "[", RowBox[{RowBox[
+                          {"!", RowBox[{"gridMemberQ", "[", RowBox[{"pt", 
+                          ",", " ", "$fullPot"}], "]"}]}], ",", " ", 
+                          "$Failed", ",", " ", "v"}], "]"}]}]}], "\n", 
+                          "      ", "]"}], "&"}], "\n", "    ", "]"}], "@", 
+                         "coefficientData"}]}], ";"}]], "Code"], 
+                 Cell[BoxData[RowBox[{"debugPrint", "[", 
+                     "\"SCF coefficients calculated\"", "]"}]], "Code"]}, 
+                Open]], Cell[CellGroupData[{Cell["Rephased Data", 
+                  "Subsubsubsection"], Cell[BoxData[RowBox[{"debugPrint", 
+                     "[", "\"Rephasing SCF wavefunctions\"", "]"}]], "Code"], 
+                 Cell[BoxData[{RowBox[{RowBox[{RowBox[{"rephasingData", " ", 
+                          "=", "\n", "  ", RowBox[{"getPhaseCorrection", "[", 
+                          "\n", "   ", RowBox[{RowBox[{"Values", "@", 
+                          "cleanedR1R2Wavefunctions"}], ",", " ", "\n", 
+                          "   ", RowBox[{"Keys", "[", "r1r2Wavefunctions", 
+                          "]"}], ",", " ", RowBox[{"Range", "[", RowBox[
+                          {"Length", "@", "r1r2SCFStates"}], "]"}]}], "\n", 
+                          "   ", "]"}]}], ";"}], "\n"}], "\n", RowBox[
+                     {RowBox[{RowBox[{"rephasedR1R2Wavefunctions", " ", "=", 
+                          "\n", "  ", RowBox[{"AssociationThread", "[", "\n", 
+                          "   ", RowBox[{RowBox[{"Keys", "[", 
+                          "r1r2Wavefunctions", "]"}], ",", "\n", "   ", 
+                          RowBox[{"rephasingData", "[", "\"Wavefunctions\"", 
+                          "]"}]}], "\n", "   ", "]"}]}], ";"}], "\n"}], "\n", 
+                    RowBox[{RowBox[{"phaseInCorrectDVR", " ", "=", "\n", 
+                        "  ", RowBox[{RowBox[{RowBox[{"If", "[", RowBox[
+                          {RowBox[{"AssociationQ", "[", "#", "]"}], ",", " ", 
+                          RowBox[{"#", "[", "\"DVRWavefunctions\"", "]"}], 
+                          ",", " ", "#"}], "]"}], " ", "&"}], " ", "/@", " ", 
+                          "coefficientData"}]}], ";"}]}], "Code"], 
+                 Cell[BoxData[{RowBox[{RowBox[{RowBox[
+                         {"dvrPhaseCorrectionVector", " ", "=", " ", RowBox[
+                          {"{", RowBox[{"1", ",", " ", "1", ",", " ", "1", 
+                          ",", " ", "1", ",", " ", "1", ",", " ", "1"}], 
+                          "}"}]}], ";"}], "\n"}], "\n", RowBox[
+                     {RowBox[{RowBox[{"phaseCorrectDVR", " ", "//", " ", 
+                          RowBox[{"cachedLoad", "[", "\n", "   ", RowBox[
+                          {RowBox[{"getPhaseCorrection", "[", "\n", "     ", 
+                          RowBox[{RowBox[{RowBox[{RowBox[{RowBox[{"If", "[", 
+                          RowBox[{RowBox[{"AssociationQ", "[", "#", "]"}], 
+                          ",", " ", RowBox[{"#", "[", "\"DVRWavefunctions\"", 
+                          "]"}], ",", " ", "#"}], "]"}], " ", "&"}], " ", 
+                          "/@", "\n", "       ", "cleanedCoefficientData"}], 
+                          " ", "//", " ", "Values"}], ",", " ", "\n", 
+                          "     ", RowBox[{"Keys", "[", "r1r2Wavefunctions", 
+                          "]"}], ",", "\n", "     ", RowBox[{"Range", "[", 
+                          RowBox[{"Length", "[", "dvrPhaseCorrectionVector", 
+                          "]"}], "]"}], ",", "\n", "     ", 
+                          "dvrPhaseCorrectionVector", ",", "\n", "     ", 
+                          "True"}], "\n", "     ", "]"}], "[", 
+                          "\"Wavefunctions\"", "]"}], "\n", "   ", "]"}]}], 
+                        ";"}], "\n"}], "\n", RowBox[{"(*", RowBox[
+                       {RowBox[{"phaseCorrectDVR", " ", "//", " ", RowBox[
+                          {"cachedLoad", "[", "\n", "   ", RowBox[{RowBox[
+                          {"getPhaseCorrection", "[", "\n", "     ", RowBox[
+                          {RowBox[{RowBox[{RowBox[{RowBox[{"If", "[", RowBox[
+                          {RowBox[{"AssociationQ", "[", "#", "]"}], ",", " ", 
+                          RowBox[{"#", "[", "\"DVRWavefunctions\"", "]"}], 
+                          ",", " ", "#"}], "]"}], " ", "&"}], " ", "/@", 
+                          "\n", "       ", "\n", "       ", 
+                          "coefficientData"}], " ", "//", " ", "Values"}], 
+                          ",", " ", "\n", "     ", RowBox[{"Keys", "[", 
+                          "r1r2Wavefunctions", "]"}], ",", "\n", "     ", 
+                          RowBox[{"{", "2", "}"}], ",", "\n", "     ", 
+                          "True"}], "\n", "     ", "]"}], "[", 
+                          "\"Wavefunctions\"", "]"}], "\n", "   ", "]"}]}], 
+                        ";"}], "*)"}]}], "Code"], Cell[BoxData[RowBox[
+                    {"(*", RowBox[{"Print", "[", RowBox[
+                        {"\"`` unique points\"", "~", "TemplateApply", "~", 
+                         RowBox[{"Length", "[", RowBox[{"DeleteDuplicates", 
+                          "[", "saExtendedGrid", "]"}], "]"}]}], "]"}], 
+                     "*)"}]], "Code"], Cell[BoxData[RowBox[{"(*", RowBox[
+                      {"phaseCorrectDVR", " ", "=", " ", RowBox[{"(*", " ", 
+                         RowBox[{"to", " ", "fake", " ", "in", " ", "the", 
+                          " ", "extension", " ", "to", " ", "the", " ", 
+                          "grid"}], " ", "*)"}], "\n", "  ", RowBox[
+                        {"Values", "@", RowBox[{"Merge", "[", "\n", "    ", 
+                          RowBox[{RowBox[{"{", "\n", "      ", RowBox[
+                          {RowBox[{"AssociationThread", "[", RowBox[{RowBox[
+                          {"Round", "[", RowBox[{RowBox[{"Keys", "[", 
+                          "cleanedCoefficientData", "]"}], ",", " ", 
+                          ".0001"}], "]"}], ",", " ", "phaseCorrectDVR"}], 
+                          "]"}], ",", "\n", "      ", RowBox[{"Thread", "[", 
+                          RowBox[{RowBox[{"Round", "[", RowBox[{
+                          "saExtendedGrid", ",", " ", ".0001"}], "]"}], "->", 
+                          "$Failed"}], "]"}]}], "\n", "      ", "}"}], ",", 
+                          "\n", "    ", "First"}], "\n", "    ", "]"}]}]}], 
+                     "*)"}]], "Code"], Cell[BoxData[RowBox[{"(*", RowBox[
+                      {"If", "[", RowBox[{RowBox[{RowBox[{"Length", "[", 
+                          "phaseCorrectDVR", "]"}], "=!=", RowBox[{"Length", 
+                          "[", "saExtendedGrid", "]"}]}], ",", "\n", "  ", 
+                         RowBox[{"Throw", "[", "\n", "    ", RowBox[{"\"Exten\
+ded DVR grid doesn't partially coincide with base coefficient grid. \\\n`` \
+points against `` points\"", "~", "TemplateApply", "~", RowBox[{"{", "\n", 
+                          "    ", RowBox[{RowBox[{"Length", "[", 
+                          "phaseCorrectDVR", "]"}], ",", "\n", "    ", RowBox[
+                          {"Length", "[", "saExtendedGrid", "]"}]}], "\n", 
+                          "    ", "}"}]}], "\n", "    ", "]"}]}], "\n", "  ", 
+                       "]"}], "*)"}]], "Code"], Cell[BoxData[
+                   {RowBox[{RowBox[{RowBox[{"scfPhaseCorrectionVector", " ", 
+                          "=", " ", RowBox[{"{", RowBox[{"1", ",", " ", "1", 
+                          ",", " ", "1", ",", " ", "1", ",", " ", "1", ",", 
+                          " ", "1"}], "}"}]}], ";"}], "\n"}], "\n", 
+                    RowBox[{RowBox[{RowBox[{"phaseCorrectSCF", " ", "//", 
+                          " ", RowBox[{"cachedLoad", "[", "\n", "   ", 
+                          RowBox[{RowBox[{"getPhaseCorrection", "[", "\n", 
+                          "     ", RowBox[{RowBox[{RowBox[{RowBox[{RowBox[
+                          {"If", "[", RowBox[{RowBox[{"AssociationQ", "[", 
+                          "#", "]"}], ",", " ", RowBox[{"#", "[", 
+                          "\"SCFWavefunctions\"", "]"}], ",", " ", "#"}], 
+                          "]"}], " ", "&"}], " ", "/@", "\n", "       ", 
+                          "cleanedCoefficientData"}], " ", "//", " ", 
+                          "Values"}], ",", " ", "\n", "     ", RowBox[
+                          {"Keys", "[", "r1r2Wavefunctions", "]"}], ",", 
+                          "\n", "     ", RowBox[{"Range", "[", RowBox[
+                          {"Length", "[", "scfPhaseCorrectionVector", "]"}], 
+                          "]"}], ",", "\n", "     ", 
+                          "scfPhaseCorrectionVector", ",", "\n", "     ", 
+                          "True"}], "\n", "     ", "]"}], "[", 
+                          "\"Wavefunctions\"", "]"}], "\n", "   ", "]"}]}], 
+                        ";"}], "\n", "   "}], "\n", RowBox[{"(*", RowBox[
+                       {"phaseCorrectSCF", " ", "//", " ", RowBox[
+                         {"cachedLoad", "[", "\n", "   ", RowBox[{RowBox[
+                          {"getPhaseCorrection", "[", "\n", "     ", RowBox[
+                          {RowBox[{RowBox[{RowBox[{RowBox[{"If", "[", RowBox[
+                          {RowBox[{"AssociationQ", "[", "#", "]"}], ",", " ", 
+                          RowBox[{"#", "[", "\"SCFWavefunctions\"", "]"}], 
+                          ",", " ", "#"}], "]"}], " ", "&"}], " ", "/@", 
+                          "\n", "       ", "coefficientData"}], " ", "//", 
+                          " ", "Values"}], ",", " ", "\n", "     ", RowBox[
+                          {"Keys", "[", "r1r2Wavefunctions", "]"}], ",", 
+                          "\n", "    ", RowBox[{"{", "2", "}"}], ",", "\n", 
+                          "     ", "True"}], "\n", "     ", "]"}], "[", 
+                          "\"Wavefunctions\"", "]"}], "\n", "   ", "]"}]}], 
+                      "*)"}]}], "Code"], Cell[BoxData[RowBox[{"(*", 
+                     RowBox[{RowBox[{"phaseCorrectSCF", " ", "=", " ", 
+                         RowBox[{"(*", " ", RowBox[{"to", " ", "fake", " ", 
+                          "in", " ", "the", " ", "extension", " ", "to", " ", 
+                          "the", " ", "grid"}], " ", "*)"}], "\n", "  ", 
+                         RowBox[{"Values", "@", RowBox[{"Merge", "[", "\n", 
+                          "    ", RowBox[{RowBox[{"{", "\n", "      ", RowBox[
+                          {RowBox[{"AssociationThread", "[", RowBox[{RowBox[
+                          {"Keys", "[", "cleanedCoefficientData", "]"}], ",", 
+                          " ", "phaseCorrectSCF"}], "]"}], ",", "\n", 
+                          "      ", RowBox[{"Thread", "[", RowBox[
+                          {"saExtendedGrid", "->", "$Failed"}], "]"}]}], 
+                          "\n", "      ", "}"}], ",", "\n", "    ", 
+                          "First"}], "\n", "    ", "]"}]}]}], ";"}], "*)"}]], 
+                  "Code"], Cell[BoxData[RowBox[{"(*", RowBox[{"If", "[", 
+                       RowBox[{RowBox[{RowBox[{"Length", "[", 
+                          "phaseCorrectSCF", "]"}], "=!=", RowBox[{"Length", 
+                          "[", "saExtendedGrid", "]"}]}], ",", "\n", "  ", 
+                         RowBox[{"Throw", "[", "\n", "    ", RowBox[{"\"Exten\
+ded SCF grid doesn't partially coincide with base coefficient grid. \\\n`` \
+points against `` points\"", "~", "TemplateApply", "~", RowBox[{"{", "\n", 
+                          "    ", RowBox[{RowBox[{"Length", "[", 
+                          "phaseCorrectSCF", "]"}], ",", "\n", "    ", RowBox[
+                          {"Length", "[", "saExtendedGrid", "]"}]}], "\n", 
+                          "    ", "}"}]}], "\n", "    ", "]"}]}], "\n", "  ", 
+                       "]"}], "*)"}]], "Code"], Cell[BoxData[RowBox[
+                    {"debugPrint", "[", RowBox[
+                      {"\"Got `` SCF wavefunctions\"", "~", "TemplateApply", 
+                       "~", RowBox[{"Length", "[", "phaseCorrectSCF", 
+                         "]"}]}], "]"}]], "Code"], Cell[BoxData[RowBox[
+                    {"debugPrint", "[", "\"Rephased SCF wavefunctions\"", 
+                     "]"}]], "Code"]}, Open]], Cell[CellGroupData[
+                {Cell["SCF Phases 1 Quantum", "Subsubsubsection"], 
+                 Cell[BoxData[RowBox[{"debugPrint", "[", 
+                     "\"Generating one quantum overlap matrix\"", "]"}]], 
+                  "Code"], Cell[BoxData[RowBox[{RowBox[{"(*", RowBox[
+                        {"{", RowBox[{"overlapMatrixOneQuantum", ",", " ", 
+                          "goodSparseOneQuantum"}], "}"}], "*)"}], "\n", 
+                     RowBox[{RowBox[{"goodSparseOneQuantum", " ", "=", "\n", 
+                         "  ", RowBox[{"getSCFOverlapMatrix", "[", "\n", 
+                          "   ", RowBox[{"phaseCorrectSCF", ",", " ", 
+                          "phaseCorrectDVR", ",", " ", "\n", "   ", RowBox[
+                          {"{", RowBox[{"2", ",", " ", "3"}], "}"}], ",", 
+                          " ", "\n", "   ", "oneQuantumPhaseCorrection", ",", 
+                          "\n", "   ", RowBox[{"Keys", "[", 
+                          "coefficientData", "]"}], ",", " ", "\n", "   ", 
+                          "saExtendedGrid"}], "\n", "   ", "]"}]}], ";"}]}]], 
+                  "Code"], Cell[BoxData[RowBox[{"dumpSymbol", "[", 
+                     "goodSparseOneQuantum", "]"}]], "Code"]}, Open]], 
+              Cell[CellGroupData[{Cell["SCF Phases 2 Quanta", 
+                  "Subsubsubsection"], Cell[BoxData[RowBox[{"debugPrint", 
+                     "[", "\"Generating two quanta overlap matrix\"", "]"}]], 
+                  "Code"], Cell[BoxData[RowBox[{"(*", RowBox[{"(*", RowBox[
+                        {"{", RowBox[{"overlapMatrixTwoQuanta", ",", " ", 
+                          "goodSparseTwoQuanta"}], "}"}], "*)"}], "\n", 
+                     RowBox[{RowBox[{"goodSparseTwoQuanta", " ", "=", "\n", 
+                         "  ", RowBox[{"getSCFOverlapMatrix", "[", "\n", 
+                          "    ", RowBox[{"phaseCorrectSCF", ",", " ", 
+                          "phaseCorrectDVR", ",", " ", "\n", "    ", RowBox[
+                          {"{", RowBox[{"4", ",", " ", "5", ",", " ", "6"}], 
+                          "}"}], ",", " ", "\n", "    ", 
+                          "twoQuantaPhaseCorrection", ",", "\n", "    ", 
+                          RowBox[{"Keys", "[", "coefficientData", "]"}], ",", 
+                          " ", "saExtendedGrid"}], "\n", "    ", "]"}]}], 
+                       ";"}], "\n", "*)"}]], "Code"]}, Open]], 
+              Cell[CellGroupData[{Cell["SCF Phases 1 and 2 Quanta", 
+                  "Subsubsubsection"], Cell[BoxData[RowBox[{"(*", RowBox[
+                      {RowBox[{RowBox[{RowBox[{"debugPrint", "[", 
+                          "\"Generating one and two quanta overlap matrix\"", 
+                          "]"}], "\n", RowBox[{"{", RowBox[
+                          {"overlapMatrixOneAndTwoQuanta", ",", " ", 
+                          "goodSparseOneAndTwoQuanta"}], "}"}]}], " ", "=", 
+                         "\n", "  ", RowBox[{"getSCFOverlapMatrix", "[", 
+                          "\n", "   ", RowBox[{"phaseCorrectSCF", ",", " ", 
+                          "\n", "   ", "phaseCorrectDVR", ",", " ", "\n", 
+                          "   ", RowBox[{"{", RowBox[{"2", ",", " ", "3", 
+                          ",", " ", "4", ",", " ", "5", ",", " ", "6"}], 
+                          "}"}], ",", " ", "\n", "   ", RowBox[{"Join", "[", 
+                          RowBox[{"oneQuantumPhaseCorrection", ",", " ", 
+                          "twoQuantaPhaseCorrection"}], "]"}], ",", "\n", 
+                          "   ", RowBox[{"Keys", "[", "coefficientData", 
+                          "]"}], ",", " ", "saExtendedGrid"}], "\n", "   ", 
+                          "]"}]}], ";"}], "\n", "*)"}]], "Code"]}, Open]], 
+              Cell[CellGroupData[{Cell["$OverlapMatrices", 
+                  "Subsubsubsection"], Cell[BoxData[RowBox[{RowBox[
+                      {"$OverlapMatrices", " ", "=", "\n", "  ", RowBox[
+                        {"<|", "\n", "   ", RowBox[{RowBox[{"\"OneQuantum\"", 
+                          " ", "->", " ", "goodSparseOneQuantum"}], ",", 
+                          "\n", "   ", RowBox[{"\"TwoQuanta\"", " ", "->", 
+                          " ", "goodSparseTwoQuanta"}]}], RowBox[{"(*", 
+                          RowBox[{",", "\n", "   ", RowBox[
+                          {"\"OneAndTwoQuanta\"", " ", "->", " ", 
+                          "overlapMatrixOneAndTwoQuanta"}]}], "*)"}], "\n", 
+                         "   ", "|>"}]}], ";"}]], "Code"]}, Open]]}, Open]]}, 
+          Open]], Cell[CellGroupData[{Cell["Wavefunctions", "Subsection"], 
+           Cell[CellGroupData[{Cell["Results", "Subsubsection"], 
+              Cell[CellGroupData[{Cell["No Quanta", "Subsubsubsection"], 
+                 Cell[BoxData[{RowBox[{RowBox[{"debugPrint", "[", 
+                        "\"Generating 4D wavefunctions...\"", "]"}], "\n"}], 
+                    "\n", RowBox[{"debugPrint", "[", 
+                      "\"Generating No Quanta Wavefunction\"", "]"}], "\n", 
+                    RowBox[{"noQuantaWfns", " ", "//", " ", RowBox[
+                       {"cachedLoad", "@", "\n", " ", RowBox[
+                         {"getWavefunctions", "[", "\n", "  ", RowBox[
+                          {"r1r2Wavefunctions", ",", "\n", "  ", "$saDVR", 
+                          ",", " ", "\n", "  ", RowBox[{"ConstantArray", "[", 
+                          RowBox[{"1", ",", " ", RowBox[{RowBox[{"(", RowBox[
+                          {"Times", "@@", "$saNewBasiSize"}], ")"}], "*", 
+                          RowBox[{"{", RowBox[{"1", ",", " ", "1"}], 
+                          "}"}]}]}], " ", "]"}], ",", " ", "\n", "  ", 
+                          "saExtendedGridObject", ",", "\n", "  ", "1"}], 
+                          "\n", "  ", "]"}]}]}], "\n"}], "Code"]}, Open]], 
+              Cell[CellGroupData[{Cell["One Quantum", "Subsubsubsection"], 
+                 Cell[BoxData[{RowBox[{"debugPrint", "[", 
+                      "\"Generating One Quantum Wavefunction\"", "]"}], "\n", 
+                    RowBox[{"debugPrint", "[", "\n", "  ", RowBox[{"\"Dimensi\
+ons of coupling matrix `` of type `` at `` bytes\"", "~", "TemplateApply", 
+                        "~", RowBox[{"{", "\n", "    ", RowBox[{RowBox[
+                          {"Dimensions", "[", "goodSparseOneQuantum", "]"}], 
+                          ",", "\n", "    ", RowBox[{"Head", "[", 
+                          "goodSparseOneQuantum", "]"}], ",", " ", "\n", 
+                          "    ", RowBox[{"ByteCount", "[", 
+                          "goodSparseOneQuantum", "]"}]}], "\n", "    ", 
+                          "}"}]}], "\n", "  ", "]"}], "\n", RowBox[
+                     {"oneQuantumWfns", " ", "//", " ", RowBox[{"cachedLoad", 
+                        "@", "\n", " ", RowBox[{"getWavefunctions", "[", 
+                          "\n", "  ", RowBox[{"r1r2Wavefunctions", ",", "\n", 
+                          "  ", "$saDVR", ",", " ", "\n", "  ", 
+                          "goodSparseOneQuantum", ",", " ", "\n", "  ", 
+                          "saExtendedGridObject", ",", "\n", "  ", "2", ",", 
+                          " ", "3"}], "\n", "  ", "]"}]}]}], "\n"}], 
+                  "Code"]}, Open]], Cell[CellGroupData[{Cell["Two Quanta", 
+                  "Subsubsubsection"], Cell[BoxData[{RowBox[{"debugPrint", 
+                      "[", "\"Generating Two Quanta Wavefunction\"", "]"}], 
+                    "\n", RowBox[{"debugPrint", "[", "\n", "  ", RowBox[
+                       {"\"Dimensions of coupling matrix `` of type `` at `` \
+bytes\"", "~", "TemplateApply", "~", RowBox[{"{", "\n", "    ", RowBox[
+                          {RowBox[{"Dimensions", "[", "goodSparseTwoQuanta", 
+                          "]"}], ",", "\n", "    ", RowBox[{"Head", "[", 
+                          "goodSparseTwoQuanta", "]"}], ",", " ", "\n", 
+                          "    ", RowBox[{"ByteCount", "[", 
+                          "goodSparseTwoQuanta", "]"}]}], "\n", "    ", 
+                          "}"}]}], "\n", "  ", "]"}], "\n", RowBox[
+                     {"twoQuantaWfns", " ", "//", " ", RowBox[{"cachedLoad", 
+                        "@", "\n", " ", RowBox[{"getWavefunctions", "[", 
+                          "\n", "  ", RowBox[{"r1r2Wavefunctions", ",", "\n", 
+                          "  ", "$saDVR", ",", " ", "\n", "  ", 
+                          "goodSparseTwoQuanta", ",", " ", "\n", "  ", 
+                          "saExtendedGridObject", ",", "\n", "  ", "4", ",", 
+                          " ", "5", ",", " ", "6"}], "\n", "  ", "]"}]}]}], 
+                    "\n"}], "Code"]}, Open]], Cell[CellGroupData[
+                {Cell["One and Two Quanta", "Subsubsubsection"], 
+                 Cell[BoxData[RowBox[{"(*", RowBox[{RowBox[{RowBox[
+                          {"debugPrint", "[", 
+                          "\"Generating One/Two Quanta Wavefunction\"", 
+                          "]"}], "\n", "oneAndTwoQuantaWfns"}], " ", "=", 
+                       "\n", " ", RowBox[{"getWavefunctions", "[", "\n", 
+                         "  ", RowBox[{"r1r2Wavefunctions", ",", "\n", "   ", 
+                          "$saDVR", ",", " ", "\n", "  ", 
+                          "goodSparseOneAndTwoQuanta", ",", " ", "\n", "  ", 
+                          "saExtendedGridObject", ",", " ", "\n", "  ", "2", 
+                          ",", " ", "3", ",", " ", "4", ",", " ", "5", ",", 
+                          " ", "6"}], "\n", "  ", "]"}]}], "\n", "*)"}]], 
+                  "Code"]}, Open]], Cell[CellGroupData[
+                {Cell["Adiabatic States", "Subsubsubsection"], 
+                 Cell[BoxData[{RowBox[{"debugPrint", "[", 
+                      "\"Generating Adiabatic Wavefunctions\"", "]"}], "\n", 
+                    RowBox[{RowBox[{"adiabaticWfns", " ", "=", "\n", "  ", 
+                        RowBox[{RowBox[{RowBox[{"getWavefunctions", "[", 
+                          "\n", "     ", RowBox[{"r1r2Wavefunctions", ",", 
+                          "\n", "     ", "$saDVR", ",", " ", "\n", "     ", 
+                          RowBox[{"ConstantArray", "[", RowBox[{"1", ",", 
+                          " ", RowBox[{RowBox[{"(", RowBox[{"Times", "@@", 
+                          "$saNewBasiSize"}], ")"}], "*", RowBox[{"{", RowBox[
+                          {"1", ",", " ", "1"}], "}"}]}]}], " ", "]"}], ",", 
+                          " ", "\n", "     ", "saExtendedGridObject", ",", 
+                          "\n", "     ", "#"}], "\n", "     ", "]"}], " ", 
+                          "&"}], " ", "/@", " ", RowBox[{"Range", "[", 
+                          RowBox[{"2", ",", " ", "10"}], "]"}]}]}], ";"}], 
+                    "\n"}], "Code"]}, Open]], Cell[CellGroupData[
+                {Cell["Results", "Subsubsubsection"], Cell[BoxData[
+                   {RowBox[{RowBox[{"debugPrint", "[", 
+                        "\"4D wavefunctions generated\"", "]"}], "\n"}], 
+                    "\n", RowBox[{RowBox[{RowBox[{"$Wavefunctions", " ", "=", 
+                          "\n", "  ", RowBox[{"<|", "\n", "   ", RowBox[
+                          {RowBox[{"\"NoQuanta\"", " ", "->", " ", 
+                          "noQuantaWfns"}], ",", "\n", "   ", RowBox[
+                          {"\"OneQuantum\"", " ", "->", " ", 
+                          "oneQuantumWfns"}], ",", "\n", "   ", RowBox[
+                          {"\"TwoQuanta\"", " ", "->", " ", 
+                          "twoQuantaWfns"}]}], "\n", "   ", "|>"}]}], ";"}], 
+                      "\n"}], "\n", RowBox[{RowBox[{RowBox[
+                         {"$FullWavefunctions", " ", "=", "\n", "  ", 
+                          RowBox[{"Join", "[", "\n", "   ", RowBox[
+                          {"$Wavefunctions", ",", "\n", "   ", RowBox[{"<|", 
+                          "\n", "    ", RowBox[{"\"Adiabatic\"", " ", "->", 
+                          " ", "adiabaticWfns"}], RowBox[{"(*", RowBox[{",", 
+                          "\n", "    ", RowBox[{"\"OneAndTwoQuanta\"", " ", 
+                          "->", " ", "oneAndTwoQuantaWfns"}]}], "*)"}], "\n", 
+                          "    ", "|>"}]}], "\n", "   ", "]"}]}], ";"}], 
+                      "\n"}], "\n", RowBox[{RowBox[{RowBox[{"$EnergyShifts", 
+                          " ", "=", "\n", "  ", RowBox[{RowBox[{"Map", "[", 
+                          RowBox[{RowBox[{RowBox[{RowBox[{"#", "[", 
+                          "\"Energies\"", "]"}], "[", RowBox[{"[", "1", 
+                          "]"}], "]"}], " ", "&"}], ",", " ", 
+                          "$FullWavefunctions"}], "]"}], " ", "-", " ", "\n", 
+                          "   ", RowBox[{RowBox[{"noQuantaWfns", "[", 
+                          "\"Energies\"", "]"}], "[", RowBox[{"[", "1", 
+                          "]"}], "]"}]}]}], ";"}], "\n"}], "\n", RowBox[
+                     {RowBox[{"$ZeroPointEnergies", " ", "=", "\n", "  ", 
+                        RowBox[{"AssociationThread", "[", "\n", "   ", 
+                          RowBox[{RowBox[{"Keys", "@", 
+                          "$FullWavefunctions"}], ",", "\n", "   ", RowBox[
+                          {RowBox[{"Map", "[", RowBox[{RowBox[{RowBox[
+                          {RowBox[{"#", "[", "\"Energies\"", "]"}], "[", 
+                          RowBox[{"[", "1", "]"}], "]"}], " ", "&"}], ",", 
+                          " ", RowBox[{"Values", "@", 
+                          "$FullWavefunctions"}]}], "]"}], " ", "-", "\n", 
+                          "    ", RowBox[{"Map", "[", RowBox[{RowBox[{RowBox[
+                          {"Min", "[", RowBox[{"averagedPot", "[", RowBox[
+                          {"r1r2Wavefunctions", ",", " ", "#"}], "]"}], 
+                          "]"}], " ", "&"}], ",", " ", "\n", "     ", RowBox[
+                          {"Join", "[", RowBox[{RowBox[{"{", RowBox[{"1", 
+                          ",", " ", "2", ",", " ", "4", ",", " ", "2"}], 
+                          "}"}], ",", " ", RowBox[{"Range", "[", RowBox[{"2", 
+                          ",", " ", "10"}], "]"}]}], "]"}]}], "\n", "     ", 
+                          "]"}]}]}], "\n", "   ", "]"}]}], ";"}], "\n"}], 
+                  "Code"]}, Open]]}, Open]], Cell[CellGroupData[
+             {Cell["Projections", "Subsubsection"], Cell[BoxData[
+                RowBox[{"debugPrint", "[", 
+                  "\"Pulling projections from wavefunctions\"", "]"}]], 
+               "Code"], Cell[CellGroupData[{Cell["One Quantum", 
+                  "Subsubsubsection"], Cell[BoxData[{RowBox[{RowBox[
+                       {"oneQuantumProjections", " ", "=", "\n", "  ", 
+                        RowBox[{"pullProjections", "[", RowBox[
+                          {"oneQuantumWfns", ",", " ", "saMainGrid", ",", 
+                          " ", RowBox[{"{", RowBox[{"2", ",", " ", "3"}], 
+                          "}"}]}], "]"}]}], ";"}], "\n"}], "Code"]}, Open]], 
+              Cell[CellGroupData[{Cell["Two Quanta", "Subsubsubsection"], 
+                 Cell[BoxData[{RowBox[{RowBox[{"twoQuantaProjections", " ", 
+                        "=", "\n", "  ", RowBox[{"pullProjections", "[", 
+                          RowBox[{"twoQuantaWfns", ",", " ", "saMainGrid", 
+                          ",", " ", RowBox[{"{", RowBox[{"4", ",", " ", "5", 
+                          ",", " ", "6"}], "}"}]}], "]"}]}], ";"}], "\n"}], 
+                  "Code"]}, Open]], Cell[CellGroupData[
+                {Cell["One and Two Quanta", "Subsubsubsection"], 
+                 Cell[BoxData[RowBox[{"(*", RowBox[{RowBox[
+                        {"oneAndTwoQuantaProjections", " ", "=", "\n", "  ", 
+                         RowBox[{"pullProjections", "[", RowBox[
+                          {"oneAndTwoQuantaWfns", ",", " ", "saMainGrid", 
+                          ",", " ", RowBox[{"{", RowBox[{"2", ",", " ", "3", 
+                          ",", " ", "4", ",", " ", "5", ",", " ", "6"}], 
+                          "}"}]}], "]"}]}], ";"}], "\n", "*)"}]], "Code"], 
+                 Cell[BoxData[RowBox[{"debugPrint", "[", 
+                     "\"Projections pulled\"", "]"}]], "Code"]}, Open]]}, 
+             Open]]}, Open]], Cell[CellGroupData[
+          {Cell["Spectrum", "Subsection"], Cell[CellGroupData[
+             {Cell["Transition Moments", "Subsubsection"], Cell[BoxData[
+                RowBox[{"debugPrint", "[", 
+                  "\"Generating transition moments...\"", "]"}]], "Code"], 
+              Cell[CellGroupData[{Cell["Build Base Dipole Vectors", 
+                  "Subsubsubsection"], Cell[BoxData[{RowBox[{RowBox[
+                       {RowBox[{"newInterp", " ", "=", " ", RowBox[
+                          {"rebuildInterpolation", "@", RowBox[
+                          {"$fullDipoleSurf", "[", RowBox[{"[", "1", "]"}], 
+                          "]"}]}]}], ";"}], "\n"}], "\n", RowBox[
+                     {RowBox[{"r1r2DipoleVectors", " ", "//", " ", RowBox[
+                         {"cachedLoad", "[", "\n", "   ", RowBox[
+                          {"getDipoleVecs", "[", RowBox[{"r1r2Wavefunctions", 
+                          ",", " ", "r1r2GridPts", " ", ",", " ", 
+                          "newInterp"}], "]"}], "\n", "   ", "]"}]}], ";"}], 
+                    "\n"}], "Code"]}, Open]], Cell[CellGroupData[
+                {Cell["Extract Transition Moments", "Subsubsubsection"], 
+                 Cell[CellGroupData[{Cell["Calc moments", 
+                     "Subsubsubsubsection"], Cell[BoxData[{RowBox[
+                        {RowBox[{"r1r2TransitionMoments", " ", "//", " ", 
+                          RowBox[{"cachedLoad", "[", "\n", "  ", RowBox[
+                          {"getTransitionMoments", "[", "\n", "   ", RowBox[
+                          {"rephasedR1R2Wavefunctions", ",", "\n", "   ", 
+                          "r1r2DipoleVectors"}], "\n", "   ", "]"}], "\n", 
+                          "  ", "]"}]}], "\n"}], "\n", RowBox[{"debugPrint", 
+                         "[", "\"Generated transition moments\"", "]"}], 
+                       "\n"}], "Code"]}, Open]], Cell[CellGroupData[
+                   {Cell["Full moments", "Subsubsubsubsection"], 
+                    Cell[BoxData[RowBox[{"r1r2GridTMs", " ", "=", "\n", "  ", 
+                        RowBox[{"<|", "\n", "    ", RowBox[{RowBox[
+                          {"\"Grid\"", "->", RowBox[{"Keys", "[", 
+                          "r1r2TransitionMoments", "]"}]}], ",", "\n", 
+                          "    ", RowBox[{"\"Values\"", "->", "\n", "      ", 
+                          RowBox[{"Transpose", "@", "\n", "       ", RowBox[
+                          {"Map", "[", "\n", "        ", RowBox[{RowBox[
+                          {RowBox[{"If", "[", RowBox[{RowBox[{"#", " ", 
+                          "===", " ", "$Failed"}], ",", " ", RowBox[
+                          {"ConstantArray", "[", RowBox[{"0.", ",", " ", 
+                          RowBox[{"{", RowBox[{"10", ",", " ", "3"}], 
+                          "}"}]}], "]"}], ",", " ", "#"}], "]"}], " ", "&"}], 
+                          ",", " ", "\n", "        ", RowBox[{"Values", "@", 
+                          "r1r2TransitionMoments"}]}], "\n", "        ", 
+                          "]"}]}]}]}], "\n", "    ", "|>"}]}]], "Code"]}, 
+                   Open]]}, Open]]}, Open]], Cell[CellGroupData[
+             {Cell["Intensities", "Subsubsection"], Cell[BoxData[
+                {RowBox[{"debugPrint", "[", "\"Generating spectra\"", "]"}], 
+                 "\n"}], "Code"], Cell["Ground state stuff", "Text"], 
+              Cell[BoxData[{RowBox[{RowBox[{"zaWfn", " ", "=", " ", 
+                     RowBox[{"noQuantaWfns", "[", RowBox[{"[", "1", "]"}], 
+                       "]"}]}], ";"}], "\n"}], "Code"], Cell[CellGroupData[
+                {Cell["Base Wfns", "Subsubsubsection"], Cell[CellGroupData[
+                   {Cell["One Quantum", "Subsubsubsubsection"], Cell[
+                     "Get sets of projection wavefunctions to moment over", 
+                     "Text"], Cell[BoxData[{RowBox[{RowBox[
+                          {"oneQuantumTransWfs", " ", "=", "\n", "  ", 
+                          RowBox[{"getTransitionWavefunctions", "[", RowBox[
+                          {"oneQuantumProjections", ",", " ", "zaWfn"}], 
+                          "]"}]}], ";"}], "\n"}], "Code"]}, Open]], 
+                 Cell[CellGroupData[{Cell["Two Quanta", 
+                     "Subsubsubsubsection"], Cell[BoxData[{RowBox[
+                        {RowBox[{"twoQuantaTransWfs", " ", "=", "\n", "  ", 
+                          RowBox[{"getTransitionWavefunctions", "[", RowBox[
+                          {"twoQuantaProjections", ",", " ", "zaWfn"}], 
+                          "]"}]}], ";"}], "\n"}], "Code"]}, Open]], 
+                 Cell[CellGroupData[{Cell["One and Two Quanta", 
+                     "Subsubsubsubsection"], Cell[BoxData[RowBox[{"(*", 
+                        RowBox[{RowBox[{"oneAndTwoQuantaTransWfs", " ", "=", 
+                          "\n", "  ", RowBox[{"getTransitionWavefunctions", 
+                          "[", RowBox[{"oneAndTwoQuantaProjections", ",", 
+                          " ", "zaWfn"}], "]"}]}], ";"}], "\n", "*)"}]], 
+                     "Code"]}, Open]]}, Open]], Cell[CellGroupData[
+                {Cell["Ints", "Subsubsubsection"], Cell[BoxData[
+                   {RowBox[{RowBox[{"noQuantaInts", " ", "=", " ", RowBox[
+                         {"getIntensities", "[", RowBox[{RowBox[{"{", 
+                          "noQuantaWfns", "}"}], ",", " ", RowBox[{"{", "1", 
+                          "}"}], ",", " ", "r1r2GridTMs"}], "]"}]}], ";"}], 
+                    "\n", RowBox[{RowBox[{"oneQuantumInts", " ", "=", " ", 
+                        "\n", "  ", RowBox[{"getIntensities", "[", RowBox[
+                          {"oneQuantumTransWfs", ",", " ", RowBox[{"{", 
+                          RowBox[{"2", ",", " ", "3"}], "}"}], ",", " ", 
+                          "r1r2GridTMs"}], "]"}]}], ";"}], "\n", RowBox[
+                     {RowBox[{RowBox[{"twoQuantaInts", " ", "=", " ", "\n", 
+                          "  ", RowBox[{"getIntensities", "[", RowBox[
+                          {"twoQuantaTransWfs", ",", " ", RowBox[{"{", RowBox[
+                          {"4", ",", " ", "5", ",", " ", "6"}], "}"}], ",", 
+                          " ", "r1r2GridTMs"}], "]"}]}], ";"}], "\n", 
+                      RowBox[{"(*", RowBox[{RowBox[{"oneAndTwoQuantaInts", 
+                          " ", "=", " ", "\n", "  ", RowBox[
+                          {"getIntensities", "[", RowBox[
+                          {"oneAndTwoQuantaTransWfs", ",", " ", RowBox[{"{", 
+                          RowBox[{"2", ",", " ", "3", ",", " ", "4", ",", 
+                          " ", "5", ",", " ", "6"}], "}"}], ",", " ", "\n", 
+                          "   ", "r1r2GridTMs"}], "]"}]}], ";"}], "*)"}]}], 
+                    "\n", RowBox[{RowBox[{"adiabaticInts", " ", "=", "\n", 
+                        "  ", RowBox[{"MapIndexed", "[", "\n", "   ", 
+                          RowBox[{RowBox[{RowBox[{"getIntensities", "[", 
+                          RowBox[{RowBox[{"{", RowBox[{"Join", "[", RowBox[
+                          {RowBox[{"noQuantaWfns", "[", RowBox[{"[", RowBox[
+                          {";;", " ", "1"}], "]"}], "]"}], ",", " ", "#"}], 
+                          "]"}], "}"}], ",", " ", RowBox[{"1", " ", "+", " ", 
+                          "#2"}], ",", " ", "\n", "     ", "r1r2GridTMs"}], 
+                          "]"}], " ", "&"}], ",", " ", "\n", "   ", 
+                          "adiabaticWfns"}], "\n", "   ", "]"}]}], ";"}], 
+                    "\n"}], "Code"]}, Open]]}, Open]], 
+           Cell[CellGroupData[{Cell["Frequencies", "Subsubsection"], 
+              Cell["We then turn these into intensities and plot them:", 
+               "Text"], Cell[CellGroupData[{Cell["No Quanta", 
+                  "Subsubsubsection"], Cell[BoxData[{RowBox[{RowBox[
+                       {"noQuantaFreqs", " ", "=", " ", RowBox[{"getFreqs", 
+                          "[", RowBox[{"noQuantaWfns", ",", " ", "zaWfn"}], 
+                          "]"}]}], ";"}], "\n", RowBox[{RowBox[
+                       {"oneQuantumFreqs", " ", "=", " ", RowBox[{"getFreqs", 
+                          "[", RowBox[{"oneQuantumWfns", ",", " ", "zaWfn"}], 
+                          "]"}]}], ";"}], "\n", RowBox[{RowBox[{RowBox[
+                         {"twoQuantaFreqs", " ", "=", " ", RowBox[
+                          {"getFreqs", "[", RowBox[{"twoQuantaWfns", ",", 
+                          " ", "zaWfn"}], "]"}]}], ";"}], "\n", RowBox[
+                       {"(*", RowBox[{RowBox[{"oneAndTwoQuantaFreqs", " ", 
+                          "=", " ", RowBox[{"getFreqs", "[", RowBox[
+                          {"oneAndTwoQuantaWfns", ",", " ", "zaWfn"}], 
+                          "]"}]}], ";"}], "*)"}]}], "\n", RowBox[
+                     {RowBox[{"adiabaticFreqs", " ", "=", " ", RowBox[
+                         {RowBox[{RowBox[{"getFreqs", "[", RowBox[{"#", ",", 
+                          " ", "zaWfn"}], "]"}], " ", "&"}], " ", "/@", " ", 
+                          "adiabaticWfns"}]}], "\n"}], "\n", RowBox[
+                     {RowBox[{"debugPrint", "[", "\"Spectra generated\"", 
+                        "]"}], "\n"}], "\n", RowBox[{RowBox[{"$RawSpectra", 
+                        " ", "=", "\n", "  ", RowBox[{"<|", "\n", "   ", 
+                          RowBox[{RowBox[{"\"Frequencies\"", " ", "->", "\n", 
+                          "    ", RowBox[{"Join", "[", "\n", "     ", RowBox[
+                          {RowBox[{"{", "\n", "      ", RowBox[
+                          {"noQuantaFreqs", ",", "\n", "      ", 
+                          "oneQuantumFreqs", ",", "\n", "      ", 
+                          "twoQuantaFreqs"}], RowBox[{"(*", RowBox[{",", 
+                          "\n", "      ", "oneAndTwoQuantaFreqs"}], "*)"}], 
+                          "\n", "      ", "}"}], ",", "\n", "     ", 
+                          "adiabaticFreqs"}], "\n", "     ", "]"}]}], ",", 
+                          "\n", "   ", RowBox[{"\"Intensities\"", " ", "->", 
+                          "\n", "    ", RowBox[{"Join", "[", "\n", "     ", 
+                          RowBox[{RowBox[{"{", "\n", "      ", RowBox[
+                          {"noQuantaInts", ",", "\n", "      ", 
+                          "oneQuantumInts", ",", "\n", "      ", 
+                          "twoQuantaInts"}], RowBox[{"(*", RowBox[{",", "\n", 
+                          "      ", "oneAndTwoQuantaInts"}], "*)"}], "\n", 
+                          "      ", "}"}], ",", "\n", "     ", 
+                          "adiabaticInts"}], "\n", "     ", "]"}]}]}], "\n", 
+                          "   ", "|>"}]}], ";"}], "\n"}], "Code"]}, Open]]}, 
+             Open]], Cell[CellGroupData[{Cell["Spectra", "Subsubsection"], 
+              Cell["After we build the transition moments we can plot them:", 
+               "Text"], Cell[BoxData[{RowBox[{RowBox[{"$Spectra", " ", "=", 
+                     "\n", "  ", RowBox[{"buildSpectra", "[", RowBox[
+                        {RowBox[{"$RawSpectra", "[", "\"Frequencies\"", 
+                          "]"}], ",", " ", RowBox[{"$RawSpectra", "[", "\n", 
+                          "    ", "\"Intensities\"", "]"}]}], "]"}]}], ";"}], 
+                 "\n"}], "Code"]}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell["Dump Environment", "Subsection"], 
+           Cell[CellGroupData[{Cell["End Private Context", "Subsubsection"], 
+              Cell[BoxData[{RowBox[{RowBox[{"End", "[", "]"}], ";"}], "\n"}], 
+               "Code"]}, Open]], Cell[CellGroupData[{Cell["DumpSave Symbols", 
+               "Subsubsection"], Cell[BoxData[{RowBox[{"ToExpression", "[", 
+                   RowBox[{RowBox[{"Names", "[", RowBox[{"$Context", " ", 
+                         "<>", " ", "\"*\""}], "]"}], ",", " ", 
+                     "StandardForm", ",", " ", "dumpSymbol"}], "]"}], "\n"}], 
+               "Code"]}, Open]], Cell[CellGroupData[{Cell["EndPackage", 
+               "Subsubsection"], Cell[BoxData[RowBox[{RowBox[{"EndPackage", 
+                    "[", "]"}], ";"}]], "Code"]}, Open]]}, Open]]}, Open]]}, 
+    Open]]}, WindowSize -> {808, 755}, WindowMargins -> 
+  {{76, Automatic}, {36, Automatic}}, Visible -> False, 
+ FrontEndVersion -> 
+  "11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, 2018)", 
+ StyleDefinitions -> "Package.nb"]

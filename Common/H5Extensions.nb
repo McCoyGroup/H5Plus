@@ -1,0 +1,82 @@
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["H5+ Derived Extensions", "CodeSection",
+ Evaluatable->False,ExpressionUUID->"bff068cd-b87f-4c81-a99b-4dc9049f4635"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"BeginPackage", "[", "\"\<ChemTools`Experimental`\>\"", "]"}], 
+  ";"}]], "InputSection",ExpressionUUID->"3f0dc8b6-88fa-4c68-b9ef-\
+ec79f16656a3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"ChemDVRSeparableWavefunctions", "::", "usage"}], "=", "\n", "\t", 
+   "\"\<Function for doing 1D SCF averaging of a potential with a DVR\>\""}], 
+  ";"}]], "CodeInput",ExpressionUUID->"96e39740-14e5-402f-9960-0a9d555cb8b6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Begin", "[", "\"\<`Private`\>\"", "]"}], 
+  ";"}]], "InputSection",ExpressionUUID->"56d536d0-27b4-425f-a165-\
+75030a966558"],
+
+Cell[BoxData[
+ RowBox[{"averagePotential", "[", "\n", "\t", 
+  RowBox[{"pes_", ",", "\n", "\t", "wfn_", ","}], "\n", "\t", "\n", "\t", 
+  "]"}]], "CodeInput",ExpressionUUID->"2eccce5c-557c-4a3a-8e42-ac884752dc48"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"separableWavefunctions", "[", "\n", "\t", 
+   RowBox[{"pes_", ",", "\n", "\t", "dvr_", ",", "\n", "\t", 
+    RowBox[{"ops", ":", 
+     RowBox[{"OptionsPattern", "[", "]"}]}]}], "\n", "\t", "]"}], ":=", "\n", 
+  "\t", 
+  RowBox[{"Module", "[", "\n", "\t\t", 
+   RowBox[{
+    RowBox[{"{", "\n", "\t\t\t", 
+     RowBox[{",", "\n", "\t\t\t", 
+      RowBox[{"wfns", "=", 
+       RowBox[{"ConstantArray", "[", 
+        RowBox[{"None", ",", " ", 
+         RowBox[{"Length", "@", 
+          RowBox[{"pes", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}]}], "]"}]}]}], "\n", "\t\t\t", 
+     "}"}], ",", "\n", "\t\t", 
+    RowBox[{"wfns", "="}]}], "\n", "\t\t", 
+   "]"}]}]], \
+"CodeInput",ExpressionUUID->"793690da-e288-444f-9dc2-43e15fcf0ee6"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"End", "[", "]"}], 
+  ";"}]], \
+"InputSection",ExpressionUUID->"f4580563-14a4-48f1-8560-22a6d27ddc4d"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"End", "[", "]"}], 
+  ";"}]], "InputSection",ExpressionUUID->"a8b6d22b-ce89-48f7-b022-\
+390c128c288b"]
+}, Open  ]],
+
+Cell["", "SectionSeparator",ExpressionUUID->"528f0f5e-d783-43f5-94f6-\
+148bfe1aac9d"]
+},
+WindowSize->{808, 755},
+WindowMargins->{{107, Automatic}, {26, Automatic}},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->FrontEnd`FileName[{"BTools"}, "CodeNotebook.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+
