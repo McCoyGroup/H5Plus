@@ -238,14 +238,193 @@ gridMemberQ[pts_, i_InterpolatingFunction]:=
 
 
 (* ::Subsubsubsection::Closed:: *)
+(*nonlinearFitStuff*)
+
+
+
+nonlinearFitStuff[data_, r_, form_, r0_, c_, ops___]:=
+  Replace[
+    Thread[
+      ToExpression[
+        "par"<>ToString[#]&/@Range[Length[form["Parameters"]]], 
+        StandardForm, 
+        Hold
+        ],
+      Hold
+      ],
+    Hold[p__]:>
+      Block[p,
+        With[
+          {
+            model = 
+              form["Form"]/.
+                Join[
+                  Thread[form["Parameters"]->p],
+                  {Point->r0, Value->c}
+                  ]
+             },
+          NonlinearModelFit[
+            data,
+            model, 
+            p, 
+            r,
+            ops
+            ]["Function"]
+          ]
+        ]
+    ]
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*fitExtrapForms*)
+
+
+
+fitExtrapForms[
+  trueRotSubGrids_,
+  pointSampling_, fitForms_, monkeyPatch_, 
+  gind1_, gind2_,
+  ops___
+  ]:=
+  Block[
+    {
+      r, forms, 
+      nl = pointSampling[[1]], nr = pointSampling[[2]],
+      gl, gr
+      },
+    forms = Through[fitForms[r]];
+    debugPrint["Fitting forms"];
+    Map[
+      Function[
+        gl = (* take the points to fit onthe "left" *)
+          #[[
+            ;;Min@{Replace[nl, Scaled[i_]:>Floor[i*Length[#]]], Length@#},
+            {gind2, 3}
+            ]];
+        gr = (* take the points to fit onthe "right" *)
+          #[[
+            -Min@{Replace[nr, Scaled[i_]:>Floor[i*Length[#]]], Length@#};;,
+            {gind2, 3}
+            ]];
+        (*debugPrint["Generating fits..."];*)
+        MapThread[
+          With[{data = #, r0 = #3[[1]], c = #3[[2]]},
+            If[Length[data]===0, 
+              Throw["?No data @ ``, ``?"~TemplateApply~{r0, c}]
+              ];
+            If[ListQ@#2, (* linear fitted model vs non linear model *)
+              (*debugPrint["Fitting data points..."];*)
+              If[Length@data==1,
+                (* single data points are always extrapolated as a constant function *)
+                With[{pt=data[[1, -1]]}, ConstantArray[pt, Length[#]]&],
+                LinearModelFit[data, #2, r, ops]["Function"]
+                ],
+              nonlinearFitStuff[data, r, #2, r0, c, ops]
+              ]//monkeyPatch[#, r0, c]&
+            ]&,
+          {
+            {gl, gr},
+            forms,
+            (* take the boundary points *)
+            #[[{1, -1}, {gind2, 3}]]
+            }
+          ]
+        ],
+      trueRotSubGrids
+      ]
+    ]
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*extraGridVals*)
+
+
+
+extraGridVals[
+  rotSubGrids_, trueRotSubGrids_,
+  gind1_, gind2_,
+  fits_
+  ]:=
+  MapThread[
+    With[
+      {
+        minFit = #[[1]], maxFit = #[[2]], 
+        ptRaw = #3[[All, gind2]],
+        goodBounds = MinMax @ #2[[All, gind2]]
+        },
+      (* use the left-and-right side first to evaluate the smaller and larger points*)
+      Join[
+        With[
+          {
+            (* get the points off the grid too small*)
+            pts=
+              Pick[ptRaw, UnitStep[goodBounds[[1]] - (ptRaw + $MachineEpsilon)], 1]
+            },
+          (* if there no points don't worry about it *)
+          If[Length@pts>0,
+            (* recreate the triples we originally had by adding a constant slice coordinate *)
+            Transpose[
+              {
+                ConstantArray[#3[[1, gind1]], Length@pts],
+                pts,
+                minFit@pts (* actual extrapolation to smaller points *)
+                }[[{gind1, gind2, 3}]]
+                ],
+            pts
+           ]
+          ],
+        #2,
+        With[
+          {
+            (* get the points off the grid too large*)
+            pts=
+              Pick[ptRaw, (ptRaw - $MachineEpsilon) - goodBounds[[2]]//UnitStep, 1]
+            },
+          (* if there no points don't worry about it *)
+          If[Length@pts>0,
+            (* recreate the triples we originally had by adding a constant slice coordinate *)
+            Transpose[
+              {
+                ConstantArray[#3[[1, gind1]], Length@pts],
+                pts, 
+                maxFit@pts  (* actual extrapolation to larger points *)
+                }[[{gind1, gind2, 3}]]
+              ],
+            pts
+            ]
+          ]
+        ]
+      ]&,
+    {
+      fits,
+      trueRotSubGrids,
+        KeyTake[rotSubGrids, Keys[trueRotSubGrids]]
+      }
+    ];
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*extrapFitForms*)
+
+
+
+extrapFitForms=
+  {
+      (* eh fuck this form it's fine to just use a 6-th order polynomial to fit the _entire_ potential *)
+      <|
+        "Form"->
+          {
+            C[2] + C[1]*Exp[-C[3]*#], 
+            {C[3]>0(*, C[2] + C[1]*Exp[-C[3]*Point] \[Equal] Value*)}
+            },
+        "Parameters"->Array[C, 3]
+        |>&, 
+      <|"Form"->(C[2]+C[1]/((#)^4)), "Parameters"->Array[C, 2]|>&
+      };
+
+
+(* ::Subsubsubsection::Closed:: *)
 (*extrapolatedFunction*)
-
-
-
-(* ::Text:: *)
-(*
-	This function is altogether too long and complicated but I don\[CloseCurlyQuote]t want to take the time to break it down right now...
-*)
 
 
 
@@ -258,19 +437,7 @@ extrapolatedFunction[
     } : {-10^8, 5*10^8} 
     (* "bad values" should be indicated by larger or smaller numbers than this *),
   pointSampling:{_Scaled|_Integer, _Scaled|_Integer}:{Scaled[.1], Scaled[.2]},
-  fitForms: {_Function, _Function} : 
-    {
-      (* eh fuck this form it's fine to just use a 6-th order polynomial to fit the _entire_ potential *)
-      <|
-        "Form"->
-          {
-            C[2] + C[1]*Exp[-C[3]*#], 
-            {C[3]>0(*, C[2] + C[1]*Exp[-C[3]*Point] \[Equal] Value*)}
-            },
-        "Parameters"->Array[C, 3]
-        |>&, 
-      <|"Form"->(C[2]+C[1]/((#)^4)), "Parameters"->Array[C, 2]|>&
-      },
+  fitForms: {_Function, _Function} : extrapFitForms,
   direction:First|Last:First,
   symmetry:1|-1|None:1,
   def:DefaultValue[_]:DefaultValue[10^9],
@@ -284,23 +451,18 @@ extrapolatedFunction[
             UnitStep[fn[[All, 3]] - cutOffs[[1]]],
           1
           ],
-      trueGridRot,
       basePot,
-      rotWfnGrid,
-      trueRotSubGrids,
-      rotSubGrids,
-      fits,
-      monkeyPatch,
-      gridVals,
-      gpts,
-      missing,
-      gptsRegrouped,
-      fullGridRegrouped,
-      patchedPts,
+      rotWfnGrid, trueGridRot,
+      trueRotSubGrids, rotSubGrids,
+      fits, monkeyPatch,
+      gridVals, gpts,
+      gptsRegrouped, fullGridRegrouped,
+      missing, patchedPts,
       gind1=Replace[direction, {First->1, Last->2}],
       gind2=Replace[direction, {First->2, Last->1}],
       dv=def[[1]]
       },
+    debugPrint["Extracting grids"];
     rotWfnGrid = 
       fn[[All, ;;2]]//RotationMatrix[-\[Pi]/4].Transpose[#]&//Transpose;
     trueGridRot = 
@@ -309,188 +471,85 @@ extrapolatedFunction[
         trueGridVals[[All, {3}]], 
         2
         ];
+    debugPrint["Rotating to R1/R2 space"];
     rotSubGrids =
-      GroupBy[rotWfnGrid, (Round[#[[gind1]], .00001]&)->(#[[;;2]]&), SortBy[#[[gind2]]&]];
+      GroupBy[rotWfnGrid, 
+        (Round[#[[gind1]], .00001]&)->(#[[;;2]]&), SortBy[#[[gind2]]&]];
     trueRotSubGrids = 
       GroupBy[trueGridRot, (Round[#[[gind1]], .00001]&), SortBy[#[[gind2]]&]];
-    monkeyPatch[f_, r_, c_]:=
-      (*Evaluate[c+f[#-r]]&*)f;
-    fits =
-      Block[{r, forms, nl = pointSampling[[1]], nr = pointSampling[[2]]},
-        forms = Through[fitForms[r]];
-        MapThread[
-          With[{data = #, r0 = #3[[1]], c = #3[[2]]},
-            monkeyPatch[
-              If[ListQ@#2,
-                (* single data points are always extrapolated as a constant function *)
-                If[Length@data==1,
-                  With[{pt=data[[1, -1]]}, ConstantArray[pt, Length[#]]&],
-                  LinearModelFit[data, #2, r, ops]["Function"]
-                  ],
-                Replace[
-                  Thread[
-                    ToExpression[
-                      "par"<>ToString[#]&/@Range[Length[#2["Parameters"]]], 
-                      StandardForm, 
-                      Hold
-                      ],
-                    Hold
-                    ],
-                  Hold[p__]:>
-                    Block[p,
-                      With[{model = 
-                        #2["Form"]/.Join[
-                            Thread[#2["Parameters"]->p],
-                            {Point->r0, Value->c}
-                            ]},
-                        NonlinearModelFit[
-                          data,
-                          model, 
-                          p, 
-                          r,
-                          ops
-                          ]["Function"]
-                        ]
-                      ]
-                  ]
-                ],
-              r0,
-              c
-              ]
-            ]&,
-          {
-            {
-              #[[
-                ;;Min@{
-                  Replace[nl,
-                    Scaled[i_]:>Floor[i*Length[#]]
-                    ],
-                  Length@#
-                  },
-                {gind2, 3}
-                ]],
-              #[[
-                -Min@{
-                  Replace[nr,
-                    Scaled[i_]:>Floor[i*Length[#]]
-                    ],
-                  Length@#
-                  };;,
-                {gind2, 3}
-                ]]
-              },
-            forms,
-            #[[{1, -1}, {gind2, 3}]]
-            }
-          ]&/@trueRotSubGrids
+    monkeyPatch[f_, r_, c_]:=f;
+    debugPrint["Fitting forms"];
+    fits = (* take the subgrids and extrapolate along them *)
+      fitExtrapForms[
+        trueRotSubGrids,
+        pointSampling, fitForms, 
+        monkeyPatch, 
+        gind1, gind2,
+        ops
         ];
-      (* use the fitted forms to extrapolate off the grid *)
-      gridVals = MapThread[
-        With[
-          {
-            minFit = #[[1]], maxFit = #[[2]], 
-            ptRaw = #3[[All, gind2]],
-            goodBounds = MinMax @ #2[[All, gind2]]
-            },
-          (* use the left-and-right side first to evaluate the smaller and larger points  *)
-          Join[
-            With[
-              {
-                (* get the points off the grid too small  *)
-                pts=
-                  Pick[ptRaw, UnitStep[goodBounds[[1]] - (ptRaw + $MachineEpsilon)], 1]
-                },
-              (* if there no points don't worry about it *)
-              If[Length@pts>0,
-                (* recreate the triples we originally had by adding a constant slice coordinate *)
-                Transpose[{
-                  ConstantArray[#3[[1, 1]], Length@pts],
-                  pts,
-                  minFit@pts
-                  }],
-                pts
-             ]
-              ],
-            #2,
-            With[
-              {
-                (* get the points off the grid too large  *)
-                pts=
-                  Pick[ptRaw, (ptRaw - $MachineEpsilon) - goodBounds[[2]]//UnitStep, 1]
-                },
-              (* if there no points don't worry about it *)
-              If[Length@pts>0,
-                (* recreate the triples we originally had by adding a constant slice coordinate *)
-                Transpose[
-                  {
-                    ConstantArray[#3[[1, 1]], Length@pts],
-                    pts, 
-                    maxFit@pts
-                    }[[{gind1, gind2, 3}]]
-                    ],
-                pts
-                ]
-              ]
-            ]
-          ]&,
-        {
-          fits,
-          trueRotSubGrids,
-          KeyTake[rotSubGrids, Keys[trueRotSubGrids]]
-          }
-        ];
+    debugPrint["Extapolating grid values"];
+    (* use the fitted forms to extrapolate off the grid *)
+    gridVals = 
+      extraGridVals[rotSubGrids, trueRotSubGrids, gind1, gind2, fits];
+    gpts=
+      (* reformat so that we have a list of triples*)
+      Flatten[Values[gridVals], 1];
+    debugPrint["Symmetrizing grid"];
+    If[symmetry=!=None,
       gpts=
-        (* reformat so that we have a list of triples*)
-        Flatten[Values[gridVals], 1];
-      If[symmetry=!=None,
-        gpts=
-          (* symmetrize the grid of triples *)
-          DeleteDuplicatesBy[
-            Join[
-              #,  
-              Transpose[{#[[All, gind2]], #[[All, gind1]], symmetry*#[[All, 3]]}]
-              ]&@
-              gpts,
-            Round[#[[;;2]], .001]&
-            ]
+      (* symmetrize the grid of triples *)
+      Join[
+        #,
+          Transpose[{#[[All, gind2]], #[[All, gind1]], symmetry*#[[All, 3]]}]
+          ]&@gpts
+      ];
+    gpts=
+    DeleteDuplicatesBy[gpts, Round[#[[;;2]], .005]&];
+    gpts=
+     (* convert back to a/s space *)
+     Join[
+       RotationMatrix[Pi/4].Transpose[gpts[[All, ;;2]]]//Transpose, 
+       gpts[[All, {3}]],
+       2
        ];
-      gpts=
-        (* convert back to a/s space *)
-        Join[
-            RotationMatrix[Pi/4].Transpose[gpts[[All, ;;2]]]//Transpose, 
-            gpts[[All, {3}]],
-            2
-            ];
-      (* group extrap points by a value? *)
-      gptsRegrouped = GroupBy[gpts, Round[#[[gind1]], .001]&];
-      (* group everything by a value? *)
-      fullGridRegrouped = GroupBy[fn[[All, ;;2]], Round[#[[gind1]], .001]&];
-      patchedPts=
-        MapThread[
-          If[Length[#]=!=Length[#2], 
-            (* 
-					   I guess some times we don't have the full grid? 
-					   In this case we just extrapolate using the built in stuff
-					   *)
-            Join[
-              #2,
-              List/@
-                Interpolation[
-                  #[[All, {gind2, 3}]], 
-                  "ExtrapolationHandler"->{(dv&), "WarningMessage"->False}
-                  ][#2[[All, gind2]]],
-              2
-              ],
-            #
-            ]&,
-          {
-            KeySort@gptsRegrouped,
-            KeySort@fullGridRegrouped
-            }
-          ];
+    (* group extrap points by a value? *)
+    gptsRegrouped = GroupBy[gpts, Round[#[[1]], .005]&];
+    (* group everything by a value? *)
+    fullGridRegrouped = GroupBy[fn[[All, ;;2]], Round[#[[1]], .005]&];
+    (*dumpSymbol[gptsRegrouped];*)
+    debugPrint["Doing secondary extrapolation"];
+    patchedPts=
+      MapThread[
+        If[Length[#] =!= Length[#2], 
+          (* 
+                            I guess some times we don't have the full grid? 
+                            In this case we just extrapolate using a default value... 
+                            (originally default stuff... dunno what should do)
+                            *)
+         Join[
+           #2,
+           List/@
+             Interpolation[
+               #[[All, {2, 3}]], 
+               {
+                 "ExtrapolationHandler"->{(dv&), "WarningMessage"->False}
+                 }
+               ][#2[[All, 2]]],
+             2
+             ],
+          #
+          ]&,
+       {
+         KeySort@gptsRegrouped,
+         KeySort@fullGridRegrouped
+         }
+       ];
      Round[
        Developer`ToPackedArray@
-         Flatten[Values[patchedPts], 1],
+         DeleteDuplicatesBy[
+           Flatten[Values[patchedPts], 1],
+           Round[#[[;;2]], .005]&
+           ],
        .0001
        ](*//Interpolation*)
     ];
@@ -502,10 +561,9 @@ extrapolatedFunction[
   ops:OptionsPattern[]
   ]:=
   Module[{dv = 10.^9.5+2*Abs[def[[1]]], d1, d2, d3, d},
-    d1 = extrapolatedFunction[a, First, symmetry, 
-            DefaultValue[dv], ops];
+    d1 = extrapolatedFunction[a, First, None, DefaultValue[dv], ops];
     d2 = extrapolatedFunction[a, Last, symmetry, def, ops];
-    d = Join[Select[d1, #[[3]]<dv-1&], d2, 2]
+    d = Join[d1, d2]
     ]
 
 
@@ -1169,7 +1227,8 @@ getSCFOverlapMatrix[
       baseWfnsSCF, baseWfnsDVR, 
       coeffs, coeffLists,
       baseGrid, extrapCoeffs, 
-      coeffInterps, newCoeffs
+      coeffInterps, newCoeffs,
+      fuckTheseFuckingPointsFuckThisIDontWantToDoIt
       },
     nstates = Length@states;
     pickSpec = Pick[Range[Length[scfWavefunctions]], #=!=$Failed&/@scfWavefunctions];
@@ -1210,19 +1269,25 @@ getSCFOverlapMatrix[
         extrapCoeffs=
           extrapolatedFunction[
               baseGrid,
-              {5, 5},
-              {#^Range[1]&, #^Range[1]&},
+              {Scaled[.25], Scaled[.25]},
+              {#^Range[3]&, #^Range[3]&},
               "Both",
               symmetries[[i]],
               DefaultValue[0]
               ];
         dumpSymbol[extrapCoeffs];
         debugPrint["Constructing interpolation off grid"];
-        Join[
-          extrapCoeffs[[All, ;;2]], 
-          List/@Clip[extrapCoeffs[[All, 3]]],
-          2
-          ]//Interpolation,
+        fuckTheseFuckingPointsFuckThisIDontWantToDoIt=
+          DeleteDuplicatesBy[
+            Join[
+              extrapCoeffs[[All, ;;2]], 
+              List/@Clip[extrapCoeffs[[All, 3]]],
+              2
+              ],
+            Round[#[[;;2]], .01]&
+            ];
+      dumpSymbol[fuckTheseFuckingPointsFuckThisIDontWantToDoIt];
+        fuckTheseFuckingPointsFuckThisIDontWantToDoIt//Interpolation,
         {coeffList, coeffLists},
         {i, nstates}
         ];
@@ -1317,24 +1382,33 @@ averagedPot[wnfs_, i_]:=
 
 
 extrapolatedPotential[grid_, wfns_, i_]:=
-  With[
+  Module[
     {
-      interp=
-        Interpolation[
-          extrapolatedFunction[
-            getPot[wfns, i],
+      pot,
+      extrap,
+      interp
+      },
+    debugPrint["Extracting potential"];
+    pot = getPot[wfns, i];
+    dumpSymbol[pot];
+    debugPrint["Extrapolating potential"];
+    extrap =
+      extrapolatedFunction[
+            pot,
             {0, 10^9.-1},
             {Scaled[1], Scaled[.2]},
             {#^Range[6]&, #^Range[1]&}
-            ],
+            ];
+    interp=
+        Interpolation[
+          extrap,
           {
             "ExtrapolationHandler"->{
               (10.^9&),
               "WarningMessage"->False
               }
             }
-          ]
-      },
+          ];
     interp@@Transpose[grid]
     ]
 
@@ -1348,7 +1422,12 @@ coupledPot[grid_, wfns_, i___]:=
   SparseArray[
     Band[{1, 1}]->
       Developer`ToPackedArray@
-        Apply[Join, Map[extrapolatedPotential[grid, wfns, #]&, {i}]]
+        Apply[Join, 
+          Map[
+            extrapolatedPotential[grid, wfns, #]&, 
+            {i}
+            ]
+          ]
     ];
 
 
@@ -1371,7 +1450,7 @@ coupledGrid[grid_, i__]:=
 
 (* ::Subsubsubsection::Closed:: *)
 (*getWavefunctions*)
-
+ 
 
 
 getWavefunctions[wfns_, dvr_, overlaps_, grid_, states___]:=

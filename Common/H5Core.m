@@ -140,7 +140,7 @@ $H5PotentialRegion=
 
 
 If[!ValueQ[$H5CalculationMode], 
-  $H5CalculationMode = "Minimal"
+  $H5CalculationMode = "CoreGrid"(*"Minimal"*)
   ]; (*choices are "CoreGrid" / "Extrapolated" / "Minimal"*)
 
 

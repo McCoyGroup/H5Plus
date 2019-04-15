@@ -20,9 +20,307 @@ StringForm["Initializing `1` indices ....", "IsotopeData"]
 "Generating SCF coefficients..."
 "SCF coefficients calculated"
 "Rephasing SCF wavefunctions"
-"Got 3200 SCF wavefunctions"
+"Rephasing SCF DVR wavefunctions"
+"Mean shifting wavefunctions"
+"Shifting core grids"
+"Constructing full grid"
+"Reconstructing wavefunctions"
+"Making grid functions"
+"3500 wavefunctions with length {8190} and grid of dimension {90, 91}"
+"Making wavefunction object"
+"Reconstructing wavefunction list"
+"Mean shifting wavefunctions"
+"Shifting core grids"
+"Constructing full grid"
+"Reconstructing wavefunctions"
+"Making grid functions"
+"3500 wavefunctions with length {7140} and grid of dimension {84, 85}"
+"Making wavefunction object"
+"Reconstructing wavefunction list"
+"Mean shifting wavefunctions"
+"Shifting core grids"
+"Constructing full grid"
+"Reconstructing wavefunctions"
+"Making grid functions"
+"3500 wavefunctions with length {7056} and grid of dimension {84, 84}"
+"Making wavefunction object"
+"Reconstructing wavefunction list"
+"Mean shifting wavefunctions"
+"Shifting core grids"
+"Constructing full grid"
+"Reconstructing wavefunctions"
+"Making grid functions"
+"3500 wavefunctions with length {8281} and grid of dimension {91, 91}"
+"Making wavefunction object"
+"Reconstructing wavefunction list"
+"Mean shifting wavefunctions"
+"Shifting core grids"
+"Constructing full grid"
+"Reconstructing wavefunctions"
+"Making grid functions"
+"3500 wavefunctions with length {7225} and grid of dimension {85, 85}"
+"Making wavefunction object"
+"Reconstructing wavefunction list"
+"Mean shifting wavefunctions"
+"Shifting core grids"
+"Constructing full grid"
+"Reconstructing wavefunctions"
+"Making grid functions"
+"3500 wavefunctions with length {6889} and grid of dimension {83, 83}"
+"Making wavefunction object"
+"Reconstructing wavefunction list"
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing SCF SCF wavefunctions"
+"Mean shifting wavefunctions"
+"Shifting core grids"
+"Constructing full grid"
+"Reconstructing wavefunctions"
+"Making grid functions"
+"3500 wavefunctions with length {8648} and grid of dimension {92, 94}"
+"Making wavefunction object"
+"Reconstructing wavefunction list"
+"Mean shifting wavefunctions"
+"Shifting core grids"
+"Constructing full grid"
+"Reconstructing wavefunctions"
+"Making grid functions"
+"3500 wavefunctions with length {7462} and grid of dimension {82, 91}"
+"Making wavefunction object"
+"Reconstructing wavefunction list"
+"Mean shifting wavefunctions"
+"Shifting core grids"
+"Constructing full grid"
+"Reconstructing wavefunctions"
+"Making grid functions"
+"3500 wavefunctions with length {7290} and grid of dimension {90, 81}"
+"Making wavefunction object"
+"Reconstructing wavefunction list"
+"Mean shifting wavefunctions"
+"Shifting core grids"
+"Constructing full grid"
+"Reconstructing wavefunctions"
+"Making grid functions"
+"3500 wavefunctions with length {7268} and grid of dimension {92, 79}"
+"Making wavefunction object"
+"Reconstructing wavefunction list"
+"Mean shifting wavefunctions"
+"Shifting core grids"
+"Constructing full grid"
+"Reconstructing wavefunctions"
+"Making grid functions"
+"3500 wavefunctions with length {8281} and grid of dimension {91, 91}"
+"Making wavefunction object"
+"Reconstructing wavefunction list"
+"Mean shifting wavefunctions"
+"Shifting core grids"
+"Constructing full grid"
+"Reconstructing wavefunctions"
+"Making grid functions"
+"3500 wavefunctions with length {7347} and grid of dimension {79, 93}"
+"Making wavefunction object"
+"Reconstructing wavefunction list"
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing disagreement by sampling direction. Be careful."
+"Got 6400 SCF wavefunctions"
 "Rephased SCF wavefunctions"
 "Generating one quantum overlap matrix"
+"Loading base coefficients"
+"Extrapolating coefficients"
+"Loading base function data"
+"Extrapolating off grid"
+
+MapThread::mptc: 
+   Incompatible dimensions of objects at positions {2, 1} and {2, 2} of 
+    MapThread[If[Length[#1] =!= Length[#2], 
+       Join[#2, List /@ 
+         Interpolation[#1[[All,{2, 3}]], 
+           {ExtrapolationHandler -> 
+             {SpectrumScriptP<<17>>$33238509 & , <<1>>}}][<<1>>], 2], #1] & , 
+     {<<2>>}]; dimensions are 78 and 80.
+
+Values::invrl: The argument MapThread[If[Length[#1] =!= Length[#2], 
+       Join[#2, List /@ 
+         Interpolation[#1[[All,{2, 3}]], 
+           {ExtrapolationHandler -> 
+             {SpectrumScriptP<<17>>$33238509 & , <<1>>}}][<<1>>], 2], #1] & , 
+     {<<2>>}] is not a valid Association or a list of rules.
+
+MapThread::mptc: 
+   Incompatible dimensions of objects at positions {2, 1} and {2, 2} of 
+    MapThread[If[Length[#1] =!= Length[#2], 
+       Join[#2, List /@ 
+         Interpolation[#1[[All,{2, 3}]], 
+           {ExtrapolationHandler -> 
+             {SpectrumScriptP<<17>>$33238517 & , <<1>>}}][<<1>>], 2], #1] & , 
+     {<<2>>}]; dimensions are 78 and 80.
+
+Values::invrl: The argument MapThread[If[Length[#1] =!= Length[#2], 
+       Join[#2, List /@ 
+         Interpolation[#1[[All,{2, 3}]], 
+           {ExtrapolationHandler -> 
+             {SpectrumScriptP<<17>>$33238517 & , <<1>>}}][<<1>>], 2], #1] & , 
+     {<<2>>}] is not a valid Association or a list of rules.
+
+Part::partw: Part 3 of Values[MapThread[If[Length[#1] =!= Length[#2], 
+        Join[#2, List /@ 
+          Interpolation[#1[[All,{2, 3}]], 
+            {ExtrapolationHandler -> {SpectrumSc<<26>>38509 & , <<1>>}}][
+           <<1>>], 2], #1] & , {<<2>>}]] does not exist.
+
+Part::partd: Part specification 0.0001[[3]] is longer than depth of object.
+
+Round::argt: Round called with 0 arguments; 1 or 2 arguments are expected.
+
+Join::normal1: Expression Round[] at position 1
+     is expected to have nonatomic subexpression at level 2.
+"Constructing interpolation off grid"
+
+Part::take: Cannot take positions 1 through 2 in Round[].
+
+Part::partw: Part 3 of Round[] does not exist.
+
+Join::normal1: Expression Join[Round[], 
+      Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
+           Join[#2, List /@ 
+             Interpolation[#1[[All,{2, 3}]], {<<1>>}][#2[[All,2]]], 2], #1] & 
+          , {<<2>>}]], 0.0001], 2][[All,<<1>>]] at position 1
+     is expected to have nonatomic subexpression at level 2.
+
+Interpolation::innd: 
+   First argument in Join[Join[Round[], 
+       Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
+            Join[#2, List /@ Interpolation[#1[[<<2>>]], {<<1>>}][<<1>>], 2], 
+            #1] & , {<<2>>}]], 0.0001], 2][[All,<<1>>]], <<2>>] does not
+     contain a list of data and coordinates.
+"Loading base function data"
+"Extrapolating off grid"
+
+MapThread::mptc: 
+   Incompatible dimensions of objects at positions {2, 1} and {2, 2} of 
+    MapThread[If[Length[#1] =!= Length[#2], 
+       Join[#2, List /@ 
+         Interpolation[#1[[All,{2, 3}]], 
+           {ExtrapolationHandler -> 
+             {SpectrumScriptP<<17>>$33238559 & , <<1>>}}][<<1>>], 2], #1] & , 
+     {<<2>>}]; dimensions are 78 and 80.
+
+General::stop: Further output of MapThread::mptc
+     will be suppressed during this calculation.
+
+Values::invrl: The argument MapThread[If[Length[#1] =!= Length[#2], 
+       Join[#2, List /@ 
+         Interpolation[#1[[All,{2, 3}]], 
+           {ExtrapolationHandler -> 
+             {SpectrumScriptP<<17>>$33238559 & , <<1>>}}][<<1>>], 2], #1] & , 
+     {<<2>>}] is not a valid Association or a list of rules.
+
+General::stop: Further output of Values::invrl
+     will be suppressed during this calculation.
+
+Part::partw: Part 3 of Values[MapThread[If[Length[#1] =!= Length[#2], 
+        Join[#2, List /@ 
+          Interpolation[#1[[All,{2, 3}]], 
+            {ExtrapolationHandler -> {SpectrumSc<<26>>38559 & , <<1>>}}][
+           <<1>>], 2], #1] & , {<<2>>}]] does not exist.
+
+General::stop: Further output of Part::partw
+     will be suppressed during this calculation.
+
+Part::partd: Part specification 0.0001[[3]] is longer than depth of object.
+
+Round::argt: Round called with 0 arguments; 1 or 2 arguments are expected.
+
+Join::normal1: Expression Round[] at position 1
+     is expected to have nonatomic subexpression at level 2.
+
+General::stop: Further output of Join::normal1
+     will be suppressed during this calculation.
+"Constructing interpolation off grid"
+
+Part::take: Cannot take positions 1 through 2 in Round[].
+
+Interpolation::innd: 
+   First argument in Join[Join[Round[], 
+       Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
+            Join[#2, List /@ Interpolation[#1[[<<2>>]], {<<1>>}][<<1>>], 2], 
+            #1] & , {<<2>>}]], 0.0001], 2][[All,<<1>>]], <<2>>] does not
+     contain a list of data and coordinates.
+"Loading base function data"
+"Extrapolating off grid"
+
+Part::partd: Part specification 0.0001[[3]] is longer than depth of object.
+
+General::stop: Further output of Part::partd
+     will be suppressed during this calculation.
+
+Round::argt: Round called with 0 arguments; 1 or 2 arguments are expected.
+
+General::stop: Further output of Round::argt
+     will be suppressed during this calculation.
+"Constructing interpolation off grid"
+
+Part::take: Cannot take positions 1 through 2 in Round[].
+
+General::stop: Further output of Part::take
+     will be suppressed during this calculation.
+
+Interpolation::innd: 
+   First argument in Join[Join[Round[], 
+       Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
+            Join[#2, List /@ Interpolation[#1[[<<2>>]], {<<1>>}][<<1>>], 2], 
+            #1] & , {<<2>>}]], 0.0001], 2][[All,<<1>>]], <<2>>] does not
+     contain a list of data and coordinates.
+
+General::stop: Further output of Interpolation::innd
+     will be suppressed during this calculation.
+"Loading base function data"
+"Extrapolating off grid"
+"Constructing interpolation off grid"
+
+Join::heads: Heads Interpolation[Join[Join[Round[], 
+        Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
+             Join[#2, List /@ Interpolation[<<2>>][<<1>>], 2], #1] & , 
+           {<<2>>}]], 0.0001], 2][[All,<<1>>]], <<2>>]] and 
+    Interpolation[Join[Join[Round[], 
+        Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
+             Join[#2, List /@ Interpolation[<<2>>][<<1>>], 2], #1] & , 
+           {<<2>>}]], 0.0001], 2][[All,<<1>>]], <<2>>]] at positions 1 and 2
+     are expected to be the same.
+
+Join::heads: Heads Interpolation[Join[Join[Round[], 
+        Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
+             Join[#2, List /@ Interpolation[<<2>>][<<1>>], 2], #1] & , 
+           {<<2>>}]], 0.0001], 2][[All,<<1>>]], <<2>>]] and 
+    Interpolation[Join[Join[Round[], 
+        Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
+             Join[#2, List /@ Interpolation[<<2>>][<<1>>], 2], #1] & , 
+           {<<2>>}]], 0.0001], 2][[All,<<1>>]], <<2>>]] at positions 1 and 2
+     are expected to be the same.
+
+Transpose::nmtx: 
+   The first two levels of {Join[Interpolation[Join[Join[Round[], 
+           Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
+                Join[#2, <<2>>], #1] & , {<<2>>}]], 0.0001], 2][[<<2>>]], 
+         <<1>>, 2]][<<2>>], <<1>>], Join[<<2>>]} cannot be transposed.
+
+Join::heads: Heads Interpolation[Join[Join[Round[], 
+        Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
+             Join[#2, List /@ Interpolation[<<2>>][<<1>>], 2], #1] & , 
+           {<<2>>}]], 0.0001], 2][[All,<<1>>]], <<2>>]] and 
+    Interpolation[Join[Join[Round[], 
+        Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
+             Join[#2, List /@ Interpolation[<<2>>][<<1>>], 2], #1] & , 
+           {<<2>>}]], 0.0001], 2][[All,<<1>>]], <<2>>]] at positions 1 and 2
+     are expected to be the same.
+
+General::stop: Further output of Join::heads
+     will be suppressed during this calculation.
+
+Transpose::nmtx: The first two levels of {<<2>>} cannot be transposed.
+"Generating two quanta overlap matrix"
 "Loading base coefficients"
 "Extrapolating coefficients"
 "Loading base function data"
@@ -37,45 +335,36 @@ StringForm["Initializing `1` indices ....", "IsotopeData"]
 "Loading base function data"
 "Extrapolating off grid"
 "Constructing interpolation off grid"
+"Loading base function data"
+"Extrapolating off grid"
+"Constructing interpolation off grid"
+"Loading base function data"
+"Extrapolating off grid"
+"Constructing interpolation off grid"
+"Loading base function data"
+"Extrapolating off grid"
+"Constructing interpolation off grid"
+"Loading base function data"
+"Extrapolating off grid"
+"Constructing interpolation off grid"
+"Loading base function data"
+"Extrapolating off grid"
+"Constructing interpolation off grid"
 
-InterpolatingFunction::dmval: 
-   Input value {-2.51023, 0.636396}
-     lies outside the range of data in the interpolating function.
-     Extrapolation will be used.
+Transpose::nmtx: 
+   The first two levels of {Join[Interpolation[Join[Join[Round[], 
+           Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
+                Join[#2, <<2>>], #1] & , {<<2>>}]], 0.0001], 2][[<<2>>]], 
+         <<1>>, 2]][<<2>>], <<2>>], <<2>>} cannot be transposed.
 
-InterpolatingFunction::dmval: 
-   Input value {-2.51023, 0.722642}
-     lies outside the range of data in the interpolating function.
-     Extrapolation will be used.
-
-InterpolatingFunction::dmval: 
-   Input value {-2.51023, 0.808889}
-     lies outside the range of data in the interpolating function.
-     Extrapolation will be used.
-
-General::stop: Further output of InterpolatingFunction::dmval
+General::stop: Further output of Transpose::nmtx
      will be suppressed during this calculation.
-"Generating two quanta overlap matrix"
 "Generating 4D wavefunctions..."
 "Generating No Quanta Wavefunction"
 "Making kinetic energy"
 "Making potential energy"
 
-LinearModelFit::rank: 
-   The rank of the design matrix 2 is less than the number of terms 7
-     in the model. The model and results based upon it may contain significant
-     numerical error.
-
 First::nofirst: {} has zero length and no first element.
-
-Part::partw: Part 1 of {} does not exist.
-
-Part::partw: Part 1 of {} does not exist.
-
-Part::partw: Part 1 of {} does not exist.
-
-General::stop: Further output of Part::partw
-     will be suppressed during this calculation.
 
 Dot::dotsh: Tensors {} and {{0, 1}, {0, 0}} have incompatible shapes.
 
@@ -96,11 +385,6 @@ LinearModelFit::desmat:
    Unable to construct a numeric design matrix. Nominal variables may need to
     be specified, or non-numeric entries for numeric variables may need to be
     replaced.
-
-LinearModelFit::rank: 
-   The rank of the design matrix 2 is less than the number of terms 7
-     in the model. The model and results based upon it may contain significant
-     numerical error.
 
 First::nofirst: {} has zero length and no first element.
 
@@ -125,59 +409,20 @@ LinearModelFit::desmat:
 General::stop: Further output of LinearModelFit::desmat
      will be suppressed during this calculation.
 
-LinearModelFit::rank: 
-   The rank of the design matrix 2 is less than the number of terms 7
-     in the model. The model and results based upon it may contain significant
-     numerical error.
+Dot::rect: Nonrectangular tensor encountered.
 
-General::stop: Further output of LinearModelFit::rank
-     will be suppressed during this calculation.
-
-Transpose::nmtx: 
-   The first two levels of {{0.533454}, {3.9037}, 
-     LinearModelFit[{}, {SpectrumScriptPackage`Private`r}, 
-        SpectrumScriptPackage`Private`r][Function][{3.9037}]} cannot be
-     transposed.
-
-Join::heads: Heads List and Transpose at positions 1 and 3
-     are expected to be the same.
-
-Transpose::nmtx: 
-   The first two levels of {{0.594433}, {3.96469}, 
-     LinearModelFit[{}, {SpectrumScriptPackage`Private`r}, 
-        SpectrumScriptPackage`Private`r][Function][{3.96469}]} cannot be
-     transposed.
-
-Join::heads: Heads List and Transpose at positions 1 and 3
-     are expected to be the same.
-
-Transpose::nmtx: 
-   The first two levels of {{0.517402}, {3.79778}, 
-     LinearModelFit[{}, {SpectrumScriptPackage`Private`r}, 
-        SpectrumScriptPackage`Private`r][Function][{3.79778}]} cannot be
-     transposed.
-
-General::stop: Further output of Transpose::nmtx
-     will be suppressed during this calculation.
-
-Join::heads: Heads List and Transpose at positions 1 and 3
-     are expected to be the same.
-
-General::stop: Further output of Join::heads
-     will be suppressed during this calculation.
-
-Join::headsd: Expression {Transpose[{{0.533454}, {3.9037}, 
+Join::headsd: Expression {Transpose[{{0.526337}, {3.98646}, 
        LinearModelFit[{}, {SpectrumScriptPackage`Private`r}, 
-          SpectrumScriptPackage`Private`r][Function][{3.9037}]}], 
-     Transpose[{<<3>>}], <<3027>>, {7458.}} at position 2
-     is expected to have head Transpose for all expressions at level 2.
+          SpectrumScriptPackage`Private`r][Function][{3.98646}]}], {10299.5}, 
+     {9175.96}, <<5272>>, {9738.46}} at position 2 is expected to have head 
+    Transpose for all expressions at level 2.
 
 GroupBy::list1: 
                                     1          1           1        1
    The argument Join[Transpose[{{-------, -(-------)}, {-------, -------}} . 
                                  Sqrt[2]    Sqrt[2]     Sqrt[2]  Sqrt[2]
-       Transpose[{{{0.533454, 0.488517, 6076.42}, {0.533454, <<2>>}, {<<3>>}, 
-          {0.533447, 3.9037, 9455.3}}, <<3029>>}]], {<<3030>>}, 2] is not a
+       {{{0.526337, 3.98646, 9738.46}, 0.51106, 0.541167, 0.571274, 0.60138, 
+         <<5268>>, 0.676424, 0.70653, 0.526337}, <<1>>}], <<1>>, 2] is not a
      valid list of Associations or rules or lists of rules.
 
 KeySort::invrl: 
@@ -185,9 +430,9 @@ KeySort::invrl:
    The argument GroupBy[Join[Transpose[{{-------, -(-------)}, 
                                          Sqrt[2]    Sqrt[2]
              1        1
-         {-------, -------}} . Transpose[{{{0.533454, 0.488517, 6076.42}, 
+         {-------, -------}} . {{{0.526337, 3.98646, 9738.46}, 0.51106, 
           Sqrt[2]  Sqrt[2]
-           <<2>>, {0.533447, 3.9037, 9455.3}}, <<3028>>, {<<2>>}}]], <<1>>, 2]
+          0.541167, 0.571274, <<5270>>, 0.70653, 0.526337}, <<1>>}], <<1>>, 2]
       , <<1>> & ] is not a valid Association or a list of rules.
 
 MapThread::mptd: 
@@ -197,34 +442,29 @@ MapThread::mptd:
               1        1
           {-------, -------}} . 
            Sqrt[2]  Sqrt[2]
-         Transpose[{{{0.533454, 0.488517, 6076.42}, <<2>>, 
-            {0.533447, 3.9037, <<6>>}}, <<3029>>}]], <<1>>, 2], <<1>> & ]] at
-     position {2, 1} in MapThread[If[Length[#1] =!= Length[#2], 
+         {{{0.526337, 3.98646, 9738.46}, 0.51106, 0.541167, <<5271>>, 
+           0.70653, 0.526337}, <<1>>}], <<1>>, 2], <<1>> & ]] at position {2, 
+    1} in MapThread[If[Length[#1] =!= Length[#2], 
        Join[#2, List /@ 
          Interpolation[#1[[All,{2, 3}]], 
-           ExtrapolationHandler -> {Automatic, WarningMessage -> False}][
-          #2[[All,2]]], 2], #1] & , {<<2>>}] has only 0 of required 1
-     dimensions.
+           {ExtrapolationHandler -> 
+             {SpectrumScriptP<<17>>$33389774 & , <<1>>}}][<<1>>], 2], #1] & , 
+     {<<2>>}] has only 0 of required 1 dimensions.
 
-Values::invrl: The argument MapThread[If[Length[#1] =!= Length[#2], 
-       Join[#2, List /@ 
-         Interpolation[#1[[All,{2, 3}]], 
-           ExtrapolationHandler -> {Automatic, WarningMessage -> False}][
-          #2[[All,2]]], 2], #1] & , {<<2>>}] is not a valid Association or a
-     list of rules.
+Dot::rect: Nonrectangular tensor encountered.
 
-Join::headsd: Expression {Transpose[{{0.533454}, {3.9037}, 
+Join::headsd: Expression {Transpose[{{0.526337}, {3.98646}, 
        LinearModelFit[{}, {SpectrumScriptPackage`Private`r}, 
-          SpectrumScriptPackage`Private`r][Function][{3.9037}]}], 
-     Transpose[{<<3>>}], <<3027>>, {7458.}} at position 2
-     is expected to have head Transpose for all expressions at level 2.
+          SpectrumScriptPackage`Private`r][Function][{3.98646}]}], {10299.5}, 
+     {9175.96}, <<5272>>, {9738.46}} at position 2 is expected to have head 
+    Transpose for all expressions at level 2.
 
 GroupBy::list1: 
                                     1          1           1        1
    The argument Join[Transpose[{{-------, -(-------)}, {-------, -------}} . 
                                  Sqrt[2]    Sqrt[2]     Sqrt[2]  Sqrt[2]
-       Transpose[{{{0.533454, 0.488517, 6076.42}, {0.533454, <<2>>}, {<<3>>}, 
-          {0.533447, 3.9037, 9455.3}}, <<3029>>}]], {<<3030>>}, 2] is not a
+       {{{0.526337, 3.98646, 9738.46}, 0.51106, 0.541167, 0.571274, 0.60138, 
+         <<5268>>, 0.676424, 0.70653, 0.526337}, <<1>>}], <<1>>, 2] is not a
      valid list of Associations or rules or lists of rules.
 
 KeySort::invrl: 
@@ -232,9 +472,9 @@ KeySort::invrl:
    The argument GroupBy[Join[Transpose[{{-------, -(-------)}, 
                                          Sqrt[2]    Sqrt[2]
              1        1
-         {-------, -------}} . Transpose[{{{0.533454, 0.488517, 6076.42}, 
+         {-------, -------}} . {{{0.526337, 3.98646, 9738.46}, 0.51106, 
           Sqrt[2]  Sqrt[2]
-           <<2>>, {0.533447, 3.9037, 9455.3}}, <<3028>>, {<<2>>}}]], <<1>>, 2]
+          0.541167, 0.571274, <<5270>>, 0.70653, 0.526337}, <<1>>}], <<1>>, 2]
       , <<1>> & ] is not a valid Association or a list of rules.
 
 MapThread::mptd: 
@@ -244,40 +484,19 @@ MapThread::mptd:
               1        1
           {-------, -------}} . 
            Sqrt[2]  Sqrt[2]
-         Transpose[{{{0.533454, 0.488517, 6076.42}, <<2>>, 
-            {0.533447, 3.9037, <<6>>}}, <<3029>>}]], <<1>>, 2], <<1>> & ]] at
-     position {2, 1} in MapThread[If[Length[#1] =!= Length[#2], 
+         {{{0.526337, 3.98646, 9738.46}, 0.51106, 0.541167, <<5271>>, 
+           0.70653, 0.526337}, <<1>>}], <<1>>, 2], <<1>> & ]] at position {2, 
+    1} in MapThread[If[Length[#1] =!= Length[#2], 
        Join[#2, List /@ 
          Interpolation[#1[[All,{2, 3}]], 
-           ExtrapolationHandler -> {Automatic, WarningMessage -> False}][
-          #2[[All,2]]], 2], #1] & , {<<2>>}] has only 0 of required 1
-     dimensions.
-
-Values::invrl: The argument MapThread[If[Length[#1] =!= Length[#2], 
-       Join[#2, List /@ 
-         Interpolation[#1[[All,{2, 3}]], 
-           ExtrapolationHandler -> {Automatic, WarningMessage -> False}][
-          #2[[All,2]]], 2], #1] & , {<<2>>}] is not a valid Association or a
-     list of rules.
-
-Interpolation::innd: 
-   First argument in Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
-         Join[#2, List /@ 
-           Interpolation[#1[[All,{2, 3}]], 
-             ExtrapolationHandler -> {Automatic, <<1>>}][#2[[<<2>>]]], 2], #1]
-         & , <<1>>]], 0.0001] does not contain a list of data and coordinates.
-
-Interpolation::innd: 
-   First argument in Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
-         Join[#2, List /@ 
-           Interpolation[#1[[All,{2, 3}]], 
-             ExtrapolationHandler -> {Automatic, <<1>>}][#2[[<<2>>]]], 2], #1]
-         & , <<1>>]], 0.0001] does not contain a list of data and coordinates.
+           {ExtrapolationHandler -> 
+             {SpectrumScriptP<<17>>$33389774 & , <<1>>}}][<<1>>], 2], #1] & , 
+     {<<2>>}] has only 0 of required 1 dimensions.
 "Making grid"
 "Diagonalizing"
 
 Thread::tdlen: Objects of unequal length in 
-    SparseArray[<380800>, {3200, 3200}] + SparseArray[<1>, {1, 1}]
+    SparseArray[<1017600>, {6400, 6400}] + SparseArray[<1>, {1, 1}]
      cannot be combined.
 
 ChemTools`ChemTools::Failure: The Hamiltonian is not a square numerical matrix
