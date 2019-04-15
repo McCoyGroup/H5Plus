@@ -1270,15 +1270,18 @@ loadH5DVR["GridOps"]:=
   h5GridOps=
     {
       "Range"->
-        With[
-          {
-            a = RegionBounds@h5Reg,
-            b = {{-10, 10}, {0, 4}}
-            },
-          MapThread[
-            {Max@{#[[1]], #2[[1]]}, Min@{#[[2]], #2[[2]]}}&,
-            {a, b}
-            ]
+        If[$H5CalculationMode==="Minimal",
+          With[
+            {
+              a = RegionBounds@h5Reg,
+              b = {{-10, 10}, {0, 4}}
+              },
+            MapThread[
+              {Max@{#[[1]], #2[[1]]}, Min@{#[[2]], #2[[2]]}}&,
+              {a, b}
+              ]
+            ],
+          RegionBounds@h5Reg
           ],
       "Points"->{60,60}
       };

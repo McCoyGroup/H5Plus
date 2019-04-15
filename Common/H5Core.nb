@@ -1715,28 +1715,34 @@ s/h5_dip_QA.mx\"", "]"}]}]}], ";"}], "*)"}]], "CodeInput", CellChangeTimes ->
                       "\"GridOps\"", "]"}], ":=", "\n", "\t", RowBox[
                      {"h5GridOps", "=", "\n", "\t\t", RowBox[{"{", "\n", 
                         "\t\t\t", RowBox[{RowBox[{"\"Range\"", "\[Rule]", 
-                          "\n", "\t\t\t\t", RowBox[{"With", "[", "\n", 
-                          "\t\t\t\t\t", RowBox[{RowBox[{"{", "\n", 
-                          "\t\t\t\t\t\t", RowBox[{RowBox[{"a", " ", "=", " ", 
-                          RowBox[{"RegionBounds", "@", "h5Reg"}]}], ",", 
-                          "\n", "\t\t\t\t\t\t", RowBox[{"b", " ", "=", " ", 
-                          RowBox[{"{", RowBox[{RowBox[{"{", RowBox[{RowBox[
-                          {"-", "10"}], ",", " ", "10"}], "}"}], ",", " ", 
-                          RowBox[{"{", RowBox[{"0", ",", " ", "4"}], "}"}]}], 
-                          "}"}]}]}], "\n", "\t\t\t\t\t\t", "}"}], ",", "\n", 
-                          "\t\t\t\t\t", RowBox[{"MapThread", "[", "\n", 
-                          "\t\t\t\t\t\t", RowBox[{RowBox[{RowBox[{"{", RowBox[
-                          {RowBox[{"Max", "@", RowBox[{"{", RowBox[{RowBox[
-                          {"#", "[", RowBox[{"[", "1", "]"}], "]"}], ",", 
-                          " ", RowBox[{"#2", "[", RowBox[{"[", "1", "]"}], 
-                          "]"}]}], "}"}]}], ",", " ", RowBox[{"Min", "@", 
-                          RowBox[{"{", RowBox[{RowBox[{"#", "[", RowBox[{"[", 
-                          "2", "]"}], "]"}], ",", " ", RowBox[{"#2", "[", 
-                          RowBox[{"[", "2", "]"}], "]"}]}], "}"}]}]}], "}"}], 
-                          "&"}], ",", "\n", "\t\t\t\t\t\t", RowBox[{"{", 
-                          RowBox[{"a", ",", " ", "b"}], "}"}]}], "\n", 
-                          "\t\t\t\t\t\t", "]"}]}], "\n", "\t\t\t\t\t", 
-                          "]"}]}], ",", "\n", "\t\t\t", RowBox[{"\"Points\"", 
+                          "\n", "\t\t\t  ", RowBox[{"If", "[", RowBox[
+                          {RowBox[{"$H5CalculationMode", "===", 
+                          "\"Minimal\""}], ",", "\n", "  ", "\t\t\t\t", 
+                          RowBox[{"With", "[", "\n", "  ", "\t\t\t\t\t", 
+                          RowBox[{RowBox[{"{", "\n", "  ", "\t\t\t\t\t\t", 
+                          RowBox[{RowBox[{"a", " ", "=", " ", RowBox[
+                          {"RegionBounds", "@", "h5Reg"}]}], ",", "\n", "  ", 
+                          "\t\t\t\t\t\t", RowBox[{"b", " ", "=", " ", RowBox[
+                          {"{", RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", 
+                          "10"}], ",", " ", "10"}], "}"}], ",", " ", RowBox[
+                          {"{", RowBox[{"0", ",", " ", "4"}], "}"}]}], 
+                          "}"}]}]}], "\n", "  ", "\t\t\t\t\t\t", "}"}], ",", 
+                          "\n", "  ", "\t\t\t\t\t", RowBox[{"MapThread", "[", 
+                          "\n", "  ", "\t\t\t\t\t\t", RowBox[{RowBox[{RowBox[
+                          {"{", RowBox[{RowBox[{"Max", "@", RowBox[{"{", 
+                          RowBox[{RowBox[{"#", "[", RowBox[{"[", "1", "]"}], 
+                          "]"}], ",", " ", RowBox[{"#2", "[", RowBox[{"[", 
+                          "1", "]"}], "]"}]}], "}"}]}], ",", " ", RowBox[
+                          {"Min", "@", RowBox[{"{", RowBox[{RowBox[{"#", "[", 
+                          RowBox[{"[", "2", "]"}], "]"}], ",", " ", RowBox[
+                          {"#2", "[", RowBox[{"[", "2", "]"}], "]"}]}], 
+                          "}"}]}]}], "}"}], "&"}], ",", "\n", "  ", 
+                          "\t\t\t\t\t\t", RowBox[{"{", RowBox[{"a", ",", " ", 
+                          "b"}], "}"}]}], "\n", "  ", "\t\t\t\t\t\t", 
+                          "]"}]}], "\n", "  ", "\t\t\t\t\t", "]"}], ",", 
+                          "\n", "  ", "\t\t\t  ", RowBox[{"RegionBounds", 
+                          "@", "h5Reg"}]}], "\n", "  ", "\t\t\t  ", "]"}]}], 
+                          ",", "\n", "\t\t\t", RowBox[{"\"Points\"", 
                           "\[Rule]", RowBox[{"{", RowBox[{"60", ",", "60"}], 
                           "}"}]}]}], "\n", "\t", "\t", "\t", "}"}]}]}], 
                   ";"}]], "CodeInput"]}, Open]], Cell[CellGroupData[

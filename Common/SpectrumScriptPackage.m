@@ -440,7 +440,7 @@ extrapolatedFunction[
   fitForms: {_Function, _Function} : extrapFitForms,
   direction:First|Last:First,
   symmetry:1|-1|None:1,
-  def:DefaultValue[_]:DefaultValue[10^9],
+  def:DefaultValue[_]:DefaultValue[Automatic],
   ops:OptionsPattern[]
   ]:=
   Module[
@@ -532,7 +532,10 @@ extrapolatedFunction[
              Interpolation[
                #[[All, {2, 3}]], 
                {
-                 "ExtrapolationHandler"->{(dv&), "WarningMessage"->False}
+                 "ExtrapolationHandler"->{
+                   Replace[dv, n_?NumberQ:>(n&)], 
+                   "WarningMessage"->False
+                   }
                  }
                ][#2[[All, 2]]],
              2
@@ -557,13 +560,13 @@ extrapolatedFunction[
   a__,
   "Both",
   symmetry:1|-1|None:1,
-  def:DefaultValue[_]:DefaultValue[10.^9],
+  def:DefaultValue[_]:DefaultValue[Automatic],
   ops:OptionsPattern[]
   ]:=
-  Module[{dv = 10.^9.5+2*Abs[def[[1]]], d1, d2, d3, d},
+  Module[{dv = 10.^9.5+2*Abs[Replace[def[[1]], Automatic:>5000]], d1, d2, d3, d},
     d1 = extrapolatedFunction[a, First, None, DefaultValue[dv], ops];
     d2 = extrapolatedFunction[a, Last, symmetry, def, ops];
-    d = Join[d1, d2]
+    d = DeleteDuplicatesBy[Join[d1, d2], Round[#[[;;2]], .001]&]
     ]
 
 
@@ -1399,6 +1402,7 @@ extrapolatedPotential[grid_, wfns_, i_]:=
             {Scaled[1], Scaled[.2]},
             {#^Range[6]&, #^Range[1]&}
             ];
+    dumpSymbol[extrap];
     interp=
         Interpolation[
           extrap,

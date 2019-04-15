@@ -29,6 +29,7 @@ $fullDipoleSurf = $H5DipoleSurfaceInterps;
 
 $r1r2POPotential = h2SinglePot;
 
+$calculationType = "CoreGrid";
 
 
 (* ::Subsubsubsection:: *)
