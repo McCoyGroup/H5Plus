@@ -24,7 +24,6 @@ $HistoryLength = 0;
 Clear @@ Unprotect[Out];
 
 
-
 (* ::Text:: *)
 (*On the server do this:*)
 
@@ -164,7 +163,7 @@ If[ValueQ[$calculationType], H5Core`$H5CalculationMode = $calculationType];
 End[];
 
 
-<<SpectrumScript`
+<<SpectrumScriptPackage`
 
 
 (* ::Subsection:: *)
@@ -242,10 +241,14 @@ r1r2GridPts = r1r2GridObject["Points"];
 
 
 (* ::Text:: *)
-(*Get Subscript[H, 2] wavefunctions parametrized by (s, a)*)
+(*Get H2 wavefunctions parametrized by (s, a)*)
 
 
 debugPrint["Generating r1/r2 wavefunctions..."]
+
+
+(* ::Subsubsubsection:: *)
+(*r1r2Wavefunctions*)
 
 
 r1r2Wavefunctions // cachedLoad@
@@ -253,6 +256,10 @@ r1r2Wavefunctions // cachedLoad@
     $r1r2DVR, r1r2Potential, 
     r1r2GridObject, saMainGrid
     ];
+
+
+(* ::Subsubsubsection:: *)
+(*r1r2PotMinima*)
 
 
 r1r2PotMinima // cachedLoad@
@@ -263,12 +270,20 @@ r1r2PotMinima // cachedLoad@
     ];
 
 
+(* ::Subsubsubsection:: *)
+(*cleanedR1R2Wavefunctions*)
+
+
 cleanedR1R2Wavefunctions = 
   AssociationMap[
     With[{pt=#[[1]], v=#[[2]]},
       pt->If[!gridMemberQ[pt, $fullPot], $Failed, v]
       ]&
     ]@r1r2Wavefunctions;
+
+
+(* ::Subsubsubsection:: *)
+(*debugPrint*)
 
 
 debugPrint["Generated r1/r2 wavefunctions"]
@@ -282,7 +297,15 @@ debugPrint["Generated r1/r2 wavefunctions"]
 (*SCF Wavefunction Computation*)
 
 
+(* ::Subsubsubsubsection:: *)
+(*r1r2SCFGrid*)
+
+
 r1r2SCFGrid = scfGrid[$r1r2DVR, $r1r2SCFBasisSize];
+
+
+(* ::Subsubsubsubsection:: *)
+(*r1r2SCFStates*)
 
 
 r1r2SCFStates =
@@ -294,11 +317,23 @@ r1r2SCFStates =
    };
 
 
+(* ::Subsubsubsubsection:: *)
+(*debugPrint*)
+
+
 debugPrint["Generating SCF coefficients..."]
+
+
+(* ::Subsubsubsubsection:: *)
+(*coeffChunkingLength*)
 
 
 coeffChunkingLength =
   Floor[(Times@@$saBasisSize)/chunkCount];
+
+
+(* ::Subsubsubsubsection:: *)
+(*loadChunk*)
 
 
 loadChunk[n_]:=
@@ -335,6 +370,10 @@ loadChunk[n_]:=
     ]
 
 
+(* ::Subsubsubsubsection:: *)
+(*coefficientData*)
+
+
 coefficientData =
   Module[
     {
@@ -351,12 +390,20 @@ coefficientData =
     ]
 
 
+(* ::Subsubsubsubsection:: *)
+(*cleanedCoefficientData*)
+
+
 cleanedCoefficientData =
   AssociationMap[
     With[{pt=#[[1]], v=#[[2]]},
       pt->If[!gridMemberQ[pt, $fullPot], $Failed, v]
       ]&
     ]@coefficientData;
+
+
+(* ::Subsubsubsubsection:: *)
+(*debugPrint*)
 
 
 debugPrint["SCF coefficients calculated"]
@@ -369,25 +416,52 @@ debugPrint["SCF coefficients calculated"]
 debugPrint["Rephasing SCF wavefunctions"]
 
 
-rephasingData =
+(* ::Text:: *)
+(*No way to rephase consistently across inconsistent (PODVR) grids...*)
+
+
+(* ::Subsubsubsubsection:: *)
+(*rephasingData*)
+
+
+(*rephasingData =
   getPhaseCorrection[
    Values@cleanedR1R2Wavefunctions, 
    Keys[r1r2Wavefunctions], Range[Length@r1r2SCFStates]
-   ];
+   ];*)
 
 
-rephasedR1R2Wavefunctions =
+(*rephasedR1R2Wavefunctions =
   AssociationThread[
    Keys[r1r2Wavefunctions],
    rephasingData["Wavefunctions"]
-   ];
+   ];*)
+
+
+(* ::Subsubsubsubsection:: *)
+(*debugPrint*)
+
+
+debugPrint["Rephasing SCF DVR wavefunctions"]
+
+
+(* ::Subsubsubsubsection:: *)
+(*phaseInCorrectDVR*)
 
 
 phaseInCorrectDVR =
   If[AssociationQ[#], #["DVRWavefunctions"], #] & /@ coefficientData;
 
 
+(* ::Subsubsubsubsection:: *)
+(*dvrPhaseCorrectionVector*)
+
+
 dvrPhaseCorrectionVector = {1, 1, 1, 1, 1, 1};
+
+
+(* ::Subsubsubsubsection:: *)
+(*phaseCorrectDVR*)
 
 
 phaseCorrectDVR // cachedLoad[
@@ -400,6 +474,10 @@ phaseCorrectDVR // cachedLoad[
      True
      ]["Wavefunctions"]
    ];
+
+
+(* ::Subsubsubsubsection:: *)
+(*phaseCorrectDVR*)
 
 
 (*phaseCorrectDVR // cachedLoad[
@@ -438,7 +516,22 @@ phaseCorrectDVR // cachedLoad[
   ]*)
 
 
+(* ::Subsubsubsubsection:: *)
+(*debugPrint SCF*)
+
+
+debugPrint["Rephasing SCF SCF wavefunctions"]
+
+
+(* ::Subsubsubsubsection:: *)
+(*scfPhaseCorrectionVector*)
+
+
 scfPhaseCorrectionVector = {1, 1, 1, 1, 1, 1};
+
+
+(* ::Subsubsubsubsection:: *)
+(*phaseCorrectSCF*)
 
 
 phaseCorrectSCF // cachedLoad[
@@ -451,6 +544,10 @@ phaseCorrectSCF // cachedLoad[
      True
      ]["Wavefunctions"]
    ];
+
+
+(* ::Subsubsubsubsection:: *)
+(*phaseCorrectSCF*)
 
 
 (*phaseCorrectSCF // cachedLoad[
@@ -485,7 +582,15 @@ phaseCorrectSCF // cachedLoad[
   ]*)
 
 
+(* ::Subsubsubsubsection:: *)
+(*debugPrint*)
+
+
 debugPrint["Got `` SCF wavefunctions"~TemplateApply~Length[phaseCorrectSCF]]
+
+
+(* ::Subsubsubsubsection:: *)
+(*debugPrint*)
 
 
 debugPrint["Rephased SCF wavefunctions"]
@@ -505,7 +610,8 @@ goodSparseOneQuantum =
    {2, 3}, 
    oneQuantumPhaseCorrection,
    Keys[coefficientData], 
-   saExtendedGrid
+   saExtendedGrid,
+   {-1, -1}
    ];
 
 
@@ -519,15 +625,16 @@ dumpSymbol[goodSparseOneQuantum]
 debugPrint["Generating two quanta overlap matrix"]
 
 
-(*(*{overlapMatrixTwoQuanta, goodSparseTwoQuanta}*)
+(*{overlapMatrixTwoQuanta, goodSparseTwoQuanta}*)
 goodSparseTwoQuanta =
   getSCFOverlapMatrix[
     phaseCorrectSCF, phaseCorrectDVR, 
     {4, 5, 6}, 
     twoQuantaPhaseCorrection,
-    Keys[coefficientData], saExtendedGrid
+    Keys[coefficientData], saExtendedGrid,
+    {1, -1, 1}
     ];
-*)
+
 
 
 (* ::Subsubsubsection:: *)
@@ -771,7 +878,7 @@ r1r2DipoleVectors // cachedLoad[
 
 r1r2TransitionMoments // cachedLoad[
   getTransitionMoments[
-   rephasedR1R2Wavefunctions,
+   phaseCorrectDVR,
    r1r2DipoleVectors
    ]
   ]
@@ -801,7 +908,6 @@ r1r2GridTMs =
 
 
 debugPrint["Generating spectra"]
-
 
 
 (* ::Text:: *)
@@ -939,7 +1045,6 @@ End[];
 
 
 ToExpression[Names[$Context <> "*"], StandardForm, dumpSymbol]
-
 
 
 (* ::Subsubsection:: *)

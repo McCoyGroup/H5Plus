@@ -20,17 +20,51 @@ StringForm["Initializing `1` indices ....", "IsotopeData"]
 "Generating SCF coefficients..."
 "SCF coefficients calculated"
 "Rephasing SCF wavefunctions"
-"Rephasing disagreement by sampling direction. Be careful."
-"Rephasing disagreement by sampling direction. Be careful."
-"Rephasing disagreement by sampling direction. Be careful."
-"Rephasing disagreement by sampling direction. Be careful."
-"Rephasing disagreement by sampling direction. Be careful."
-"Rephasing disagreement by sampling direction. Be careful."
-"Rephasing disagreement by sampling direction. Be careful."
-"Rephasing disagreement by sampling direction. Be careful."
 "Got 3200 SCF wavefunctions"
 "Rephased SCF wavefunctions"
 "Generating one quantum overlap matrix"
+"Loading base coefficients"
+"Extrapolating coefficients"
+"Loading base function data"
+"Extrapolating off grid"
+"Constructing interpolation off grid"
+"Loading base function data"
+"Extrapolating off grid"
+"Constructing interpolation off grid"
+"Loading base function data"
+"Extrapolating off grid"
+"Constructing interpolation off grid"
+"Loading base function data"
+"Extrapolating off grid"
+"Constructing interpolation off grid"
+
+InterpolatingFunction::dmval: 
+   Input value {-2.51023, 0.636396}
+     lies outside the range of data in the interpolating function.
+     Extrapolation will be used.
+
+InterpolatingFunction::dmval: 
+   Input value {-2.51023, 0.722642}
+     lies outside the range of data in the interpolating function.
+     Extrapolation will be used.
+
+InterpolatingFunction::dmval: 
+   Input value {-2.51023, 0.808889}
+     lies outside the range of data in the interpolating function.
+     Extrapolation will be used.
+
+General::stop: Further output of InterpolatingFunction::dmval
+     will be suppressed during this calculation.
+"Generating two quanta overlap matrix"
+"Generating 4D wavefunctions..."
+"Generating No Quanta Wavefunction"
+"Making kinetic energy"
+"Making potential energy"
+
+LinearModelFit::rank: 
+   The rank of the design matrix 2 is less than the number of terms 7
+     in the model. The model and results based upon it may contain significant
+     numerical error.
 
 First::nofirst: {} has zero length and no first element.
 
@@ -63,6 +97,11 @@ LinearModelFit::desmat:
     be specified, or non-numeric entries for numeric variables may need to be
     replaced.
 
+LinearModelFit::rank: 
+   The rank of the design matrix 2 is less than the number of terms 7
+     in the model. The model and results based upon it may contain significant
+     numerical error.
+
 First::nofirst: {} has zero length and no first element.
 
 General::stop: Further output of First::nofirst
@@ -86,270 +125,6 @@ LinearModelFit::desmat:
 General::stop: Further output of LinearModelFit::desmat
      will be suppressed during this calculation.
 
-Transpose::nmtx: 
-   The first two levels of {{0.533454, 0.533454}, {0.488517, 2.19611}, 
-     LinearModelFit[{}, {SpectrumScript`Private`r}, SpectrumScript`Private`r][
-       Function][{0.488517, 2.19611}]} cannot be transposed.
-
-Transpose::nmtx: 
-   The first two levels of {{0.533454}, {3.9037}, 
-     LinearModelFit[{}, {SpectrumScript`Private`r}, SpectrumScript`Private`r][
-       Function][{3.9037}]} cannot be transposed.
-
-Join::heads: Heads Transpose and List at positions 1 and 2
-     are expected to be the same.
-
-Transpose::nmtx: 
-   The first two levels of {{0.594433}, {3.96469}, 
-     LinearModelFit[{}, {SpectrumScript`Private`r}, SpectrumScript`Private`r][
-       Function][{3.96469}]} cannot be transposed.
-
-General::stop: Further output of Transpose::nmtx
-     will be suppressed during this calculation.
-
-Join::heads: Heads Transpose and List at positions 1 and 2
-     are expected to be the same.
-
-Join::heads: Heads Transpose and List at positions 1 and 2
-     are expected to be the same.
-
-General::stop: Further output of Join::heads
-     will be suppressed during this calculation.
-
-Join::headsd: Expression {Transpose[{{0.533454}, {3.9037}, 
-       LinearModelFit[{}, {SpectrumScript`Private`r}, 
-          SpectrumScript`Private`r][Function][{3.9037}]}], <<8>>e[<<1>>], 
-     <<2541>>, {Transpose[{{3.96469}, <<2>>}]}} at position 2
-     is expected to have head Transpose for all expressions at level 2.
-
-GroupBy::list1: 
-                                    1          1           1        1
-   The argument Join[Transpose[{{-------, -(-------)}, {-------, -------}} . 
-                                 Sqrt[2]    Sqrt[2]     Sqrt[2]  Sqrt[2]
-       Transpose[{Join[Transpose[{{0.533454, 0.533454}, {<<2>>}, 
-            <<12>>it[<<3>>][Function][{<<2>>}]}], {<<2>>}], <<2543>>}]], 
-     <<1>>, 2] is not a valid list of Associations or rules or lists of rules.
-
-KeySort::invrl: 
-                                            1          1
-   The argument GroupBy[Join[Transpose[{{-------, -(-------)}, 
-                                         Sqrt[2]    Sqrt[2]
-             1        1
-         {-------, -------}} . Transpose[{Join[Transpose[{{0.533454, 
-          Sqrt[2]  Sqrt[2]
-              0.533454}, <<2>>}], {{<<7>>1, <<2>>}, {<<3>>}}], <<2543>>}]], 
-      <<1>>, 2], <<1>> & ] is not a valid Association or a list of rules.
-
-MapThread::mptd: 
-                                              1          1
-   Object KeySort[GroupBy[Join[Transpose[{{-------, -(-------)}, 
-                                           Sqrt[2]    Sqrt[2]
-              1        1
-          {-------, -------}} . 
-           Sqrt[2]  Sqrt[2]
-         Transpose[{Join[Transpose[{{0.533454, 0.533454}, <<2>>}], 
-            {{<<3>>}, {<<3>>}}], <<2543>>}]], <<1>>, 2], <<1>> & ]] at
-     position {2, 1} in MapThread[If[Length[#1] =!= Length[#2], 
-       Join[#2[[All,1 ;; 2]], List /@ 
-         Interpolation[#1[[All,{2, 3}]], 
-           ExtrapolationHandler -> {Automatic, <<1>>}][#2[[All,2]]], 2], #1] &
-       , {<<2>>}] has only 0 of required 1 dimensions.
-
-Values::invrl: The argument MapThread[If[Length[#1] =!= Length[#2], 
-       Join[#2[[All,1 ;; 2]], List /@ 
-         Interpolation[#1[[All,{2, 3}]], 
-           ExtrapolationHandler -> {Automatic, <<1>>}][#2[[All,2]]], 2], #1] &
-       , {<<2>>}] is not a valid Association or a list of rules.
-
-Join::headsd: Expression {Transpose[{{0.533454}, {3.9037}, 
-       LinearModelFit[{}, {SpectrumScript`Private`r}, 
-          SpectrumScript`Private`r][Function][{3.9037}]}], <<8>>e[<<1>>], 
-     <<2541>>, {Transpose[{{3.96469}, <<2>>}]}} at position 2
-     is expected to have head Transpose for all expressions at level 2.
-
-GroupBy::list1: 
-                                    1          1           1        1
-   The argument Join[Transpose[{{-------, -(-------)}, {-------, -------}} . 
-                                 Sqrt[2]    Sqrt[2]     Sqrt[2]  Sqrt[2]
-       Transpose[{Join[Transpose[{{0.533454, 0.533454}, {<<2>>}, 
-            <<12>>it[<<3>>][Function][{<<2>>}]}], {<<2>>}], <<2543>>}]], 
-     <<1>>, 2] is not a valid list of Associations or rules or lists of rules.
-
-KeySort::invrl: 
-                                            1          1
-   The argument GroupBy[Join[Transpose[{{-------, -(-------)}, 
-                                         Sqrt[2]    Sqrt[2]
-             1        1
-         {-------, -------}} . Transpose[{Join[Transpose[{{0.533454, 
-          Sqrt[2]  Sqrt[2]
-              0.533454}, <<2>>}], {{<<7>>1, <<2>>}, {<<3>>}}], <<2543>>}]], 
-      <<1>>, 2], <<1>> & ] is not a valid Association or a list of rules.
-
-MapThread::mptd: 
-                                              1          1
-   Object KeySort[GroupBy[Join[Transpose[{{-------, -(-------)}, 
-                                           Sqrt[2]    Sqrt[2]
-              1        1
-          {-------, -------}} . 
-           Sqrt[2]  Sqrt[2]
-         Transpose[{Join[Transpose[{{0.533454, 0.533454}, <<2>>}], 
-            {{<<3>>}, {<<3>>}}], <<2543>>}]], <<1>>, 2], <<1>> & ]] at
-     position {2, 1} in MapThread[If[Length[#1] =!= Length[#2], 
-       Join[#2[[All,1 ;; 2]], List /@ 
-         Interpolation[#1[[All,{2, 3}]], 
-           ExtrapolationHandler -> {Automatic, <<1>>}][#2[[All,2]]], 2], #1] &
-       , {<<2>>}] has only 0 of required 1 dimensions.
-
-Values::invrl: The argument MapThread[If[Length[#1] =!= Length[#2], 
-       Join[#2[[All,1 ;; 2]], List /@ 
-         Interpolation[#1[[All,{2, 3}]], 
-           ExtrapolationHandler -> {Automatic, <<1>>}][#2[[All,2]]], 2], #1] &
-       , {<<2>>}] is not a valid Association or a list of rules.
-
-Part::take: Cannot take positions 1 through 2 in 
-    Values[MapThread[If[Length[#1] =!= Length[#2], 
-        Join[#2[[All,1 ;; 2]], List /@ 
-          Interpolation[#1[[All,{2, 3}]], 
-            ExtrapolationHandler -> {Automatic, <<1>>}][#2[[<<2>>]]], 2], #1]
-        & , {<<2>>}]].
-
-Join::normal1: Expression Round[Values[MapThread[If[Length[#1] =!= 
-           Length[#2], Join[#2[[All,1 ;; 2]], 
-           List /@ Interpolation[#1[[All,{2, 3}]], <<1>>][#2[[All,2]]], 2], 
-          #1] & , {<<2>>}]], 0.0001][[All,1 ;; 2]] at position 1
-     is expected to have nonatomic subexpression at level 2.
-
-Interpolation::innd: 
-   First argument in Join[Round[Values[MapThread[If[Length[#1] =!= 
-            Length[#2], Join[#2[[All,1 ;; 2]], 
-            List /@ Interpolation[#1[[All,<<1>>]], <<1>>][<<1>>], 2], #1] & , 
-         {<<2>>}]], 0.0001][[All,<<1>>]], <<1>>, 2] does not contain a list of
-     data and coordinates.
-
-Join::headsd: Expression {Transpose[{{0.533454}, {3.9037}, 
-       LinearModelFit[{}, {SpectrumScript`Private`r}, 
-          SpectrumScript`Private`r][Function][{3.9037}]}], <<8>>e[<<1>>], 
-     <<2541>>, {Transpose[{{3.96469}, <<2>>}]}} at position 2
-     is expected to have head Transpose for all expressions at level 2.
-
-General::stop: Further output of Join::headsd
-     will be suppressed during this calculation.
-
-GroupBy::list1: 
-                                    1          1           1        1
-   The argument Join[Transpose[{{-------, -(-------)}, {-------, -------}} . 
-                                 Sqrt[2]    Sqrt[2]     Sqrt[2]  Sqrt[2]
-       Transpose[{Join[Transpose[{{0.533454, 0.533454}, {<<2>>}, 
-            <<12>>it[<<3>>][Function][{<<2>>}]}], {<<2>>}], <<2543>>}]], 
-     <<1>>, 2] is not a valid list of Associations or rules or lists of rules.
-
-General::stop: Further output of GroupBy::list1
-     will be suppressed during this calculation.
-
-KeySort::invrl: 
-                                            1          1
-   The argument GroupBy[Join[Transpose[{{-------, -(-------)}, 
-                                         Sqrt[2]    Sqrt[2]
-             1        1
-         {-------, -------}} . Transpose[{Join[Transpose[{{0.533454, 
-          Sqrt[2]  Sqrt[2]
-              0.533454}, <<2>>}], {{<<7>>1, <<2>>}, {<<3>>}}], <<2543>>}]], 
-      <<1>>, 2], <<1>> & ] is not a valid Association or a list of rules.
-
-General::stop: Further output of KeySort::invrl
-     will be suppressed during this calculation.
-
-MapThread::mptd: 
-                                              1          1
-   Object KeySort[GroupBy[Join[Transpose[{{-------, -(-------)}, 
-                                           Sqrt[2]    Sqrt[2]
-              1        1
-          {-------, -------}} . 
-           Sqrt[2]  Sqrt[2]
-         Transpose[{Join[Transpose[{{0.533454, 0.533454}, <<2>>}], 
-            {{<<3>>}, {<<3>>}}], <<2543>>}]], <<1>>, 2], <<1>> & ]] at
-     position {2, 1} in MapThread[If[Length[#1] =!= Length[#2], 
-       Join[#2[[All,1 ;; 2]], List /@ 
-         Interpolation[#1[[All,{2, 3}]], 
-           ExtrapolationHandler -> {Automatic, <<1>>}][#2[[All,2]]], 2], #1] &
-       , {<<2>>}] has only 0 of required 1 dimensions.
-
-General::stop: Further output of MapThread::mptd
-     will be suppressed during this calculation.
-
-Values::invrl: The argument MapThread[If[Length[#1] =!= Length[#2], 
-       Join[#2[[All,1 ;; 2]], List /@ 
-         Interpolation[#1[[All,{2, 3}]], 
-           ExtrapolationHandler -> {Automatic, <<1>>}][#2[[All,2]]], 2], #1] &
-       , {<<2>>}] is not a valid Association or a list of rules.
-
-General::stop: Further output of Values::invrl
-     will be suppressed during this calculation.
-
-Part::take: Cannot take positions 1 through 2 in 
-    Values[MapThread[If[Length[#1] =!= Length[#2], 
-        Join[#2[[All,1 ;; 2]], List /@ 
-          Interpolation[#1[[All,{2, 3}]], 
-            ExtrapolationHandler -> {Automatic, <<1>>}][#2[[<<2>>]]], 2], #1]
-        & , {<<2>>}]].
-
-Join::normal1: Expression Round[Values[MapThread[If[Length[#1] =!= 
-           Length[#2], Join[#2[[All,1 ;; 2]], 
-           List /@ Interpolation[#1[[All,{2, 3}]], <<1>>][#2[[All,2]]], 2], 
-          #1] & , {<<2>>}]], 0.0001][[All,1 ;; 2]] at position 1
-     is expected to have nonatomic subexpression at level 2.
-
-Interpolation::innd: 
-   First argument in Join[Round[Values[MapThread[If[Length[#1] =!= 
-            Length[#2], Join[#2[[All,1 ;; 2]], 
-            List /@ Interpolation[#1[[All,<<1>>]], <<1>>][<<1>>], 2], #1] & , 
-         {<<2>>}]], 0.0001][[All,<<1>>]], <<1>>, 2] does not contain a list of
-     data and coordinates.
-
-Part::take: Cannot take positions 1 through 2 in 
-    Values[MapThread[If[Length[#1] =!= Length[#2], 
-        Join[#2[[All,1 ;; 2]], List /@ 
-          Interpolation[#1[[All,{2, 3}]], 
-            ExtrapolationHandler -> {Automatic, <<1>>}][#2[[<<2>>]]], 2], #1]
-        & , {<<2>>}]].
-
-General::stop: Further output of Part::take
-     will be suppressed during this calculation.
-
-Join::normal1: Expression Round[Values[MapThread[If[Length[#1] =!= 
-           Length[#2], Join[#2[[All,1 ;; 2]], 
-           List /@ Interpolation[#1[[All,{2, 3}]], <<1>>][#2[[All,2]]], 2], 
-          #1] & , {<<2>>}]], 0.0001][[All,1 ;; 2]] at position 1
-     is expected to have nonatomic subexpression at level 2.
-
-General::stop: Further output of Join::normal1
-     will be suppressed during this calculation.
-
-Interpolation::innd: 
-   First argument in Join[Round[Values[MapThread[If[Length[#1] =!= 
-            Length[#2], Join[#2[[All,1 ;; 2]], 
-            List /@ Interpolation[#1[[All,<<1>>]], <<1>>][<<1>>], 2], #1] & , 
-         {<<2>>}]], 0.0001][[All,<<1>>]], <<1>>, 2] does not contain a list of
-     data and coordinates.
-
-General::stop: Further output of Interpolation::innd
-     will be suppressed during this calculation.
-"Generating two quanta overlap matrix"
-"Generating 4D wavefunctions..."
-"Generating No Quanta Wavefunction"
-"Making kinetic energy"
-"Making potential energy"
-
-LinearModelFit::rank: 
-   The rank of the design matrix 2 is less than the number of terms 7
-     in the model. The model and results based upon it may contain significant
-     numerical error.
-
-LinearModelFit::rank: 
-   The rank of the design matrix 1 is less than the number of terms 7
-     in the model. The model and results based upon it may contain significant
-     numerical error.
-
 LinearModelFit::rank: 
    The rank of the design matrix 2 is less than the number of terms 7
      in the model. The model and results based upon it may contain significant
@@ -357,6 +132,147 @@ LinearModelFit::rank:
 
 General::stop: Further output of LinearModelFit::rank
      will be suppressed during this calculation.
+
+Transpose::nmtx: 
+   The first two levels of {{0.533454}, {3.9037}, 
+     LinearModelFit[{}, {SpectrumScriptPackage`Private`r}, 
+        SpectrumScriptPackage`Private`r][Function][{3.9037}]} cannot be
+     transposed.
+
+Join::heads: Heads List and Transpose at positions 1 and 3
+     are expected to be the same.
+
+Transpose::nmtx: 
+   The first two levels of {{0.594433}, {3.96469}, 
+     LinearModelFit[{}, {SpectrumScriptPackage`Private`r}, 
+        SpectrumScriptPackage`Private`r][Function][{3.96469}]} cannot be
+     transposed.
+
+Join::heads: Heads List and Transpose at positions 1 and 3
+     are expected to be the same.
+
+Transpose::nmtx: 
+   The first two levels of {{0.517402}, {3.79778}, 
+     LinearModelFit[{}, {SpectrumScriptPackage`Private`r}, 
+        SpectrumScriptPackage`Private`r][Function][{3.79778}]} cannot be
+     transposed.
+
+General::stop: Further output of Transpose::nmtx
+     will be suppressed during this calculation.
+
+Join::heads: Heads List and Transpose at positions 1 and 3
+     are expected to be the same.
+
+General::stop: Further output of Join::heads
+     will be suppressed during this calculation.
+
+Join::headsd: Expression {Transpose[{{0.533454}, {3.9037}, 
+       LinearModelFit[{}, {SpectrumScriptPackage`Private`r}, 
+          SpectrumScriptPackage`Private`r][Function][{3.9037}]}], 
+     Transpose[{<<3>>}], <<3027>>, {7458.}} at position 2
+     is expected to have head Transpose for all expressions at level 2.
+
+GroupBy::list1: 
+                                    1          1           1        1
+   The argument Join[Transpose[{{-------, -(-------)}, {-------, -------}} . 
+                                 Sqrt[2]    Sqrt[2]     Sqrt[2]  Sqrt[2]
+       Transpose[{{{0.533454, 0.488517, 6076.42}, {0.533454, <<2>>}, {<<3>>}, 
+          {0.533447, 3.9037, 9455.3}}, <<3029>>}]], {<<3030>>}, 2] is not a
+     valid list of Associations or rules or lists of rules.
+
+KeySort::invrl: 
+                                            1          1
+   The argument GroupBy[Join[Transpose[{{-------, -(-------)}, 
+                                         Sqrt[2]    Sqrt[2]
+             1        1
+         {-------, -------}} . Transpose[{{{0.533454, 0.488517, 6076.42}, 
+          Sqrt[2]  Sqrt[2]
+           <<2>>, {0.533447, 3.9037, 9455.3}}, <<3028>>, {<<2>>}}]], <<1>>, 2]
+      , <<1>> & ] is not a valid Association or a list of rules.
+
+MapThread::mptd: 
+                                              1          1
+   Object KeySort[GroupBy[Join[Transpose[{{-------, -(-------)}, 
+                                           Sqrt[2]    Sqrt[2]
+              1        1
+          {-------, -------}} . 
+           Sqrt[2]  Sqrt[2]
+         Transpose[{{{0.533454, 0.488517, 6076.42}, <<2>>, 
+            {0.533447, 3.9037, <<6>>}}, <<3029>>}]], <<1>>, 2], <<1>> & ]] at
+     position {2, 1} in MapThread[If[Length[#1] =!= Length[#2], 
+       Join[#2, List /@ 
+         Interpolation[#1[[All,{2, 3}]], 
+           ExtrapolationHandler -> {Automatic, WarningMessage -> False}][
+          #2[[All,2]]], 2], #1] & , {<<2>>}] has only 0 of required 1
+     dimensions.
+
+Values::invrl: The argument MapThread[If[Length[#1] =!= Length[#2], 
+       Join[#2, List /@ 
+         Interpolation[#1[[All,{2, 3}]], 
+           ExtrapolationHandler -> {Automatic, WarningMessage -> False}][
+          #2[[All,2]]], 2], #1] & , {<<2>>}] is not a valid Association or a
+     list of rules.
+
+Join::headsd: Expression {Transpose[{{0.533454}, {3.9037}, 
+       LinearModelFit[{}, {SpectrumScriptPackage`Private`r}, 
+          SpectrumScriptPackage`Private`r][Function][{3.9037}]}], 
+     Transpose[{<<3>>}], <<3027>>, {7458.}} at position 2
+     is expected to have head Transpose for all expressions at level 2.
+
+GroupBy::list1: 
+                                    1          1           1        1
+   The argument Join[Transpose[{{-------, -(-------)}, {-------, -------}} . 
+                                 Sqrt[2]    Sqrt[2]     Sqrt[2]  Sqrt[2]
+       Transpose[{{{0.533454, 0.488517, 6076.42}, {0.533454, <<2>>}, {<<3>>}, 
+          {0.533447, 3.9037, 9455.3}}, <<3029>>}]], {<<3030>>}, 2] is not a
+     valid list of Associations or rules or lists of rules.
+
+KeySort::invrl: 
+                                            1          1
+   The argument GroupBy[Join[Transpose[{{-------, -(-------)}, 
+                                         Sqrt[2]    Sqrt[2]
+             1        1
+         {-------, -------}} . Transpose[{{{0.533454, 0.488517, 6076.42}, 
+          Sqrt[2]  Sqrt[2]
+           <<2>>, {0.533447, 3.9037, 9455.3}}, <<3028>>, {<<2>>}}]], <<1>>, 2]
+      , <<1>> & ] is not a valid Association or a list of rules.
+
+MapThread::mptd: 
+                                              1          1
+   Object KeySort[GroupBy[Join[Transpose[{{-------, -(-------)}, 
+                                           Sqrt[2]    Sqrt[2]
+              1        1
+          {-------, -------}} . 
+           Sqrt[2]  Sqrt[2]
+         Transpose[{{{0.533454, 0.488517, 6076.42}, <<2>>, 
+            {0.533447, 3.9037, <<6>>}}, <<3029>>}]], <<1>>, 2], <<1>> & ]] at
+     position {2, 1} in MapThread[If[Length[#1] =!= Length[#2], 
+       Join[#2, List /@ 
+         Interpolation[#1[[All,{2, 3}]], 
+           ExtrapolationHandler -> {Automatic, WarningMessage -> False}][
+          #2[[All,2]]], 2], #1] & , {<<2>>}] has only 0 of required 1
+     dimensions.
+
+Values::invrl: The argument MapThread[If[Length[#1] =!= Length[#2], 
+       Join[#2, List /@ 
+         Interpolation[#1[[All,{2, 3}]], 
+           ExtrapolationHandler -> {Automatic, WarningMessage -> False}][
+          #2[[All,2]]], 2], #1] & , {<<2>>}] is not a valid Association or a
+     list of rules.
+
+Interpolation::innd: 
+   First argument in Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
+         Join[#2, List /@ 
+           Interpolation[#1[[All,{2, 3}]], 
+             ExtrapolationHandler -> {Automatic, <<1>>}][#2[[<<2>>]]], 2], #1]
+         & , <<1>>]], 0.0001] does not contain a list of data and coordinates.
+
+Interpolation::innd: 
+   First argument in Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
+         Join[#2, List /@ 
+           Interpolation[#1[[All,{2, 3}]], 
+             ExtrapolationHandler -> {Automatic, <<1>>}][#2[[<<2>>]]], 2], #1]
+         & , <<1>>]], 0.0001] does not contain a list of data and coordinates.
 "Making grid"
 "Diagonalizing"
 

@@ -35,7 +35,7 @@ $r1r2POPotential = h2SinglePot;
 (*Set Basis Options*)
 
 
-$saBasisSize = {80, 40};
+$saBasisSize = {80, 80};
 $r1r2BasisSize = 25;
 $r1r2SCFBasisSize = 60;
 (*
