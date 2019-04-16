@@ -26,7 +26,7 @@ Notebook[{Cell[CellGroupData[{Cell["Setup", "Section",
      Cell[BoxData[RowBox[{"<<", "SpectrumScriptPackage`"}]], "Input", 
       CellChangeTimes -> {{3.76429528687892*^9, 3.764295325147764*^9}, 
        {3.764441556183457*^9, 3.76444155647542*^9}}, 
-      CellLabel -> "In[83]:="]}, Open]], 
+      CellLabel -> "In[99]:="]}, Open]], 
   Cell[CellGroupData[{Cell["Rephasing Test", "Section", 
       CellChangeTimes -> {{3.76404214333047*^9, 3.764042146929401*^9}}], 
      Cell[BoxData[RowBox[{"ContextRemove", "[", "\"ChemTools`\"", "]"}]], 
@@ -11159,114 +11159,20 @@ ers/Mark/Documents/UW/Research/H5+/results/H5OldOriginal/phaseCorrectSCF.mx\"\
             RowBox[{"Import", "[", "\"/Users/Mark/Documents/UW/Research/H5+/r\
 esults/H5OldOriginal/phaseCorrectDVR.mx\"", "]"}]}], ";"}]}], "Input", 
       CellChangeTimes -> {{3.764443675276134*^9, 3.764443764474346*^9}}, 
-      CellLabel -> "In[17]:="], Cell[CellGroupData[
-       {Cell[BoxData[RowBox[{RowBox[{"fcc", "=", "\[IndentingNewLine]", 
-              RowBox[{"getCoeffPhaseCorrection", "[", "\[IndentingNewLine]", 
-                RowBox[{"phaseCorrectSCF", ",", " ", "phaseCorrectDVR", ",", 
-                  " ", "\[IndentingNewLine]", " ", RowBox[{"Keys", "[", 
-                    "r1r2Wavefunctions", "]"}], ",", "\[IndentingNewLine]", 
-                  RowBox[{"Range", "[", "6", "]"}], ",", 
-                  "\[IndentingNewLine]", RowBox[{"{", RowBox[{"1", ",", " ", 
-                      "1", ",", " ", "1", ",", " ", "1", ",", " ", "1", ",", 
-                      " ", "1"}], "}"}], ",", "\[IndentingNewLine]", 
-                  "True"}], "\[IndentingNewLine]", "]"}]}], ";"}]], "Input", 
-         CellChangeTimes -> {{3.7644436838026*^9, 3.764443689963008*^9}, 
-          {3.764443750376545*^9, 3.764443785350235*^9}}, 
-         CellLabel -> "In[84]:="], Cell[BoxData[TemplateBox[
-           {"Diagonal", "list", "\"List expected at position \
-\\!\\(\\*RowBox[{\\\"1\\\"}]\\) in \\!\\(\\*RowBox[{\\\"Diagonal\\\", \
-\\\"[\\\", \
-RowBox[{RowBox[{\\\"SpectrumScriptPackage`Private`computePairwiseOverlaps\\\"\
-, \\\"[\\\", \
-RowBox[{RowBox[{\\\"SpectrumScriptPackage`Private`prepCoeffRephasing\\\", \
-\\\"[\\\", RowBox[{RowBox[{\\\"{\\\", RowBox[{\\\"$Failed\\\", \\\",\\\", \
-\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
-\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
-\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
-\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
-\\\"$Failed\\\", \\\",\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"27\\\", \
-\\\"\[RightSkeleton]\\\"}], \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
-\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
-\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
-\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
-\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
-RowBox[{\\\"\[LeftSkeleton]\\\", \\\"3550\\\", \\\"\[RightSkeleton]\\\"}]}], \
-\\\"}\\\"}], \\\",\\\", RowBox[{\\\"{\\\", RowBox[{\\\"1\\\", \\\",\\\", \
-RowBox[{\\\"\[LeftSkeleton]\\\", \\\"5\\\", \\\"\[RightSkeleton]\\\"}]}], \
-\\\"}\\\"}]}], \\\"]\\\"}], \\\",\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \
-\\\"1\\\", \\\"\[RightSkeleton]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"1\\\"}], \
-\\\"]\\\"}]\\).\"", 2, 84, 82, 28125193705504460868, "Local"}, 
-           "MessageTemplate"]], "Message", "MSG", CellChangeTimes -> 
-          {{3.764444890048863*^9, 3.764444898896344*^9}, 
-           3.764445204135985*^9, 3.7644452715484953*^9, 3.764445351784665*^9, 
-           3.7644454086458893*^9, 3.764445444883675*^9}, 
-         CellLabel -> "During evaluation of In[84]:="], 
-        Cell[BoxData[TemplateBox[{"Diagonal", "list", "\"List expected at \
-position \\!\\(\\*RowBox[{\\\"1\\\"}]\\) in \
-\\!\\(\\*RowBox[{\\\"Diagonal\\\", \\\"[\\\", \
-RowBox[{RowBox[{\\\"SpectrumScriptPackage`Private`computePairwiseOverlaps\\\"\
-, \\\"[\\\", \
-RowBox[{RowBox[{\\\"SpectrumScriptPackage`Private`prepCoeffRephasing\\\", \
-\\\"[\\\", RowBox[{RowBox[{\\\"{\\\", RowBox[{\\\"$Failed\\\", \\\",\\\", \
-\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
-\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
-\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
-\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
-\\\"$Failed\\\", \\\",\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"27\\\", \
-\\\"\[RightSkeleton]\\\"}], \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
-\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
-\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
-\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
-\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
-RowBox[{\\\"\[LeftSkeleton]\\\", \\\"3550\\\", \\\"\[RightSkeleton]\\\"}]}], \
-\\\"}\\\"}], \\\",\\\", RowBox[{\\\"{\\\", RowBox[{\\\"1\\\", \\\",\\\", \
-RowBox[{\\\"\[LeftSkeleton]\\\", \\\"5\\\", \\\"\[RightSkeleton]\\\"}]}], \
-\\\"}\\\"}]}], \\\"]\\\"}], \\\",\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \
-\\\"1\\\", \\\"\[RightSkeleton]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"1\\\"}], \
-\\\"]\\\"}]\\).\"", 2, 84, 83, 28125193705504460868, "Local"}, 
-           "MessageTemplate"]], "Message", "MSG", CellChangeTimes -> 
-          {{3.764444890048863*^9, 3.764444898896344*^9}, 
-           3.764445204135985*^9, 3.7644452715484953*^9, 3.764445351784665*^9, 
-           3.7644454086458893*^9, 3.76444544516179*^9}, 
-         CellLabel -> "During evaluation of In[84]:="], 
-        Cell[BoxData[TemplateBox[{"CompiledFunction", "cfta", "\"Argument \
-\\!\\(\\*RowBox[{\\\"Diagonal\\\", \\\"[\\\", \
-RowBox[{RowBox[{\\\"SpectrumScriptPackage`Private`computePairwiseOverlaps\\\"\
-, \\\"[\\\", \
-RowBox[{RowBox[{\\\"SpectrumScriptPackage`Private`prepCoeffRephasing\\\", \
-\\\"[\\\", RowBox[{RowBox[{\\\"{\\\", RowBox[{\\\"$Failed\\\", \\\",\\\", \
-\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
-\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
-\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
-\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
-\\\"$Failed\\\", \\\",\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"27\\\", \
-\\\"\[RightSkeleton]\\\"}], \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
-\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
-\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
-\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
-\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
-RowBox[{\\\"\[LeftSkeleton]\\\", \\\"3550\\\", \\\"\[RightSkeleton]\\\"}]}], \
-\\\"}\\\"}], \\\",\\\", RowBox[{\\\"{\\\", RowBox[{\\\"1\\\", \\\",\\\", \
-RowBox[{\\\"\[LeftSkeleton]\\\", \\\"5\\\", \\\"\[RightSkeleton]\\\"}]}], \
-\\\"}\\\"}]}], \\\"]\\\"}], \\\",\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \
-\\\"1\\\", \\\"\[RightSkeleton]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"1\\\"}], \
-\\\"]\\\"}]\\) at position \\!\\(\\*RowBox[{\\\"1\\\"}]\\) should be a rank \
-\\!\\(\\*RowBox[{\\\"1\\\"}]\\) tensor of \
-\\!\\(\\*RowBox[{\\\"\\\\\\\"machine-size real number\\\\\\\"\\\"}]\\)s.\"", 
-            2, 84, 84, 28125193705504460868, "Local"}, "MessageTemplate"]], 
-         "Message", "MSG", CellChangeTimes -> {{3.764444890048863*^9, 
-           3.764444898896344*^9}, 3.764445204135985*^9, 
-           3.7644452715484953*^9, 3.764445351784665*^9, 
-           3.7644454086458893*^9, 3.7644454454445*^9}, 
-         CellLabel -> "During evaluation of In[84]:="], 
-        Cell[BoxData[RowBox[{"$Aborted", "[", "]"}]], "Message", "MSG", 
-         CellChangeTimes -> {{3.764444890048863*^9, 3.764444898896344*^9}, 
-           3.764445204135985*^9, 3.7644452715484953*^9, 3.764445351784665*^9, 
-           3.7644454086458893*^9, 3.7644454456673326*^9}, 
-         CellLabel -> "During evaluation of In[84]:="], 
-        Cell[BoxData["$Aborted"], "Output", CellChangeTimes -> 
-          {3.764445445855818*^9}, CellLabel -> "Out[84]="]}, Open]]}, 
-    Open]]}, WindowSize -> {808, 755}, WindowMargins -> 
-  {{273, Automatic}, {6, Automatic}}, FrontEndVersion -> 
+      CellLabel -> "In[17]:="], 
+     Cell[BoxData[RowBox[{RowBox[{"fcc", "=", "\[IndentingNewLine]", 
+           RowBox[{"getCoeffPhaseCorrection", "[", "\[IndentingNewLine]", 
+             RowBox[{"phaseCorrectSCF", ",", " ", "phaseCorrectDVR", ",", 
+               " ", "\[IndentingNewLine]", " ", RowBox[{"Keys", "[", 
+                 "r1r2Wavefunctions", "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"Range", "[", "6", "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"{", RowBox[{"1", ",", " ", "1", ",", " ", "1", ",", 
+                   " ", "1", ",", " ", "1", ",", " ", "1"}], "}"}], ",", 
+               "\[IndentingNewLine]", "True"}], "\[IndentingNewLine]", 
+             "]"}]}], ";"}]], "Input", CellChangeTimes -> 
+       {{3.7644436838026*^9, 3.764443689963008*^9}, {3.764443750376545*^9, 
+       3.764443785350235*^9}}, CellLabel -> "In[100]:="]}, Closed]]}, 
+ WindowSize -> {808, 755}, WindowMargins -> {{273, Automatic}, 
+   {6, Automatic}}, FrontEndVersion -> 
   "11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, 2018)", 
  StyleDefinitions -> "Default.nb"]

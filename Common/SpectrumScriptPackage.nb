@@ -1,4 +1,6 @@
 Notebook[{Cell[CellGroupData[{Cell["SpectrumScript", "CodeSection"], 
+     Cell["\[LeftCeiling]\n\tThis implements all of the functionality used to \
+build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True], 
      Cell[CellGroupData[
        {Cell[BoxData[RowBox[{RowBox[{"BeginPackage", "[", 
               RowBox[{"\"SpectrumScriptPackage`\"", ",", " ", RowBox[
@@ -1305,18 +1307,17 @@ dimension ``\"", ",", "\n", "        ", RowBox[{"{", "\n", "          ",
                           "\t\t\t\t", RowBox[{"Lookup", "[", RowBox[{RowBox[
                           {"PositionIndex", "[", "cleanGrid", "]"}], ",", 
                           " ", RowBox[{"Flatten", "[", RowBox[{
-                          "cleanGridSorted", ",", " ", "1"}], "]"}]}], "\n", 
-                          "\t", "\t", "\t\t\t\t\t", "]"}]}]}], ";", "\n", 
-                          "\t", "\t", "\t\t", RowBox[{"gridPositions", "=", 
-                          RowBox[{"pos", "[", RowBox[{"[", "gridReordering", 
-                          "]"}], "]"}]}], ";", "\n", "\t\t\t\t", RowBox[
-                          {"reorderedData", "=", RowBox[{"data", "[", RowBox[
-                          {"[", "gridPositions", "]"}], "]"}]}], ";", "\n", 
-                          "\t\t\t\t", RowBox[{"fullData", "=", "\n", 
-                          "\t\t\t\t  ", RowBox[{"prep", "[", RowBox[
-                          {"reorderedData", ",", " ", "\n", "  \t\t\t\t  ", 
-                          RowBox[{"<|", "\n", "            ", RowBox[{RowBox[
-                          {"\"GridReordering\"", "\[Rule]", 
+                          "cleanGridSorted", ",", " ", "1"}], "]"}]}], 
+                          "]"}]}]}], ";", "\n", "\t\t\t\t", RowBox[
+                          {"gridPositions", "=", RowBox[{"pos", "[", RowBox[
+                          {"[", "gridReordering", "]"}], "]"}]}], ";", "\n", 
+                          "\t\t\t\t", RowBox[{"reorderedData", "=", RowBox[
+                          {"data", "[", RowBox[{"[", "gridPositions", "]"}], 
+                          "]"}]}], ";", "\n", "\t\t\t\t", RowBox[{"fullData", 
+                          "=", "\n", "\t\t\t\t  ", RowBox[{"prep", "[", 
+                          RowBox[{"reorderedData", ",", " ", "\n", 
+                          "  \t\t\t\t  ", RowBox[{"<|", "\n", "            ", 
+                          RowBox[{RowBox[{"\"GridReordering\"", "\[Rule]", 
                           "gridReordering"}], ",", "\n", "            ", 
                           RowBox[{"\"GridPositions\"", "->", 
                           "gridPositions"}], ",", "\n", "            ", 
@@ -1329,9 +1330,10 @@ dimension ``\"", ",", "\n", "        ", RowBox[{"{", "\n", "          ",
                           "\t\t\t\t    ", RowBox[{"metric", "[", "\n", 
                           "\t\t\t\t      ", RowBox[{"fullData", ",", "\n", 
                           "  \t\t\t\t    ", RowBox[{"<|", "\n", 
-                          "              ", RowBox[{RowBox[{
-                          "\"GridReordering\"", "\[Rule]", 
-                          "gridReordering"}], ",", "\n", "  ", 
+                          "  \t\t\t\t      ", RowBox[{RowBox[{
+                          "\"ValidData\"", "\[Rule]", "pos"}], ",", "\n", 
+                          "              ", RowBox[{"\"GridReordering\"", 
+                          "\[Rule]", "gridReordering"}], ",", "\n", "  ", 
                           "            ", RowBox[{"\"GridPositions\"", "->", 
                           "gridPositions"}], ",", "\n", "              ", 
                           RowBox[{"\"GridPoints\"", "\[Rule]", RowBox[
@@ -1567,22 +1569,21 @@ disagreement by sampling direction. Be careful.\"", "]"}]}], "\n", "\t\t\t",
                           "\n", "      ", "coeffs", ",", " ", "coeffLists", 
                           ",", " ", "grid"}], "\n", "      ", "}"}], ",", 
                          "\n", "    ", RowBox[{RowBox[{"pickSpec", " ", "=", 
-                          " ", RowBox[{"params", "[", "\"GridReordering\"", 
+                          " ", RowBox[{"params", "[", "\"GridPositions\"", 
                           "]"}]}], ";", "\n", "    ", RowBox[{"blerpDVR", 
                           "=", RowBox[{"dvrWavefunctions", "[", RowBox[{"[", 
                           "pickSpec", "]"}], "]"}]}], ";", "\n", "    ", 
-                          RowBox[{"baseWfnsSCF", "=", "\n", "      ", RowBox[
-                          {"Table", "[", RowBox[{RowBox[{"Join", "@@", RowBox[
-                          {"Map", "[", RowBox[{RowBox[{RowBox[{"#", "[", 
-                          RowBox[{"[", RowBox[{"{", "m", "}"}], "]"}], "]"}], 
-                          "&"}], ",", " ", "blerp"}], "]"}]}], ",", " ", 
-                          RowBox[{"{", RowBox[{"m", ",", " ", "states"}], 
-                          "}"}]}], "]"}]}], ";", "\n", "    ", RowBox[
-                          {"baseWfnsDVR", "=", "\n", "      ", RowBox[
-                          {"Join", "@@", "blerpDVR"}]}], ";", "\n", "    ", 
-                          RowBox[{"{", RowBox[{"baseWfnsSCF", ",", " ", 
-                          "baseWfnsDVR"}], "}"}]}]}], "\n", "    ", "]"}]}]], 
-                  "CodeInput"]}, Open]], Cell[CellGroupData[
+                          RowBox[{"baseWfnsSCF", "=", RowBox[{"Table", "[", 
+                          RowBox[{RowBox[{"Join", "@@", RowBox[{"Map", "[", 
+                          RowBox[{RowBox[{RowBox[{"#", "[", RowBox[{"[", 
+                          RowBox[{"{", "m", "}"}], "]"}], "]"}], "&"}], ",", 
+                          " ", "blerp"}], "]"}]}], ",", " ", RowBox[{"{", 
+                          RowBox[{"m", ",", " ", "states"}], "}"}]}], 
+                          "]"}]}], ";", "\n", "    ", RowBox[{"baseWfnsDVR", 
+                          "=", RowBox[{"Join", "@@", "blerpDVR"}]}], ";", 
+                          "\n", "    ", RowBox[{"{", RowBox[{"baseWfnsSCF", 
+                          ",", " ", "baseWfnsDVR"}], "}"}]}]}], "\n", "    ", 
+                       "]"}]}]], "CodeInput"]}, Open]], Cell[CellGroupData[
                 {Cell["\[LeftCeiling]computePairwiseOverlaps\[RightFloor]", 
                   "CodeSubsubsubsubsection", Evaluatable -> True], 
                  Cell[BoxData[RowBox[{RowBox[{"computePairwiseOverlaps", "[", 
@@ -1601,7 +1602,7 @@ disagreement by sampling direction. Be careful.\"", "]"}]}], "\n", "\t\t\t",
                           "}"}]}], "\n", "          ", "]"}]}]}], ";", "\n", 
                           "    ", RowBox[{"coeffs", ".", RowBox[{"Transpose", 
                           "[", "coeffs", "]"}]}]}]}], "\n", "    ", "]"}]}]], 
-                  "CodeInput"]}, Closed]], Cell[CellGroupData[
+                  "CodeInput"]}, Open]], Cell[CellGroupData[
                 {Cell["\[LeftCeiling]getCoeffPhaseCorrection\[RightFloor]", 
                   "CodeSubsubsubsubsection", Evaluatable -> True], 
                  Cell[BoxData[{RowBox[{"getCoeffPhaseCorrection", "//", 
@@ -1634,14 +1635,13 @@ disagreement by sampling direction. Be careful.\"", "]"}]}], "\n", "\t\t\t",
                           {"Table", "[", "\n", "\t      ", RowBox[{RowBox[
                           {RowBox[{RowBox[{"If", "[", RowBox[{RowBox[{"#", 
                           "===", "$Failed"}], ",", " ", "#", ",", " ", RowBox[
-                          {RowBox[{"#", "[", "\"Wavefunctions\"", "]"}], "[", 
-                          RowBox[{"[", RowBox[{"{", "state", "}"}], "]"}], 
-                          "]"}]}], "]"}], "&"}], "/@", "dvrWavefunctions"}], 
-                          ",", "\n", "\t      ", RowBox[{"{", RowBox[
-                          {"state", ",", " ", "states"}], "}"}]}], "\n", 
-                          "\t      ", "]"}]}], ";", "\n", "\t\t", RowBox[
-                          {"rephasing", "=", "\n", "\t\t  ", RowBox[
-                          {"MapThread", "[", "\n", "\t      ", RowBox[
+                          {"#", "[", RowBox[{"[", RowBox[{"{", "state", 
+                          "}"}], "]"}], "]"}]}], "]"}], "&"}], "/@", 
+                          "dvrWavefunctions"}], ",", "\n", "\t      ", RowBox[
+                          {"{", RowBox[{"state", ",", " ", "states"}], 
+                          "}"}]}], "\n", "\t      ", "]"}]}], ";", "\n", 
+                          "\t\t", RowBox[{"rephasing", "=", "\n", "\t\t  ", 
+                          RowBox[{"MapThread", "[", "\n", "\t      ", RowBox[
                           {RowBox[{RowBox[{"generalizedPhaseCorrection", "[", 
                           "\n", "      \t\t", RowBox[{RowBox[{"{", "\n", 
                           "      \t\t  ", RowBox[{"scfs", ",", " ", "\n", 
