@@ -35,8 +35,10 @@ Notebook[{Cell[CellGroupData[{Cell["SpectrumScript", "CodeSection"],
                   "\"\""}], ";"}], "\n", RowBox[{RowBox[
                  {RowBox[{"getPhaseCorrection", "::", "usage"}], "=", 
                   "\"\""}], ";"}], "\n", RowBox[{RowBox[
+                 {RowBox[{"getCoeffPhaseCorrection", "::", "usage"}], "=", 
+                  "\"\""}], ";"}], "\n", RowBox[{RowBox[
                  {RowBox[{"getVectorPhaseCorrection", "::", "usage"}], "=", 
-                  "\"\""}], ";"}]}], "CodeInput"]}, Closed]], 
+                  "\"\""}], ";"}]}], "CodeInput"]}, Open]], 
         Cell[CellGroupData[{Cell["\[LeftCeiling]Grids\[RightFloor]", 
             "CodeSubsubsubsection", Evaluatable -> True], 
            Cell[BoxData[RowBox[{RowBox[{RowBox[{"gridMemberQ", "::", 
@@ -733,11 +735,11 @@ Notebook[{Cell[CellGroupData[{Cell["SpectrumScript", "CodeSection"],
                           "\"Symmetrizing grid\"", "]"}], ";", "\n", "    ", 
                           RowBox[{"If", "[", RowBox[{RowBox[{"symmetry", 
                           "=!=", "None"}], ",", "\n", "      ", RowBox[
-                          {"gpts", "=", "\n", "      ", RowBox[{"(*", " ", 
+                          {"gpts", "=", "\n", "        ", RowBox[{"(*", " ", 
                           RowBox[{"symmetrize", " ", "the", " ", "grid", " ", 
                           "of", " ", "triples"}], " ", "*)"}], "\n", 
-                          "      ", RowBox[{RowBox[{RowBox[{"Join", "[", 
-                          "\n", "        ", RowBox[{"#", ",", "\n", 
+                          "        ", RowBox[{RowBox[{RowBox[{"Join", "[", 
+                          "\n", "          ", RowBox[{"#", ",", "\n", 
                           "          ", RowBox[{"Transpose", "[", RowBox[
                           {"{", RowBox[{RowBox[{"#", "[", RowBox[{"[", RowBox[
                           {"All", ",", " ", "gind2"}], "]"}], "]"}], ",", 
@@ -745,14 +747,14 @@ Notebook[{Cell[CellGroupData[{Cell["SpectrumScript", "CodeSection"],
                           ",", " ", "gind1"}], "]"}], "]"}], ",", " ", RowBox[
                           {"symmetry", "*", RowBox[{"#", "[", RowBox[{"[", 
                           RowBox[{"All", ",", " ", "3"}], "]"}], "]"}]}]}], 
-                          "}"}], "]"}]}], "\n", "  ", "  ", "  ", "  ", "  ", 
-                          "]"}], "&"}], "@", "gpts"}]}]}], "\n", "      ", 
-                          "]"}], ";", "\n", "    ", RowBox[{"gpts", "=", 
-                          "\n", "    ", RowBox[{"DeleteDuplicatesBy", "[", 
-                          RowBox[{"gpts", ",", " ", RowBox[{RowBox[{"Round", 
-                          "[", RowBox[{RowBox[{"#", "[", RowBox[{"[", RowBox[
-                          {";;", "2"}], "]"}], "]"}], ",", " ", ".005"}], 
-                          "]"}], "&"}]}], "]"}]}], ";", "\n", "    ", RowBox[
+                          "}"}], "]"}]}], "\n", "          ", "]"}], "&"}], 
+                          "@", "gpts"}]}]}], "\n", "      ", "]"}], ";", 
+                          "\n", "    ", RowBox[{"gpts", "=", "\n", "    ", 
+                          RowBox[{"DeleteDuplicatesBy", "[", RowBox[{"gpts", 
+                          ",", " ", RowBox[{RowBox[{"Round", "[", RowBox[
+                          {RowBox[{"#", "[", RowBox[{"[", RowBox[{";;", 
+                          "2"}], "]"}], "]"}], ",", " ", ".005"}], "]"}], 
+                          "&"}]}], "]"}]}], ";", "\n", "    ", RowBox[
                           {"gpts", "=", "\n", "     ", RowBox[{"(*", " ", 
                           RowBox[{"convert", " ", "back", " ", "to", " ", 
                           RowBox[{"a", "/", "s"}], " ", "space"}], " ", 
@@ -807,7 +809,7 @@ Notebook[{Cell[CellGroupData[{Cell["SpectrumScript", "CodeSection"],
                           {RowBox[{RowBox[{"originally", " ", "default", " ", 
                           "stuff"}], "..."}], " ", "dunno", " ", "what", " ", 
                           "should", " ", "do"}], ")"}]}], "\n", 
-                          "                            ", "*)"}], "\n", 
+                          "                      ", "*)"}], "\n", 
                           "         ", RowBox[{"Join", "[", "\n", 
                           "           ", RowBox[{"#2", ",", "\n", 
                           "           ", RowBox[{"List", "/@", "\n", 
@@ -877,14 +879,21 @@ Notebook[{Cell[CellGroupData[{Cell["SpectrumScript", "CodeSection"],
                           {"extrapolatedFunction", "[", RowBox[{"a", ",", 
                           " ", "Last", ",", " ", "symmetry", ",", " ", "def", 
                           ",", " ", "ops"}], "]"}]}], ";", "\n", "    ", 
-                         RowBox[{"d", " ", "=", " ", RowBox[
-                          {"DeleteDuplicatesBy", "[", RowBox[{RowBox[{"Join", 
-                          "[", RowBox[{"d1", ",", " ", "d2"}], "]"}], ",", 
-                          " ", RowBox[{RowBox[{"Round", "[", RowBox[{RowBox[
-                          {"#", "[", RowBox[{"[", RowBox[{";;", "2"}], "]"}], 
-                          "]"}], ",", " ", ".001"}], "]"}], "&"}]}], 
-                          "]"}]}]}]}], "\n", "    ", "]"}]}]}], 
-               "CodeInput"]}, Open]]}, Open]], 
+                         RowBox[{"dumpSymbol", "[", "d1", "]"}], ";", "\n", 
+                         "    ", RowBox[{"dumpSymbol", "[", "d2", "]"}], ";", 
+                         "\n", "    ", RowBox[{"d", " ", "=", " ", RowBox[
+                          {"DeleteDuplicatesBy", "[", "\n", "      ", RowBox[
+                          {RowBox[{"Join", "[", RowBox[{RowBox[{"Pick", "[", 
+                          RowBox[{"d1", ",", " ", RowBox[{"UnitStep", "[", 
+                          RowBox[{RowBox[{"(", RowBox[{"dv", "-", "10"}], 
+                          ")"}], "-", RowBox[{"d1", "[", RowBox[{"[", RowBox[
+                          {"All", ",", " ", "3"}], "]"}], "]"}]}], "]"}], 
+                          ",", " ", "1"}], "]"}], ",", " ", "d2"}], "]"}], 
+                          ",", " ", RowBox[{RowBox[{"Round", "[", RowBox[
+                          {RowBox[{"#", "[", RowBox[{"[", RowBox[{";;", 
+                          "2"}], "]"}], "]"}], ",", " ", ".001"}], "]"}], 
+                          "&"}]}], "\n", "      ", "]"}]}]}]}], "\n", "    ", 
+                     "]"}]}]}], "CodeInput"]}, Closed]]}, Open]], 
         Cell[CellGroupData[{Cell["\[LeftCeiling]R1R2 Stuff\[RightFloor]", 
             "CodeSubsubsection", Evaluatable -> True], 
            Cell[CellGroupData[
@@ -1226,113 +1235,122 @@ dimension ``\"", ",", "\n", "        ", RowBox[{"{", "\n", "          ",
                         "\t\t\t", "}"}], ",", "\n", "\t\t", RowBox[{"wfns", 
                         "[", "\"Grid\"", "]"}]}], "\n", "\t\t", "]"}]}]], 
                "CodeInput"]}, Closed]], Cell[CellGroupData[
-             {Cell["\[LeftCeiling]getPhaseCorrection\[RightFloor]", 
+             {Cell["\[LeftCeiling]generalizedPhaseCorrection\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
-                {RowBox[{"getPhaseCorrection", "//", "Clear"}], "\n", 
-                 RowBox[{RowBox[{RowBox[{"getPhaseCorrection", "[", RowBox[
-                        {"wfs_List", ",", " ", "\n", "\t", "grid_", ",", 
-                         "\n", "\t", RowBox[{"state", ":", RowBox[{"{", 
-                          RowBox[{"_Integer", "?", "IntegerQ"}], "}"}], ":", 
-                          RowBox[{"{", "2", "}"}]}], ",", "\n", "\t", 
-                         RowBox[{"basePhase", ":", RowBox[{"1", "|", RowBox[
-                          {"-", "1"}]}], ":", "1"}], ",", "\n", "\t", 
-                         RowBox[{"rephase", ":", RowBox[{"True", "|", 
-                          "False"}], ":", "False"}], ",", "\n", "\t", 
-                         RowBox[{"defaultOrder", ":", RowBox[{"First", "|", 
-                          "Last"}], ":", "First"}]}], "\n", "\t", "]"}], 
-                     ":=", "\n", "\t", RowBox[{"Module", "[", "\n", "\t\t", 
-                       RowBox[{RowBox[{"{", "\n", "\t\t\t", RowBox[{"pos", 
-                          ",", "\n", "\t\t\t", RowBox[{"gridPoints", "=", 
-                          RowBox[{"grid", "[", "\"Points\"", "]"}]}], ",", 
-                          "\n", "\t\t\t", "cleanGrid", ",", "\n", "\t\t\t", 
+                {RowBox[{"generalizedPhaseCorrection", "//", "Clear"}], "\n", 
+                 RowBox[{RowBox[{RowBox[{"generalizedPhaseCorrection", "[", 
+                       "\n", " ", RowBox[{RowBox[{"{", RowBox[{"data_", ",", 
+                          " ", "validTest_", ",", " ", "prep_", ",", " ", 
+                          "metric_"}], "}"}], ",", "\n", "\t", "grid_", ",", 
+                         "\n", "\t", RowBox[{"basePhase", ":", RowBox[{"1", 
+                          "|", RowBox[{"-", "1"}]}], ":", "1"}], ",", "\n", 
+                         "\t", RowBox[{"defaultOrder", ":", RowBox[{"First", 
+                          "|", "Last"}], ":", "First"}], ",", "\n", "\t", 
+                         RowBox[{"tol", ":", RowBox[{"_", "?", RowBox[{"(", 
+                          RowBox[{RowBox[{RowBox[{"NumericQ", "[", "#", 
+                          "]"}], "&&", RowBox[{"(", RowBox[{RowBox[{"!", 
+                          RowBox[{"IntegerQ", "[", "#", "]"}]}], "||", RowBox[
+                          {"#", "\[Equal]", "0"}]}], ")"}]}], "&"}], ")"}]}], 
+                          ":", "0."}]}], "\n", "\t", "]"}], ":=", "\n", "\t", 
+                     RowBox[{"Module", "[", "\n", "\t\t", RowBox[
+                        {RowBox[{"{", "\n", "\t\t\t", RowBox[{"pos", ",", 
+                          "\n", "\t\t\t", RowBox[{"gridPoints", "=", RowBox[
+                          {"grid", "[", "\"Points\"", "]"}]}], ",", "\n", 
+                          "\t\t\t", "cleanGrid", ",", "\n", "\t\t\t", 
                           "cleanGridSorted", ",", "\n", "\t\t\t", 
                           "gridReordering", ",", "\n", "\t\t\t", 
                           "gridPositions", ",", "\n", "\t\t\t", 
                           "reorderedWfs", ",", "\n", "\t\t\t", 
                           "rephasedWavefunctions", ",", "\n", "\t\t\t", 
-                          "fullWfs", ",", "\n", "\t\t\t", "overlaps", ",", 
+                          "fullData", ",", "\n", "\t\t\t", "overlaps", ",", 
                           "\n", "\t\t\t", "phases", ",", "\n", "\t\t\t", 
                           "orderComplement", ",", "\n", "\t\t\t", 
-                          "phaseVector", ",", "\n", "\t\t\t", "newWfns", ",", 
-                          "\n", "\t\t\t", "rephasingData"}], "\n", "\t\t\t", 
-                          "}"}], ",", "\n", "\t\t", RowBox[{RowBox[{"pos", 
-                          "=", RowBox[{RowBox[{"Select", "[", RowBox[{RowBox[
-                          {RowBox[{"IntegerQ", "[", "#", "]"}], "&&", RowBox[
-                          {"#", ">", "0"}]}], "&"}], "]"}], "@", RowBox[
-                          {"Flatten", "@", RowBox[{"Position", "[", RowBox[
-                          {"wfs", ",", " ", "_WavefunctionsObject", ",", " ", 
-                          RowBox[{"{", "1", "}"}]}], "]"}]}]}]}], ";", "\n", 
-                          "\t\t", RowBox[{"cleanGrid", "=", RowBox[{"Round", 
-                          "[", RowBox[{RowBox[{RowBox[{"grid", "[", RowBox[
-                          {"[", "pos", "]"}], "]"}], ".", RowBox[
-                          {"RotationMatrix", "[", RowBox[{"\[Pi]", "/", 
-                          "4"}], "]"}]}], ",", " ", ".001"}], "]"}]}], ";", 
-                          "\n", "\t\t", RowBox[{"rephasingData", "=", "\n", 
-                          "\t\t\t", RowBox[{"Table", "[", "\n", "\t\t\t\t", 
-                          RowBox[{RowBox[{RowBox[{"cleanGridSorted", "=", 
-                          "\n", "\t", "\t\t\t\t", RowBox[{RowBox[
-                          {"MapIndexed", "[", RowBox[{RowBox[{RowBox[{"If", 
-                          "[", RowBox[{RowBox[{"EvenQ", "[", RowBox[{"#2", 
-                          "[", RowBox[{"[", "1", "]"}], "]"}], "]"}], ",", 
-                          " ", "Reverse", ",", " ", "Identity"}], "]"}], "@", 
-                          "#"}], "&"}], "]"}], "@", "\n", "\t", "\t", 
-                          "\t\t\t\t", RowBox[{"SortBy", "[", "\n", "\t", 
-                          "\t", "\t\t\t\t\t", RowBox[{RowBox[{RowBox[{RowBox[
-                          {"SortBy", "[", RowBox[{"#", ",", " ", RowBox[
-                          {"sorting", "[", RowBox[{"[", "1", "]"}], "]"}]}], 
-                          "]"}], "&"}], "/@", RowBox[{"GatherBy", "[", RowBox[
-                          {"cleanGrid", ",", " ", RowBox[{RowBox[{"-", RowBox[
-                          {"#", "[", RowBox[{"[", RowBox[{"sorting", "[", 
-                          RowBox[{"[", "2", "]"}], "]"}], "]"}], "]"}]}], 
-                          "&"}]}], "]"}]}], ",", " ", "\n", "\t", "\t", 
-                          "\t\t\t\t\t", RowBox[{RowBox[{"-", RowBox[{"#", 
-                          "[", RowBox[{"[", RowBox[{"1", ",", " ", RowBox[
-                          {"-", "1"}]}], "]"}], "]"}]}], "&"}]}], "\n", "\t", 
-                          "\t", "\t\t\t\t\t", "]"}]}]}], ";", "\n", "\t", 
-                          "\t", "\t\t", RowBox[{"gridReordering", "=", "\n", 
-                          "\t", "\t", "\t\t\t", RowBox[{"Flatten", "@", "\n", 
-                          "\t", "\t", "\t\t\t\t", RowBox[{"Lookup", "[", 
-                          RowBox[{RowBox[{"PositionIndex", "[", "cleanGrid", 
-                          "]"}], ",", " ", RowBox[{"Flatten", "[", RowBox[
-                          {"cleanGridSorted", ",", " ", "1"}], "]"}]}], "\n", 
+                          "phaseVector", ",", "\n", "\t\t\t", 
+                          "reorderedData", ",", "\n", "\t\t\t", 
+                          "rephasingData"}], "\n", "\t\t\t", "}"}], ",", 
+                         "\n", "\t\t", RowBox[{RowBox[{"pos", "=", RowBox[
+                          {"Pick", "[", RowBox[{RowBox[{"Range", "[", RowBox[
+                          {"Length", "[", "data", "]"}], "]"}], ",", " ", 
+                          RowBox[{"validTest", "/@", "data"}]}], "]"}]}], 
+                          ";", "\n", "\t\t", RowBox[{"cleanGrid", "=", 
+                          RowBox[{"Round", "[", RowBox[{RowBox[{RowBox[
+                          {"grid", "[", RowBox[{"[", "pos", "]"}], "]"}], 
+                          ".", RowBox[{"RotationMatrix", "[", RowBox[
+                          {"\[Pi]", "/", "4"}], "]"}]}], ",", " ", ".001"}], 
+                          "]"}]}], ";", "\n", "\t\t", RowBox[
+                          {"rephasingData", "=", "\n", "\t\t\t", RowBox[
+                          {"Table", "[", "\n", "\t\t\t\t", RowBox[{RowBox[
+                          {RowBox[{"cleanGridSorted", "=", "\n", "\t", 
+                          "\t\t\t\t", RowBox[{RowBox[{"MapIndexed", "[", 
+                          RowBox[{RowBox[{RowBox[{"If", "[", RowBox[{RowBox[
+                          {"EvenQ", "[", RowBox[{"#2", "[", RowBox[{"[", "1", 
+                          "]"}], "]"}], "]"}], ",", " ", "Reverse", ",", " ", 
+                          "Identity"}], "]"}], "@", "#"}], "&"}], "]"}], "@", 
+                          "\n", "\t", "\t", "\t\t\t\t", RowBox[{"SortBy", 
+                          "[", "\n", "\t", "\t", "\t\t\t\t\t", RowBox[{RowBox[
+                          {RowBox[{RowBox[{"SortBy", "[", RowBox[{"#", ",", 
+                          " ", RowBox[{"sorting", "[", RowBox[{"[", "1", 
+                          "]"}], "]"}]}], "]"}], "&"}], "/@", RowBox[
+                          {"GatherBy", "[", RowBox[{"cleanGrid", ",", " ", 
+                          RowBox[{RowBox[{"-", RowBox[{"#", "[", RowBox[{"[", 
+                          RowBox[{"sorting", "[", RowBox[{"[", "2", "]"}], 
+                          "]"}], "]"}], "]"}]}], "&"}]}], "]"}]}], ",", " ", 
+                          "\n", "\t", "\t", "\t\t\t\t\t", RowBox[{RowBox[
+                          {"-", RowBox[{"#", "[", RowBox[{"[", RowBox[{"1", 
+                          ",", " ", RowBox[{"-", "1"}]}], "]"}], "]"}]}], 
+                          "&"}]}], "\n", "\t", "\t", "\t\t\t\t\t", "]"}]}]}], 
+                          ";", "\n", "\t", "\t", "\t\t", RowBox[
+                          {"gridReordering", "=", "\n", "\t", "\t", "\t\t\t", 
+                          RowBox[{"Flatten", "@", "\n", "\t", "\t", 
+                          "\t\t\t\t", RowBox[{"Lookup", "[", RowBox[{RowBox[
+                          {"PositionIndex", "[", "cleanGrid", "]"}], ",", 
+                          " ", RowBox[{"Flatten", "[", RowBox[{
+                          "cleanGridSorted", ",", " ", "1"}], "]"}]}], "\n", 
                           "\t", "\t", "\t\t\t\t\t", "]"}]}]}], ";", "\n", 
                           "\t", "\t", "\t\t", RowBox[{"gridPositions", "=", 
                           RowBox[{"pos", "[", RowBox[{"[", "gridReordering", 
-                          "]"}], "]"}]}], ";", "\n", "\t", "\t", "\t\t", 
-                          RowBox[{"reorderedWfs", "=", RowBox[{"wfs", "[", 
-                          RowBox[{"[", "gridPositions", "]"}], "]"}]}], ";", 
-                          "\n", "\t", "\t", "\t\t", RowBox[{"fullWfs", "=", 
-                          "\n", "\t", "\t", "\t\t\t", RowBox[{
-                          "WavefunctionsObject", "[", "\n", "\t", "\t", 
-                          "\t\t\t\t", RowBox[{RowBox[{"Flatten", "/@", "\n", 
-                          "\t", "\t", "\t\t\t\t", RowBox[{"Transpose", "[", 
-                          "\n", "\t", "\t", "\t\t\t\t\t", RowBox[{RowBox[
-                          {RowBox[{"{", RowBox[{RowBox[{"#", "[", 
-                          "\"Energies\"", "]"}], ",", " ", RowBox[{RowBox[
-                          {"#", "[", "\"Wavefunctions\"", "]"}], "[", RowBox[
-                          {"[", "state", "]"}], "]"}]}], "}"}], "&"}], "/@", 
-                          "\n", "\t", "\t", "\t\t\t\t\t", "reorderedWfs"}], 
-                          "\n", "\t", "\t", "\t\t\t\t\t", "]"}]}], ",", "\n", 
-                          "\t", "\t", "\t\t\t\t", RowBox[{RowBox[{
-                          "reorderedWfs", "[", RowBox[{"[", "1", "]"}], 
-                          "]"}], "[", "\"Grid\"", "]"}]}], "\n", "\t", "\t", 
-                          "\t\t\t\t", "]"}]}], ";", "\n", "\t", "\t", "\t\t", 
-                          RowBox[{"overlaps", "=", RowBox[{
-                          "Developer`ToPackedArray", "[", RowBox[{"fullWfs", 
-                          "@", RowBox[{"\"Overlaps\"", "[", "fullWfs", 
-                          "]"}]}], "]"}]}], ";", "\n", "\t", "\t", "\t\t", 
-                          RowBox[{"phases", "=", RowBox[{"rephaseThingies", 
-                          "[", RowBox[{RowBox[{"Diagonal", "[", RowBox[
-                          {"overlaps", ",", " ", "1"}], "]"}], ",", " ", 
-                          "basePhase", ",", " ", "0"}], "]"}]}], ";", "\n", 
-                          "\t", "\t", "\t\t", RowBox[{"orderComplement", "=", 
-                          RowBox[{"Complement", "[", RowBox[{RowBox[{"Range", 
-                          "[", RowBox[{"Length", "@", "wfs"}], "]"}], ",", 
-                          " ", "gridPositions"}], "]"}]}], ";", "\n", 
-                          "\t\t\t\t", RowBox[{"phaseVector", "=", "\n", 
-                          "\t\t\t\t\t", RowBox[{RowBox[{"Join", "[", RowBox[
-                          {"phases", ",", " ", RowBox[{"ConstantArray", "[", 
-                          RowBox[{"$Failed", ",", " ", RowBox[{"Length", "@", 
+                          "]"}], "]"}]}], ";", "\n", "\t\t\t\t", RowBox[
+                          {"reorderedData", "=", RowBox[{"data", "[", RowBox[
+                          {"[", "gridPositions", "]"}], "]"}]}], ";", "\n", 
+                          "\t\t\t\t", RowBox[{"fullData", "=", "\n", 
+                          "\t\t\t\t  ", RowBox[{"prep", "[", RowBox[
+                          {"reorderedData", ",", " ", "\n", "  \t\t\t\t  ", 
+                          RowBox[{"<|", "\n", "            ", RowBox[{RowBox[
+                          {"\"GridReordering\"", "\[Rule]", 
+                          "gridReordering"}], ",", "\n", "            ", 
+                          RowBox[{"\"GridPositions\"", "->", 
+                          "gridPositions"}], ",", "\n", "            ", 
+                          RowBox[{"\"GridPoints\"", "\[Rule]", RowBox[
+                          {"grid", "[", RowBox[{"[", "gridPositions", "]"}], 
+                          "]"}]}]}], "\n", "            ", "|>"}]}], "\n", 
+                          "  \t\t\t\t  ", "]"}]}], ";", "\n", "\t\t\t\t", 
+                          RowBox[{"overlaps", "=", "\n", "\t\t\t\t  ", RowBox[
+                          {"Developer`ToPackedArray", "[", "\n", 
+                          "\t\t\t\t    ", RowBox[{"metric", "[", "\n", 
+                          "\t\t\t\t      ", RowBox[{"fullData", ",", "\n", 
+                          "  \t\t\t\t    ", RowBox[{"<|", "\n", 
+                          "              ", RowBox[{RowBox[{
+                          "\"GridReordering\"", "\[Rule]", 
+                          "gridReordering"}], ",", "\n", "  ", 
+                          "            ", RowBox[{"\"GridPositions\"", "->", 
+                          "gridPositions"}], ",", "\n", "              ", 
+                          RowBox[{"\"GridPoints\"", "\[Rule]", RowBox[
+                          {"grid", "[", RowBox[{"[", "gridPositions", "]"}], 
+                          "]"}]}]}], "\n", "              ", "|>"}]}], "\n", 
+                          "            ", "]"}], "\n", "          ", "]"}]}], 
+                          ";", "\n", "\t\t\t\t", RowBox[{"phases", "=", 
+                          RowBox[{"rephaseThingies", "[", RowBox[{RowBox[
+                          {"Normal", "@", RowBox[{"Diagonal", "[", RowBox[
+                          {"overlaps", ",", " ", "1"}], "]"}]}], ",", " ", 
+                          "basePhase", ",", " ", "tol"}], "]"}]}], ";", "\n", 
+                          "\t\t\t\t", RowBox[{"orderComplement", "=", RowBox[
+                          {"Complement", "[", RowBox[{RowBox[{"Range", "[", 
+                          RowBox[{"Length", "@", "data"}], "]"}], ",", " ", 
+                          "gridPositions"}], "]"}]}], ";", "\n", "\t\t\t\t", 
+                          RowBox[{"phaseVector", "=", "\n", "\t\t\t\t\t", 
+                          RowBox[{RowBox[{"Join", "[", RowBox[{"phases", ",", 
+                          " ", RowBox[{"ConstantArray", "[", RowBox[
+                          {"$Failed", ",", " ", RowBox[{"Length", "@", 
                           "orderComplement"}]}], "]"}]}], "]"}], "[", RowBox[
                           {"[", "\n", "\t", "\t", "\t\t\t\t", RowBox[
                           {"Ordering", "@", RowBox[{"Join", "[", RowBox[
@@ -1363,76 +1381,136 @@ disagreement by sampling direction. Be careful.\"", "]"}]}], "\n", "\t\t\t",
                           "]"}], ",", "\n", "\t\t\t\t", RowBox[
                           {"rephasingData", "[", RowBox[{"[", "1", "]"}], 
                           "]"}]}], "\n", "\t\t\t\t", "]"}]}], ";", "\n", 
-                          "\t\t", RowBox[{"If", "[", RowBox[{"rephase", ",", 
-                          "\n", "\t\t\t", RowBox[{"newWfns", "=", "\n", 
-                          "\t\t\t\t", RowBox[{"MapThread", "[", "\n", 
-                          "\t\t\t\t\t", RowBox[{RowBox[{RowBox[{"If", "[", 
-                          RowBox[{RowBox[{"#", "===", "$Failed"}], ",", "\n", 
-                          "\t\t\t\t\t\t", "#", ",", "\n", "\t\t\t\t\t\t", 
-                          RowBox[{"rephaseWfns", "[", RowBox[{"#", ",", " ", 
-                          "#2"}], "]"}]}], " ", "\n", "\t\t\t\t\t\t", "]"}], 
-                          "&"}], ",", "\n", "\t\t\t\t\t", RowBox[{"{", "\n", 
-                          "\t\t\t\t\t\t", RowBox[{"phaseVector", ",", "\n", 
-                          "\t\t\t\t\t\t", "wfs"}], "\n", "\t\t\t\t\t\t", 
-                          "}"}]}], "\n", "\t\t\t\t\t", "]"}]}], ",", "\n", 
-                          "\t\t\t", RowBox[{"newWfns", "=", "None"}]}], "\n", 
-                          "\t\t\t", "]"}], ";", "\n", "\t\t", RowBox[{"<|", 
-                          "\n", "\t\t\t", RowBox[{RowBox[
-                          {"\"Wavefunctions\"", "->", "newWfns"}], ",", "\n", 
-                          "\t\t\t", RowBox[{"\"PhaseVector\"", "\[Rule]", 
+                          "\t\t", RowBox[{"<|", "\n", "\t\t\t", RowBox[
+                          {RowBox[{"\"PhaseVector\"", "\[Rule]", 
                           "phaseVector"}], ",", "\n", "\t\t\t", RowBox[
                           {"\"Positions\"", "\[Rule]", "pos"}], ",", "\n", 
                           "\t\t\t", RowBox[{"\"Ordering\"", "->", 
                           "gridPositions"}], ",", "\n", "\t\t\t", RowBox[
                           {"\"Phases\"", "\[Rule]", "phases"}]}], "\n", 
                           "\t\t\t", "|>"}]}]}], "\n", "\t\t", "]"}]}], 
-                   ";"}]}], "CodeInput"]}, Closed]], 
+                   ";"}]}], "CodeInput"]}, Open]], 
            Cell[CellGroupData[
              {Cell["\[LeftCeiling]getPhaseCorrection\[RightFloor]", 
-               "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
-                RowBox[{RowBox[{"getPhaseCorrection", "[", "\n", "\t", 
-                    RowBox[{"wfs_List", ",", " ", "\n", "\t", "grid_", ",", 
-                      "\n", "\t", RowBox[{"states", ":", RowBox[{"{", 
-                          RowBox[{RowBox[{"_Integer", "?", "IntegerQ"}], ",", 
-                          " ", RowBox[{"__Integer", "?", "IntegerQ"}]}], 
-                          "}"}]}], ",", "\n", "\t", RowBox[{"basePhases", 
-                        ":", RowBox[{"1", "|", RowBox[{"-", "1"}], "|", 
-                          RowBox[{"{", RowBox[{RowBox[{"(", RowBox[{"1", "|", 
-                          RowBox[{"-", "1"}]}], ")"}], ".."}], "}"}]}], ":", 
-                        "1"}], ",", "\n", "\t", RowBox[{"rephase", ":", 
-                        RowBox[{"True", "|", "False"}], ":", "True"}]}], 
-                    "\n", "\t", "]"}], ":=", "\n", "\t", RowBox[{"Module", 
-                    "[", RowBox[{RowBox[{"{", RowBox[{"wfSets", ",", " ", 
-                          "meanShiftedWfSets", ",", " ", "rephasing", ",", 
-                          " ", "newWfns"}], "}"}], ",", "\n", "\t\t", 
-                      RowBox[{RowBox[{"wfSets", "=", "\n", "\t\t  ", RowBox[
-                          {"Table", "[", "\n", "  \t\t    ", RowBox[
-                          {RowBox[{RowBox[{RowBox[{"If", "[", RowBox[{RowBox[
-                          {"#", "===", "$Failed"}], ",", " ", "#", ",", " ", 
-                          RowBox[{"#", "[", RowBox[{"[", RowBox[{"{", 
-                          "state", "}"}], "]"}], "]"}]}], "]"}], "&"}], "/@", 
-                          "wfs"}], ",", " ", "\n", "  \t\t  ", RowBox[{"{", 
-                          RowBox[{"state", ",", " ", "states"}], "}"}]}], 
-                          "\n", "  \t\t  ", "]"}]}], ";", "\n", "   ", 
-                        RowBox[{"meanShiftedWfSets", "=", "\n", "\t\t  ", 
-                          RowBox[{"Table", "[", "\n", "  \t\t  ", RowBox[
-                          {RowBox[{"meanShiftedWavefunctions", "[", "\n", 
-                          "  \t\t    ", RowBox[{RowBox[{RowBox[{"If", "[", 
-                          RowBox[{RowBox[{"#", "===", "$Failed"}], ",", " ", 
-                          "#", ",", " ", RowBox[{RowBox[{"#", "[", 
+               "CodeSubsubsubsection", Evaluatable -> True], 
+              Cell[CellGroupData[{Cell[
+                  "\[LeftCeiling]prepPCWfns\[RightFloor]", 
+                  "CodeSubsubsubsubsection", Evaluatable -> True], 
+                 Cell[BoxData[RowBox[{RowBox[{RowBox[{RowBox[{"prepPCWfns", 
+                          "[", "state_", "]"}], "[", RowBox[{"reorderedWfs_", 
+                          ",", " ", "___"}], "]"}], ":=", "\n", "  ", 
+                       RowBox[{"WavefunctionsObject", "[", "\n", "    ", 
+                         RowBox[{RowBox[{"Flatten", "/@", "\n", "      ", 
+                          RowBox[{"Transpose", "[", "\n", "        ", RowBox[
+                          {RowBox[{RowBox[{"{", RowBox[{RowBox[{"#", "[", 
+                          "\"Energies\"", "]"}], ",", " ", RowBox[{RowBox[
+                          {"#", "[", "\"Wavefunctions\"", "]"}], "[", RowBox[
+                          {"[", "state", "]"}], "]"}]}], "}"}], "&"}], "/@", 
+                          "\n", "        ", "reorderedWfs"}], "\n", 
+                          "        ", "]"}]}], ",", "\n", "     ", RowBox[
+                          {RowBox[{"reorderedWfs", "[", RowBox[{"[", "1", 
+                          "]"}], "]"}], "[", "\"Grid\"", "]"}]}], "\n", 
+                         "     ", "]"}]}], ";"}]], "CodeInput"]}, Closed]], 
+              Cell[CellGroupData[{Cell[
+                  "\[LeftCeiling]getPhaseCorrection\[RightFloor]", 
+                  "CodeSubsubsubsubsection", Evaluatable -> True], 
+                 Cell[BoxData[{RowBox[{"getPhaseCorrection", "//", "Clear"}], 
+                    "\n", RowBox[{RowBox[{RowBox[{"getPhaseCorrection", "[", 
+                          RowBox[{"wfs_List", ",", " ", "\n", "\t", "grid_", 
+                          ",", "\n", "\t", RowBox[{"state", ":", RowBox[
+                          {"{", RowBox[{"_Integer", "?", "IntegerQ"}], "}"}], 
+                          ":", RowBox[{"{", "2", "}"}]}], ",", "\n", "\t", 
+                          RowBox[{"basePhase", ":", RowBox[{"1", "|", RowBox[
+                          {"-", "1"}]}], ":", "1"}], ",", "\n", "\t", RowBox[
+                          {"rephase", ":", RowBox[{"True", "|", "False"}], 
+                          ":", "False"}], ",", "\n", "\t", RowBox[
+                          {"defaultOrder", ":", RowBox[{"First", "|", 
+                          "Last"}], ":", "First"}], ",", "\n", "\t", RowBox[
+                          {"tol", ":", RowBox[{"_", "?", RowBox[{"(", RowBox[
+                          {RowBox[{RowBox[{"NumericQ", "[", "#", "]"}], "&&", 
+                          RowBox[{"(", RowBox[{RowBox[{"!", RowBox[
+                          {"IntegerQ", "[", "#", "]"}]}], "||", RowBox[{"#", 
+                          "\[Equal]", "0"}]}], ")"}]}], "&"}], ")"}]}], ":", 
+                          "0."}]}], "\n", "\t", "]"}], ":=", "\n", "\t", 
+                        RowBox[{"Module", "[", "\n", "\t\t", RowBox[
+                          {RowBox[{"{", "\n", "\t\t  ", RowBox[{"pc", ",", 
+                          "\n", "\t\t  ", "mc", ",", "\n", "\t\t  ", 
+                          "newWfns"}], "\n", "\t\t  ", "}"}], ",", "\n", 
+                          "\t\t", RowBox[{RowBox[{"mc", " ", "=", " ", "\n", 
+                          "\t\t  ", RowBox[{"meanShiftedWavefunctions", "[", 
+                          "\n", "  \t\t  ", RowBox[{RowBox[{RowBox[{"If", 
+                          "[", RowBox[{RowBox[{"#", "===", "$Failed"}], ",", 
+                          " ", "#", ",", " ", RowBox[{RowBox[{"#", "[", 
                           "\"Wavefunctions\"", "]"}], "[", RowBox[{"[", 
-                          "state", "]"}], "]"}]}], "\n", "  \t\t    ", "]"}], 
-                          "&"}], "/@", "wfs"}], "\n", "  \t\t    ", "]"}], 
+                          "state", "]"}], "]"}]}], "]"}], "&"}], "/@", 
+                          "wfs"}], "\n", "\t\t    ", "]"}]}], ";", "\n", 
+                          "\t\t", RowBox[{"pc", " ", "=", " ", "\n", 
+                          "\t\t  ", RowBox[{"generalizedPhaseCorrection", 
+                          "[", "\n", "  \t\t  ", RowBox[{RowBox[{"{", RowBox[
+                          {"mc", ",", " ", RowBox[{"MatchQ", "[", 
+                          "_WavefunctionsObject", "]"}], ",", " ", RowBox[
+                          {"prepPCWfns", "[", "state", "]"}], ",", " ", 
+                          RowBox[{RowBox[{"#", "@", RowBox[{"\"Overlaps\"", 
+                          "[", "#", "]"}]}], "&"}]}], "}"}], ",", "\n", 
+                          "  \t\t  ", "grid", ",", "\n", "  \t\t  ", 
+                          "basePhase", ",", "\n", "  \t\t  ", "defaultOrder", 
+                          ",", "\n", "  \t\t  ", "tol"}], "\n", "  \t\t  ", 
+                          "]"}]}], ";", "\n", "\t\t", RowBox[{"If", "[", 
+                          RowBox[{"rephase", ",", "\n", "\t\t\t", RowBox[
+                          {"newWfns", "=", "\n", "\t\t\t\t", RowBox[
+                          {"MapThread", "[", "\n", "\t\t\t\t\t", RowBox[
+                          {RowBox[{RowBox[{"If", "[", RowBox[{RowBox[{"#", 
+                          "===", "$Failed"}], ",", " ", "#", ",", " ", RowBox[
+                          {"rephaseWfns", "[", RowBox[{"#", ",", " ", "#2"}], 
+                          "]"}]}], "]"}], "&"}], ",", "\n", "\t\t\t\t\t", 
+                          RowBox[{"{", RowBox[{RowBox[{"pc", "[", 
+                          "\"PhaseVector\"", "]"}], ",", " ", "wfs"}], 
+                          "}"}]}], "\n", "\t\t\t\t\t", "]"}]}], ",", "\n", 
+                          "\t\t\t", RowBox[{"newWfns", "=", "None"}]}], "\n", 
+                          "\t\t\t", "]"}], ";", "\n", "\t\t", RowBox[
+                          {"Prepend", "[", RowBox[{"pc", ",", " ", RowBox[
+                          {"\"Wavefunctions\"", "\[Rule]", "newWfns"}]}], 
+                          "]"}]}]}], "\n", "\t\t", "]"}]}], ";"}]}], 
+                  "CodeInput"]}, Open]], Cell[CellGroupData[
+                {Cell["\[LeftCeiling]getPhaseCorrection\[RightFloor]", 
+                  "CodeSubsubsubsubsection", Evaluatable -> True], 
+                 Cell[BoxData[RowBox[{RowBox[{"getPhaseCorrection", "[", 
+                       "\n", "\t", RowBox[{"wfs_List", ",", " ", "\n", "\t", 
+                         "grid_", ",", "\n", "\t", RowBox[{"states", ":", 
+                          RowBox[{"{", RowBox[{RowBox[{"_Integer", "?", 
+                          "IntegerQ"}], ",", " ", RowBox[{"__Integer", "?", 
+                          "IntegerQ"}]}], "}"}]}], ",", "\n", "\t", RowBox[
+                          {"basePhases", ":", RowBox[{"1", "|", RowBox[
+                          {"-", "1"}], "|", RowBox[{"{", RowBox[{RowBox[
+                          {"(", RowBox[{"1", "|", RowBox[{"-", "1"}]}], 
+                          ")"}], ".."}], "}"}]}], ":", "1"}], ",", "\n", 
+                         "\t", RowBox[{"rephase", ":", RowBox[{"True", "|", 
+                          "False"}], ":", "True"}], ",", "\n", "\t", RowBox[
+                          {"tol", ":", RowBox[{"_", "?", RowBox[{"(", RowBox[
+                          {RowBox[{RowBox[{"NumericQ", "[", "#", "]"}], "&&", 
+                          RowBox[{"(", RowBox[{RowBox[{"!", RowBox[
+                          {"IntegerQ", "[", "#", "]"}]}], "||", RowBox[{"#", 
+                          "\[Equal]", "0"}]}], ")"}]}], "&"}], ")"}]}], ":", 
+                          "0."}]}], "\n", "\t", "]"}], ":=", "\n", "\t", 
+                     RowBox[{"Module", "[", RowBox[{RowBox[{"{", RowBox[
+                          {"wfSets", ",", " ", "rephasing", ",", " ", 
+                          "newWfns"}], "}"}], ",", "\n", "\t\t", RowBox[
+                          {RowBox[{"wfSets", "=", "\n", "\t\t  ", RowBox[
+                          {"Table", "[", "\n", "  \t\t    ", RowBox[{RowBox[
+                          {RowBox[{RowBox[{"If", "[", RowBox[{RowBox[{"#", 
+                          "===", "$Failed"}], ",", " ", "#", ",", " ", RowBox[
+                          {"#", "[", RowBox[{"[", RowBox[{"{", "state", 
+                          "}"}], "]"}], "]"}]}], "]"}], "&"}], "/@", "wfs"}], 
                           ",", " ", "\n", "  \t\t  ", RowBox[{"{", RowBox[
                           {"state", ",", " ", "states"}], "}"}]}], "\n", 
                           "  \t\t  ", "]"}]}], ";", "\n", "\t\t", RowBox[
-                         {"rephasing", "=", "\n", "\t\t\t", RowBox[
+                          {"rephasing", "=", "\n", "\t\t\t", RowBox[
                           {"MapThread", "[", "\n", "\t\t\t\t", RowBox[
                           {RowBox[{RowBox[{"getPhaseCorrection", "[", RowBox[
                           {"#", ",", " ", "grid", ",", " ", RowBox[{"{", "1", 
-                          "}"}], ",", " ", "#2", ",", " ", "False"}], "]"}], 
-                          "&"}], ",", " ", "\n", "\t\t\t\t", RowBox[{"{", 
-                          "\n", "\t\t\t\t\t", RowBox[{"meanShiftedWfSets", 
+                          "}"}], ",", " ", "#2", ",", " ", "False", ",", " ", 
+                          "tol"}], "]"}], "&"}], ",", " ", "\n", "\t\t\t\t", 
+                          RowBox[{"{", "\n", "\t\t\t\t\t", RowBox[{"wfSets", 
                           ",", "\n", "\t\t\t\t\t", RowBox[{RowBox[{"Flatten", 
                           "[", RowBox[{"ConstantArray", "[", RowBox[
                           {"basePhases", ",", " ", RowBox[{"Length", "@", 
@@ -1440,7 +1518,7 @@ disagreement by sampling direction. Be careful.\"", "]"}]}], "\n", "\t\t\t",
                           RowBox[{";;", RowBox[{"Length", "@", "wfSets"}]}], 
                           "]"}], "]"}]}], "\n", "\t\t\t\t\t", "}"}]}], " ", 
                           "\n", "\t\t\t\t", "]"}]}], ";", "\n", "\t ", 
-                        RowBox[{"(*", RowBox[{RowBox[{"dumpSymbol", "[", 
+                          RowBox[{"(*", RowBox[{RowBox[{"dumpSymbol", "[", 
                           "rephasing", "]"}], ";", "\n", "\t ", RowBox[
                           {"dumpSymbol", "[", "meanShiftedWfSets", "]"}], 
                           ";"}], "*)"}], "\n", "\t\t", RowBox[{"If", "[", 
@@ -1451,30 +1529,166 @@ disagreement by sampling direction. Be careful.\"", "]"}]}], "\n", "\t\t\t",
                           "===", "$Failed"}], ",", " ", "#", ",", " ", RowBox[
                           {"Join", "[", "##", "]"}]}], "]"}], "&"}], ",", 
                           "\n", "\t\t\t\t\t", RowBox[{"MapThread", "[", "\n", 
-                          "\t\t\t\t\t\t", RowBox[{RowBox[{RowBox[
-                          {"MapThread", "[", "\n", "\t\t\t\t\t\t\t", RowBox[
+                          "\t\t\t\t\t\t", RowBox[{RowBox[{RowBox[{
+                          "MapThread", "[", "\n", "\t\t\t\t\t\t\t", RowBox[
                           {RowBox[{RowBox[{"If", "[", RowBox[{RowBox[{"#", 
-                          "===", "$Failed"}], ",", "\n", "\t\t\t\t\t\t\t\t", 
-                          "#", ",", "\n", "\t\t\t\t\t\t\t\t", RowBox[
+                          "===", "$Failed"}], ",", " ", "#", ",", " ", RowBox[
                           {"rephaseWfns", "[", RowBox[{"#", ",", " ", "#2"}], 
-                          "]"}]}], " ", "\n", "\t\t\t\t\t\t\t\t", "]"}], 
-                          "&"}], ",", "\n", "\t\t\t\t\t\t\t", RowBox[{"{", 
-                          "\n", "\t\t\t\t\t\t\t\t", RowBox[{RowBox[{"#", "[", 
-                          "\"PhaseVector\"", "]"}], ",", "\n", 
-                          "\t\t\t\t\t\t\t\t", "#2"}], "\n", 
-                          "\t\t\t\t\t\t\t\t", "}"}]}], "\n", 
-                          "\t\t\t\t\t\t\t", "]"}], "&"}], ",", "\n", 
-                          "\t\t\t\t\t\t", RowBox[{"{", RowBox[{"rephasing", 
-                          ",", " ", "wfSets"}], "}"}]}], "\n", 
+                          "]"}]}], "]"}], "&"}], ",", "\n", "\t\t\t\t\t\t\t", 
+                          RowBox[{"{", RowBox[{RowBox[{"#", "[", 
+                          "\"PhaseVector\"", "]"}], ",", " ", "#2"}], 
+                          "}"}]}], "\n", "\t\t\t\t\t\t\t", "]"}], "&"}], ",", 
+                          "\n", "\t\t\t\t\t\t", RowBox[{"{", RowBox[
+                          {"rephasing", ",", " ", "wfSets"}], "}"}]}], "\n", 
                           "\t\t\t\t\t\t", "]"}]}], "\n", "\t\t\t\t\t", 
                           "]"}]}], ",", "\n", "\t\t\t", RowBox[{"newWfns", 
                           "=", "None"}]}], "\n", "\t\t\t", "]"}], ";", "\n", 
-                        "\t\t", RowBox[{"<|", "\n", "\t\t\t", RowBox[
+                          "\t\t", RowBox[{"<|", "\n", "\t\t\t", RowBox[
                           {RowBox[{"\"Wavefunctions\"", "->", "newWfns"}], 
                           ",", "\n", "\t\t\t", RowBox[{"\"Rephasings\"", 
                           "->", "rephasing"}]}], "\n", "\t\t\t", "|>"}]}]}], 
-                    "\n", "\t\t", "]"}]}]], "CodeInput"]}, Closed]], 
-           Cell[CellGroupData[
+                       "\n", "\t\t", "]"}]}]], "CodeInput"]}, Open]]}, 
+             Closed]], Cell[CellGroupData[
+             {Cell["\[LeftCeiling]getCoeffPhaseCorrection\[RightFloor]", 
+               "CodeSubsubsubsection", Evaluatable -> True], 
+              Cell[CellGroupData[{Cell[
+                  "\[LeftCeiling]prepCoeffRephasing\[RightFloor]", 
+                  "CodeSubsubsubsubsection", Evaluatable -> True], 
+                 Cell[BoxData[RowBox[{RowBox[{RowBox[{"prepCoeffRephasing", 
+                         "[", RowBox[{"dvrWavefunctions_", ",", " ", 
+                          "states_"}], "]"}], "[", RowBox[{"blerp_", ",", 
+                         " ", "params_"}], "]"}], ":=", "\n", "  ", 
+                     RowBox[{"Module", "[", "\n", "    ", RowBox[
+                        {RowBox[{"{", "\n", "      ", RowBox[{"nstates", ",", 
+                          " ", "fleng", ",", " ", "pickSpec", ",", " ", 
+                          "pickComp", ",", "\n", "      ", "gg", ",", " ", 
+                          "blerpDVR", ",", " ", "\n", "      ", 
+                          "baseWfnsSCF", ",", " ", "baseWfnsDVR", ",", " ", 
+                          "\n", "      ", "coeffs", ",", " ", "coeffLists", 
+                          ",", " ", "grid"}], "\n", "      ", "}"}], ",", 
+                         "\n", "    ", RowBox[{RowBox[{"pickSpec", " ", "=", 
+                          " ", RowBox[{"params", "[", "\"GridReordering\"", 
+                          "]"}]}], ";", "\n", "    ", RowBox[{"blerpDVR", 
+                          "=", RowBox[{"dvrWavefunctions", "[", RowBox[{"[", 
+                          "pickSpec", "]"}], "]"}]}], ";", "\n", "    ", 
+                          RowBox[{"baseWfnsSCF", "=", "\n", "      ", RowBox[
+                          {"Table", "[", RowBox[{RowBox[{"Join", "@@", RowBox[
+                          {"Map", "[", RowBox[{RowBox[{RowBox[{"#", "[", 
+                          RowBox[{"[", RowBox[{"{", "m", "}"}], "]"}], "]"}], 
+                          "&"}], ",", " ", "blerp"}], "]"}]}], ",", " ", 
+                          RowBox[{"{", RowBox[{"m", ",", " ", "states"}], 
+                          "}"}]}], "]"}]}], ";", "\n", "    ", RowBox[
+                          {"baseWfnsDVR", "=", "\n", "      ", RowBox[
+                          {"Join", "@@", "blerpDVR"}]}], ";", "\n", "    ", 
+                          RowBox[{"{", RowBox[{"baseWfnsSCF", ",", " ", 
+                          "baseWfnsDVR"}], "}"}]}]}], "\n", "    ", "]"}]}]], 
+                  "CodeInput"]}, Open]], Cell[CellGroupData[
+                {Cell["\[LeftCeiling]computePairwiseOverlaps\[RightFloor]", 
+                  "CodeSubsubsubsubsection", Evaluatable -> True], 
+                 Cell[BoxData[RowBox[{RowBox[{"computePairwiseOverlaps", "[", 
+                       RowBox[{RowBox[{"{", RowBox[{"baseWfnsSCF_", ",", " ", 
+                          "dvrWfs_"}], "}"}], ",", " ", "params___"}], "]"}], 
+                     ":=", "\n", "  ", RowBox[{"Module", "[", RowBox[
+                        {RowBox[{"{", "coeffs", "}"}], ",", "\n", "    ", 
+                         RowBox[{RowBox[{"coeffs", "=", "\n", "      ", 
+                          RowBox[{"Transpose", "@", "\n", "        ", RowBox[
+                          {"Table", "[", "\n", "  ", "  ", "      ", RowBox[
+                          {RowBox[{"Developer`ToPackedArray", "[", RowBox[
+                          {"Diagonal", "[", RowBox[{"dvrWfs", "@", RowBox[
+                          {"\"Overlaps\"", "[", "scfWfs", "]"}]}], "]"}], 
+                          "]"}], ",", "\n", "  ", "  ", "      ", RowBox[
+                          {"{", RowBox[{"scfWfs", ",", " ", "baseWfnsSCF"}], 
+                          "}"}]}], "\n", "          ", "]"}]}]}], ";", "\n", 
+                          "    ", RowBox[{"coeffs", ".", RowBox[{"Transpose", 
+                          "[", "coeffs", "]"}]}]}]}], "\n", "    ", "]"}]}]], 
+                  "CodeInput"]}, Closed]], Cell[CellGroupData[
+                {Cell["\[LeftCeiling]getCoeffPhaseCorrection\[RightFloor]", 
+                  "CodeSubsubsubsubsection", Evaluatable -> True], 
+                 Cell[BoxData[{RowBox[{"getCoeffPhaseCorrection", "//", 
+                      "Clear"}], "\n", RowBox[{RowBox[
+                       {"getCoeffPhaseCorrection", "[", "\n", "\t", RowBox[
+                         {"scfWavefunctions_", ",", " ", "dvrWavefunctions_", 
+                          ",", " ", "\n", "\t", "grid_", ",", "\n", "\t", 
+                          RowBox[{"states", ":", RowBox[{"{", RowBox[
+                          {RowBox[{"_Integer", "?", "IntegerQ"}], ",", " ", 
+                          RowBox[{"__Integer", "?", "IntegerQ"}]}], "}"}]}], 
+                          ",", "\n", "\t", RowBox[{"basePhases", ":", RowBox[
+                          {"1", "|", RowBox[{"-", "1"}], "|", RowBox[{"{", 
+                          RowBox[{RowBox[{"(", RowBox[{"1", "|", RowBox[{"-", 
+                          "1"}]}], ")"}], ".."}], "}"}]}], ":", "1"}], ",", 
+                          "\n", "\t", RowBox[{"rephase", ":", RowBox[{"True", 
+                          "|", "False"}], ":", "True"}], ",", "\n", "\t", 
+                          RowBox[{"tol", ":", RowBox[{"_", "?", RowBox[{"(", 
+                          RowBox[{RowBox[{RowBox[{"NumericQ", "[", "#", 
+                          "]"}], "&&", RowBox[{"(", RowBox[{RowBox[{"!", 
+                          RowBox[{"IntegerQ", "[", "#", "]"}]}], "||", RowBox[
+                          {"#", "\[Equal]", "0"}]}], ")"}]}], "&"}], ")"}]}], 
+                          ":", "0."}]}], "\n", "\t", "]"}], ":=", "\n", "\t", 
+                      RowBox[{"Module", "[", "\n", "\t  ", RowBox[
+                         {RowBox[{"{", "\n", "\t    ", RowBox[{"dvrs", ",", 
+                          " ", "scfs", ",", "\n", "\t    ", "rephasing", ",", 
+                          " ", "newWfns"}], "\n", "\t    ", "}"}], ",", "\n", 
+                          "\t  ", RowBox[{RowBox[{"scfs", " ", "=", " ", 
+                          "scfWavefunctions"}], ";", "\n", "\t  ", RowBox[
+                          {"dvrs", " ", "=", " ", "\n", "\t    ", RowBox[
+                          {"Table", "[", "\n", "\t      ", RowBox[{RowBox[
+                          {RowBox[{RowBox[{"If", "[", RowBox[{RowBox[{"#", 
+                          "===", "$Failed"}], ",", " ", "#", ",", " ", RowBox[
+                          {RowBox[{"#", "[", "\"Wavefunctions\"", "]"}], "[", 
+                          RowBox[{"[", RowBox[{"{", "state", "}"}], "]"}], 
+                          "]"}]}], "]"}], "&"}], "/@", "dvrWavefunctions"}], 
+                          ",", "\n", "\t      ", RowBox[{"{", RowBox[
+                          {"state", ",", " ", "states"}], "}"}]}], "\n", 
+                          "\t      ", "]"}]}], ";", "\n", "\t\t", RowBox[
+                          {"rephasing", "=", "\n", "\t\t  ", RowBox[
+                          {"MapThread", "[", "\n", "\t      ", RowBox[
+                          {RowBox[{RowBox[{"generalizedPhaseCorrection", "[", 
+                          "\n", "      \t\t", RowBox[{RowBox[{"{", "\n", 
+                          "      \t\t  ", RowBox[{"scfs", ",", " ", "\n", 
+                          "      \t\t  ", RowBox[{RowBox[{"#", "=!=", 
+                          "$Failed"}], "&"}], ",", " ", "\n", "      \t\t  ", 
+                          RowBox[{"prepCoeffRephasing", "[", RowBox[{"#", 
+                          ",", " ", "states"}], "]"}], ",", " ", "\n", 
+                          "      \t\t  ", "computePairwiseOverlaps"}], "\n", 
+                          "  ", "    \t\t  ", "}"}], ",", "\n", "  ", 
+                          "  \t\t  ", "grid", ",", "\n", "    \t\t  ", "#2", 
+                          ",", "\n", "    \t\t  ", "tol"}], "\n", 
+                          "    \t\t  ", "]"}], "&"}], ",", "\n", "  \t\t  ", 
+                          RowBox[{"{", "\n", "    \t\t  ", RowBox[{"dvrs", 
+                          ",", "\n", "    \t\t  ", RowBox[{RowBox[{"Flatten", 
+                          "[", RowBox[{"ConstantArray", "[", RowBox[
+                          {"basePhases", ",", " ", RowBox[{"Length", "@", 
+                          "dvrs"}]}], "]"}], "]"}], "[", RowBox[{"[", RowBox[
+                          {";;", RowBox[{"Length", "@", "dvrs"}]}], "]"}], 
+                          "]"}]}], "\n", "    \t\t  ", "}"}]}], "\n", "  ", 
+                          "  \t\t", "]"}]}], ";", "\n", "\t\t", RowBox[
+                          {"If", "[", RowBox[{"rephase", ",", "\n", "\t\t\t", 
+                          RowBox[{"newWfns", "=", "\n", "\t\t\t\t", RowBox[
+                          {"MapThread", "[", "\n", "\t\t\t\t\t", RowBox[
+                          {RowBox[{RowBox[{"If", "[", RowBox[{RowBox[{"#", 
+                          "===", "$Failed"}], ",", " ", "#", ",", " ", RowBox[
+                          {"Join", "[", "##", "]"}]}], "]"}], "&"}], ",", 
+                          "\n", "\t\t\t\t\t", RowBox[{"MapThread", "[", "\n", 
+                          "\t\t\t\t\t\t", RowBox[{RowBox[{RowBox[{
+                          "MapThread", "[", "\n", "\t\t\t\t\t\t\t", RowBox[
+                          {RowBox[{RowBox[{"If", "[", RowBox[{RowBox[{"#", 
+                          "===", "$Failed"}], ",", " ", "#", ",", " ", RowBox[
+                          {"rephaseWfns", "[", RowBox[{"#", ",", " ", "#2"}], 
+                          "]"}]}], "]"}], "&"}], ",", "\n", "\t\t\t\t\t\t\t", 
+                          RowBox[{"{", RowBox[{RowBox[{"#", "[", 
+                          "\"PhaseVector\"", "]"}], ",", " ", "#2"}], 
+                          "}"}]}], "\n", "\t\t\t\t\t\t\t", "]"}], "&"}], ",", 
+                          "\n", "\t\t\t\t\t\t", RowBox[{"{", RowBox[
+                          {"rephasing", ",", " ", "dvrs"}], "}"}]}], "\n", 
+                          "\t\t\t\t\t\t", "]"}]}], "\n", "\t\t\t\t\t", 
+                          "]"}]}], ",", "\n", "\t\t\t", RowBox[{"newWfns", 
+                          "=", "None"}]}], "\n", "\t\t\t", "]"}], ";", "\n", 
+                          "\t\t", RowBox[{"<|", "\n", "\t\t\t", RowBox[
+                          {RowBox[{"\"Wavefunctions\"", "->", "newWfns"}], 
+                          ",", "\n", "\t\t\t", RowBox[{"\"Rephasings\"", 
+                          "->", "rephasing"}]}], "\n", "\t\t\t", "|>"}]}]}], 
+                        "\n", "\t\t", "]"}]}]}], "CodeInput"]}, Open]]}, 
+             Open]], Cell[CellGroupData[
              {Cell["\[LeftCeiling]getVectorPhaseCorrection\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
                 {RowBox[{"getVectorPhaseCorrection", "//", "Clear"}], "\n", 
@@ -1580,7 +1794,7 @@ disagreement by sampling direction. Be careful.\"", "]"}]}], "\n", "\t\t\t",
                           {"\"Ordering\"", "->", "gridPositions"}], ",", 
                           "\n", "\t\t\t", RowBox[{"\"Phases\"", "\[Rule]", 
                           "phases"}]}], "\n", "\t\t\t", "|>"}]}]}], "\n", 
-                     "\t\t", "]"}]}]}], "CodeInput"]}, Closed]]}, Open]], 
+                     "\t\t", "]"}]}]}], "CodeInput"]}, Open]]}, Open]], 
         Cell[CellGroupData[{Cell["\[LeftCeiling]SCF\[RightFloor]", 
             "CodeSubsubsection", Evaluatable -> True], 
            Cell[CellGroupData[{Cell["\[LeftCeiling]scfGrid\[RightFloor]", 
@@ -1956,7 +2170,7 @@ disagreement by sampling direction. Be careful.\"", "]"}]}], "\n", "\t\t\t",
                           "]"}], "\n", "\t\t\t\t", "]"}]}]}], ";", "\n", 
                           "\t\t", RowBox[{"coeffs", ".", RowBox[{"Transpose", 
                           "[", "coeffs", "]"}]}]}]}], "\n", "\t\t", 
-                        "]"}]}]}], "CodeInput"]}, Open]]}, Open]]}, Open]], 
+                        "]"}]}]}], "CodeInput"]}, Closed]]}, Open]]}, Open]], 
         Cell[CellGroupData[{Cell["\[LeftCeiling]Wavefunctions\[RightFloor]", 
             "CodeSubsubsection", Evaluatable -> True], 
            Cell[CellGroupData[
@@ -2104,7 +2318,7 @@ overlaps, `` functions, `` points\"", "~", "TemplateApply", "~", RowBox[{"{",
                           "&"}], ",", " ", "\n", "\t\t\t\t    ", RowBox[{"{", 
                           "i", "}"}]}], "\n", "\t\t\t\t    ", "]"}]}], "\n", 
                           "\t\t\t\t  ", "]"}]}]}], "\n", "\t\t", "]"}]}], 
-                     ";"}]], "CodeInput"]}, Open]]}, Open]], 
+                     ";"}]], "CodeInput"]}, Closed]]}, Open]], 
            Cell[CellGroupData[{Cell["\[LeftCeiling]Grid\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True, 
                CellChangeTimes -> {{3.757804645745041*^9, 
@@ -2161,7 +2375,8 @@ overlaps, `` functions, `` points\"", "~", "TemplateApply", "~", RowBox[{"{",
                           RowBox[{"Scaled", "[", ".9", "]"}]}], ",", "\n", 
                         "\t", "\t", RowBox[{"\"ValidateHamiltonian\"", 
                           "\[Rule]", "False"}]}], "\n", "\t\t", "]"}]}], 
-                  ";"}]], "CodeInput"]}, Open]], Cell[CellGroupData[
+                  ";"}]], "CodeInput"]}, Closed]], 
+           Cell[CellGroupData[
              {Cell["\[LeftCeiling]pullProjections\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
                 RowBox[{RowBox[{"pullProjections", "[", RowBox[{"wfns_", ",", 

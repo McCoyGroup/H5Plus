@@ -56,7 +56,7 @@ Do[If[$Context =!= "Global`", EndPackage[]],  10];
 BeginPackage[$runContext <> "`"];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Declare Exported Symbols*)
 
 
@@ -67,15 +67,13 @@ BeginPackage[$runContext <> "`"];
 $OverlapMatrices::usage = 
   "The overlap matrices used in the coupling";
 $Wavefunctions::usage = "The 4D wavefunctions used in the end";
-$FullWavefunctions::usage = 
-  "The full set of 4D wavefunctions generated";
+$FullWavefunctions::usage = "The full set of 4D wavefunctions generated";
 $ZeroPointEnergies::usage = "The ZPEs of all the wavefunctions";
 $RawSpectra::usage = "The raw data used for building the spectra";
 $Spectra::usage = "The chunks of the spectra generated";
 
 
-
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Declare Package Symbols*)
 
 
@@ -86,7 +84,7 @@ $Spectra::usage = "The chunks of the spectra generated";
 BeginPackage["`Package`"];
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Inputs*)
 
 
@@ -94,7 +92,7 @@ $fullPot::usage = "The 4D potential for the problem";
 $fullDipoleSurf::usage = "The 4D dipole surfaces for the problem";
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Basis Options*)
 
 
@@ -104,14 +102,14 @@ $r1r2BasisSize;
 $r1r2SCFBasisSize;
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Chunking*)
 
 
 chunkCount;
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*State Specs*)
 
 
@@ -119,7 +117,7 @@ oneQuantumPhaseCorrection;
 twoQuantaPhaseCorrection;
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*DVRs*)
 
 
@@ -128,7 +126,7 @@ $r1r2DVR::usage = "The DVR for the r1/r2 problem";
 $r1r21DDVR::isage = "The DVR to the 1D r1 or r2 problem";
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*End*)
 
 
@@ -182,7 +180,7 @@ Get[
  ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*SA Grid*)
 
 
@@ -195,7 +193,7 @@ saMainGrid = $saDVR["Grid", "Points" -> $saBasisSize];
 saGrid = saMainGrid["Points"];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*SA Extended Grid*)
 
 
@@ -214,7 +212,7 @@ saExtendedGrid = saExtendedGridObject["Points"];
 $saNewBasiSize = $saExtendedBasisSize;
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*r1r2Potential*)
 
 
@@ -223,7 +221,7 @@ r1r2Potential[{a_, s_}] :=
   getR1R2Potential[$fullPot, {a, s}];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*r1r2GridObject*)
 
 
@@ -236,7 +234,7 @@ r1r2GridPts = r1r2GridObject["Points"];
 (*Core Data*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*r1r2Wavefunctions*)
 
 
@@ -247,7 +245,7 @@ r1r2GridPts = r1r2GridObject["Points"];
 debugPrint["Generating r1/r2 wavefunctions..."]
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*r1r2Wavefunctions*)
 
 
@@ -258,7 +256,7 @@ r1r2Wavefunctions // cachedLoad@
     ];
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*r1r2PotMinima*)
 
 
@@ -270,7 +268,7 @@ r1r2PotMinima // cachedLoad@
     ];
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*cleanedR1R2Wavefunctions*)
 
 
@@ -282,7 +280,7 @@ cleanedR1R2Wavefunctions =
     ]@r1r2Wavefunctions;
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*debugPrint*)
 
 
@@ -293,18 +291,18 @@ debugPrint["Generated r1/r2 wavefunctions"]
 (*SCF Procedure*)
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*SCF Wavefunction Computation*)
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*r1r2SCFGrid*)
 
 
 r1r2SCFGrid = scfGrid[$r1r2DVR, $r1r2SCFBasisSize];
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*r1r2SCFStates*)
 
 
@@ -317,14 +315,14 @@ r1r2SCFStates =
    };
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*debugPrint*)
 
 
 debugPrint["Generating SCF coefficients..."]
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*coeffChunkingLength*)
 
 
@@ -332,7 +330,7 @@ coeffChunkingLength =
   Floor[(Times@@$saBasisSize)/chunkCount];
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*loadChunk*)
 
 
@@ -370,7 +368,7 @@ loadChunk[n_]:=
     ]
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*coefficientData*)
 
 
@@ -390,7 +388,7 @@ coefficientData =
     ]
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*cleanedCoefficientData*)
 
 
@@ -402,14 +400,14 @@ cleanedCoefficientData =
     ]@coefficientData;
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*debugPrint*)
 
 
 debugPrint["SCF coefficients calculated"]
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Rephased Data*)
 
 
@@ -420,7 +418,7 @@ debugPrint["Rephasing SCF wavefunctions"]
 (*No way to rephase consistently across inconsistent (PODVR) grids...*)
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*rephasingData*)
 
 
@@ -438,14 +436,14 @@ debugPrint["Rephasing SCF wavefunctions"]
    ];*)
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*debugPrint*)
 
 
 debugPrint["Rephasing SCF DVR wavefunctions"]
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*phaseInCorrectDVR*)
 
 
@@ -453,14 +451,14 @@ phaseInCorrectDVR =
   If[AssociationQ[#], #["DVRWavefunctions"], #] & /@ coefficientData;
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*dvrPhaseCorrectionVector*)
 
 
 dvrPhaseCorrectionVector = {1, 1, 1, 1, 1, 1};
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*phaseCorrectDVR*)
 
 
@@ -476,7 +474,7 @@ phaseCorrectDVR // cachedLoad[
    ];
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*phaseCorrectDVR*)
 
 
@@ -516,21 +514,21 @@ phaseCorrectDVR // cachedLoad[
   ]*)
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*debugPrint SCF*)
 
 
 debugPrint["Rephasing SCF SCF wavefunctions"]
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*scfPhaseCorrectionVector*)
 
 
 scfPhaseCorrectionVector = {1, 1, 1, 1, 1, 1};
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*phaseCorrectSCF*)
 
 
@@ -546,7 +544,7 @@ phaseCorrectSCF // cachedLoad[
    ];
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*phaseCorrectSCF*)
 
 
@@ -582,21 +580,36 @@ phaseCorrectSCF // cachedLoad[
   ]*)
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
+(*phaseCorrectCoeffDVR*)
+
+
+phaseCorrectCoeffDVR // cachedLoad[
+   getCoeffPhaseCorrection[
+     phaseCorrectSCF, phaseCorrectDVR, 
+     Keys[r1r2Wavefunctions],
+     Range[Length[dvrPhaseCorrectionVector]],
+     dvrPhaseCorrectionVector,
+     True
+     ]["Wavefunctions"]
+   ];
+
+
+(* ::Subsubsubsubsection:: *)
 (*debugPrint*)
 
 
 debugPrint["Got `` SCF wavefunctions"~TemplateApply~Length[phaseCorrectSCF]]
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*debugPrint*)
 
 
 debugPrint["Rephased SCF wavefunctions"]
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*SCF Phases 1 Quantum*)
 
 
@@ -606,7 +619,7 @@ debugPrint["Generating one quantum overlap matrix"]
 (*{overlapMatrixOneQuantum, goodSparseOneQuantum}*)
 goodSparseOneQuantum =
   getSCFOverlapMatrix[
-   phaseCorrectSCF, phaseCorrectDVR, 
+   phaseCorrectSCF, phaseCorrectCoeffDVR, 
    {2, 3}, 
    oneQuantumPhaseCorrection,
    Keys[coefficientData], 
@@ -628,7 +641,7 @@ debugPrint["Generating two quanta overlap matrix"]
 (*{overlapMatrixTwoQuanta, goodSparseTwoQuanta}*)
 goodSparseTwoQuanta =
   getSCFOverlapMatrix[
-    phaseCorrectSCF, phaseCorrectDVR, 
+    phaseCorrectSCF, phaseCorrectCoeffDVR, 
     {4, 5, 6}, 
     twoQuantaPhaseCorrection,
     Keys[coefficientData], saExtendedGrid,
@@ -640,7 +653,7 @@ goodSparseTwoQuanta =
 dumpSymbol[goodSparseTwoQuanta]
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*SCF Phases 1 and 2 Quanta*)
 
 
@@ -656,7 +669,7 @@ dumpSymbol[goodSparseTwoQuanta]
 *)
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*$OverlapMatrices*)
 
 
@@ -672,11 +685,11 @@ $OverlapMatrices =
 (*Wavefunctions*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Results*)
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*No Quanta*)
 
 
@@ -694,7 +707,7 @@ noQuantaWfns // cachedLoad@
   ]
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*One Quantum*)
 
 
@@ -718,7 +731,7 @@ oneQuantumWfns // cachedLoad@
   ]
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Two Quanta*)
 
 
@@ -742,7 +755,7 @@ twoQuantaWfns // cachedLoad@
   ]
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*One and Two Quanta*)
 
 
@@ -758,7 +771,7 @@ oneAndTwoQuantaWfns =
 *)
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Adiabatic States*)
 
 
@@ -773,7 +786,7 @@ adiabaticWfns =
      ] & /@ Range[2, 10];
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Results*)
 
 
@@ -813,14 +826,14 @@ $ZeroPointEnergies =
    ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Projections*)
 
 
 debugPrint["Pulling projections from wavefunctions"]
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*One Quantum*)
 
 
@@ -828,7 +841,7 @@ oneQuantumProjections =
   pullProjections[oneQuantumWfns, saMainGrid, {2, 3}];
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Two Quanta*)
 
 
@@ -836,7 +849,7 @@ twoQuantaProjections =
   pullProjections[twoQuantaWfns, saMainGrid, {4, 5, 6}];
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*One and Two Quanta*)
 
 
@@ -852,14 +865,14 @@ debugPrint["Projections pulled"]
 (*Spectrum*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Transition Moments*)
 
 
 debugPrint["Generating transition moments..."]
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Build Base Dipole Vectors*)
 
 
@@ -871,11 +884,11 @@ r1r2DipoleVectors // cachedLoad[
    ];
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Extract Transition Moments*)
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*Calc moments*)
 
 
@@ -890,7 +903,7 @@ r1r2TransitionMoments // cachedLoad[
 debugPrint["Generated transition moments"]
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*Full moments*)
 
 
@@ -906,7 +919,7 @@ r1r2GridTMs =
     |>
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Intensities*)
 
 
@@ -920,11 +933,11 @@ debugPrint["Generating spectra"]
 zaWfn = noQuantaWfns[[1]];
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Base Wfns*)
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*One Quantum*)
 
 
@@ -936,7 +949,7 @@ oneQuantumTransWfs =
   getTransitionWavefunctions[oneQuantumProjections, zaWfn];
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*Two Quanta*)
 
 
@@ -944,7 +957,7 @@ twoQuantaTransWfs =
   getTransitionWavefunctions[twoQuantaProjections, zaWfn];
 
 
-(* ::Subsubsubsubsection::Closed:: *)
+(* ::Subsubsubsubsection:: *)
 (*One and Two Quanta*)
 
 
@@ -953,7 +966,7 @@ twoQuantaTransWfs =
 *)
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Ints*)
 
 
@@ -973,7 +986,7 @@ adiabaticInts =
    ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Frequencies*)
 
 
@@ -981,7 +994,7 @@ adiabaticInts =
 (*We then turn these into intensities and plot them:*)
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*No Quanta*)
 
 
@@ -1020,7 +1033,7 @@ $RawSpectra =
    |>;
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Spectra*)
 
 
@@ -1036,21 +1049,21 @@ $Spectra =
 (*Dump Environment*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*End Private Context*)
 
 
 End[];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*DumpSave Symbols*)
 
 
 ToExpression[Names[$Context <> "*"], StandardForm, dumpSymbol]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*EndPackage*)
 
 

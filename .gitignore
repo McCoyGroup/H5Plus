@@ -1,8 +1,11 @@
 # Misc
 
+*.DS_Store
+
 Tests/TestData
 *.mx
 *.pdf
+*.png
 *.xlsx
 *.log
 

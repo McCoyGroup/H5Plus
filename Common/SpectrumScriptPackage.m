@@ -40,6 +40,7 @@ meanShiftedWavefunctions::usage="";
 rephaseThingies::usage="";
 rephaseWfns::usage="";
 getPhaseCorrection::usage="";
+getCoeffPhaseCorrection::usage="";
 getVectorPhaseCorrection::usage="";
 
 
@@ -497,9 +498,9 @@ extrapolatedFunction[
     debugPrint["Symmetrizing grid"];
     If[symmetry=!=None,
       gpts=
-      (* symmetrize the grid of triples *)
-      Join[
-        #,
+        (* symmetrize the grid of triples *)
+        Join[
+          #,
           Transpose[{#[[All, gind2]], #[[All, gind1]], symmetry*#[[All, 3]]}]
           ]&@gpts
       ];
@@ -525,7 +526,7 @@ extrapolatedFunction[
                             I guess some times we don't have the full grid? 
                             In this case we just extrapolate using a default value... 
                             (originally default stuff... dunno what should do)
-                            *)
+                      *)
          Join[
            #2,
            List/@
@@ -566,7 +567,11 @@ extrapolatedFunction[
   Module[{dv = 10.^9.5+2*Abs[Replace[def[[1]], Automatic:>5000]], d1, d2, d3, d},
     d1 = extrapolatedFunction[a, First, None, DefaultValue[dv], ops];
     d2 = extrapolatedFunction[a, Last, symmetry, def, ops];
-    d = DeleteDuplicatesBy[Join[d1, d2], Round[#[[;;2]], .001]&]
+    dumpSymbol[d1];
+    dumpSymbol[d2];
+    d = DeleteDuplicatesBy[
+      Join[Pick[d1, UnitStep[(dv-10)-d1[[All, 3]]], 1], d2], Round[#[[;;2]], .001]&
+      ]
     ]
 
 
@@ -800,17 +805,17 @@ rephaseWfns[s_, wfns_]:=
 
 
 (* ::Subsubsubsection::Closed:: *)
-(*getPhaseCorrection*)
+(*generalizedPhaseCorrection*)
 
 
 
-getPhaseCorrection//Clear
-getPhaseCorrection[wfs_List, 
+generalizedPhaseCorrection//Clear
+generalizedPhaseCorrection[
+ {data_, validTest_, prep_, metric_},
   grid_,
-  state:{_Integer?IntegerQ}:{2},
   basePhase:1|-1:1,
-  rephase:True|False:False,
-  defaultOrder:First|Last:First
+  defaultOrder:First|Last:First,
+  tol:_?(NumericQ[#]&&(!IntegerQ[#]||#==0)&):0.
   ]:=
   Module[
     {
@@ -822,15 +827,15 @@ getPhaseCorrection[wfs_List,
       gridPositions,
       reorderedWfs,
       rephasedWavefunctions,
-      fullWfs,
+      fullData,
       overlaps,
       phases,
       orderComplement,
       phaseVector,
-      newWfns,
+      reorderedData,
       rephasingData
       },
-    pos=Select[IntegerQ[#]&&#>0&]@Flatten@Position[wfs, _WavefunctionsObject, {1}];
+    pos=Pick[Range[Length[data]], validTest/@data];
     cleanGrid=Round[grid[[pos]].RotationMatrix[\[Pi]/4], .001];
     rephasingData=
       Table[
@@ -845,19 +850,28 @@ getPhaseCorrection[wfs_List,
             Lookup[PositionIndex[cleanGrid], Flatten[cleanGridSorted, 1]
               ];
         gridPositions=pos[[gridReordering]];
-        reorderedWfs=wfs[[gridPositions]];
-        fullWfs=
-          WavefunctionsObject[
-            Flatten/@
-            Transpose[
-              {#["Energies"], #["Wavefunctions"][[state]]}&/@
-              reorderedWfs
-              ],
-            reorderedWfs[[1]]["Grid"]
+        reorderedData=data[[gridPositions]];
+        fullData=
+          prep[reorderedData, 
+            <|
+            "GridReordering"->gridReordering,
+            "GridPositions"->gridPositions,
+            "GridPoints"->grid[[gridPositions]]
+            |>
             ];
-        overlaps=Developer`ToPackedArray[fullWfs@"Overlaps"[fullWfs]];
-        phases=rephaseThingies[Diagonal[overlaps, 1], basePhase, 0];
-        orderComplement=Complement[Range[Length@wfs], gridPositions];
+        overlaps=
+          Developer`ToPackedArray[
+            metric[
+              fullData,
+              <|
+              "GridReordering"->gridReordering,
+              "GridPositions"->gridPositions,
+              "GridPoints"->grid[[gridPositions]]
+              |>
+            ]
+          ];
+        phases=rephaseThingies[Normal@Diagonal[overlaps, 1], basePhase, tol];
+        orderComplement=Complement[Range[Length@data], gridPositions];
         phaseVector=
           Join[phases, ConstantArray[$Failed, Length@orderComplement]][[
             Ordering@Join[gridPositions, orderComplement]
@@ -879,22 +893,7 @@ getPhaseCorrection[wfs_List,
         rephasingData[[2]],
         rephasingData[[1]]
         ];
-    If[rephase,
-      newWfns=
-        MapThread[
-          If[#===$Failed,
-            #,
-            rephaseWfns[#, #2] 
-            ]&,
-          {
-            phaseVector,
-            wfs
-            }
-          ],
-      newWfns=None
-      ];
     <|
-      "Wavefunctions"->newWfns,
       "PhaseVector"->phaseVector,
       "Positions"->pos,
       "Ordering"->gridPositions,
@@ -908,32 +907,90 @@ getPhaseCorrection[wfs_List,
 
 
 
+(* ::Subsubsubsubsection::Closed:: *)
+(*prepPCWfns*)
+
+
+
+prepPCWfns[state_][reorderedWfs_, ___]:=
+  WavefunctionsObject[
+    Flatten/@
+      Transpose[
+        {#["Energies"], #["Wavefunctions"][[state]]}&/@
+        reorderedWfs
+        ],
+     reorderedWfs[[1]]["Grid"]
+     ];
+
+
+(* ::Subsubsubsubsection::Closed:: *)
+(*getPhaseCorrection*)
+
+
+
+getPhaseCorrection//Clear
+getPhaseCorrection[wfs_List, 
+  grid_,
+  state:{_Integer?IntegerQ}:{2},
+  basePhase:1|-1:1,
+  rephase:True|False:False,
+  defaultOrder:First|Last:First,
+  tol:_?(NumericQ[#]&&(!IntegerQ[#]||#==0)&):0.
+  ]:=
+  Module[
+    {
+      pc,
+      mc,
+      newWfns
+      },
+    mc = 
+      meanShiftedWavefunctions[
+        If[#===$Failed, #, #["Wavefunctions"][[state]]]&/@wfs
+        ];
+    pc = 
+      generalizedPhaseCorrection[
+        {mc, MatchQ[_WavefunctionsObject], prepPCWfns[state], #@"Overlaps"[#]&},
+        grid,
+        basePhase,
+        defaultOrder,
+        tol
+        ];
+    If[rephase,
+      newWfns=
+        MapThread[
+          If[#===$Failed, #, rephaseWfns[#, #2]]&,
+          {pc["PhaseVector"], wfs}
+          ],
+      newWfns=None
+      ];
+    Prepend[pc, "Wavefunctions"->newWfns]
+    ];
+
+
+(* ::Subsubsubsubsection::Closed:: *)
+(*getPhaseCorrection*)
+
+
+
 getPhaseCorrection[
   wfs_List, 
   grid_,
   states:{_Integer?IntegerQ, __Integer?IntegerQ},
   basePhases:1|-1|{(1|-1)..}:1,
-  rephase:True|False:True
+  rephase:True|False:True,
+  tol:_?(NumericQ[#]&&(!IntegerQ[#]||#==0)&):0.
   ]:=
-  Module[{wfSets, meanShiftedWfSets, rephasing, newWfns},
+  Module[{wfSets, rephasing, newWfns},
     wfSets=
       Table[
           If[#===$Failed, #, #[[{state}]]]&/@wfs, 
         {state, states}
         ];
-   meanShiftedWfSets=
-      Table[
-        meanShiftedWavefunctions[
-          If[#===$Failed, #, #["Wavefunctions"][[state]]
-          ]&/@wfs
-          ], 
-        {state, states}
-        ];
     rephasing=
       MapThread[
-        getPhaseCorrection[#, grid, {1}, #2, False]&, 
+        getPhaseCorrection[#, grid, {1}, #2, False, tol]&, 
         {
-          meanShiftedWfSets,
+          wfSets,
           Flatten[ConstantArray[basePhases, Length@wfSets]][[;;Length@wfSets]]
           } 
         ];
@@ -945,16 +1002,119 @@ getPhaseCorrection[
           If[#===$Failed, #, Join[##]]&,
           MapThread[
             MapThread[
-              If[#===$Failed,
-                #,
-                rephaseWfns[#, #2] 
-                ]&,
-              {
-                #["PhaseVector"],
-                #2
-                }
+              If[#===$Failed, #, rephaseWfns[#, #2]]&,
+              {#["PhaseVector"], #2}
               ]&,
             {rephasing, wfSets}
+            ]
+          ],
+      newWfns=None
+      ];
+    <|
+      "Wavefunctions"->newWfns,
+      "Rephasings"->rephasing
+      |>
+    ]
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*getCoeffPhaseCorrection*)
+
+
+
+(* ::Subsubsubsubsection::Closed:: *)
+(*prepCoeffRephasing*)
+
+
+
+prepCoeffRephasing[dvrWavefunctions_, states_][blerp_, params_]:=
+  Module[
+    {
+      nstates, fleng, pickSpec, pickComp,
+      gg, blerpDVR, 
+      baseWfnsSCF, baseWfnsDVR, 
+      coeffs, coeffLists, grid
+      },
+    pickSpec = params["GridReordering"];
+    blerpDVR=dvrWavefunctions[[pickSpec]];
+    baseWfnsSCF=
+      Table[Join@@Map[#[[{m}]]&, blerp], {m, states}];
+    baseWfnsDVR=
+      Join@@blerpDVR;
+    {baseWfnsSCF, baseWfnsDVR}
+    ]
+
+
+(* ::Subsubsubsubsection::Closed:: *)
+(*computePairwiseOverlaps*)
+
+
+
+computePairwiseOverlaps[{baseWfnsSCF_, dvrWfs_}, params___]:=
+  Module[{coeffs},
+    coeffs=
+      Transpose@
+        Table[
+          Developer`ToPackedArray[Diagonal[dvrWfs@"Overlaps"[scfWfs]]],
+          {scfWfs, baseWfnsSCF}
+          ];
+    coeffs.Transpose[coeffs]
+    ]
+
+
+(* ::Subsubsubsubsection::Closed:: *)
+(*getCoeffPhaseCorrection*)
+
+
+
+getCoeffPhaseCorrection//Clear
+getCoeffPhaseCorrection[
+  scfWavefunctions_, dvrWavefunctions_, 
+  grid_,
+  states:{_Integer?IntegerQ, __Integer?IntegerQ},
+  basePhases:1|-1|{(1|-1)..}:1,
+  rephase:True|False:True,
+  tol:_?(NumericQ[#]&&(!IntegerQ[#]||#==0)&):0.
+  ]:=
+  Module[
+    {
+      dvrs, scfs,
+      rephasing, newWfns
+      },
+    scfs = scfWavefunctions;
+    dvrs = 
+      Table[
+        If[#===$Failed, #, #["Wavefunctions"][[{state}]]]&/@dvrWavefunctions,
+        {state, states}
+        ];
+    rephasing=
+      MapThread[
+        generalizedPhaseCorrection[
+          {
+            scfs, 
+            #=!=$Failed&, 
+            prepCoeffRephasing[#, states], 
+            computePairwiseOverlaps
+            },
+          grid,
+          #2,
+          tol
+          ]&,
+        {
+          dvrs,
+          Flatten[ConstantArray[basePhases, Length@dvrs]][[;;Length@dvrs]]
+          }
+        ];
+    If[rephase,
+      newWfns=
+        MapThread[
+          If[#===$Failed, #, Join[##]]&,
+          MapThread[
+            MapThread[
+              If[#===$Failed, #, rephaseWfns[#, #2]]&,
+              {#["PhaseVector"], #2}
+              ]&,
+            {rephasing, dvrs}
             ]
           ],
       newWfns=None

@@ -22,267 +22,133 @@ StringForm["Initializing `1` indices ....", "IsotopeData"]
 "Rephasing SCF wavefunctions"
 "Rephasing SCF DVR wavefunctions"
 "Rephasing SCF SCF wavefunctions"
+
+Diagonal::list: 
+   List expected at position 1 in 
+    Diagonal[SpectrumScriptPackage`Private`computePairwiseOverlaps[
+      SpectrumScriptPackage`Private`prepCoeffRephasing[{$Failed, $Failed, 
+        $Failed, <<3596>>, $Failed}, {<<6>>}], <|<<3>>|>], 1].
+
+Diagonal::list: 
+   List expected at position 1 in 
+    Diagonal[SpectrumScriptPackage`Private`computePairwiseOverlaps[
+      SpectrumScriptPackage`Private`prepCoeffRephasing[{$Failed, $Failed, 
+        $Failed, <<3596>>, $Failed}, {<<6>>}], {<<3>>}], 1].
+
+CompiledFunction::cfta: 
+   Argument Diagonal[SpectrumScriptPackage`Private`computePairwiseOverlaps[
+      SpectrumScriptPackage`Private`prepCoeffRephasing[{$Failed, $Failed, 
+        $Failed, <<3596>>, $Failed}, {<<6>>}], {<<3>>}], 1] at position 1
+     should be a rank 1 tensor of machine-size real numbers.
+
+Part::partw: Part {1683, 1684, 1685, 1686, 1687, 1688, 1689, 1690, 1691, 
+     1692, 1693, 1694, 1695, 1696, 1697, 1698, 1699, 1700, 1701, 1702, 
+     <<3570>>, 3591, 3592, 3593, 3594, 3595, 3596, 3597, 3598, 3599, 3600} of 
+    {1, 1, 1, $Failed, $Failed, $Failed, $Failed, $Failed, $Failed, $Failed, 
+     $Failed, $Failed, $Failed, $Failed, $Failed, <<1899>>, $Failed, $Failed, 
+     $Failed, $Failed, $Failed, $Failed, $Failed} does not exist.
+
+Diagonal::list: 
+   List expected at position 1 in 
+    Diagonal[SpectrumScriptPackage`Private`computePairwiseOverlaps[
+      SpectrumScriptPackage`Private`prepCoeffRephasing[{$Failed, $Failed, 
+        $Failed, <<3596>>, $Failed}, {<<6>>}], <|<<3>>|>], 1].
+
+General::stop: Further output of Diagonal::list
+     will be suppressed during this calculation.
+
+CompiledFunction::cfta: 
+   Argument Diagonal[SpectrumScriptPackage`Private`computePairwiseOverlaps[
+      SpectrumScriptPackage`Private`prepCoeffRephasing[{$Failed, $Failed, 
+        $Failed, <<3596>>, $Failed}, {<<6>>}], {<<3>>}], 1] at position 1
+     should be a rank 1 tensor of machine-size real numbers.
+
+Part::partw: Part {1683, 1684, 1685, 1686, 1687, 1688, 1689, 1690, 1691, 
+     1692, 1693, 1694, 1695, 1696, 1697, 1698, 1699, 1700, 1701, 1702, 
+     <<3570>>, 3591, 3592, 3593, 3594, 3595, 3596, 3597, 3598, 3599, 3600} of 
+    {1, 1, 1, $Failed, $Failed, $Failed, $Failed, $Failed, $Failed, $Failed, 
+     $Failed, $Failed, $Failed, $Failed, $Failed, <<1899>>, $Failed, $Failed, 
+     $Failed, $Failed, $Failed, $Failed, $Failed} does not exist.
+"Rephasing disagreement by sampling direction. Be careful."
+
+CompiledFunction::cfta: 
+   Argument Diagonal[SpectrumScriptPackage`Private`computePairwiseOverlaps[
+      SpectrumScriptPackage`Private`prepCoeffRephasing[{$Failed, $Failed, 
+        $Failed, <<3596>>, $Failed}, {<<6>>}], {<<3>>}], 1] at position 1
+     should be a rank 1 tensor of machine-size real numbers.
+
+General::stop: Further output of CompiledFunction::cfta
+     will be suppressed during this calculation.
+
+Part::partw: Part {1683, 1684, 1685, 1686, 1687, 1688, 1689, 1690, 1691, 
+     1692, 1693, 1694, 1695, 1696, 1697, 1698, 1699, 1700, 1701, 1702, 
+     <<3570>>, 3591, 3592, 3593, 3594, 3595, 3596, 3597, 3598, 3599, 3600} of 
+    {1, 1, 1, $Failed, $Failed, $Failed, $Failed, $Failed, $Failed, $Failed, 
+     $Failed, $Failed, $Failed, $Failed, $Failed, <<1899>>, $Failed, $Failed, 
+     $Failed, $Failed, $Failed, $Failed, $Failed} does not exist.
+
+General::stop: Further output of Part::partw
+     will be suppressed during this calculation.
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing disagreement by sampling direction. Be careful."
+"Rephasing disagreement by sampling direction. Be careful."
+
+MapThread::mptd: 
+   Object {1, 1, 1, $Failed, $Failed, $Failed, $Failed, $Failed, $Failed, 
+      $Failed, $Failed, $Failed, $Failed, <<6>>d, <<1900>>, $Failed, $Failed, 
+      $Failed, $Failed, $Failed, $Failed, $Failed}[[<<1>>]] at position {2, 1
+    } in MapThread[If[#1 === $Failed, #1, rephaseWfns[#1, #2]] & , 
+     {{1, 1, 1, $Failed, $Failed, $Failed, $Failed, $Failed, $Failed, 
+        <<1908>>, $Failed, $Failed, $Failed, $Failed}[[<<1>>]], <<1>>}] has
+     only 0 of required 1 dimensions.
+
+MapThread::mptd: 
+   Object {1, 1, 1, $Failed, $Failed, $Failed, $Failed, $Failed, $Failed, 
+      $Failed, $Failed, $Failed, $Failed, <<6>>d, <<1900>>, $Failed, $Failed, 
+      $Failed, $Failed, $Failed, $Failed, $Failed}[[<<1>>]] at position {2, 1
+    } in MapThread[If[#1 === $Failed, #1, rephaseWfns[#1, #2]] & , 
+     {{1, 1, 1, $Failed, $Failed, $Failed, $Failed, $Failed, $Failed, 
+        <<1908>>, $Failed, $Failed, $Failed, $Failed}[[<<1>>]], <<1>>}] has
+     only 0 of required 1 dimensions.
+
+MapThread::mptd: 
+   Object {1, 1, 1, $Failed, $Failed, $Failed, $Failed, $Failed, $Failed, 
+      $Failed, $Failed, $Failed, $Failed, <<6>>d, <<1900>>, $Failed, $Failed, 
+      $Failed, $Failed, $Failed, $Failed, $Failed}[[<<1>>]] at position {2, 1
+    } in MapThread[If[#1 === $Failed, #1, rephaseWfns[#1, #2]] & , 
+     {{1, 1, 1, $Failed, $Failed, $Failed, $Failed, $Failed, $Failed, 
+        <<1908>>, $Failed, $Failed, $Failed, $Failed}[[<<1>>]], <<1>>}] has
+     only 0 of required 1 dimensions.
+
+General::stop: Further output of MapThread::mptd
+     will be suppressed during this calculation.
 "Got 3600 SCF wavefunctions"
 "Rephased SCF wavefunctions"
 "Generating one quantum overlap matrix"
 "Loading base coefficients"
-"Extrapolating coefficients"
-"Loading base function data"
-"Extrapolating off grid"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Constructing interpolation off grid"
-"Loading base function data"
-"Extrapolating off grid"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Constructing interpolation off grid"
-"Loading base function data"
-"Extrapolating off grid"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Constructing interpolation off grid"
-"Loading base function data"
-"Extrapolating off grid"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Constructing interpolation off grid"
 
-InterpolatingFunction::dmval: 
-   Input value {-2.68701, 0.636396}
-     lies outside the range of data in the interpolating function.
-     Extrapolation will be used.
+Join::heads: Heads MapThread and List at positions 1 and 2
+     are expected to be the same.
 
-InterpolatingFunction::dmval: 
-   Input value {-2.68701, 0.693406}
-     lies outside the range of data in the interpolating function.
-     Extrapolation will be used.
+Join::heads: Heads Part and List at positions 1 and 2
+     are expected to be the same.
 
-InterpolatingFunction::dmval: 
-   Input value {-2.68701, 0.750417}
-     lies outside the range of data in the interpolating function.
-     Extrapolation will be used.
+Transpose::nmtx: 
+   The first two levels of {Diagonal[Join[MapThread[{MapThread[
+           If[#1 === $Failed, #1, rephaseWfns[#1, #2]] & , 
+           {{1, 1, 1, <<1916>>, $Failed, $Failed}[[{<<3600>>}]], <<1>>}], 
+          <<5>>}], {150}][Overlaps[<<1>>]]], <<1>>} cannot be transposed.
 
-General::stop: Further output of InterpolatingFunction::dmval
-     will be suppressed during this calculation.
-"Generating two quanta overlap matrix"
-"Loading base coefficients"
-"Extrapolating coefficients"
-"Loading base function data"
-"Extrapolating off grid"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Constructing interpolation off grid"
-"Loading base function data"
-"Extrapolating off grid"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Constructing interpolation off grid"
-"Loading base function data"
-"Extrapolating off grid"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Constructing interpolation off grid"
-"Loading base function data"
-"Extrapolating off grid"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Constructing interpolation off grid"
-"Loading base function data"
-"Extrapolating off grid"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Constructing interpolation off grid"
-"Loading base function data"
-"Extrapolating off grid"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Constructing interpolation off grid"
-"Loading base function data"
-"Extrapolating off grid"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Constructing interpolation off grid"
-"Loading base function data"
-"Extrapolating off grid"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Constructing interpolation off grid"
-"Loading base function data"
-"Extrapolating off grid"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
-"Extapolating grid values"
-"Symmetrizing grid"
-"Doing secondary extrapolation"
-"Constructing interpolation off grid"
-"Generating 4D wavefunctions..."
-"Generating No Quanta Wavefunction"
-"Making kinetic energy"
-"Making potential energy"
-"Extracting potential"
-"Extrapolating potential"
-"Extracting grids"
-"Rotating to R1/R2 space"
-"Fitting forms"
-"Fitting forms"
+Transpose::nmtx: 
+   The first two levels of {Diagonal[Join[MapThread[If[#1 === $Failed, #1, 
+            Join[##1]] & , {MapThread[If[#1 === $Failed, #1, 
+              rephaseWfns[#1, #2]] & , {<<2>>}], <<5>>}][[{3}]], {151}][
+       Overlaps[<<7>>s[<<1>>]]]], <<1>>} cannot be transposed.
 
-Throw::nocatch: 
-   Uncaught Throw[?No data @ 3.93052, 10082.6?] returned to top level.
-
-Out[1]= Removed["$$Failure"]
-
-
+Transpose::tperm: 
+   Permutation {Diagonal[Join[MapThread[If[#1 === $Failed, #1, Join[##1]] & , 
+          {MapThread[If[#1 === $Failed, #1, rephaseWfns[#1, #2]] & , 
+            {<<2>>}], <<5>>}][[{3}]], {151}][Overlaps[<<7>>s[<<1>>]]]], <<1>>}
+     is longer than the dimensions {2} of the expression.

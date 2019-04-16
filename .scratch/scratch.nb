@@ -1,28 +1,32 @@
 Notebook[{Cell[CellGroupData[{Cell["Setup", "Section", 
-      CellChangeTimes -> {{3.7642953548852453*^9, 3.764295356227355*^9}}], 
+      CellChangeTimes -> {{3.7642953548852453*^9, 3.764295356227355*^9}}, 
+      ChemTools`DVR`Package`Private`InitializationGroup -> True], 
      Cell[BoxData[RowBox[{"<<", "EasyIDE`"}]], "Input", 
       CellChangeTimes -> {{3.7642952498634663*^9, 3.7642952517892323*^9}}, 
-      CellLabel -> "In[175]:="], 
+      CellLabel -> "In[1]:="], 
      Cell[BoxData[RowBox[{RowBox[{"$ide", "=", RowBox[{"IDENotebookObject", 
              "[", "]"}]}], ";"}]], "Input", CellChangeTimes -> 
        {{3.764295371044653*^9, 3.7642953756372128*^9}}, 
-      CellLabel -> "In[176]:="], 
+      CellLabel -> "In[2]:="], 
      Cell[BoxData[RowBox[{RowBox[{"$Path", "=", RowBox[{"DeleteDuplicates", 
              "@", RowBox[{"Append", "[", RowBox[{"$Path", ",", " ", 
                  RowBox[{"$ide", "@", RowBox[{"\"Path\"", "[", "\"Common\"", 
                      "]"}]}]}], "]"}]}]}], ";"}]], "Input", 
       CellChangeTimes -> {{3.764295227620809*^9, 3.764295285166864*^9}, 
        {3.764295334758314*^9, 3.764295341014266*^9}, {3.764295373940357*^9, 
-       3.764295377864204*^9}}, CellLabel -> "In[177]:="], 
-     Cell[BoxData[{RowBox[{"<<", "SpectrumScriptPackage`"}], 
-        "\[IndentingNewLine]", RowBox[{"<<", "ChemTools`All`"}]}], "Input", 
-      CellChangeTimes -> {{3.76429528687892*^9, 3.764295325147764*^9}}, 
-      CellLabel -> "In[178]:="], 
+       3.764295377864204*^9}}, CellLabel -> "In[3]:="], 
+     Cell[BoxData[RowBox[{"<<", "ChemTools`All`"}]], "Input", 
+      CellLabel -> "In[54]:="], 
      Cell[BoxData[{RowBox[{"WavefunctionsObject", ";"}], 
         "\[IndentingNewLine]", RowBox[{"CoordinateGridObject", ";"}], 
         "\[IndentingNewLine]", RowBox[{"GridFunctionObject", ";"}]}], 
       "Input", CellChangeTimes -> {{3.764295325957622*^9, 
-       3.7642953513154173*^9}}, CellLabel -> "In[180]:="]}, Closed]], 
+       3.7642953513154173*^9}, {3.764441432085835*^9, 
+       3.7644414322921667*^9}}, CellLabel -> "In[55]:="], 
+     Cell[BoxData[RowBox[{"<<", "SpectrumScriptPackage`"}]], "Input", 
+      CellChangeTimes -> {{3.76429528687892*^9, 3.764295325147764*^9}, 
+       {3.764441556183457*^9, 3.76444155647542*^9}}, 
+      CellLabel -> "In[83]:="]}, Open]], 
   Cell[CellGroupData[{Cell["Rephasing Test", "Section", 
       CellChangeTimes -> {{3.76404214333047*^9, 3.764042146929401*^9}}], 
      Cell[BoxData[RowBox[{"ContextRemove", "[", "\"ChemTools`\"", "]"}]], 
@@ -10997,31 +11001,272 @@ x\"", "]"}]}], ";"}]], "Input", CellChangeTimes -> {{3.76431272915926*^9,
       CellLabel -> "In[81]:="]}, Closed]], 
   Cell[CellGroupData[{Cell["asd", "Section", CellChangeTimes -> 
        {{3.7643395709741096*^9, 3.7643395711338797*^9}}], 
-     Cell[BoxData[RowBox[{RowBox[{"test", "=", RowBox[{"Import", "[", "\"/Use\
-rs/Mark/Documents/UW/Research/H5+/results/H5OldOriginal/oneQuantumWfns.mx\"", 
-             "]"}]}], ";"}]], "Input", CellChangeTimes -> 
-       {{3.7643395755576973*^9, 3.764339579918195*^9}, 3.76433970773656*^9}, 
-      CellLabel -> "In[187]:="], 
-     Cell[BoxData[RowBox[{"test", "@", RowBox[{"\"Frequencies\"", "[", 
-           "]"}]}]], "Input", CellChangeTimes -> {{3.764339586304408*^9, 
-       3.764339590382264*^9}}, CellLabel -> "In[188]:="], 
-     Cell[BoxData[RowBox[{RowBox[{RowBox[{"Import", "[", "\"/Users/Mark/Docum\
-ents/UW/Research/H5+/results/H5OldOriginal/goodSparseOneQuantum.mx\"", "]"}], 
-           "[", RowBox[{"[", RowBox[{RowBox[{";;", ";;", "2"}], ",", " ", 
-               RowBox[{";;", ";;", "2"}]}], "]"}], "]"}], "//", 
-         "MatrixPlot"}]], "Input", CellChangeTimes -> {{3.764339717840444*^9, 
-       3.764339722790234*^9}, {3.764339754230865*^9, 3.764339785414645*^9}}, 
-      CellLabel -> "In[192]:="], 
-     Cell[BoxData[RowBox[{RowBox[{"Select", "[", "\[IndentingNewLine]", 
-           RowBox[{RowBox[{"Import", "[", "\"/Users/Mark/Documents/UW/Researc\
-h/H5+/results/H5OldOriginal/pot$1214416.mx\"", "]"}], ",", 
-             "\[IndentingNewLine]", RowBox[{RowBox[{RowBox[{"#", "[", 
-                   RowBox[{"[", "3", "]"}], "]"}], "<", RowBox[{"10", "^", 
-                   "8"}]}], "&"}]}], "\[IndentingNewLine]", "]"}], "//", 
-         "ListPointPlot3D"}]], "Input", CellChangeTimes -> 
-       {{3.764339643814248*^9, 3.7643396655173073*^9}}, 
-      CellLabel -> "In[186]:="]}, Open]]}, WindowSize -> {808, 755}, 
- WindowMargins -> {{273, Automatic}, {6, Automatic}}, 
- FrontEndVersion -> 
+     Cell[BoxData[RowBox[{RowBox[{"test", "=", RowBox[{"Import", "@", "\"/Use\
+rs/Mark/Documents/UW/Research/H5+/results/H5OldOriginal/oneQuantumWfns.mx\""}]\
+}], ";"}]], "Input", CellChangeTimes -> {{3.7643395755576973*^9, 
+        3.764339579918195*^9}, 3.76433970773656*^9, 3.764362090202407*^9, 
+        {3.764429935904755*^9, 3.7644299381496468*^9}}], 
+     Cell[BoxData[RowBox[{RowBox[{"noquant", "=", RowBox[{"Import", "[", "\"/\
+Users/Mark/Documents/UW/Research/H5+/results/H5OldOriginal/noQuantaWfns.mx\""\
+, "]"}]}], ";"}]], "Input", CellChangeTimes -> {{3.7643610624372463*^9, 
+       3.7643610798255053*^9}}, CellLabel -> "In[52]:="], 
+     Cell[BoxData[RowBox[{RowBox[{"test", "@", "\"Energies\""}], "-", 
+         RowBox[{RowBox[{"noquant", "[", "\"Energies\"", "]"}], "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}]], "Input", 
+      CellChangeTimes -> {{3.764339586304408*^9, 3.764339590382264*^9}, 
+       {3.764361083867354*^9, 3.76436109239292*^9}}, 
+      CellLabel -> "In[64]:="], 
+     Cell[BoxData[RowBox[{RowBox[{RowBox[{"bbbb2", "=", 
+             RowBox[{"\"/Users/Mark/Documents/UW/Research/H5+/results/H5OldOr\
+iginal/goodSparseOneQuantum.mx\"", "//", "Import"}]}], ";"}], " "}]], 
+      "Input", CellChangeTimes -> {{3.764339717840444*^9, 
+       3.764339722790234*^9}, {3.764339754230865*^9, 3.764339785414645*^9}, 
+       {3.7643620515525084*^9, 3.764362077258*^9}, {3.764368472692058*^9, 
+       3.764368489968799*^9}, {3.764430347953513*^9, 3.764430372199472*^9}}, 
+      CellLabel -> "In[23]:="], 
+     Cell[BoxData[RowBox[{RowBox[{"With", "[", 
+           RowBox[{RowBox[{"{", RowBox[{RowBox[{"n", "=", "2"}], ",", 
+                 RowBox[{"m", "=", "2"}], ",", " ", RowBox[{"s", "=", "1"}], 
+                 ",", RowBox[{"d", "=", "3600"}]}], "}"}], ",", 
+             "\[IndentingNewLine]", RowBox[{"bbbb2", "[", RowBox[
+                {"[", RowBox[{RowBox[{RowBox[{"1", "+", RowBox[{"d", "*", 
+                         RowBox[{"(", RowBox[{"n", "-", "1"}], ")"}]}]}], 
+                     ";;", RowBox[{"d", "*", "n"}], ";;", "s"}], ",", " ", 
+                   RowBox[{RowBox[{"1", "+", RowBox[{"d", "*", RowBox[
+                          {"(", RowBox[{"m", "-", "1"}], ")"}]}]}], ";;", 
+                     RowBox[{"d", "*", "m"}], ";;", "s"}]}], "]"}], "]"}]}], 
+           "\[IndentingNewLine]", "]"}], "//", "MatrixPlot"}]], "Input", 
+      CellChangeTimes -> {{3.7643663822538147*^9, 3.764366508905078*^9}, 
+        {3.764366603946204*^9, 3.7643666059995317*^9}, 3.7643666571054363*^9, 
+        3.7643679854514837*^9, 3.764430381446928*^9, {3.764430426530644*^9, 
+        3.764430481158867*^9}}, CellLabel -> "In[29]:="], 
+     Cell[BoxData[RowBox[{RowBox[{"bbbb", "=", RowBox[{"\"/Users/Mark/Documen\
+ts/UW/Research/H5+/results/H5OldOriginal/goodSparseTwoQuanta.mx\"", "//", 
+             "Import"}]}], ";"}]], "Input", CellChangeTimes -> 
+       {{3.764366360782484*^9, 3.764366371344337*^9}, {3.764366671001453*^9, 
+       3.7643666776803417*^9}}, CellLabel -> "In[37]:="], 
+     Cell[BoxData[RowBox[{RowBox[{"zeep", "=", "\[IndentingNewLine]", 
+           RowBox[{"Import", "[", "\"/Users/Mark/Documents/UW/Research/H5+/re\
+sults/H5OldOriginal/extrapCoeffs$156732.mx\"", "]"}]}], ";"}]], "Input", 
+      CellChangeTimes -> {{3.764431101308008*^9, 3.764431106869773*^9}, 
+       {3.764431193368663*^9, 3.7644311941111813*^9}}, 
+      CellLabel -> "In[43]:="], 
+     Cell[BoxData[RowBox[{"zeep", "//", "ListPointPlot3D"}]], "Input", 
+      CellChangeTimes -> {{3.7644311112719*^9, 3.7644311229956913*^9}}, 
+      CellLabel -> "In[44]:="], 
+     Cell[BoxData[RowBox[{RowBox[{"With", "[", 
+           RowBox[{RowBox[{"{", RowBox[{RowBox[{"n", "=", "1"}], ",", 
+                 RowBox[{"m", "=", "1"}], ",", " ", RowBox[{"s", "=", "1"}], 
+                 ",", RowBox[{"d", "=", "3600"}]}], "}"}], ",", 
+             "\[IndentingNewLine]", RowBox[{"bbbb", "[", RowBox[
+                {"[", RowBox[{RowBox[{RowBox[{"1", "+", RowBox[{"d", "*", 
+                         RowBox[{"(", RowBox[{"n", "-", "1"}], ")"}]}]}], 
+                     ";;", RowBox[{"d", "*", "n"}], ";;", "s"}], ",", " ", 
+                   RowBox[{RowBox[{"1", "+", RowBox[{"d", "*", RowBox[
+                          {"(", RowBox[{"m", "-", "1"}], ")"}]}]}], ";;", 
+                     RowBox[{"d", "*", "m"}], ";;", "s"}]}], "]"}], "]"}]}], 
+           "\[IndentingNewLine]", "]"}], "//", "MatrixPlot"}]], "Input", 
+      CellChangeTimes -> {{3.7643663822538147*^9, 3.764366508905078*^9}, 
+        {3.764366603946204*^9, 3.7643666059995317*^9}, 3.7643666571054363*^9, 
+        3.7643679854514837*^9, {3.764430496566114*^9, 3.764430499755356*^9}}, 
+      CellLabel -> "In[38]:="], Cell[CellGroupData[
+       {Cell[BoxData[RowBox[{"bbbb", "//", "Developer`PackedArrayQ"}]], 
+         "Input", CellChangeTimes -> {{3.764366579114531*^9, 
+          3.764366595687653*^9}}, CellLabel -> "In[113]:="], 
+        Cell[BoxData["True"], "Output", CellChangeTimes -> 
+          {{3.764366580357094*^9, 3.7643665960996857*^9}, 
+           3.764367982284175*^9}, CellLabel -> "Out[113]="]}, Open]], 
+     Cell[BoxData[RowBox[{"\"/Users/Mark/Documents/UW/Research/H5+/results/H5\
+OldOriginal/extrapCoeffs$156732.mx\"", "//", 
+         RowBox[{RowBox[{"With", "[", RowBox[{RowBox[{"{", RowBox[
+                  {"data", "=", RowBox[{"Import", "[", "#", "]"}]}], "}"}], 
+               ",", "\[IndentingNewLine]", RowBox[{RowBox[{"Join", "[", 
+                   RowBox[{RowBox[{"data", "[", RowBox[{"[", RowBox[{"All", 
+                          ",", " ", RowBox[{";;", "2"}]}], "]"}], "]"}], ",", 
+                     RowBox[{"Clip", "[", RowBox[{"data", "[", RowBox[
+                          {"[", RowBox[{"All", ",", " ", RowBox[{"{", "3", 
+                          "}"}]}], "]"}], "]"}], "]"}], ",", " ", "2"}], " ", 
+                   "]"}], "//", "ListPointPlot3D"}]}], "\[IndentingNewLine]", 
+             "]"}], "&"}]}]], "Input", CellChangeTimes -> 
+       {{3.7644305818911057*^9, 3.7644306996298933*^9}}, 
+      CellLabel -> "In[36]:="], 
+     Cell[BoxData[{RowBox[{RowBox[{"d1", "=", RowBox[{"Import", "[", "\"/User\
+s/Mark/Documents/UW/Research/H5+/results/H5OldOriginal/d1$237746.mx\"", 
+              "]"}]}], ";"}], "\n", RowBox[
+         {RowBox[{"d2", "=", RowBox[{"Import", "[", "\"/Users/Mark/Documents/\
+UW/Research/H5+/results/H5OldOriginal/d2$237746.mx\"", "]"}]}], ";"}]}], 
+      "Input", CellChangeTimes -> {{3.764432320401791*^9, 
+       3.764432332520445*^9}, {3.764432398590302*^9, 3.764432400276004*^9}, 
+       {3.764432481950309*^9, 3.764432518138095*^9}, {3.764432553930727*^9, 
+       3.764432555705406*^9}, {3.764432588465345*^9, 3.764432589976766*^9}}, 
+      CellLabel -> "In[61]:="], 
+     Cell[BoxData[RowBox[{RowBox[{"DeleteDuplicatesBy", "[", "\n", "      ", 
+           RowBox[{RowBox[{"Join", "[", RowBox[{RowBox[{"Pick", "[", 
+                   RowBox[{"d1", ",", " ", RowBox[{"UnitStep", "[", RowBox[
+                        {RowBox[{"(", RowBox[{RowBox[{"10", "^", "9"}], "-", 
+                          "10"}], ")"}], "-", RowBox[{"d1", "[", RowBox[
+                          {"[", RowBox[{"All", ",", " ", "3"}], "]"}], 
+                          "]"}]}], "]"}], ",", " ", "1"}], "]"}], ",", " ", 
+                 "d2"}], "]"}], ",", " ", RowBox[{RowBox[{"Round", "[", 
+                 RowBox[{RowBox[{"#", "[", RowBox[{"[", RowBox[{";;", "2"}], 
+                       "]"}], "]"}], ",", " ", ".001"}], "]"}], "&"}]}], 
+           "\n", "      ", "]"}], "//", "ListPointPlot3D"}]], "Input", 
+      CellChangeTimes -> {{3.764432392964836*^9, 3.764432405099218*^9}}, 
+      CellLabel -> "In[63]:="]}, Closed]], 
+  Cell[CellGroupData[{Cell["Glarg", "Section", CellChangeTimes -> 
+       {{3.764441365578944*^9, 3.764441370702969*^9}}], 
+     Cell[BoxData[RowBox[{RowBox[{"gggg", "=", RowBox[{"Import", "[", "\"/Use\
+rs/Mark/Documents/UW/Research/H5+/results/H5OldOriginal/phaseCorrectSCF.mx\""\
+, "]"}]}], ";"}]], "Input", CellChangeTimes -> {{3.7644413774890347*^9, 
+       3.76444138105519*^9}}, CellLabel -> "In[41]:="], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"gggg", "//", "Head"}]], 
+         "Input", CellChangeTimes -> {{3.764441381995575*^9, 
+          3.764441384929123*^9}}, CellLabel -> "In[10]:="], 
+        Cell[BoxData["List"], "Output", CellChangeTimes -> 
+          {3.764441385182765*^9}, CellLabel -> "Out[10]="]}, Open]], 
+     Cell[BoxData[RowBox[{"Names", "[", "\"Chem*`*Wavefunctions*\"", "]"}]], 
+      "Input", CellChangeTimes -> {{3.76444144606317*^9, 
+       3.764441453451969*^9}}, CellLabel -> "In[23]:="], 
+     Cell[BoxData[RowBox[{"WavefunctionsObject", "//", "DownValues"}]], 
+      "Input", CellChangeTimes -> {{3.76444151299339*^9, 
+       3.764441518587688*^9}}, CellLabel -> "In[27]:="], 
+     Cell[BoxData[RowBox[
+        {"ChemTools`Wavefunctions`Private`ConstructWavefunctions", "//", 
+         "DownValues"}]], "Input", CellChangeTimes -> {{3.764441470351418*^9, 
+       3.7644414716123257*^9}}, CellLabel -> "In[24]:="], 
+     Cell[BoxData[RowBox[{RowBox[{RowBox[{RowBox[{"gggg", "[", RowBox[
+                {"[", "1000", "]"}], "]"}], "[", "\"Wavefunctions\"", "]"}], 
+           "[", RowBox[{"[", "6", "]"}], "]"}], "@", 
+         RowBox[{"\"Plot\"", "[", "]"}]}]], "Input", 
+      CellChangeTimes -> {{3.7644413861286497*^9, 3.764441410980658*^9}, 
+       {3.764441582261554*^9, 3.764441613500497*^9}}, 
+      CellLabel -> "In[50]:="], Cell[CellGroupData[
+       {Cell[BoxData[RowBox[{"ChemTools`Wavefunctions`Private`WFKeyPart", 
+            "//", "OwnValues"}]], "Input", CellChangeTimes -> 
+          {{3.764441436798348*^9, 3.764441440692686*^9}}, 
+         CellLabel -> "In[22]:="], Cell[BoxData[RowBox[{"{", "}"}]], 
+         "Output", CellChangeTimes -> {{3.764441438762231*^9, 
+          3.764441441004219*^9}}, CellLabel -> "Out[22]="]}, Open]]}, 
+    Closed]], Cell[CellGroupData[{Cell["Hmmm", "Section", 
+      CellChangeTimes -> {{3.764443654972063*^9, 3.764443656075033*^9}}], 
+     Cell[BoxData[{RowBox[{RowBox[{"r1r2Wavefunctions", "=", 
+            "\[IndentingNewLine]", RowBox[{"Import", "[", "\"/Users/Mark/Docu\
+ments/UW/Research/H5+/results/H5OldOriginal/r1r2Wavefunctions.mx\"", "]"}]}], 
+          ";"}], "\[IndentingNewLine]", 
+        RowBox[{RowBox[{"phaseCorrectSCF", "=", RowBox[{"Import", "[", "\"/Us\
+ers/Mark/Documents/UW/Research/H5+/results/H5OldOriginal/phaseCorrectSCF.mx\"\
+", "]"}]}], ";"}], "\n", RowBox[{RowBox[{"phaseCorrectDVR", "=", 
+            RowBox[{"Import", "[", "\"/Users/Mark/Documents/UW/Research/H5+/r\
+esults/H5OldOriginal/phaseCorrectDVR.mx\"", "]"}]}], ";"}]}], "Input", 
+      CellChangeTimes -> {{3.764443675276134*^9, 3.764443764474346*^9}}, 
+      CellLabel -> "In[17]:="], Cell[CellGroupData[
+       {Cell[BoxData[RowBox[{RowBox[{"fcc", "=", "\[IndentingNewLine]", 
+              RowBox[{"getCoeffPhaseCorrection", "[", "\[IndentingNewLine]", 
+                RowBox[{"phaseCorrectSCF", ",", " ", "phaseCorrectDVR", ",", 
+                  " ", "\[IndentingNewLine]", " ", RowBox[{"Keys", "[", 
+                    "r1r2Wavefunctions", "]"}], ",", "\[IndentingNewLine]", 
+                  RowBox[{"Range", "[", "6", "]"}], ",", 
+                  "\[IndentingNewLine]", RowBox[{"{", RowBox[{"1", ",", " ", 
+                      "1", ",", " ", "1", ",", " ", "1", ",", " ", "1", ",", 
+                      " ", "1"}], "}"}], ",", "\[IndentingNewLine]", 
+                  "True"}], "\[IndentingNewLine]", "]"}]}], ";"}]], "Input", 
+         CellChangeTimes -> {{3.7644436838026*^9, 3.764443689963008*^9}, 
+          {3.764443750376545*^9, 3.764443785350235*^9}}, 
+         CellLabel -> "In[84]:="], Cell[BoxData[TemplateBox[
+           {"Diagonal", "list", "\"List expected at position \
+\\!\\(\\*RowBox[{\\\"1\\\"}]\\) in \\!\\(\\*RowBox[{\\\"Diagonal\\\", \
+\\\"[\\\", \
+RowBox[{RowBox[{\\\"SpectrumScriptPackage`Private`computePairwiseOverlaps\\\"\
+, \\\"[\\\", \
+RowBox[{RowBox[{\\\"SpectrumScriptPackage`Private`prepCoeffRephasing\\\", \
+\\\"[\\\", RowBox[{RowBox[{\\\"{\\\", RowBox[{\\\"$Failed\\\", \\\",\\\", \
+\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
+\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
+\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
+\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
+\\\"$Failed\\\", \\\",\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"27\\\", \
+\\\"\[RightSkeleton]\\\"}], \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
+\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
+\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
+\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
+\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
+RowBox[{\\\"\[LeftSkeleton]\\\", \\\"3550\\\", \\\"\[RightSkeleton]\\\"}]}], \
+\\\"}\\\"}], \\\",\\\", RowBox[{\\\"{\\\", RowBox[{\\\"1\\\", \\\",\\\", \
+RowBox[{\\\"\[LeftSkeleton]\\\", \\\"5\\\", \\\"\[RightSkeleton]\\\"}]}], \
+\\\"}\\\"}]}], \\\"]\\\"}], \\\",\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \
+\\\"1\\\", \\\"\[RightSkeleton]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"1\\\"}], \
+\\\"]\\\"}]\\).\"", 2, 84, 82, 28125193705504460868, "Local"}, 
+           "MessageTemplate"]], "Message", "MSG", CellChangeTimes -> 
+          {{3.764444890048863*^9, 3.764444898896344*^9}, 
+           3.764445204135985*^9, 3.7644452715484953*^9, 3.764445351784665*^9, 
+           3.7644454086458893*^9, 3.764445444883675*^9}, 
+         CellLabel -> "During evaluation of In[84]:="], 
+        Cell[BoxData[TemplateBox[{"Diagonal", "list", "\"List expected at \
+position \\!\\(\\*RowBox[{\\\"1\\\"}]\\) in \
+\\!\\(\\*RowBox[{\\\"Diagonal\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"SpectrumScriptPackage`Private`computePairwiseOverlaps\\\"\
+, \\\"[\\\", \
+RowBox[{RowBox[{\\\"SpectrumScriptPackage`Private`prepCoeffRephasing\\\", \
+\\\"[\\\", RowBox[{RowBox[{\\\"{\\\", RowBox[{\\\"$Failed\\\", \\\",\\\", \
+\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
+\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
+\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
+\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
+\\\"$Failed\\\", \\\",\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"27\\\", \
+\\\"\[RightSkeleton]\\\"}], \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
+\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
+\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
+\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
+\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
+RowBox[{\\\"\[LeftSkeleton]\\\", \\\"3550\\\", \\\"\[RightSkeleton]\\\"}]}], \
+\\\"}\\\"}], \\\",\\\", RowBox[{\\\"{\\\", RowBox[{\\\"1\\\", \\\",\\\", \
+RowBox[{\\\"\[LeftSkeleton]\\\", \\\"5\\\", \\\"\[RightSkeleton]\\\"}]}], \
+\\\"}\\\"}]}], \\\"]\\\"}], \\\",\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \
+\\\"1\\\", \\\"\[RightSkeleton]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"1\\\"}], \
+\\\"]\\\"}]\\).\"", 2, 84, 83, 28125193705504460868, "Local"}, 
+           "MessageTemplate"]], "Message", "MSG", CellChangeTimes -> 
+          {{3.764444890048863*^9, 3.764444898896344*^9}, 
+           3.764445204135985*^9, 3.7644452715484953*^9, 3.764445351784665*^9, 
+           3.7644454086458893*^9, 3.76444544516179*^9}, 
+         CellLabel -> "During evaluation of In[84]:="], 
+        Cell[BoxData[TemplateBox[{"CompiledFunction", "cfta", "\"Argument \
+\\!\\(\\*RowBox[{\\\"Diagonal\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"SpectrumScriptPackage`Private`computePairwiseOverlaps\\\"\
+, \\\"[\\\", \
+RowBox[{RowBox[{\\\"SpectrumScriptPackage`Private`prepCoeffRephasing\\\", \
+\\\"[\\\", RowBox[{RowBox[{\\\"{\\\", RowBox[{\\\"$Failed\\\", \\\",\\\", \
+\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
+\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
+\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
+\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
+\\\"$Failed\\\", \\\",\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"27\\\", \
+\\\"\[RightSkeleton]\\\"}], \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
+\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
+\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
+\\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \
+\\\",\\\", \\\"$Failed\\\", \\\",\\\", \\\"$Failed\\\", \\\",\\\", \
+RowBox[{\\\"\[LeftSkeleton]\\\", \\\"3550\\\", \\\"\[RightSkeleton]\\\"}]}], \
+\\\"}\\\"}], \\\",\\\", RowBox[{\\\"{\\\", RowBox[{\\\"1\\\", \\\",\\\", \
+RowBox[{\\\"\[LeftSkeleton]\\\", \\\"5\\\", \\\"\[RightSkeleton]\\\"}]}], \
+\\\"}\\\"}]}], \\\"]\\\"}], \\\",\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \
+\\\"1\\\", \\\"\[RightSkeleton]\\\"}]}], \\\"]\\\"}], \\\",\\\", \\\"1\\\"}], \
+\\\"]\\\"}]\\) at position \\!\\(\\*RowBox[{\\\"1\\\"}]\\) should be a rank \
+\\!\\(\\*RowBox[{\\\"1\\\"}]\\) tensor of \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"machine-size real number\\\\\\\"\\\"}]\\)s.\"", 
+            2, 84, 84, 28125193705504460868, "Local"}, "MessageTemplate"]], 
+         "Message", "MSG", CellChangeTimes -> {{3.764444890048863*^9, 
+           3.764444898896344*^9}, 3.764445204135985*^9, 
+           3.7644452715484953*^9, 3.764445351784665*^9, 
+           3.7644454086458893*^9, 3.7644454454445*^9}, 
+         CellLabel -> "During evaluation of In[84]:="], 
+        Cell[BoxData[RowBox[{"$Aborted", "[", "]"}]], "Message", "MSG", 
+         CellChangeTimes -> {{3.764444890048863*^9, 3.764444898896344*^9}, 
+           3.764445204135985*^9, 3.7644452715484953*^9, 3.764445351784665*^9, 
+           3.7644454086458893*^9, 3.7644454456673326*^9}, 
+         CellLabel -> "During evaluation of In[84]:="], 
+        Cell[BoxData["$Aborted"], "Output", CellChangeTimes -> 
+          {3.764445445855818*^9}, CellLabel -> "Out[84]="]}, Open]]}, 
+    Open]]}, WindowSize -> {808, 755}, WindowMargins -> 
+  {{273, Automatic}, {6, Automatic}}, FrontEndVersion -> 
   "11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, 2018)", 
  StyleDefinitions -> "Default.nb"]
