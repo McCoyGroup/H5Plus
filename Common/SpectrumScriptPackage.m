@@ -85,6 +85,9 @@ scfCoeffData::usage="";
 getSCFOverlapMatrix::usage="";
 
 
+smoothOutCoeffs;
+
+
 (* ::Subsubsubsection::Closed:: *)
 (*Wavefunctions*)
 
@@ -782,6 +785,10 @@ rephaseThingies=
     Module[{prev, el, ov=overlaps,swapEl=init},
       Prepend[
         Table[
+          (* 
+				  if the previous one had to be flipped and the next one and it have the same sign the next one
+				  should also be flipped, I think...
+				  *)
           el=ov[[i]];
           If[el<-tol, swapEl=-swapEl];
           swapEl,
@@ -885,19 +892,23 @@ generalizedPhaseCorrection[
           gridReordering,
           phaseVector
           },
-        {sorting, {{First, 2}, {Last, 1}}}
-        ];
-    If[rephasingData[[1, 2]] =!= rephasingData[[2, 2]],
-      Print["Rephasing disagreement by sampling direction. Be careful."]
-      ];
+        {sorting, {If[defaultOrder===First, {Last, 1}, {First, 2}]}}
+        ][[1]];
     {
       gridReordering,
       phaseVector
-      } = 
-      If[defaultOrder===First,
-        rephasingData[[2]],
-        rephasingData[[1]]
-        ];
+      } = rephasingData;
+    (*If[rephasingData[[1, 2]] =!= rephasingData[[2, 2]],
+			Print["Rephasing disagreement by sampling direction. Be careful."]
+			];
+		{
+			gridReordering,
+			phaseVector
+			} = 
+			If[defaultOrder===First,
+				rephasingData[[2]],
+				rephasingData[[1]]
+				];*)
     <|
       "PhaseVector"->phaseVector,
       "Positions"->pos,
@@ -1092,16 +1103,24 @@ getCoeffPhaseCorrection[
         ];
     rephasing=
       MapThread[
-        generalizedPhaseCorrection[
-          {
-            scfs, 
-            #=!=$Failed&, 
-            prepCoeffRephasing[#, states], 
-            computePairwiseOverlaps
-            },
-          grid,
-          #2,
-          tol
+        With[{u2=Unique[phaseCorrectionVector]},
+          u2 = generalizedPhaseCorrection[
+            {
+              scfs, 
+              #=!=$Failed&, 
+              prepCoeffRephasing[#, states], 
+              With[{u=Unique[pairwiseOverlaps]},
+                u = computePairwiseOverlaps[##];
+                dumpSymbol[u];
+                u
+                ]&
+              },
+            grid,
+            #2,
+            tol
+            ];
+          dumpSymbol[u2];
+          u2
           ]&,
         {
           dvrs,
@@ -1314,6 +1333,113 @@ scfCoeffData[
 
 
 (* ::Subsubsubsection::Closed:: *)
+(*smoothOutCoeffs*)
+
+
+
+smoothOutCoeffs//Clear
+smoothOutCoeffs[coeffGrid_, dir:First|Last, cutoff:_?NumericQ:0]:=
+  Module[
+    {
+      aSlices,
+      g,
+      df,
+      twoDs,
+      signFlips,
+      rephasable,
+      rephaseVector,
+      startPhase,
+      rephased,
+      gind1 = Replace[dir, {First->1, Last->2}],
+      gind2 = Replace[dir, {First->2, Last->1}]
+      },
+    aSlices = KeySort@GroupBy[coeffGrid, (#[[gind1]]&)->(#[[{gind2, 3}]]&)];
+    startPhase = 
+      With[{l=KeySort@GroupBy[coeffGrid, (#[[2]]&)->(#[[3]]&)]},
+        Sign@Mean@l[[Floor[Length[l]/2]]]
+        ];
+    twoDs = 
+      With[{gg=SortBy[#, First]},
+        (*Transpose[{
+  	      gg[[All, 1]],*)
+          NDSolve`FiniteDifferenceDerivative[
+           Derivative[2], 
+           Sequence@@Transpose[gg]
+            ](*
+          }]*)
+       ]&/@aSlices;
+    signFlips = 
+      MovingMap[Times@@Sign[#]&, #[[All, 2]], 1]&/@aSlices;
+    rephasable=
+      MapThread[
+        (* 1 at the already fine places and -1 where not *)
+        1+-2*UnitStep[-#]*UnitStep[Abs[Most[#2]]-cutoff, 1]&,
+        {
+          signFlips,
+          twoDs
+          }
+        ];
+     rephased=
+       MapThread[
+         With[{shiftInside=Floor[Length[#]/4]},
+           Transpose[{
+             #[[All, 1]],
+             Prepend[RotateLeft[Rest[#], shiftInside], #[[1]]]&[
+               rephaseThingies[
+                 (* to get away from the broken edges... *)
+                 RotateRight[#2, shiftInside],
+                 (* get the base phase *) 
+                 Replace[
+                   Replace[Sign[#[[shiftInside, 2]]], 0->1]*
+                     Replace[startPhase, 0->1], 
+                   0->1
+                   ], 
+                 0]
+                ]*#[[All, 2]]
+             }]
+           ]&,
+         {
+           aSlices ,
+           rephasable
+           }
+         ];
+    Join@@
+      KeyValueMap[
+        Transpose[
+          {
+            ConstantArray[#, Length@#2], 
+            #2[[All, 1]], 
+            #2[[All, 2]]
+            }[[{gind1, gind2, 3}]]
+          ]&,
+        rephased
+        ]
+      ]
+
+
+needsSmoothingTest[coeffGrid_, dir_]:=
+  Module[{gridChunks, signFlips},
+    gridChunks = GroupBy[coeffGrid, Replace[dir, {First->Last, Last->First}]->(#[[3]]&)];
+    signFlips = Total@Abs@Flatten[Values[Differences@*Sign/@gridChunks]];
+    Greater@@{signFlips/2., Length[coeffGrid]/10}
+    ]
+
+
+smoothOutCoeffs[coeffGrid_, dir:Automatic:Automatic, cutoff:_?NumericQ:0]:=
+  If[needsSmoothingTest[coeffGrid, Last],
+    Fold[
+      smoothOutCoeffs[#, #2[[1]], cutoff+#2[[2]]]&,
+      coeffGrid, 
+      Thread@{
+        Flatten@ConstantArray[{Last, First}, 6],
+        (*1**)0Riffle[Range[0, 5], Range[0, 5]]
+        }
+      ],
+    coeffGrid
+    ]
+
+
+(* ::Subsubsubsection::Closed:: *)
 (*getSCFOverlapMatrix*)
 
 
@@ -1384,7 +1510,8 @@ getSCFOverlapMatrix[
   states_, 
   scalings_, 
   grid_, extrapGrid_,
-  symmetries_
+  symmetries_,
+  coefficientProcessing_:None
   ]:=
   Module[
     {
@@ -1394,7 +1521,8 @@ getSCFOverlapMatrix[
       coeffs, coeffLists,
       baseGrid, extrapCoeffs, 
       coeffInterps, newCoeffs,
-      fuckTheseFuckingPointsFuckThisIDontWantToDoIt
+      fuckTheseFuckingPointsFuckThisIDontWantToDoIt,
+      coeffList
       },
     nstates = Length@states;
     pickSpec = Pick[Range[Length[scfWavefunctions]], #=!=$Failed&/@scfWavefunctions];
@@ -1424,6 +1552,7 @@ getSCFOverlapMatrix[
     debugPrint["Extrapolating coefficients"];
     coeffInterps = 
       Table[
+        coeffList = coeffLists[[j]];
         debugPrint["Loading base function data"];
         baseGrid=
           Join[
@@ -1435,14 +1564,29 @@ getSCFOverlapMatrix[
         extrapCoeffs=
           extrapolatedFunction[
               baseGrid,
-              {Scaled[.25], Scaled[.25]},
-              {#^Range[3]&, #^Range[3]&},
+              {2, 2},
+              {#^Range[1]&, #^Range[1]&},
               "Both",
               symmetries[[i]],
               DefaultValue[0]
               ];
-        With[{u=Unique[extrapolatedCoeffs]}, 
-          u=extrapCoeffs;dumpSymbol[extrapolatedCoeffs]];
+        With[{u=Unique[ToExpression["extrapolatedCoeffs$"<>ToString@i<>ToString@j]]}, 
+          u=extrapCoeffs;
+          dumpSymbol[u]
+          ];
+        extrapCoeffs =
+          If[coefficientProcessing===None,
+            smoothOutCoeffs[extrapCoeffs],
+            Replace[Quiet@coefficientProcessing[[i, j]],
+              {
+                p_Part:>smoothOutCoeffs
+                }
+              ][extrapCoeffs]
+            ]; (* a total hack... *)
+        With[{u=Unique[ToExpression["extrapolatedCoeffs$"<>ToString@i<>ToString@j<>"$Smooth"]]}, 
+          u=extrapCoeffs;
+          dumpSymbol[u]
+          ];
         debugPrint["Constructing interpolation off grid"];
         fuckTheseFuckingPointsFuckThisIDontWantToDoIt=
           DeleteDuplicatesBy[
@@ -1455,7 +1599,7 @@ getSCFOverlapMatrix[
             ];
       (*dumpSymbol[fuckTheseFuckingPointsFuckThisIDontWantToDoIt];*)
         fuckTheseFuckingPointsFuckThisIDontWantToDoIt//Interpolation,
-        {coeffList, coeffLists},
+        {j, Length@coeffLists},
         {i, nstates}
         ];
     coeffs = 
@@ -1557,7 +1701,6 @@ extrapolatedPotential[grid_, wfns_, i_]:=
       },
     debugPrint["Extracting potential"];
     pot = getPot[wfns, i];
-    dumpSymbol[pot];
     debugPrint["Extrapolating potential"];
     extrap =
       extrapolatedFunction[

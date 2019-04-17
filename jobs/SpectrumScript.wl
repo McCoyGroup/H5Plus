@@ -372,32 +372,36 @@ loadChunk[n_]:=
 (*coefficientData*)
 
 
-coefficientData =
-  Module[
-    {
-      chunks=<||>
-      },
-    Do[
-      chunks = Join[chunks, loadChunk[n]];
-      If[Length@chunks == Times@@$saBasisSize,
-        Return[chunks, Do]
-        ],
-      {n, chunkCount}
-      ];
-    chunks
-    ]
+If[!FileExistsQ[dumpSymbolFile[phaseCorrectSCF]],
+  coefficientData =
+    Module[
+      {
+        chunks=<||>
+        },
+      Do[
+        chunks = Join[chunks, loadChunk[n]];
+        If[Length@chunks == Times@@$saBasisSize,
+          Return[chunks, Do]
+          ],
+        {n, chunkCount}
+        ];
+      chunks
+      ]
+  ]
 
 
 (* ::Subsubsubsubsection:: *)
 (*cleanedCoefficientData*)
 
 
-cleanedCoefficientData =
-  AssociationMap[
-    With[{pt=#[[1]], v=#[[2]]},
-      pt->If[!gridMemberQ[pt, $fullPot], $Failed, v]
-      ]&
-    ]@coefficientData;
+If[!FileExistsQ[dumpSymbolFile[phaseCorrectSCF]],
+  cleanedCoefficientData =
+    AssociationMap[
+      With[{pt=#[[1]], v=#[[2]]},
+        pt->If[!gridMemberQ[pt, $fullPot], $Failed, v]
+        ]&
+      ]@coefficientData
+  ];
 
 
 (* ::Subsubsubsubsection:: *)
@@ -447,8 +451,10 @@ debugPrint["Rephasing SCF DVR wavefunctions"]
 (*phaseInCorrectDVR*)
 
 
-phaseInCorrectDVR =
-  If[AssociationQ[#], #["DVRWavefunctions"], #] & /@ coefficientData;
+If[!FileExistsQ[dumpSymbolFile[phaseCorrectSCF]],
+  phaseInCorrectDVR =
+    If[AssociationQ[#], #["DVRWavefunctions"], #] & /@ coefficientData
+  ];
 
 
 (* ::Subsubsubsubsection:: *)
@@ -616,15 +622,27 @@ debugPrint["Rephased SCF wavefunctions"]
 debugPrint["Generating one quantum overlap matrix"]
 
 
+forceSign[{l_, r_}]:=
+  forceSign[{l, r}]=
+    Compile[{{pt, _Real, 1}},
+      {pt[[1]], pt[[2]], If[pt[[1]]<0, l, r]*Abs[pt[[3]]]},
+      RuntimeAttributes->{Listable}
+      ]
+
+
 (*{overlapMatrixOneQuantum, goodSparseOneQuantum}*)
 goodSparseOneQuantum =
   getSCFOverlapMatrix[
    phaseCorrectSCF, phaseCorrectCoeffDVR, 
    {2, 3}, 
    oneQuantumPhaseCorrection,
-   Keys[coefficientData], 
+   Keys[r1r2Wavefunctions], 
    saExtendedGrid,
-   {-1, -1}
+   {-1, -1},
+   {
+     {forceSign[{1, 1}],  forceSign[{-1, -1}]},
+     {forceSign[{1, 1}],  forceSign[{1, 1}]}
+     }
    ];
 
 
@@ -644,8 +662,16 @@ goodSparseTwoQuanta =
     phaseCorrectSCF, phaseCorrectCoeffDVR, 
     {4, 5, 6}, 
     twoQuantaPhaseCorrection,
-    Keys[coefficientData], saExtendedGrid,
-    {1, -1, 1}
+    Keys[r1r2Wavefunctions], saExtendedGrid,
+    {1, -1, 1},
+    {
+       (* ramp *)              (* bloop *)           (* ramp *)
+     {forceSign[{1, 1}],   forceSign[{1, 1}],  forceSign[{-1, -1}]},
+       (* bloop *)              (* ramp *)         (* bloop *)
+     {forceSign[{1, 1}],   forceSign[{-1, 1}], forceSign[{1, 1}]},
+       (* ramp *)          (* bloop *)          (* ramp *)
+     {forceSign[{1, 1}], forceSign[{1, 1}],  forceSign[{1, 1}]}
+     }
     ];
 
 
