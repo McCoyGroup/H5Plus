@@ -881,9 +881,7 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           {"extrapolatedFunction", "[", RowBox[{"a", ",", 
                           " ", "Last", ",", " ", "symmetry", ",", " ", "def", 
                           ",", " ", "ops"}], "]"}]}], ";", "\n", "    ", 
-                         RowBox[{"dumpSymbol", "[", "d1", "]"}], ";", "\n", 
-                         "    ", RowBox[{"dumpSymbol", "[", "d2", "]"}], ";", 
-                         "\n", "    ", RowBox[{"d", " ", "=", " ", RowBox[
+                         RowBox[{"d", " ", "=", " ", RowBox[
                           {"DeleteDuplicatesBy", "[", "\n", "      ", RowBox[
                           {RowBox[{"Join", "[", RowBox[{RowBox[{"Pick", "[", 
                           RowBox[{"d1", ",", " ", RowBox[{"UnitStep", "[", 
@@ -895,7 +893,7 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           {RowBox[{"#", "[", RowBox[{"[", RowBox[{";;", 
                           "2"}], "]"}], "]"}], ",", " ", ".001"}], "]"}], 
                           "&"}]}], "\n", "      ", "]"}]}]}]}], "\n", "    ", 
-                     "]"}]}]}], "CodeInput"]}, Closed]]}, Open]], 
+                     "]"}]}]}], "CodeInput"]}, Open]]}, Open]], 
         Cell[CellGroupData[{Cell["\[LeftCeiling]R1R2 Stuff\[RightFloor]", 
             "CodeSubsubsection", Evaluatable -> True], 
            Cell[CellGroupData[
@@ -2100,17 +2098,18 @@ disagreement by sampling direction. Be careful.\"", "]"}]}], "\n", "\t\t\t",
                           {"i", "-", "1"}], ")"}], "*", "fleng"}]}], " ", 
                           ";;", " ", RowBox[{"i", "*", "fleng"}]}], "]"}], 
                           "]"}]}], "\n", "\t\t\t      ", "]"}]}], ";", "\n", 
-                          "\t\t\t  ", RowBox[{"With", "[", RowBox[{RowBox[
-                          {"{", RowBox[{"u", "=", RowBox[{"Unique", "[", 
-                          "coefficientsGrid", "]"}]}], "}"}], ",", " ", 
-                          RowBox[{RowBox[{"u", "=", "baseGrid"}], ";", RowBox[
-                          {"dumpSymbol", "[", "u", "]"}]}]}], "]"}], ";", 
-                          "\n", "\t\t\t  ", RowBox[{"debugPrint", "[", 
-                          "\"Extrapolating off grid\"", "]"}], ";", "\n", 
-                          "\t\t\t  ", RowBox[{"extrapCoeffs", "=", "\n", 
-                          "\t\t\t    ", RowBox[{"extrapolatedFunction", "[", 
-                          "\n", "\t\t\t\t\t\t\t", RowBox[{"baseGrid", ",", 
-                          "\n", "\t\t\t\t\t\t\t", RowBox[{"{", RowBox[{RowBox[
+                          "\t\t\t  ", RowBox[{"(*", RowBox[{RowBox[{"With", 
+                          "[", RowBox[{RowBox[{"{", RowBox[{"u", "=", RowBox[
+                          {"Unique", "[", "coefficientsGrid", "]"}]}], "}"}], 
+                          ",", " ", RowBox[{RowBox[{"u", "=", "baseGrid"}], 
+                          ";", RowBox[{"dumpSymbol", "[", "u", "]"}]}]}], 
+                          "]"}], ";"}], "*)"}], "\n", "\t\t\t  ", RowBox[
+                          {"debugPrint", "[", "\"Extrapolating off grid\"", 
+                          "]"}], ";", "\n", "\t\t\t  ", RowBox[
+                          {"extrapCoeffs", "=", "\n", "\t\t\t    ", RowBox[
+                          {"extrapolatedFunction", "[", "\n", 
+                          "\t\t\t\t\t\t\t", RowBox[{"baseGrid", ",", "\n", 
+                          "\t\t\t\t\t\t\t", RowBox[{"{", RowBox[{RowBox[
                           {"Scaled", "[", ".25", "]"}], ",", " ", RowBox[
                           {"Scaled", "[", ".25", "]"}]}], "}"}], ",", "\n", 
                           "\t\t\t\t\t\t\t", RowBox[{"{", RowBox[{RowBox[
@@ -2122,9 +2121,13 @@ disagreement by sampling direction. Be careful.\"", "]"}]}], "\n", "\t\t\t",
                           {"[", "i", "]"}], "]"}], ",", "\n", 
                           "\t\t\t\t\t\t\t", RowBox[{"DefaultValue", "[", "0", 
                           "]"}]}], "\n", "\t\t\t\t\t\t\t", "]"}]}], ";", 
-                          "\n", "\t\t\t\t", RowBox[{"dumpSymbol", "[", 
-                          "extrapCoeffs", "]"}], ";", "\n", "\t\t\t\t", 
-                          RowBox[{"debugPrint", "[", 
+                          "\n", "\t\t\t\t", RowBox[{"With", "[", RowBox[
+                          {RowBox[{"{", RowBox[{"u", "=", RowBox[{"Unique", 
+                          "[", "extrapolatedCoeffs", "]"}]}], "}"}], ",", 
+                          " ", "\n", "\t\t\t\t  ", RowBox[{RowBox[{"u", "=", 
+                          "extrapCoeffs"}], ";", RowBox[{"dumpSymbol", "[", 
+                          "extrapolatedCoeffs", "]"}]}]}], "]"}], ";", "\n", 
+                          "\t\t\t\t", RowBox[{"debugPrint", "[", 
                           "\"Constructing interpolation off grid\"", "]"}], 
                           ";", "\n", "\t\t\t\t", RowBox[{
                           "fuckTheseFuckingPointsFuckThisIDontWantToDoIt", 
@@ -2143,9 +2146,10 @@ disagreement by sampling direction. Be careful.\"", "]"}]}], "\n", "\t\t\t",
                           "[", RowBox[{RowBox[{"#", "[", RowBox[{"[", RowBox[
                           {";;", "2"}], "]"}], "]"}], ",", " ", ".01"}], 
                           "]"}], "&"}]}], "\n", "      \t\t  ", "]"}]}], ";", 
-                          "\n", "      ", RowBox[{"dumpSymbol", "[", 
+                          "\n", "      ", RowBox[{"(*", RowBox[{RowBox[
+                          {"dumpSymbol", "[", 
                           "fuckTheseFuckingPointsFuckThisIDontWantToDoIt", 
-                          "]"}], ";", "\n", "\t\t\t\t", RowBox[
+                          "]"}], ";"}], "*)"}], "\n", "\t\t\t\t", RowBox[
                           {"fuckTheseFuckingPointsFuckThisIDontWantToDoIt", 
                           "//", "Interpolation"}]}], ",", "\n", "\t\t\t\t", 
                           RowBox[{"{", RowBox[{"coeffList", ",", " ", 
@@ -2170,7 +2174,7 @@ disagreement by sampling direction. Be careful.\"", "]"}]}], "\n", "\t\t\t",
                           "]"}], "\n", "\t\t\t\t", "]"}]}]}], ";", "\n", 
                           "\t\t", RowBox[{"coeffs", ".", RowBox[{"Transpose", 
                           "[", "coeffs", "]"}]}]}]}], "\n", "\t\t", 
-                        "]"}]}]}], "CodeInput"]}, Closed]]}, Open]]}, Open]], 
+                        "]"}]}]}], "CodeInput"]}, Open]]}, Open]]}, Open]], 
         Cell[CellGroupData[{Cell["\[LeftCeiling]Wavefunctions\[RightFloor]", 
             "CodeSubsubsection", Evaluatable -> True], 
            Cell[CellGroupData[

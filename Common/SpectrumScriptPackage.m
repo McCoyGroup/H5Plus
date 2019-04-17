@@ -574,8 +574,6 @@ extrapolatedFunction[
   Module[{dv = 10.^9.5+2*Abs[Replace[def[[1]], Automatic:>5000]], d1, d2, d3, d},
     d1 = extrapolatedFunction[a, First, None, DefaultValue[dv], ops];
     d2 = extrapolatedFunction[a, Last, symmetry, def, ops];
-    dumpSymbol[d1];
-    dumpSymbol[d2];
     d = DeleteDuplicatesBy[
       Join[Pick[d1, UnitStep[(dv-10)-d1[[All, 3]]], 1], d2], Round[#[[;;2]], .001]&
       ]
@@ -1432,7 +1430,7 @@ getSCFOverlapMatrix[
             Join[grid[[pickComp]], ConstantArray[10^9, {Length@pickComp, 1}], 2],
             coeffList[[1+(i-1)*fleng ;; i*fleng]]
             ];
-        With[{u=Unique[coefficientsGrid]}, u=baseGrid;dumpSymbol[u]];
+        (*With[{u=Unique[coefficientsGrid]}, u=baseGrid;dumpSymbol[u]];*)
         debugPrint["Extrapolating off grid"];
         extrapCoeffs=
           extrapolatedFunction[
@@ -1443,7 +1441,8 @@ getSCFOverlapMatrix[
               symmetries[[i]],
               DefaultValue[0]
               ];
-        dumpSymbol[extrapCoeffs];
+        With[{u=Unique[extrapolatedCoeffs]}, 
+          u=extrapCoeffs;dumpSymbol[extrapolatedCoeffs]];
         debugPrint["Constructing interpolation off grid"];
         fuckTheseFuckingPointsFuckThisIDontWantToDoIt=
           DeleteDuplicatesBy[
@@ -1454,7 +1453,7 @@ getSCFOverlapMatrix[
               ],
             Round[#[[;;2]], .01]&
             ];
-      dumpSymbol[fuckTheseFuckingPointsFuckThisIDontWantToDoIt];
+      (*dumpSymbol[fuckTheseFuckingPointsFuckThisIDontWantToDoIt];*)
         fuckTheseFuckingPointsFuckThisIDontWantToDoIt//Interpolation,
         {coeffList, coeffLists},
         {i, nstates}
