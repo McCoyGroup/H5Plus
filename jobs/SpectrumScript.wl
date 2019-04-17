@@ -631,7 +631,7 @@ forceSign[{l_, r_}]:=
 
 
 (*{overlapMatrixOneQuantum, goodSparseOneQuantum}*)
-goodSparseOneQuantum =
+goodSparseOneQuantum // cachedLoad[
   getSCFOverlapMatrix[
    phaseCorrectSCF, phaseCorrectCoeffDVR, 
    {2, 3}, 
@@ -643,7 +643,8 @@ goodSparseOneQuantum =
      {forceSign[{1, 1}],  forceSign[{-1, -1}]},
      {forceSign[{1, 1}],  forceSign[{1, 1}]}
      }
-   ];
+   ]
+ ];
 
 
 dumpSymbol[goodSparseOneQuantum]
@@ -657,7 +658,7 @@ debugPrint["Generating two quanta overlap matrix"]
 
 
 (*{overlapMatrixTwoQuanta, goodSparseTwoQuanta}*)
-goodSparseTwoQuanta =
+goodSparseTwoQuanta // cachedLoad[
   getSCFOverlapMatrix[
     phaseCorrectSCF, phaseCorrectCoeffDVR, 
     {4, 5, 6}, 
@@ -672,8 +673,8 @@ goodSparseTwoQuanta =
        (* ramp *)          (* bloop *)          (* ramp *)
      {forceSign[{1, 1}], forceSign[{1, 1}],  forceSign[{1, 1}]}
      }
-    ];
-
+    ]
+  ];
 
 
 dumpSymbol[goodSparseTwoQuanta]
@@ -802,14 +803,15 @@ oneAndTwoQuantaWfns =
 
 
 debugPrint["Generating Adiabatic Wavefunctions"]
-adiabaticWfns =
+adiabaticWfns // cachedLoad[
   getWavefunctions[
      r1r2Wavefunctions,
      $saDVR, 
      ConstantArray[1, (Times@@$saNewBasiSize)*{1, 1} ], 
      saExtendedGridObject,
      #
-     ] & /@ Range[2, 10];
+     ] & /@ Range[2, 10]
+  ];
 
 
 (* ::Subsubsubsection:: *)
@@ -838,18 +840,21 @@ $FullWavefunctions =
 
 
 $EnergyShifts =
-  Map[#["Energies"][[1]] &, $FullWavefunctions] - 
+  Map[#["Energies"][[1]]&, $FullWavefunctions] - 
    noQuantaWfns["Energies"][[1]];
 
 
 $ZeroPointEnergies =
-  AssociationThread[
-   Keys@$FullWavefunctions,
-   Map[#["Energies"][[1]] &, Values@$FullWavefunctions] -
-    Map[Min[averagedPot[r1r2Wavefunctions, #]] &, 
-     Join[{1, 2, 4, 2}, Range[2, 10]]
-     ]
-   ];
+   MapThread[
+     #["Energies"][[1]] - #2 &, 
+     {
+       Flatten@Values@$FullWavefunctions,
+       Map[
+         Min[averagedPot[r1r2Wavefunctions, #]] &, 
+         Join[{1, 2, 4}, Range[2, 10]]
+         ]
+       }
+     ];
 
 
 (* ::Subsubsection:: *)
@@ -891,11 +896,35 @@ debugPrint["Projections pulled"]
 (*Spectrum*)
 
 
+maxStateConsidered = 6;
+
+
 (* ::Subsubsection:: *)
 (*Transition Moments*)
 
 
-debugPrint["Generating transition moments..."]
+debugPrint["Rephasing wavefunctions...again..."]
+
+
+r1r2TransWfns // cachedLoad[
+  AssociationThread[
+    Keys[r1r2Wavefunctions],
+    getPhaseCorrection[
+       phaseCorrectDVR, 
+       Keys[r1r2Wavefunctions],
+       Range[maxStateConsidered],
+       ConstantArray[1, maxStateConsidered],
+       True,
+       "Shift"[True]
+       ]["Wavefunctions"]
+    ]
+  ]
+
+
+(*dumpSymbol[r1r2TransWfns]*)
+
+
+debugPrint["Generating dipole vectors..."]
 
 
 (* ::Subsubsubsection:: *)
@@ -905,9 +934,19 @@ debugPrint["Generating transition moments..."]
 newInterp = rebuildInterpolation@$fullDipoleSurf[[1]];
 
 
+gridPts=Flatten[Normal@DeleteCases[r1r2TransWfns, $Failed][[1]]["Grid"], 1];
+
+
 r1r2DipoleVectors // cachedLoad[
-   getDipoleVecs[r1r2Wavefunctions, r1r2GridPts , newInterp]
+   getDipoleVecs[
+     r1r2TransWfns, 
+     gridPts, 
+     newInterp
+     ]
    ];
+
+
+debugPrint["Generating transition moments..."]
 
 
 (* ::Subsubsubsection:: *)
@@ -920,9 +959,9 @@ r1r2DipoleVectors // cachedLoad[
 
 r1r2TransitionMoments // cachedLoad[
   getTransitionMoments[
-   phaseCorrectDVR,
-   r1r2DipoleVectors
-   ]
+    r1r2TransWfns,
+    r1r2DipoleVectors
+    ]
   ]
 
 
@@ -939,10 +978,13 @@ r1r2GridTMs =
     "Values"->
       Transpose@
        Map[
-        If[# === $Failed, ConstantArray[0., {10, 3}], #] &, 
+        If[# === $Failed, ConstantArray[0., {maxStateConsidered, 3}], #] &, 
         Values@r1r2TransitionMoments
         ]
     |>
+
+
+dumpSymbol[r1r2GridTMs];
 
 
 (* ::Subsubsection:: *)
@@ -1006,9 +1048,8 @@ twoQuantaInts =
    r1r2GridTMs];*)
 adiabaticInts =
   MapIndexed[
-   getIntensities[{Join[noQuantaWfns[[;; 1]], #]}, 1 + #2, 
-     r1r2GridTMs] &, 
-   adiabaticWfns
+   getIntensities[{Join[noQuantaWfns[[;; 1]], #]}, 1 + #2, r1r2GridTMs] &, 
+   adiabaticWfns[[;;maxStateConsidered-1]]
    ];
 
 

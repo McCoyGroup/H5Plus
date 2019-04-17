@@ -25,374 +25,25 @@ StringForm["Initializing `1` indices ....", "IsotopeData"]
 "Got 3600 SCF wavefunctions"
 "Rephased SCF wavefunctions"
 "Generating one quantum overlap matrix"
-
-Keys::invrl: The argument coefficientData
-     is not a valid Association or a list of rules.
 "Loading base coefficients"
-
-Part::partw: Part {91, 150, 151, 152, 209, 210, 211, 212, 213, 268, 269, 270, 
-     271, 272, 273, 274, 327, 328, 329, 330, 331, 332, 333, <<1648>>, 3333, 
-     3334, 3389, 3390, 3391, 3392, 3393, 3450, 3451, 3452, 3511} of 
-    Keys[coefficientData] does not exist.
-
-Part::pkspec1: The expression Keys[coefficientData]
-     cannot be used as a part specification.
-
-Join::normal1: Expression Keys[coefficientData][[{91, 150, 151, 152, 209, 
-      210, 211, 212, 213, 268, 269, 270, 271, 272, 273, 274, 327, 328, 329, 
-      <<1654>>, 3389, 3390, 3391, 3392, 3393, 3450, 3451, 3452, 3511},<<2>>]]
-     at position 1 is expected to have nonatomic subexpression at level 2.
-
-Join::normal1: Expression Keys[coefficientData][[{91, 150, 151, 152, 209, 
-      210, 211, 212, 213, 268, 269, 270, 271, 272, 273, 274, 327, 328, 329, 
-      <<1654>>, 3389, 3390, 3391, 3392, 3393, 3450, 3451, 3452, 3511},<<2>>]]
-     at position 1 is expected to have nonatomic subexpression at level 2.
 "Extrapolating coefficients"
 "Loading base function data"
-
-Part::partw: Part {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 
-     18, 19, 20, 21, 22, 23, 24, 25, 26, 27, <<1878>>, 3588, 3589, 3590, 
-     3591, 3592, 3593, 3594, 3595, 3596, 3597, 3598, 3599, 3600} of 
-    Keys[coefficientData] does not exist.
-
-Join::normal1: Expression Keys[coefficientData][[{1, 2, 3, 4, 5, 6, 7, 8, 9, 
-      10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, <<1883>>, 3589, 
-      3590, 3591, 3592, 3593, 3594, 3595, 3596, 3597, 3598, 3599, 3600}]] at
-     position 1 is expected to have nonatomic subexpression at level 2.
-
-General::stop: Further output of Join::normal1
-     will be suppressed during this calculation.
-
-Part::take: Cannot take positions 1 through 1682 in 
-    Join[Keys[coefficientData][[{91, 150, 151, 152, 209, 210, 211, 212, 213, 
-       268, 269, 270, 271, 272, 273, 274, 327, <<1657>>, 3390, 3391, 3392, 
-       3393, 3450, 3451, 3452, 3511},<<2>>]], <<1>>, 2].
-
-Join::heads: Heads Part and List at positions 1 and 2
-     are expected to be the same.
 "Extrapolating off grid"
-
-Part::partw: Part 3 of Keys[coefficientData][[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 
-      11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, <<1883>>, 3589, 
-      3590, 3591, 3592, 3593, 3594, 3595, 3596, 3597, 3598, 3599, 3600}]] does
-     not exist.
-
-General::stop: Further output of Part::partw
-     will be suppressed during this calculation.
-
-Part::take: Cannot take positions 1 through 1682 in 
-    Join[Keys[coefficientData][[{91, 150, 151, 152, 209, 210, 211, 212, 213, 
-       268, 269, 270, 271, 272, 273, 274, 327, <<1657>>, 3390, 3391, 3392, 
-       3393, 3450, 3451, 3452, 3511},<<2>>]], <<1>>, 2].
-
-Join::heads: Heads Part and List at positions 1 and 2
-     are expected to be the same.
-
-Part::take: Cannot take positions 1 through 1682 in 
-    Join[Keys[coefficientData][[{91, 150, 151, 152, 209, 210, 211, 212, 213, 
-       268, 269, 270, 271, 272, 273, 274, 327, <<1657>>, 3390, 3391, 3392, 
-       3393, 3450, 3451, 3452, 3511},<<2>>]], <<1>>, 2].
-
-General::stop: Further output of Part::take
-     will be suppressed during this calculation.
-
-Join::heads: Heads Part and List at positions 1 and 2
-     are expected to be the same.
-
-General::stop: Further output of Join::heads
-     will be suppressed during this calculation.
-
-Pick::incomp: Expressions Join[Keys[coefficientData][[{1, 2, 3, 4, 5, 6, 7, 
-       8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, <<1887>>, 3591, 
-       3592, 3593, 3594, 3595, 3596, 3597, 3598, 3599, 3600}]], <<3>>] and 
-    UnitStep[500000000 - Join[Keys[coefficientData][[{1, 2, 3, 4, 5, 6, 7, 8, 
-           9, 10, 11, 12, 13, 14, 15, <<1895>>, 3593, 3594, 3595, 3596, 3597, 
-           3598, 3599, 3600}]], <<3>>][[All,3]]] <<1>> have incompatible
-     shapes.
-"Extracting grids"
-
-Join::headsd: Expression Pick[Join[Keys[coefficientData][[{1, 2, 3, 4, 5, 6, 
-         7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, <<1892>>, 3592, 3593, 3594, 
-         3595, 3596, 3597, 3598, 3599, 3600}]], <<3>>], <<1>>, 1][[All,<<1>>]]
-     at position 2 is expected to have head Transpose
-     for all expressions at level 2.
-"Rotating to R1/R2 space"
-
-GroupBy::list1: 
-                               1        1            1         1
-   The argument Transpose[{{-------, -------}, {-(-------), -------}} . 
-                            Sqrt[2]  Sqrt[2]      Sqrt[2]   Sqrt[2]
-      Transpose[Join[Keys[coefficientData][[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 
-           <<1903>>, 3596, 3597, 3598, 3599, 3600}]], <<3>>][[All,<<1>>]]]] is
-     not a valid list of Associations or rules or lists of rules.
-
-GroupBy::list1: 
-                                    1        1            1         1
-   The argument Join[Transpose[{{-------, -------}, {-(-------), -------}} . 
-                                 Sqrt[2]  Sqrt[2]      Sqrt[2]   Sqrt[2]
-       Transpose[Pick[Join[Keys[coefficientData][[{1, 2, 3, 4, 5, <<1911>>, 
-             3599, 3600}]], <<3>>], <<1>>, 1][[All,<<1>>]]]], <<1>>, 2] is not
-     a valid list of Associations or rules or lists of rules.
-"Fitting forms"
-"Fitting forms"
-
-Part::partd: Part specification 
-                        1        1            1         1
-    Join[Transpose[{{-------, -------}, {-(-------), -------}} . 
-                     Sqrt[2]  Sqrt[2]      Sqrt[2]   Sqrt[2]
-        Transpose[Pick[Join[Keys[coefficientData][[{1, 2, 3, <<1913>>, 3599, 
-              3600}]], <<3>>], <<1>>, 1][[All,<<1>>]]]], <<2>>][[<<2>>]] is
-     longer than depth of object.
-
-MapThread::mptd: 
-                              1        1            1         1
-   Object Join[Transpose[{{-------, -------}, {-(-------), -------}} . 
-                           Sqrt[2]  Sqrt[2]      Sqrt[2]   Sqrt[2]
-        Transpose[Pick[Join[Keys[coefficientData][[{1, 2, 3, <<1913>>, 3599, 
-              3600}]], <<3>>], <<1>>, 1][[All,<<1>>]]]], <<2>>][[<<2>>]] at
-     position {2, 3} in MapThread[With[{SpectrumScriptPackage`Private`data$ = 
-         #1, SpectrumScriptPackage`Private`r0$ = #3[[1]], 
-        SpectrumScriptPackage`Private`c$ = #3[[2]]}, 
-       If[<<2>>]; (<<1>> & )[<<1>>]] & , {<<3>>}] has only 0 of required 1
-     dimensions.
-
-MapThread::mptd: 
-   Object (Round[#1[[SpectrumScriptPackage`Private`gind1$106308]], 
-        0.00001] & )[[{1, -1},{2, 3}]] at position {2, 3} in 
-    MapThread[With[{SpectrumScriptPackage`Private`data$ = #1, 
-        SpectrumScriptPackage`Private`r0$ = #3[[1]], 
-        SpectrumScriptPackage`Private`c$ = #3[[2]]}, 
-       If[<<2>>]; (<<1>> & )[<<1>>]] & , {<<3>>}] has only 0 of required 1
-     dimensions.
-
-MapThread::mptd: 
-   Object SortBy[#1[[SpectrumScriptPackage`Private`gind2$106308]] & ][[
-     {1, -1},{2, 3}]] at position {2, 3} in 
-    MapThread[With[{SpectrumScriptPackage`Private`data$ = #1, 
-        SpectrumScriptPackage`Private`r0$ = #3[[1]], 
-        SpectrumScriptPackage`Private`c$ = #3[[2]]}, 
-       If[<<2>>]; (<<1>> & )[<<1>>]] & , {<<3>>}] has only 0 of required 1
-     dimensions.
-
-General::stop: Further output of MapThread::mptd
-     will be suppressed during this calculation.
-
-GroupBy::list1: 
-   The argument MapThread[With[{SpectrumScriptPackage`Private`data$ = #1, 
-        SpectrumScriptPackage`Private`r0$ = #3[[1]], 
-        SpectrumScriptPackage`Private`c$ = #3[[2]]}, 
-       If[<<2>>]; (<<1>> & )[<<1>>]] & , {<<3>>}] is not a valid list of
-     Associations or rules or lists of rules.
-
-General::stop: Further output of GroupBy::list1
-     will be suppressed during this calculation.
-"Extapolating grid values"
-
-                                                      1        1
-Keys::invrl: The argument GroupBy[Join[Transpose[{{-------, -------}, 
-                                                   Sqrt[2]  Sqrt[2]
-               1         1
-         {-(-------), -------}} . 
-            Sqrt[2]   Sqrt[2]
-        Transpose[Pick[Join[Keys[coefficientData][[{1, 2, <<1915>>, 3600}]], 
-            <<3>>], <<1>>, 1][[All,<<1>>]]]], <<2>>], <<2>>] is not a valid
-     Association or a list of rules.
-
-KeyTake::invrl: 
-                                       1        1
-   The argument GroupBy[Transpose[{{-------, -------}, 
-                                    Sqrt[2]  Sqrt[2]
-              1         1
-        {-(-------), -------}} . 
-           Sqrt[2]   Sqrt[2]
-       Transpose[Join[Keys[coefficientData][[{1, 2, 3, 4, 5, 6, 7, <<1908>>, 
-            3598, 3599, 3600}]], <<3>>][[All,<<1>>]]]], <<2>>] is not a valid
-     Association or a list of rules.
-
-Values::invrl: The argument MapThread[With[{SpectrumScriptPackage`Private`minF
-          it$ = #1[[1]], <<2>>, 
-        SpectrumScriptPackage`Private`goodBounds$ = MinMax[#2[[All,2]]]}, 
-       Join[With[{<<1>>}, <<1>>], <<2>>]] & , {<<3>>}] is not a valid
-     Association or a list of rules.
-"Symmetrizing grid"
-
-Pick::incomp: Expressions Join[Keys[coefficientData][[{1, 2, 3, 4, 5, 6, 7, 
-       8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, <<1887>>, 3591, 
-       3592, 3593, 3594, 3595, 3596, 3597, 3598, 3599, 3600}]], <<3>>] and 
-    UnitStep[500000000 - Join[Keys[coefficientData][[{1, 2, 3, 4, 5, 6, 7, 8, 
-           9, 10, 11, 12, 13, 14, 15, <<1895>>, 3593, 3594, 3595, 3596, 3597, 
-           3598, 3599, 3600}]], <<3>>][[All,3]]] <<1>> have incompatible
-     shapes.
-
-Pick::incomp: Expressions Join[Keys[coefficientData][[{1, 2, 3, 4, 5, 6, 7, 
-       8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, <<1887>>, 3591, 
-       3592, 3593, 3594, 3595, 3596, 3597, 3598, 3599, 3600}]], <<3>>] and 
-    UnitStep[500000000 - Join[Keys[coefficientData][[{1, 2, 3, 4, 5, 6, 7, 8, 
-           9, 10, 11, 12, 13, 14, 15, <<1895>>, 3593, 3594, 3595, 3596, 3597, 
-           3598, 3599, 3600}]], <<3>>][[All,3]]] <<1>> have incompatible
-     shapes.
-
-General::stop: Further output of Pick::incomp
-     will be suppressed during this calculation.
-
-Join::headsd: Expression Pick[Join[Keys[coefficientData][[{1, 2, 3, 4, 5, 6, 
-         7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, <<1892>>, 3592, 3593, 3594, 
-         3595, 3596, 3597, 3598, 3599, 3600}]], <<3>>], <<1>>, 1][[All,<<1>>]]
-     at position 2 is expected to have head Transpose
-     for all expressions at level 2.
-
-Join::headsd: Expression Pick[Join[Keys[coefficientData][[{1, 2, 3, 4, 5, 6, 
-         7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, <<1892>>, 3592, 3593, 3594, 
-         3595, 3596, 3597, 3598, 3599, 3600}]], <<3>>], <<1>>, 1][[All,<<1>>]]
-     at position 2 is expected to have head Transpose
-     for all expressions at level 2.
-
-General::stop: Further output of Join::headsd
-     will be suppressed during this calculation.
-
-Part::partd: Part specification 
-                        1        1            1         1
-    Join[Transpose[{{-------, -------}, {-(-------), -------}} . 
-                     Sqrt[2]  Sqrt[2]      Sqrt[2]   Sqrt[2]
-        Transpose[Pick[Join[Keys[coefficientData][[{1, 2, 3, <<1913>>, 3599, 
-              3600}]], <<3>>], <<1>>, 1][[All,<<1>>]]]], <<2>>][[<<2>>]] is
-     longer than depth of object.
-
-                                                      1        1
-Keys::invrl: The argument GroupBy[Join[Transpose[{{-------, -------}, 
-                                                   Sqrt[2]  Sqrt[2]
-               1         1
-         {-(-------), -------}} . 
-            Sqrt[2]   Sqrt[2]
-        Transpose[Pick[Join[Keys[coefficientData][[{1, 2, <<1915>>, 3600}]], 
-            <<3>>], <<1>>, 1][[All,<<1>>]]]], <<2>>], <<2>>] is not a valid
-     Association or a list of rules.
-
-General::stop: Further output of Keys::invrl
-     will be suppressed during this calculation.
-
-KeyTake::invrl: 
-                                       1        1
-   The argument GroupBy[Transpose[{{-------, -------}, 
-                                    Sqrt[2]  Sqrt[2]
-              1         1
-        {-(-------), -------}} . 
-           Sqrt[2]   Sqrt[2]
-       Transpose[Join[Keys[coefficientData][[{1, 2, 3, 4, 5, 6, 7, <<1908>>, 
-            3598, 3599, 3600}]], <<3>>][[All,<<1>>]]]], <<2>>] is not a valid
-     Association or a list of rules.
-
-Values::invrl: The argument MapThread[With[{SpectrumScriptPackage`Private`minF
-          it$ = #1[[1]], <<2>>, 
-        SpectrumScriptPackage`Private`goodBounds$ = MinMax[#2[[All,2]]]}, 
-       Join[With[{<<1>>}, <<1>>], <<2>>]] & , {<<3>>}] is not a valid
-     Association or a list of rules.
-
-Values::invrl: The argument MapThread[With[{SpectrumScriptPackage`Private`minF
-          it$ = #1[[1]], <<2>>, 
-        SpectrumScriptPackage`Private`goodBounds$ = MinMax[#2[[All,2]]]}, 
-       Join[With[{<<1>>}, <<1>>], <<2>>]] & , {<<3>>}] is not a valid
-     Association or a list of rules.
-
-General::stop: Further output of Values::invrl
-     will be suppressed during this calculation.
-"Doing secondary extrapolation"
-
-KeySort::invrl: 
-                                            1          1
-   The argument GroupBy[Join[Transpose[{{-------, -(-------)}, 
-                                         Sqrt[2]    Sqrt[2]
-             1        1
-         {-------, -------}} . Transpose[Values[MapThread[With[{<<4>>}, 
-          Sqrt[2]  Sqrt[2]
-             Join[With[{<<1>>}, If[<<3>>]], <<2>>]] & , {<<3>>}]]]], <<1>>, 2]
-      , <<1>> & ] is not a valid Association or a list of rules.
-
-KeySort::invrl: 
-   The argument GroupBy[Join[Keys[coefficientData][[{1, 2, 3, 4, 5, 6, 7, 8, 
-         9, 10, 11, 12, 13, 14, 15, 16, 17, <<1893>>, 3593, 3594, 3595, 3596, 
-         3597, 3598, 3599, 3600}]], <<3>>][[All,<<1>>]], <<1>> & ] is not a
-     valid Association or a list of rules.
-
-Part::partd: Part specification 
-                        1        1            1         1
-    Join[Transpose[{{-------, -------}, {-(-------), -------}} . 
-                     Sqrt[2]  Sqrt[2]      Sqrt[2]   Sqrt[2]
-        Transpose[Pick[Join[Keys[coefficientData][[{1, 2, 3, <<1913>>, 3599, 
-              3600}]], <<3>>], <<1>>, 1][[All,<<1>>]]]], <<2>>][[<<2>>]] is
-     longer than depth of object.
-
-General::stop: Further output of Part::partd
-     will be suppressed during this calculation.
-
-KeyTake::invrl: 
-                                       1        1
-   The argument GroupBy[Transpose[{{-------, -------}, 
-                                    Sqrt[2]  Sqrt[2]
-              1         1
-        {-(-------), -------}} . 
-           Sqrt[2]   Sqrt[2]
-       Transpose[Join[Keys[coefficientData][[{1, 2, 3, 4, 5, 6, 7, <<1908>>, 
-            3598, 3599, 3600}]], <<3>>][[All,<<1>>]]]], <<2>>] is not a valid
-     Association or a list of rules.
-
-General::stop: Further output of KeyTake::invrl
-     will be suppressed during this calculation.
-
-KeySort::invrl: 
-                                            1          1
-   The argument GroupBy[Join[Transpose[{{-------, -(-------)}, 
-                                         Sqrt[2]    Sqrt[2]
-             1        1
-         {-------, -------}} . Transpose[Values[MapThread[With[{<<4>>}, 
-          Sqrt[2]  Sqrt[2]
-             Join[With[{<<1>>}, If[<<3>>]], <<2>>]] & , {<<3>>}]]]], <<1>>, 2]
-      , <<1>> & ] is not a valid Association or a list of rules.
-
-General::stop: Further output of KeySort::invrl
-     will be suppressed during this calculation.
 "Extracting grids"
 "Rotating to R1/R2 space"
 "Fitting forms"
 "Fitting forms"
 "Extapolating grid values"
 "Symmetrizing grid"
-
-Transpose::nmtx: 
-   The first two levels of {Values[With[{SpectrumScriptPackage`Private`minFit
-           $ = #1[[1]], <<2>>, SpectrumScriptPackage`Private`goodBounds$ = 
-          MinMax[#2[[All,1]]]}, Join[With[{<<1>>}, If[<<3>>]], <<2>>]] & ], 
-     <<2>>} cannot be transposed.
-
-Transpose::nmtx: 
-   The first two levels of {Values[With[{SpectrumScriptPackage`Private`minFit
-           $ = #1[[1]], <<2>>, SpectrumScriptPackage`Private`goodBounds$ = 
-          MinMax[#2[[All,1]]]}, Join[With[{<<1>>}, If[<<3>>]], <<2>>]] & ], 
-     <<2>>} cannot be transposed.
 "Doing secondary extrapolation"
-
-Transpose::nmtx: 
-   The first two levels of {Values[With[{SpectrumScriptPackage`Private`minFit
-           $ = #1[[1]], <<2>>, SpectrumScriptPackage`Private`goodBounds$ = 
-          MinMax[#2[[All,1]]]}, Join[With[{<<1>>}, If[<<3>>]], <<2>>]] & ], 
-     <<2>>} cannot be transposed.
-
-General::stop: Further output of Transpose::nmtx
-     will be suppressed during this calculation.
-
-CompiledFunction::cfta: 
-   Argument Join[Pick[Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
-           Join[#2, List /@ 
-             Interpolation[#1[[All,{2, 3}]], {<<1>>}][#2[[All,2]]], 2], #1] & 
-          , {<<2>>}]], 0.0001], <<1>>, 1], <<1>>] at position 1
-     should be a rank 1 tensor of machine-size real numbers.
+"Extracting grids"
+"Rotating to R1/R2 space"
+"Fitting forms"
+"Fitting forms"
+"Extapolating grid values"
+"Symmetrizing grid"
+"Doing secondary extrapolation"
 "Constructing interpolation off grid"
-
-Interpolation::innd: 
-   First argument in Join[{Pick[Round[Values[MapThread[If[Length[#1] =!= 
-              Length[#2], Join[#2, List /@ Interpolation[<<2>>][#2[[All,2]]], 
-              2], #1] & , {<<2>>}]], 0.0001], <<1>>, 1], <<1>>, 1}[[All,
-      <<1>>]], <<2>>] does not contain a list of data and coordinates.
 "Loading base function data"
 "Extrapolating off grid"
 "Extracting grids"
@@ -409,20 +60,7 @@ Interpolation::innd:
 "Extapolating grid values"
 "Symmetrizing grid"
 "Doing secondary extrapolation"
-
-CompiledFunction::cfta: 
-   Argument Join[Pick[Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
-           Join[#2, List /@ 
-             Interpolation[#1[[All,{2, 3}]], {<<1>>}][#2[[All,2]]], 2], #1] & 
-          , {<<2>>}]], 0.0001], <<1>>, 1], <<1>>] at position 1
-     should be a rank 1 tensor of machine-size real numbers.
 "Constructing interpolation off grid"
-
-Interpolation::innd: 
-   First argument in Join[{Pick[Round[Values[MapThread[If[Length[#1] =!= 
-              Length[#2], Join[#2, List /@ Interpolation[<<2>>][#2[[All,2]]], 
-              2], #1] & , {<<2>>}]], 0.0001], <<1>>, 1], <<1>>, -1}[[<<2>>]], 
-     <<1>>, 2] does not contain a list of data and coordinates.
 "Loading base function data"
 "Extrapolating off grid"
 "Extracting grids"
@@ -439,26 +77,7 @@ Interpolation::innd:
 "Extapolating grid values"
 "Symmetrizing grid"
 "Doing secondary extrapolation"
-
-CompiledFunction::cfta: 
-   Argument Join[Pick[Round[Values[MapThread[If[Length[#1] =!= Length[#2], 
-           Join[#2, List /@ 
-             Interpolation[#1[[All,{2, 3}]], {<<1>>}][#2[[All,2]]], 2], #1] & 
-          , {<<2>>}]], 0.0001], <<1>>, 1], <<1>>] at position 1
-     should be a rank 1 tensor of machine-size real numbers.
-
-General::stop: Further output of CompiledFunction::cfta
-     will be suppressed during this calculation.
 "Constructing interpolation off grid"
-
-Interpolation::innd: 
-   First argument in Join[{Pick[Round[Values[MapThread[If[Length[#1] =!= 
-              Length[#2], Join[#2, List /@ Interpolation[<<2>>][#2[[All,2]]], 
-              2], #1] & , {<<2>>}]], 0.0001], <<1>>, 1], <<1>>, 1}[[All,
-      <<1>>]], <<2>>] does not contain a list of data and coordinates.
-
-General::stop: Further output of Interpolation::innd
-     will be suppressed during this calculation.
 "Loading base function data"
 "Extrapolating off grid"
 "Extracting grids"
@@ -478,9 +97,6 @@ General::stop: Further output of Interpolation::innd
 "Constructing interpolation off grid"
 "Generating two quanta overlap matrix"
 "Loading base coefficients"
-
-Part::pkspec1: The expression Keys[coefficientData]
-     cannot be used as a part specification.
 "Extrapolating coefficients"
 "Loading base function data"
 "Extrapolating off grid"
@@ -638,13 +254,50 @@ Part::pkspec1: The expression Keys[coefficientData]
 "Generating 4D wavefunctions..."
 "Generating No Quanta Wavefunction"
 "Generating One Quantum Wavefunction"
-"Dimensions of coupling matrix {2} of type Dot at 10842781208 bytes"
-"Making kinetic energy"
+"Dimensions of coupling matrix {7200, 7200} of type List at 414720152 bytes"
+"Generating Two Quanta Wavefunction"
+"Dimensions of coupling matrix {10800, 10800} of type List at 933120152 \
+bytes"
+"Generating Adiabatic Wavefunctions"
+"4D wavefunctions generated"
+"Pulling projections from wavefunctions"
+"Projections pulled"
+"Generating dipole vectors..."
+"Generating transition moments..."
+"Generated transition moments"
+"Generating spectra"
+"Spectra generated"
 
-Throw::nocatch: 
-   Uncaught Throw[Overlap matrix misdimensioned, {2} overlaps, {7200, 7200}
-      functions, {60, 60} points] returned to top level.
+MapThread::mptc: 
+   Incompatible dimensions of objects at positions {2, 1} and {2, 2} of 
+    MapThread[With[{SpectrumScriptPackage`Private`mlen = 
+         Min[Length /@ {#1, #2}]}, 
+       #1[[1 ;; SpectrumScriptPackage`Private`mlen]] 
+        #2[[1 ;; SpectrumScriptPackage`Private`mlen]]] & , {<<2>>}];
+     dimensions are 12 and 8.
 
-Out[1]= Removed["$$Failure"]
+MapThread::mptc: 
+   Incompatible dimensions of objects at positions {2, 1} and {2, 2} of 
+    MapThread[With[{SpectrumScriptPackage`Private`mlen = 
+         Min[Length /@ {#1, #2}]}, 
+       #1[[1 ;; SpectrumScriptPackage`Private`mlen]] 
+        #2[[1 ;; SpectrumScriptPackage`Private`mlen]]] & , {<<2>>}];
+     dimensions are 12 and 8.
 
+MapThread::mptc: 
+   Incompatible dimensions of objects at positions {2, 1} and {2, 2} of 
+    MapThread[With[{SpectrumScriptPackage`Private`mlen = 
+         Min[Length /@ {#1, #2}]}, 
+       #1[[1 ;; SpectrumScriptPackage`Private`mlen]] 
+        #2[[1 ;; SpectrumScriptPackage`Private`mlen]]] & , {<<2>>}];
+     dimensions are 12 and 8.
 
+General::stop: Further output of MapThread::mptc
+     will be suppressed during this calculation.
+
+MapThread::mptd: 
+   Object 1 at position {2, 2} in 
+    MapThread[ChemTools`Spectroscopy`ChemSpectrum[Transpose[{#1, #2}]] & , 
+     {{{0., 439.825, 761.961, 1100.06, 1339.29, 1631.69, 1726.25, <<90>>, 
+        8151.76, 8168.18, 8225.67}, <<11>>}, 1}] has only 0 of required 1
+     dimensions.

@@ -51,6 +51,9 @@ getCoeffPhaseCorrection::usage="";
 getVectorPhaseCorrection::usage="";
 
 
+smoothOutCoeffs::usage="";
+
+
 (* ::Subsubsubsection::Closed:: *)
 (*Grids*)
 
@@ -168,6 +171,19 @@ dumpSymbolFile~SetAttributes~HoldFirst;
 dumpSymbol[symbol_Symbol]:=
   Export[dumpSymbolFile[symbol], symbol];
 dumpSymbol~SetAttributes~HoldFirst
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*dumpValue*)
+
+
+
+dumpValue[sym_Symbol, val_]:=
+  With[{u=Unique[sym]},
+    u=val;
+    dumpSymbol[u];
+    val
+    ];
 
 
 (* ::Subsubsubsection::Closed:: *)
@@ -755,6 +771,7 @@ meanShiftedWavefunctions[wfList_]:=
       nonFailedPos=Pick[Range[Length@wfList], #=!=$Failed&/@wfList],
       nonFailedWfns,
       shifted,
+      flatWfList = Flatten[wfList],
       newWfnsList
       },
     debugPrint["Mean shifting wavefunctions"];
@@ -762,12 +779,12 @@ meanShiftedWavefunctions[wfList_]:=
       WavefunctionsObject[
         {
           ConstantArray[0, Length@nonFailedPos],
-          wfList[[nonFailedPos]]
+          flatWfList[[nonFailedPos]]
           },
-        wfList[[nonFailedPos[[1]]]]@"Grid"
+        flatWfList[[nonFailedPos[[1]]]]@"Grid"
         ];
     shifted = meanShiftedWavefunctions[nonFailedWfns];
-    Print["Reconstructing wavefunction list"];
+    debugPrint["Reconstructing wavefunction list"];
     newWfnsList = ConstantArray[$Failed, Length@wfList];
     newWfnsList[[nonFailedPos]] = 
       WavefunctionsObject[{{0}, {#}}, #["Grid"]]&/@shifted["Wavefunctions"];
@@ -951,17 +968,22 @@ getPhaseCorrection[wfs_List,
   basePhase:1|-1:1,
   rephase:True|False:False,
   defaultOrder:First|Last:First,
+  meanShift:"Shift"[True]|"Shift"[False]:"Shift"[True],
   tol:_?(NumericQ[#]&&(!IntegerQ[#]||#==0)&):0.
   ]:=
   Module[
     {
       pc,
       mc,
-      newWfns
+      newWfns,
+      ms = meanShift[[1]]
       },
     mc = 
-      meanShiftedWavefunctions[
-        If[#===$Failed, #, #["Wavefunctions"][[state]]]&/@wfs
+      If[ms,
+        meanShiftedWavefunctions[
+          If[#===$Failed, #, #["Wavefunctions"][[state]]]&/@wfs
+          ],
+        If[#===$Failed, #, #[[state]]]&/@wfs
         ];
     pc = 
       generalizedPhaseCorrection[
@@ -994,17 +1016,18 @@ getPhaseCorrection[
   states:{_Integer?IntegerQ, __Integer?IntegerQ},
   basePhases:1|-1|{(1|-1)..}:1,
   rephase:True|False:True,
+  meanShift:"Shift"[True]|"Shift"[False]:"Shift"[True],
   tol:_?(NumericQ[#]&&(!IntegerQ[#]||#==0)&):0.
   ]:=
   Module[{wfSets, rephasing, newWfns},
     wfSets=
       Table[
-          If[#===$Failed, #, #[[{state}]]]&/@wfs, 
+        If[#===$Failed, #, #[[{state}]]]&/@wfs, 
         {state, states}
         ];
     rephasing=
       MapThread[
-        getPhaseCorrection[#, grid, {1}, #2, False, tol]&, 
+        getPhaseCorrection[#, grid, {1}, #2, False, meanShift, tol]&, 
         {
           wfSets,
           Flatten[ConstantArray[basePhases, Length@wfSets]][[;;Length@wfSets]]
@@ -1145,6 +1168,117 @@ getCoeffPhaseCorrection[
       "Wavefunctions"->newWfns,
       "Rephasings"->rephasing
       |>
+    ]
+
+
+(* ::Subsubsubsubsection::Closed:: *)
+(*getCoeffForcedPhaseCorrection*)
+
+
+
+(* ::Text:: *)
+(*An idea worth pursuing eventually, but not just yet...*)
+
+
+
+(*getCoeffPhaseCorrection//Clear
+getCoeffPhaseCorrection[
+	scfWavefunctions_, dvrWavefunctions_, 
+	grid_,
+	states:{_Integer?IntegerQ, __Integer?IntegerQ},
+	knownPhases:{{(1|-1), (1|-1)}..},
+	rephase:True|False:True,
+	tol:_?(NumericQ[#]&&(!IntegerQ[#]||#\[Equal]0)&):0.
+	]:=
+	Module[
+	  {
+	    dvrs, scfs,
+	    rephasing, newWfns
+	    },
+	  scfs = scfWavefunctions;
+	  dvrs = 
+	    Table[
+	      If[#===$Failed, #, #[[{state}]]]&/@dvrWavefunctions,
+	      {state, states}
+	      ];
+		rephasing=
+		  Map[
+		    generalizedPhaseCorrection[
+         {
+      		  scfs, 
+      		  #=!=$Failed&, 
+      		  prepCoeffRephasing[#, states]
+      		  },
+    		  grid,
+    		  #2,
+    		  tol
+    		  ]&,
+  		  {
+    		  dvrs
+    		  }
+    		];
+		If[rephase,
+			newWfns=
+				MapThread[
+					If[#===$Failed, #, Join[##]]&,
+					MapThread[
+						MapThread[
+							If[#===$Failed, #, rephaseWfns[#, #2]]&,
+							{#["PhaseVector"], #2}
+							]&,
+						{rephasing, dvrs}
+						]
+					],
+			newWfns=None
+			];
+		<|
+			"Wavefunctions"->newWfns,
+			"Rephasings"->rephasing
+			|>
+		]*)
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*correctRowFlips*)
+
+
+
+rowsFlipped[{row1_, row2_}]:=
+  Module[
+    {
+      r12Len=Min[Length/@{row1, row2}],
+      r1,
+      r2,
+      flipCounts
+      },
+    r1 = Sign @ row1[[Length[row1]-Floor[r12Len/2];;Length[row1]+Ceiling[r12Len/2]]];
+    r2 = Sign @ row2[[Length[row2]-Floor[r12Len/2];;Length[row2]+Ceiling[r12Len/2]]];
+    If[Count[r1*r2, -1]>r12Len/2, -1, 1]
+    ];
+
+
+correctRowFlips[gridVals_, direction:First|Last:First, basePhase:1|-1:1]:=
+  Module[
+    {
+      regridded, grouped, 
+      gind1 = Replace[gridVals, {First->1, Last->2}],
+      gind2 = Replace[gridVals, {First->2, Last->1}],
+      flippedVec,
+      rows
+      },
+    regridded = 
+      Join[gridVals[[All, ;;2]].RotationMatrix[\[Pi]/4], gridVals[[All, {3}]], 2];
+    grouped = 
+      GroupBy[regridded, (#[[gind1]]&)->(#[[{gind2, 3}]]&), Sort];
+    rows = Values[KeySort[grouped]];
+    flippedVec =
+      MovingMap[
+        rowsFlipped,
+        Values[KeySort[grouped]],
+        1
+        ];
+    rephaseThingies[flippedVec, basePhase, 0]*
+      rows
     ]
 
 
@@ -1878,7 +2012,7 @@ getTransitionMoments[wfns_, dipoles_]:=
             ConstantArray[0., Length[#2]], 
             ConstantArray[0., Length[#2]]
             },
-          {1, 1;;10}
+          {1, 1;;Length@#["Wavefunctions"]}
           ],
       $Failed
       ]&,
@@ -1912,7 +2046,7 @@ getTransitionWavefunctions[projs_, gsData_]:=
 
 
 
-getIntensities[wfns_, states_, gridTms_]:=
+getIntensities[wfns_, states_, gridTms_, problemStates:{4, 5}]:=
   Module[
     {
       baseTmoms,
@@ -1924,23 +2058,40 @@ getIntensities[wfns_, states_, gridTms_]:=
       },
     tmGrid = gridTms["Grid"];
     tmInterps =
-      Table[
+      Transpose@Table[
         Interpolation[
-          Join[tmGrid, List/@tm[[i]], 2],
-          "ExtrapolationHandler"->{0&, "WarningMessage"->False}
+          If[i==1,
+            dumpValue[
+              ToExpression["smoothGridTMs$"<>ToString@i<>ToString[state]],
+              If[MemberQ[problemStates, state], correctRowFlips@#, #]
+            ],
+          #
+            ]&@Join[tmGrid, gridTms[["Values", state, All, {i}]], 2],
+          {
+            "ExtrapolationHandler"->{0&, "WarningMessage"->False}
+            }
           ],
         {i, 3},
-        {tm, gridTms[["Values", states]]}
+        {state, states}
         ];
-    wfGrid = wfns["Grid"]@"Points";
-    tms = Transpose[Through[#[wfGrid]]]&/@tmInterps;
+    wfGrid = Flatten[Normal@wfns[[1]]["Grid"], 1]; (* for some reason "Points" stopped working? *)
+    If[!ListQ@wfGrid, 
+      Throw[StringForm["Head is not List for wfns[\"Grid\"]"]];
+      ];
+    (*dumpSymbol[wfGrid];
+		dumpSymbol[tmInterps];*)
+    tms = Transpose[Through[#@@Transpose[wfGrid]]]&/@tmInterps;
+    (*dumpSymbol[tms];*)
     baseTmoms=
-      With[{wf=#},
+      Table[
           wf@"TransitionMoments"[
-              Transpose[#],
+              Transpose[tm],
               {1, If[MemberQ[states, 1], 1, 2];;Length[wf]}
-              ]&/@tms
-          ]&/@wfns;
+              ],
+          {wf, wfns},
+          {tm, tms}
+          ];
+    (*dumpSymbol[baseTmoms];*)
     tmomLists = MapIndexed[#[[#2[[1]], All, 1]]&, baseTmoms];
     Total[tmomLists]^2
     ]
@@ -1963,23 +2114,29 @@ getFreqs[wfns_, gsData_]:=
 buildSpectra[freqs_, ints_]:=
   Module[
     {
-      transInts
+      transInts,
+      filen,
+      fs,
+      is
       },
+    filen = Min[Length/@{freqs, ints}];
+    fs = freqs[[;;filen]];
+    is = ints[[;;filen]];
     transInts=
       MapThread[
         With[{mlen=Min[Length/@{#, #2}]},
           #[[;;mlen]]*#2[[;;mlen]]
           ]&,
         {
-          freqs,
-          ints
+          fs,
+          is
           }
         ];
     transInts=transInts/Max[transInts];
     MapThread[
       ChemSpectrum@Transpose[{#, #2}]&,
       {
-        freqs,
+        fs,
         transInts
         }
       ]
