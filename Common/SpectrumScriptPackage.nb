@@ -576,7 +576,7 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
                 RowBox[{RowBox[{"extrapFitForms", "=", "\n", "  ", 
                     RowBox[{"{", "\n", "\t    ", RowBox[{"(*", " ", RowBox[
-                         {RowBox[{"eh", " ", "fuck", " ", "this", " ", 
+                         {RowBox[{"eh", " ", "butterfly", " ", "this", " ", 
                           "form", " ", RowBox[{"it", "'"}], "s", " ", "fine", 
                           " ", "to", " ", "just", " ", "use", " ", "a", " ", 
                           "6"}], "-", RowBox[{"th", " ", "order", " ", 
@@ -2535,7 +2535,7 @@ not just yet...\[RightFloor]", "Text", Evaluatable -> True],
                           " ", "extrapCoeffs", ",", " ", "\n", "\t\t\t", 
                           "coeffInterps", ",", " ", "newCoeffs", ",", "\n", 
                           "\t\t\t", 
-                          "fuckTheseFuckingPointsFuckThisIDontWantToDoIt", 
+                          "butterflyTheseFuckingPointsFuckThisIDontWantToDoIt", 
                           ",", "\n", "\t\t\t", "coeffList"}], "\n", "\t\t\t", 
                           "}"}], ",", "\n", "\t\t", RowBox[{RowBox[
                           {"nstates", " ", "=", " ", RowBox[{"Length", "@", 
@@ -2679,7 +2679,7 @@ not just yet...\[RightFloor]", "Text", Evaluatable -> True],
                           RowBox[{"debugPrint", "[", 
                           "\"Constructing interpolation off grid\"", "]"}], 
                           ";", "\n", "\t\t\t\t", RowBox[{
-                          "fuckTheseFuckingPointsFuckThisIDontWantToDoIt", 
+                          "butterflyTheseFuckingPointsFuckThisIDontWantToDoIt", 
                           "=", "\n", "\t\t\t\t  ", RowBox[{
                           "DeleteDuplicatesBy", "[", "\n", "\t\t\t\t    ", 
                           RowBox[{RowBox[{"Join", "[", "\n", 
@@ -2697,9 +2697,9 @@ not just yet...\[RightFloor]", "Text", Evaluatable -> True],
                           "]"}], "&"}]}], "\n", "      \t\t  ", "]"}]}], ";", 
                           "\n", "      ", RowBox[{"(*", RowBox[{RowBox[
                           {"dumpSymbol", "[", 
-                          "fuckTheseFuckingPointsFuckThisIDontWantToDoIt", 
+                          "butterflyTheseFuckingPointsFuckThisIDontWantToDoIt", 
                           "]"}], ";"}], "*)"}], "\n", "\t\t\t\t", RowBox[
-                          {"fuckTheseFuckingPointsFuckThisIDontWantToDoIt", 
+                          {"butterflyTheseFuckingPointsFuckThisIDontWantToDoIt", 
                           "//", "Interpolation"}]}], ",", "\n", "\t\t\t\t", 
                           RowBox[{"{", RowBox[{"j", ",", " ", RowBox[
                           {"Length", "@", "coeffLists"}]}], "}"}], ",", "\n", 
