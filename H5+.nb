@@ -5292,18 +5292,17 @@ Cell[BoxData[
       RowBox[{"MapIndexed", "[", 
        RowBox[{
         RowBox[{
-         RowBox[{"Total", "@", 
-          RowBox[{"#", "[", 
-           RowBox[{"[", 
-            RowBox[{"All", 
-             RowBox[{"(*", 
-              RowBox[{"#2", "[", 
-               RowBox[{"[", "1", "]"}], "]"}], "*)"}], ",", " ", "All", ",", 
-             " ", "1"}], "]"}], "]"}]}], "&"}], ",", " ", "baseTmoms"}], 
-       "]"}]}], ";", "\n", "\t\t", 
+         RowBox[{"#", "[", 
+          RowBox[{"[", 
+           RowBox[{
+            RowBox[{"#2", "[", 
+             RowBox[{"[", "1", "]"}], "]"}], ",", " ", "All", ",", " ", "1"}],
+            "]"}], "]"}], "&"}], ",", " ", "baseTmoms"}], "]"}]}], ";", "\n", 
+     "\t\t", 
      RowBox[{
-      RowBox[{"Total", "[", "tmomLists", "]"}], "^", "2"}]}]}], "\n", "\t\t", 
-   "]"}]}]], \
+      RowBox[{"Total", "[", 
+       RowBox[{"Abs", "@", "tmomLists"}], "]"}], "^", "2"}]}]}], "\n", "\t\t",
+    "]"}]}]], \
 "CodeInput",ExpressionUUID->"520ff492-a245-40ac-a322-f41fd699c52c"]
 }, Open  ]],
 

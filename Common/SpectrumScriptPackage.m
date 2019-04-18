@@ -2170,8 +2170,8 @@ getIntensities[wfns_, states_, gridTms_, problemStates:{__Integer}:{4, 5}]:=
 		Each wavefunction operates over a different state.
 		*)
     tmomLists = 
-      MapIndexed[Total@#[[All(*#2[[1]]*), All, 1]]&, baseTmoms];
-    Total[tmomLists]^2
+      MapIndexed[#[[#2[[1]], All, 1]]&, baseTmoms];
+    Total[Abs@tmomLists]^2
     ]
 
 

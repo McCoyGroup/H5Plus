@@ -3189,15 +3189,14 @@ overlaps, `` functions, `` points\"", "~", "TemplateApply", "~", RowBox[{"{",
                           {"state", "."}]}], "\n", "\t\t", "*)"}], "\n", 
                         "\t\t", RowBox[{"tmomLists", " ", "=", " ", "\n", 
                           "\t\t  ", RowBox[{"MapIndexed", "[", RowBox[
-                          {RowBox[{RowBox[{"Total", "@", RowBox[{"#", "[", 
-                          RowBox[{"[", RowBox[{"All", RowBox[{"(*", RowBox[
-                          {"#2", "[", RowBox[{"[", "1", "]"}], "]"}], "*)"}], 
-                          ",", " ", "All", ",", " ", "1"}], "]"}], "]"}]}], 
+                          {RowBox[{RowBox[{"#", "[", RowBox[{"[", RowBox[
+                          {RowBox[{"#2", "[", RowBox[{"[", "1", "]"}], "]"}], 
+                          ",", " ", "All", ",", " ", "1"}], "]"}], "]"}], 
                           "&"}], ",", " ", "baseTmoms"}], "]"}]}], ";", "\n", 
-                        "\t\t", RowBox[{RowBox[{"Total", "[", "tmomLists", 
-                          "]"}], "^", "2"}]}]}], "\n", "\t\t", "]"}]}]], 
-               "CodeInput"]}, Open]], Cell[CellGroupData[
-             {Cell["\[LeftCeiling]getFreqs\[RightFloor]", 
+                        "\t\t", RowBox[{RowBox[{"Total", "[", RowBox[{"Abs", 
+                          "@", "tmomLists"}], "]"}], "^", "2"}]}]}], "\n", 
+                    "\t\t", "]"}]}]], "CodeInput"]}, Open]], 
+           Cell[CellGroupData[{Cell["\[LeftCeiling]getFreqs\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
                 RowBox[{RowBox[{"getFreqs", "[", RowBox[{"wfns_", ",", " ", 
                       "gsData_"}], "]"}], ":=", "\n", "\t", RowBox[
