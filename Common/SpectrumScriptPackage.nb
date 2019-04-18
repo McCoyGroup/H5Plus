@@ -947,7 +947,7 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           "[", RowBox[{"[", RowBox[{";;", "2"}], "]"}], 
                           "]"}], ",", "\n", "      ", "ops"}], "\n", 
                           "      ", "]"}]}]}], "\n", "    ", "]"}]}], "\n", 
-                 "    "}], "CodeInput"]}, Open]]}, Open]], 
+                 "    "}], "CodeInput"]}, Closed]]}, Open]], 
         Cell[CellGroupData[{Cell["\[LeftCeiling]R1R2 Stuff\[RightFloor]", 
             "CodeSubsubsection", Evaluatable -> True], 
            Cell[CellGroupData[
@@ -2006,7 +2006,7 @@ not just yet...\[RightFloor]", "Text", Evaluatable -> True],
                           {RowBox[{"dumpSymbol", "[", "recoorded", "]"}], 
                           ";"}], "*)"}], "\n", "    ", RowBox[{"Sort", "[", 
                           "recoorded", "]"}]}]}], "\n", "    ", "]"}]}]], 
-               "CodeInput"]}, Open]], Cell[CellGroupData[
+               "CodeInput"]}, Closed]], Cell[CellGroupData[
              {Cell["\[LeftCeiling]getVectorPhaseCorrection\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
                 {RowBox[{"getVectorPhaseCorrection", "//", "Clear"}], "\n", 
@@ -2723,7 +2723,7 @@ not just yet...\[RightFloor]", "Text", Evaluatable -> True],
                           "]"}], "\n", "\t\t\t\t", "]"}]}]}], ";", "\n", 
                           "\t\t", RowBox[{"coeffs", ".", RowBox[{"Transpose", 
                           "[", "coeffs", "]"}]}]}]}], "\n", "\t\t", 
-                        "]"}]}]}], "CodeInput"]}, Open]]}, Open]]}, Open]], 
+                        "]"}]}]}], "CodeInput"]}, Closed]]}, Open]]}, Open]], 
         Cell[CellGroupData[{Cell["\[LeftCeiling]Wavefunctions\[RightFloor]", 
             "CodeSubsubsection", Evaluatable -> True], 
            Cell[CellGroupData[
@@ -2836,7 +2836,11 @@ overlaps, `` functions, `` points\"", "~", "TemplateApply", "~", RowBox[{"{",
                           "6", "]"}]}], "&"}], ",", " ", RowBox[{RowBox[{"#", 
                           "^", RowBox[{"Range", "[", "1", "]"}]}], "&"}]}], 
                           "}"}]}], "\n", "\t\t\t\t\t\t", "]"}]}], ";", "\n", 
-                          "\t\t", RowBox[{"dumpSymbol", "[", "extrap", "]"}], 
+                          "\t\t", RowBox[{"dumpValue", "[", "\n", "\t\t  ", 
+                          RowBox[{RowBox[{"ToExpression", "[", RowBox[
+                          {"\"extrapPot$\"", "<>", RowBox[{"ToString", "@", 
+                          "i"}]}], "]"}], ",", "\n", "\t\t  ", "extrap", ",", 
+                          "\n", "\t\t  ", "False"}], "\n", "\t\t  ", "]"}], 
                           ";", "\n", "\t\t", RowBox[{"interp", "=", "\n", 
                           "\t\t\t\t", RowBox[{"Interpolation", "[", "\n", 
                           "\t\t\t\t\t", RowBox[{"extrap", ",", "\n", 
@@ -3173,16 +3177,25 @@ overlaps, `` functions, `` points\"", "~", "TemplateApply", "~", RowBox[{"{",
                           "}"}], ",", "\n", "\t\t\t\t\t", RowBox[{"{", RowBox[
                           {"tm", ",", " ", "tms"}], "}"}]}], "\n", 
                           "\t\t\t\t\t", "]"}]}], ";", "\n", "\t\t", RowBox[
-                         {"(*", RowBox[{RowBox[{"dumpSymbol", "[", 
-                          "baseTmoms", "]"}], ";"}], "*)"}], "\n", "\t\t", 
-                        RowBox[{"tmomLists", " ", "=", " ", RowBox[
-                          {"MapIndexed", "[", RowBox[{RowBox[{RowBox[{"#", 
-                          "[", RowBox[{"[", RowBox[{RowBox[{"#2", "[", RowBox[
-                          {"[", "1", "]"}], "]"}], ",", " ", "All", ",", " ", 
-                          "1"}], "]"}], "]"}], "&"}], ",", " ", 
-                          "baseTmoms"}], "]"}]}], ";", "\n", "\t\t", 
-                        RowBox[{RowBox[{"Total", "[", "tmomLists", "]"}], 
-                          "^", "2"}]}]}], "\n", "\t\t", "]"}]}]], 
+                         {"dumpValue", "[", "\n", "\t\t  ", RowBox[
+                          {RowBox[{"ToExpression", "[", RowBox[
+                          {"\"baseTmoms$\"", "<>", RowBox[{"Map", "[", RowBox[
+                          {"ToString", ",", " ", "states"}], "]"}]}], "]"}], 
+                          ",", "\n", "\t\t  ", "baseTmoms", ",", "\n", 
+                          "\t\t  ", "False"}], "\n", "\t\t  ", "]"}], ";", 
+                        "\n", "\t\t", RowBox[{"(*", "\n", "\t\t", RowBox[
+                          {"Each", " ", "wavefunction", " ", "operates", " ", 
+                          "over", " ", "a", " ", "different", " ", RowBox[
+                          {"state", "."}]}], "\n", "\t\t", "*)"}], "\n", 
+                        "\t\t", RowBox[{"tmomLists", " ", "=", " ", "\n", 
+                          "\t\t  ", RowBox[{"MapIndexed", "[", RowBox[
+                          {RowBox[{RowBox[{"Total", "@", RowBox[{"#", "[", 
+                          RowBox[{"[", RowBox[{"All", RowBox[{"(*", RowBox[
+                          {"#2", "[", RowBox[{"[", "1", "]"}], "]"}], "*)"}], 
+                          ",", " ", "All", ",", " ", "1"}], "]"}], "]"}]}], 
+                          "&"}], ",", " ", "baseTmoms"}], "]"}]}], ";", "\n", 
+                        "\t\t", RowBox[{RowBox[{"Total", "[", "tmomLists", 
+                          "]"}], "^", "2"}]}]}], "\n", "\t\t", "]"}]}]], 
                "CodeInput"]}, Open]], Cell[CellGroupData[
              {Cell["\[LeftCeiling]getFreqs\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
@@ -3190,7 +3203,7 @@ overlaps, `` functions, `` points\"", "~", "TemplateApply", "~", RowBox[{"{",
                       "gsData_"}], "]"}], ":=", "\n", "\t", RowBox[
                    {RowBox[{"wfns", "[", "\"Energies\"", "]"}], "-", 
                     RowBox[{"gsData", "[", RowBox[{"[", "1", "]"}], 
-                      "]"}]}]}]], "CodeInput"]}, Closed]], 
+                      "]"}]}]}]], "CodeInput"]}, Open]], 
            Cell[CellGroupData[
              {Cell["\[LeftCeiling]buildSpectra\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[

@@ -1908,7 +1908,11 @@ extrapolatedPotential[grid_, wfns_, i_]:=
             {Scaled[1], Scaled[.2]},
             {#^Range[6]&, #^Range[1]&}
             ];
-    dumpSymbol[extrap];
+    dumpValue[
+      ToExpression["extrapPot$"<>ToString@i],
+      extrap,
+      False
+      ];
     interp=
         Interpolation[
           extrap,
@@ -2157,8 +2161,16 @@ getIntensities[wfns_, states_, gridTms_, problemStates:{__Integer}:{4, 5}]:=
           {wf, wfns},
           {tm, tms}
           ];
-    (*dumpSymbol[baseTmoms];*)
-    tmomLists = MapIndexed[#[[#2[[1]], All, 1]]&, baseTmoms];
+    dumpValue[
+      ToExpression["baseTmoms$"<>Map[ToString, states]],
+      baseTmoms,
+      False
+      ];
+    (*
+		Each wavefunction operates over a different state.
+		*)
+    tmomLists = 
+      MapIndexed[Total@#[[All(*#2[[1]]*), All, 1]]&, baseTmoms];
     Total[tmomLists]^2
     ]
 
