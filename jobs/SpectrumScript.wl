@@ -671,7 +671,7 @@ goodSparseTwoQuanta // cachedLoad[
        (* bloop *)              (* ramp *)         (* bloop *)
      {forceSign[{1, 1}],   forceSign[{-1, 1}], forceSign[{1, 1}]},
        (* ramp *)          (* bloop *)          (* ramp *)
-     {forceSign[{1, 1}], forceSign[{1, 1}],  forceSign[{1, 1}]}
+     {forceSign[{-1, -1}], forceSign[{1, 1}],  forceSign[{1, 1}]}
      }
     ]
   ];

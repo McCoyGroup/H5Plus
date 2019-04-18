@@ -4,8 +4,8 @@
 #SBATCH --time=0-08:00:00
 #SBATCH --mem=118G
 #SBATCH --workdir=/gscratch/chem/b3m2a1/H5+
-#SBATCH --partition=ckpt
-#SBATCH --account=stf-ckpt
+#SBATCH --partition=chem
+#SBATCH --account=chem
 #SBATCH --mail-type=ALL
 
 # load environment

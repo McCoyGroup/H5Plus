@@ -24,24 +24,25 @@ $saDVR = $D5DVR;
 $r1r2DVR = $D2DVR;
 $r1r21DDVR = $D2SingleDVR;
 
-$fullPot = H5FullInterpPot;
+$fullPot = $H5OldInterpPot;
 $fullDipoleSurf = $H5DipoleSurfaceInterps;
 
 $r1r2POPotential = h2SinglePot;
 
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Set Basis Options*)
 
 
-$saBasisSize = 60;
+$saBasisSize = {60, 60};
 $r1r2BasisSize = 25;
 $r1r2SCFBasisSize = 60;
 
+$saExtendedBasisSize = 100;
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Set DVR Options*)
 
 
@@ -76,7 +77,7 @@ $r1r21DDVR["RuntimeOptions"] =
 
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Chunking*)
 
 
@@ -84,7 +85,7 @@ chunkCount = 10; (* make sure the saGrid is divisible by this... *)
 
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*State Specs*)
 
 

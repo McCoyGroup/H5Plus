@@ -54,6 +54,9 @@ getVectorPhaseCorrection::usage="";
 smoothOutCoeffs::usage="";
 
 
+correctRowFlips::usage="";
+
+
 (* ::Subsubsubsection::Closed:: *)
 (*Grids*)
 
@@ -123,6 +126,9 @@ getFreqs::usage="";
 buildSpectra::usage="";
 
 
+lInter::usage="ListInterpolation hack";
+
+
 Begin["`Private`"];
 
 
@@ -178,12 +184,18 @@ dumpSymbol~SetAttributes~HoldFirst
 
 
 
-dumpValue[sym_Symbol, val_]:=
+dumpValue[sym_Symbol, val_, unique:True:True]:=
   With[{u=Unique[sym]},
     u=val;
     dumpSymbol[u];
     val
     ];
+dumpValue[sym_Symbol, val_, unique:False]:=
+  With[{u=sym},
+    u=val;
+    dumpSymbol[u];
+    val
+    ]
 
 
 (* ::Subsubsubsection::Closed:: *)
@@ -597,6 +609,29 @@ extrapolatedFunction[
       Join[Pick[d1, UnitStep[(dv-10)-d1[[All, 3]]], 1], d2], Round[#[[;;2]], .001]&
       ]
     ]
+
+
+(* ::Subsubsubsection::Closed:: *)
+(*lInter*)
+
+
+
+lInter[grid_, ops___]:=
+  Module[
+    {gtot},
+    gtot =
+      SortBy[
+        SortBy[#[[2]]&]/@
+          GatherBy[grid, {Round[#[[1]], .01]&}], 
+        #[[1, 1]]&
+        ];
+    ListInterpolation[
+      gtot[[All, All, 3]],
+      CoordinateBounds[gtot][[;;2]],
+      ops
+      ]
+    ]
+    
 
 
 (* ::Subsubsection::Closed:: *)
@@ -1246,39 +1281,67 @@ getCoeffPhaseCorrection[
 rowsFlipped[{row1_, row2_}]:=
   Module[
     {
-      r12Len=Min[Length/@{row1, row2}],
-      r1,
-      r2,
-      flipCounts
+      
+      r1, r2,
+      r12Len,
+      flipCounts,
+      mr1, mr2, mr12
       },
-    r1 = Sign @ row1[[Length[row1]-Floor[r12Len/2];;Length[row1]+Ceiling[r12Len/2]]];
-    r2 = Sign @ row2[[Length[row2]-Floor[r12Len/2];;Length[row2]+Ceiling[r12Len/2]]];
-    If[Count[r1*r2, -1]>r12Len/2, -1, 1]
+    r1 = Select[row1, #!=0&];
+    r2 = Select[row2, #!=0&];
+    r12Len = Min[Length/@{r1, r2}];
+    mr1 = Ceiling[Length[r1]/2];
+    mr2 = Ceiling[Length[r2]/2];
+    mr12= Floor[r12Len/2];
+    r1 = Sign @ r1[[1+mr1-mr12;;mr1+mr12]];
+    r2 = Sign @ r2[[1+mr2-mr12;;mr2+mr12]];
+    If[Count[r1*r2, -1]>mr12/4, -1, 1]
     ];
 
 
-correctRowFlips[gridVals_, direction:First|Last:First, basePhase:1|-1:1]:=
+correctRowFlips[gridVals_, direction:First|Last:Last, basePhase:1|-1:1]:=
   Module[
     {
       regridded, grouped, 
-      gind1 = Replace[gridVals, {First->1, Last->2}],
-      gind2 = Replace[gridVals, {First->2, Last->1}],
+      gind1 = Replace[direction, {First->1, Last->2}],
+      gind2 = Replace[direction, {First->2, Last->1}],
       flippedVec,
-      rows
+      rows,
+      rephased,
+      recoorded,
+      gpsOrig
       },
     regridded = 
       Join[gridVals[[All, ;;2]].RotationMatrix[\[Pi]/4], gridVals[[All, {3}]], 2];
     grouped = 
-      GroupBy[regridded, (#[[gind1]]&)->(#[[{gind2, 3}]]&), Sort];
-    rows = Values[KeySort[grouped]];
-    flippedVec =
-      MovingMap[
-        rowsFlipped,
-        Values[KeySort[grouped]],
-        1
+      KeySort@GroupBy[regridded, (Round[#[[gind1]], .01]&)->(#[[{gind1, gind2, 3}]]&), Sort];
+    rows = Values[grouped][[All, All, 3]];
+    grouped;
+    flippedVec = Table[rowsFlipped[rows[[{i, i+1}]]], {i, Length[rows]-1}];
+    rephased=
+      rephaseThingies[flippedVec, basePhase, 0]*rows;
+    gpsOrig=
+      MapThread[
+        Transpose[
+          {#, #2}[[{gind1, gind2}]]
+          ].RotationMatrix[-\[Pi]/4]&,
+        {
+          Values[grouped][[All, All, 1]],
+          Values[grouped][[All, All, 2]]
+          }
         ];
-    rephaseThingies[flippedVec, basePhase, 0]*
-      rows
+       
+    recoorded=
+      Join@@
+        MapThread[
+          Join[#, List/@#2, 2]&,
+          {
+            gpsOrig,
+            rephased
+            }
+          ];
+   (*dumpSymbol[recoorded];*)
+    Sort[recoorded]
     ]
 
 
@@ -1704,10 +1767,11 @@ getSCFOverlapMatrix[
               symmetries[[i]],
               DefaultValue[0]
               ];
-        With[{u=Unique[ToExpression["extrapolatedCoeffs$"<>ToString@i<>ToString@j]]}, 
-          u=extrapCoeffs;
-          dumpSymbol[u]
-          ];
+        (*dumpValue[
+				  ToExpression["extrapolatedCoeffs$"<>ToString@i<>ToString@j],
+				  extrapCoeffs,
+				  False
+				  ];*)
         extrapCoeffs =
           If[coefficientProcessing===None,
             smoothOutCoeffs[extrapCoeffs],
@@ -1717,9 +1781,10 @@ getSCFOverlapMatrix[
                 }
               ][extrapCoeffs]
             ]; (* a total hack... *)
-        With[{u=Unique[ToExpression["extrapolatedCoeffs$"<>ToString@i<>ToString@j<>"$Smooth"]]}, 
-          u=extrapCoeffs;
-          dumpSymbol[u]
+        dumpValue[
+          ToExpression["extrapolatedCoeffs$"<>ToString@i<>ToString@j],
+          extrapCoeffs,
+          False
           ];
         debugPrint["Constructing interpolation off grid"];
         fuckTheseFuckingPointsFuckThisIDontWantToDoIt=
@@ -1838,7 +1903,7 @@ extrapolatedPotential[grid_, wfns_, i_]:=
     debugPrint["Extrapolating potential"];
     extrap =
       extrapolatedFunction[
-            pot,
+          pot,
             {0, 10^9.-1},
             {Scaled[1], Scaled[.2]},
             {#^Range[6]&, #^Range[1]&}
@@ -2046,7 +2111,7 @@ getTransitionWavefunctions[projs_, gsData_]:=
 
 
 
-getIntensities[wfns_, states_, gridTms_, problemStates:{4, 5}]:=
+getIntensities[wfns_, states_, gridTms_, problemStates:{__Integer}:{4, 5}]:=
   Module[
     {
       baseTmoms,
@@ -2059,11 +2124,12 @@ getIntensities[wfns_, states_, gridTms_, problemStates:{4, 5}]:=
     tmGrid = gridTms["Grid"];
     tmInterps =
       Transpose@Table[
-        Interpolation[
-          If[i==1,
+        lInter[ (* should definitely check my grid though... *)
+          If[i==1, (* it's crazy how much of a hack this is but I am currently in get-something-out mode... *)
             dumpValue[
               ToExpression["smoothGridTMs$"<>ToString@i<>ToString[state]],
-              If[MemberQ[problemStates, state], correctRowFlips@#, #]
+              If[MemberQ[problemStates, state], correctRowFlips@#, #],
+              False
             ],
           #
             ]&@Join[tmGrid, gridTms[["Values", state, All, {i}]], 2],
@@ -2127,10 +2193,7 @@ buildSpectra[freqs_, ints_]:=
         With[{mlen=Min[Length/@{#, #2}]},
           #[[;;mlen]]*#2[[;;mlen]]
           ]&,
-        {
-          fs,
-          is
-          }
+        {fs, is}
         ];
     transInts=transInts/Max[transInts];
     MapThread[

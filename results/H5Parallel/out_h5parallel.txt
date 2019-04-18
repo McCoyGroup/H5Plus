@@ -1,0 +1,12 @@
+
+FrontEndObject::notavail: 
+   A front end is not available; certain operations require a front end.
+
+FrontEndObject::notavail: 
+   A front end is not available; certain operations require a front end.
+
+FrontEndObject::notavail: 
+   A front end is not available; certain operations require a front end.
+
+General::stop: Further output of FrontEndObject::notavail
+     will be suppressed during this calculation.

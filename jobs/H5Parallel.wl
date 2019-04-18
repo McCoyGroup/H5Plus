@@ -31,7 +31,7 @@ $r1r2POPotential = h2ParallelSinglePot;
 
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Set Basis Options*)
 
 
@@ -39,9 +39,10 @@ $saBasisSize = 60;
 $r1r2BasisSize = 25;
 $r1r2SCFBasisSize = 60;
 
+$saExtendedBasisSize = 100;
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Set DVR Options*)
 
 
@@ -76,7 +77,7 @@ $r1r21DDVR["RuntimeOptions"] =
 
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*Chunking*)
 
 
@@ -84,7 +85,7 @@ chunkCount = 10; (* make sure the saGrid is divisible by this... *)
 
 
 
-(* ::Subsubsubsection::Closed:: *)
+(* ::Subsubsubsection:: *)
 (*State Specs*)
 
 
