@@ -1040,9 +1040,9 @@ twoQuantaTransWfs =
 
 noQuantaInts = getIntensities[{noQuantaWfns}, {1}, r1r2GridTMs];
 oneQuantumInts = 
-  getIntensities[oneQuantumTransWfs, {2, 3}, r1r2GridTMs];
+  getIntensities[oneQuantumTransWfs, {2, 3}, r1r2GridTMs, {-1, 1}];
 twoQuantaInts = 
-  getIntensities[twoQuantaTransWfs, {4, 5, 6}, r1r2GridTMs];
+  getIntensities[twoQuantaTransWfs, {4, 5, 6}, r1r2GridTMs, {-1, -1, 1}];
 (*oneAndTwoQuantaInts = 
   getIntensities[oneAndTwoQuantaTransWfs, {2, 3, 4, 5, 6}, 
    r1r2GridTMs];*)

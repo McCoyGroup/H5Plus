@@ -163,14 +163,16 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           "[", "sym", "]"}]}], "}"}], ",", "\n", "    ", 
                          RowBox[{RowBox[{"u", "=", "val"}], ";", "\n", 
                           "\t  ", RowBox[{"dumpSymbol", "[", "u", "]"}], ";", 
-                          "\n", "\t  ", "val"}]}], "\n", "\t  ", "]"}]}], 
-                   ";"}], "\n", RowBox[{RowBox[{"dumpValue", "[", RowBox[
-                      {"sym_Symbol", ",", " ", "val_", ",", " ", RowBox[
-                        {"unique", ":", "False"}]}], "]"}], ":=", "\n", "  ", 
-                   RowBox[{"With", "[", RowBox[{RowBox[{"{", RowBox[{"u", 
-                          "=", "sym"}], "}"}], ",", "\n", "    ", RowBox[
-                        {RowBox[{"u", "=", "val"}], ";", "\n", "\t  ", 
+                          "\n", "\t  ", RowBox[{"Clear", "[", "u", "]"}], 
+                          ";", "\n", "\t  ", "val"}]}], "\n", "\t  ", 
+                       "]"}]}], ";"}], "\n", RowBox[{RowBox[{"dumpValue", 
+                     "[", RowBox[{"sym_Symbol", ",", " ", "val_", ",", " ", 
+                       RowBox[{"unique", ":", "False"}]}], "]"}], ":=", "\n", 
+                   "  ", RowBox[{"With", "[", RowBox[{RowBox[{"{", RowBox[
+                          {"u", "=", "sym"}], "}"}], ",", "\n", "    ", 
+                       RowBox[{RowBox[{"u", "=", "val"}], ";", "\n", "\t  ", 
                          RowBox[{"dumpSymbol", "[", "u", "]"}], ";", "\n", 
+                         "\t  ", RowBox[{"Clear", "[", "u", "]"}], ";", "\n", 
                          "\t  ", "val"}]}], "\n", "\t  ", "]"}]}]}], 
                "CodeInput"]}, Closed]], Cell[CellGroupData[
              {Cell["\[LeftCeiling]cachedLoad\[RightFloor]", 
@@ -337,7 +339,7 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           "ops"}], "\n", "            ", "]"}], "[", 
                           "\"Function\"", "]"}]}], "\n", "          ", 
                           "]"}]}], "\n", "        ", "]"}]}]}], "\n", "    ", 
-                    "]"}]}]], "CodeInput"]}, Closed]], 
+                    "]"}]}]], "CodeInput"]}, Open]], 
            Cell[CellGroupData[
              {Cell["\[LeftCeiling]fitExtrapForms\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
@@ -454,7 +456,7 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           "]"}]}], "\n", "        ", "]"}], ",", "\n", 
                           "      ", "trueRotSubGrids"}], "\n", "      ", 
                           "]"}]}]}], "\n", "    ", "]"}]}]], "CodeInput"]}, 
-             Closed]], Cell[CellGroupData[
+             Open]], Cell[CellGroupData[
              {Cell["\[LeftCeiling]extraGridVals\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
                 RowBox[{RowBox[{RowBox[{"extraGridVals", "[", "\n", "  ", 
@@ -570,7 +572,7 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           {"KeyTake", "[", RowBox[{"rotSubGrids", ",", " ", 
                           RowBox[{"Keys", "[", "trueRotSubGrids", "]"}]}], 
                           "]"}]}], "\n", "      ", "}"}]}], "\n", "    ", 
-                      "]"}]}], ";"}]], "CodeInput"]}, Closed]], 
+                      "]"}]}], ";"}]], "CodeInput"]}, Open]], 
            Cell[CellGroupData[
              {Cell["\[LeftCeiling]extrapFitForms\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
@@ -610,7 +612,7 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           ")"}]}], ",", " ", RowBox[{"\"Parameters\"", 
                           "\[Rule]", RowBox[{"Array", "[", RowBox[{"C", ",", 
                           " ", "2"}], "]"}]}]}], "|>"}], "&"}]}], "\n", 
-                      "      ", "}"}]}], ";"}]], "CodeInput"]}, Closed]], 
+                      "      ", "}"}]}], ";"}]], "CodeInput"]}, Open]], 
            Cell[CellGroupData[
              {Cell["\[LeftCeiling]extrapolatedFunction\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
@@ -685,24 +687,24 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           " ", RowBox[{"Last", "\[Rule]", "1"}]}], "}"}]}], 
                           "]"}]}], ",", "\n", "      ", RowBox[{"dv", "=", 
                           RowBox[{"def", "[", RowBox[{"[", "1", "]"}], 
-                          "]"}]}]}], "\n", "      ", "}"}], ",", "\n", 
-                         "    ", RowBox[{RowBox[{"debugPrint", "[", 
-                          "\"Extracting grids\"", "]"}], ";", "\n", "    ", 
-                          RowBox[{"rotWfnGrid", " ", "=", " ", "\n", 
-                          "      ", RowBox[{RowBox[{RowBox[{"fn", "[", RowBox[
-                          {"[", RowBox[{"All", ",", " ", RowBox[{";;", 
-                          "2"}]}], "]"}], "]"}], "//", RowBox[{RowBox[
+                          "]"}]}], ",", "\n", "      ", "linearInterp"}], 
+                          "\n", "      ", "}"}], ",", "\n", "    ", RowBox[
+                          {RowBox[{"debugPrint", "[", "\"Extracting grids\"", 
+                          "]"}], ";", "\n", "    ", RowBox[{"rotWfnGrid", 
+                          " ", "=", " ", "\n", "      ", RowBox[{RowBox[
+                          {RowBox[{"fn", "[", RowBox[{"[", RowBox[{"All", 
+                          ",", " ", RowBox[{";;", "2"}]}], "]"}], "]"}], 
+                          "//", RowBox[{RowBox[{RowBox[{"RotationMatrix", 
+                          "[", RowBox[{RowBox[{"-", "\[Pi]"}], "/", "4"}], 
+                          "]"}], ".", RowBox[{"Transpose", "[", "#", "]"}]}], 
+                          "&"}]}], "//", "Transpose"}]}], ";", "\n", "    ", 
+                          RowBox[{"trueGridRot", " ", "=", " ", "\n", 
+                          "      ", RowBox[{"Join", "[", "\n", "        ", 
+                          RowBox[{RowBox[{RowBox[{RowBox[{"trueGridVals", 
+                          "[", RowBox[{"[", RowBox[{"All", ",", " ", RowBox[
+                          {";;", "2"}]}], "]"}], "]"}], "//", RowBox[{RowBox[
                           {RowBox[{"RotationMatrix", "[", RowBox[{RowBox[
                           {"-", "\[Pi]"}], "/", "4"}], "]"}], ".", RowBox[
-                          {"Transpose", "[", "#", "]"}]}], "&"}]}], "//", 
-                          "Transpose"}]}], ";", "\n", "    ", RowBox[
-                          {"trueGridRot", " ", "=", " ", "\n", "      ", 
-                          RowBox[{"Join", "[", "\n", "        ", RowBox[
-                          {RowBox[{RowBox[{RowBox[{"trueGridVals", "[", 
-                          RowBox[{"[", RowBox[{"All", ",", " ", RowBox[{";;", 
-                          "2"}]}], "]"}], "]"}], "//", RowBox[{RowBox[{RowBox[
-                          {"RotationMatrix", "[", RowBox[{RowBox[{"-", 
-                          "\[Pi]"}], "/", "4"}], "]"}], ".", RowBox[
                           {"Transpose", "[", "#", "]"}]}], "&"}]}], "//", 
                           "Transpose"}], ",", " ", "\n", "        ", RowBox[
                           {"trueGridVals", "[", RowBox[{"[", RowBox[{"All", 
@@ -851,10 +853,30 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           {"{", "\n", "                 ", RowBox[{
                           "\"ExtrapolationHandler\"", "\[Rule]", RowBox[{"{", 
                           "\n", "                   ", RowBox[{RowBox[{
-                          "Replace", "[", RowBox[{"dv", ",", " ", RowBox[
-                          {RowBox[{"n_", "?", "NumberQ"}], ":>", RowBox[{"(", 
-                          RowBox[{"n", "&"}], ")"}]}]}], "]"}], ",", " ", 
-                          "\n", "                   ", RowBox[{
+                          "Replace", "[", RowBox[{"dv", ",", " ", "\n", 
+                          "                     ", RowBox[{"{", "\n", 
+                          "                       ", RowBox[{RowBox[{RowBox[
+                          {"n_", "?", "NumberQ"}], ":>", RowBox[{"(", RowBox[
+                          {"n", "&"}], ")"}]}], ",", "\n", 
+                          "                       ", RowBox[{RowBox[{"(", 
+                          RowBox[{"InterpolationOrder", "\[Rule]", "n_"}], 
+                          ")"}], ":>", "\n", "                         ", 
+                          RowBox[{"Interpolation", "[", "\n", 
+                          "                           ", RowBox[{RowBox[{"#", 
+                          "[", RowBox[{"[", RowBox[{"All", ",", " ", RowBox[
+                          {"{", RowBox[{"2", ",", " ", "3"}], "}"}]}], "]"}], 
+                          "]"}], ",", "\n", "                           ", 
+                          RowBox[{"InterpolationOrder", "\[Rule]", "n"}], 
+                          ",", "\n", "                           ", RowBox[
+                          {"{", "\n", "                             ", RowBox[
+                          {"\"ExtrapolationHandler\"", "\[Rule]", RowBox[{
+                          "{", RowBox[{"Automatic", ",", " ", RowBox[{
+                          "\"WarningMessage\"", "\[Rule]", "False"}]}], 
+                          "}"}]}], "\n", "                             ", 
+                          "}"}]}], "\n", "                          ", 
+                          "]"}]}]}], "\n", "                       ", 
+                          "}"}]}], "\n", "                     ", "]"}], ",", 
+                          " ", "\n", "                   ", RowBox[{
                           "\"WarningMessage\"", "\[Rule]", "False"}]}], "\n", 
                           "                   ", "}"}]}], "\n", 
                           "                 ", "}"}]}], "\n", 
@@ -888,24 +910,24 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           RowBox[{"-", "1"}], "|", "None"}], ":", "1"}], ",", 
                        "\n", "  ", RowBox[{"def", ":", RowBox[
                           {"DefaultValue", "[", "_", "]"}], ":", RowBox[
-                          {"DefaultValue", "[", "Automatic", "]"}]}], ",", 
-                       "\n", "  ", RowBox[{"ops", ":", RowBox[
-                          {"OptionsPattern", "[", "]"}]}]}], "\n", "  ", 
-                     "]"}], ":=", "\n", "  ", RowBox[{"Module", "[", 
-                     RowBox[{RowBox[{"{", RowBox[{RowBox[{"dv", " ", "=", 
-                          " ", RowBox[{RowBox[{"10.", "^", "9.5"}], "+", 
-                          RowBox[{"2", "*", RowBox[{"Abs", "[", RowBox[
-                          {"Replace", "[", RowBox[{RowBox[{"def", "[", RowBox[
-                          {"[", "1", "]"}], "]"}], ",", " ", RowBox[
-                          {"Automatic", "\[RuleDelayed]", "5000"}]}], "]"}], 
-                          "]"}]}]}]}], ",", " ", "d1", ",", " ", "d2", ",", 
-                          " ", "d3", ",", " ", "d"}], "}"}], ",", "\n", 
-                       "    ", RowBox[{RowBox[{"d1", " ", "=", " ", RowBox[
-                          {"extrapolatedFunction", "[", RowBox[{"a", ",", 
-                          " ", "First", ",", " ", "None", ",", " ", RowBox[
-                          {"DefaultValue", "[", "dv", "]"}], ",", " ", 
-                          "ops"}], "]"}]}], ";", "\n", "    ", RowBox[
-                          {"d2", " ", "=", " ", RowBox[
+                          {"DefaultValue", "[", RowBox[{"InterpolationOrder", 
+                          "\[Rule]", "1"}], "]"}]}], ",", "\n", "  ", 
+                       RowBox[{"ops", ":", RowBox[{"OptionsPattern", "[", 
+                          "]"}]}]}], "\n", "  ", "]"}], ":=", "\n", "  ", 
+                   RowBox[{"Module", "[", RowBox[{RowBox[{"{", RowBox[
+                          {RowBox[{"dv", " ", "=", " ", RowBox[{RowBox[
+                          {"10.", "^", "9.5"}], "+", RowBox[{"2", "*", RowBox[
+                          {"Abs", "[", RowBox[{"Replace", "[", RowBox[{RowBox[
+                          {"def", "[", RowBox[{"[", "1", "]"}], "]"}], ",", 
+                          " ", RowBox[{"Automatic", "\[RuleDelayed]", 
+                          "5000"}]}], "]"}], "]"}]}]}]}], ",", " ", "d1", 
+                          ",", " ", "d2", ",", " ", "d3", ",", " ", "d"}], 
+                         "}"}], ",", "\n", "    ", RowBox[{RowBox[{"d1", " ", 
+                          "=", " ", RowBox[{"extrapolatedFunction", "[", 
+                          RowBox[{"a", ",", " ", "First", ",", " ", "None", 
+                          ",", " ", RowBox[{"DefaultValue", "[", "dv", "]"}], 
+                          ",", " ", "ops"}], "]"}]}], ";", "\n", "    ", 
+                         RowBox[{"d2", " ", "=", " ", RowBox[
                           {"extrapolatedFunction", "[", RowBox[{"a", ",", 
                           " ", "Last", ",", " ", "symmetry", ",", " ", "def", 
                           ",", " ", "ops"}], "]"}]}], ";", "\n", "    ", 
@@ -921,7 +943,7 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           {RowBox[{"#", "[", RowBox[{"[", RowBox[{";;", 
                           "2"}], "]"}], "]"}], ",", " ", ".001"}], "]"}], 
                           "&"}]}], "\n", "      ", "]"}]}]}]}], "\n", "    ", 
-                     "]"}]}]}], "CodeInput"]}, Closed]], 
+                     "]"}]}]}], "CodeInput"]}, Open]], 
            Cell[CellGroupData[{Cell["\[LeftCeiling]lInter\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
                 {RowBox[{RowBox[{"lInter", "[", RowBox[{"grid_", ",", " ", 
@@ -3082,40 +3104,90 @@ overlaps, `` functions, `` points\"", "~", "TemplateApply", "~", RowBox[{"{",
                "CodeInput"]}, Closed]], Cell[CellGroupData[
              {Cell["\[LeftCeiling]getIntensities\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
-                RowBox[{RowBox[{"getIntensities", "[", RowBox[{"wfns_", ",", 
-                      " ", "states_", ",", " ", "gridTms_", ",", " ", 
-                      RowBox[{"problemStates", ":", RowBox[{"{", "__Integer", 
-                          "}"}], ":", RowBox[{"{", RowBox[{"4", ",", " ", 
-                          "5"}], "}"}]}]}], "]"}], ":=", "\n", "\t", 
-                  RowBox[{"Module", "[", "\n", "\t\t", RowBox[
-                     {RowBox[{"{", "\n", "\t\t\t", RowBox[{"baseTmoms", ",", 
-                          "\n", "\t\t\t", "tmomLists", ",", "\n", "\t\t\t", 
-                          "tmGrid", ",", "\n", "\t\t\t", "tmInterps", ",", 
-                          "\n", "\t\t\t", "tms", ",", "\n", "\t\t\t", 
-                          "wfGrid"}], "\n", "\t\t\t", "}"}], ",", "\n", 
-                      "\t\t", RowBox[{RowBox[{"tmGrid", " ", "=", " ", 
-                          RowBox[{"gridTms", "[", "\"Grid\"", "]"}]}], ";", 
-                        "\n", "\t\t", RowBox[{"tmInterps", " ", "=", "\n", 
-                          "\t\t\t", RowBox[{"Transpose", "@", RowBox[
-                          {"Table", "[", "\n", "\t\t\t\t", RowBox[{RowBox[
-                          {"lInter", "[", " ", RowBox[{"(*", " ", RowBox[
-                          {RowBox[{"should", " ", "definitely", " ", "check", 
-                          " ", "my", " ", "grid", " ", "though"}], "..."}], 
-                          " ", "*)"}], "\n", "\t\t\t\t  ", RowBox[{RowBox[
-                          {RowBox[{RowBox[{"If", "[", RowBox[{RowBox[{"i", 
-                          "\[Equal]", "1"}], ",", " ", RowBox[{"(*", " ", 
-                          RowBox[{RowBox[{RowBox[{RowBox[{"it", "'"}], "s", 
-                          " ", "crazy", " ", "how", " ", "much", " ", "of", 
-                          " ", "a", " ", "hack", " ", "this", " ", "is", " ", 
-                          "but", " ", "I", " ", "am", " ", "currently", " ", 
-                          "in", " ", "get"}], "-", "something", "-", RowBox[
-                          {"out", " ", "mode"}]}], "..."}], " ", "*)"}], 
-                          "\n", "\t\t\t\t    ", RowBox[{"dumpValue", "[", 
-                          "\n", "\t\t\t\t\t    ", RowBox[{RowBox[{
-                          "ToExpression", "[", RowBox[{"\"smoothGridTMs$\"", 
-                          "<>", RowBox[{"ToString", "@", "i"}], "<>", RowBox[
-                          {"ToString", "[", "state", "]"}]}], "]"}], ",", 
-                          "\n", "  \t\t\t\t\t  ", RowBox[{"If", "[", RowBox[
+                RowBox[{RowBox[{"forceBasePhase", "[", RowBox[{"surf_", ",", 
+                      " ", "phase_"}], "]"}], ":=", "\n", "  ", RowBox[
+                   {"Module", "[", RowBox[{RowBox[{"{", RowBox[{"pts", "=", 
+                          RowBox[{"surf", "[", RowBox[{"[", RowBox[{"All", 
+                          ",", " ", RowBox[{"{", "3", "}"}]}], "]"}], 
+                          "]"}]}], "}"}], ",", "\n", "    ", RowBox[{"If", 
+                        "[", RowBox[{RowBox[{RowBox[{"Sign", "[", RowBox[
+                          {RowBox[{"MaximalBy", "[", RowBox[{"pts", ",", " ", 
+                          "Abs"}], "]"}], "[", RowBox[{"[", "1", "]"}], 
+                          "]"}], "]"}], "=!=", RowBox[{"Sign", "[", "phase", 
+                          "]"}]}], ",", "\n", "      ", RowBox[{"Join", "[", 
+                          RowBox[{RowBox[{"surf", "[", RowBox[{"[", RowBox[
+                          {"All", ",", " ", RowBox[{";;", "2"}]}], "]"}], 
+                          "]"}], ",", " ", RowBox[{"-", "pts"}], ",", " ", 
+                          "2"}], "]"}], ",", "\n", "      ", "surf"}], "\n", 
+                        "      ", "]"}]}], "\n", "    ", "]"}]}]], 
+               "CodeInput"], Cell[BoxData[{RowBox[{RowBox[{RowBox[
+                      {"forceComboPhase", "[", RowBox[{"tms_", ",", " ", 
+                         "phase_"}], "]"}], ":=", "\n", "  ", RowBox[
+                      {RowBox[{"MapThread", "[", "\n", "    ", RowBox[
+                          {RowBox[{RowBox[{RowBox[{"Sign", "[", "#", "]"}], 
+                          "*", RowBox[{"Sign", "[", "#2", "]"}]}], "&"}], 
+                          ",", "\n", "    ", RowBox[{"{", "\n", "      ", 
+                          RowBox[{RowBox[{RowBox[{"tms", "[", RowBox[{"[", 
+                          RowBox[{"All", ",", " ", "1"}], "]"}], "]"}], "+", 
+                          "$MachineEpsilon"}], ",", "\n", "      ", 
+                          "phase"}], "\n", "      ", "}"}]}], "\n", "    ", 
+                         "]"}], "*", "tms"}]}], ";"}], "\n", RowBox[
+                  {RowBox[{RowBox[{RowBox[{"forceComboPhase", "[", "phase_", 
+                         "]"}], "[", "tms_", "]"}], ":=", "\n", "  ", 
+                     RowBox[{"forceComboPhase", "[", RowBox[{"tms", ",", " ", 
+                         "phase"}], "]"}]}], ";"}], "\n", RowBox[
+                  {RowBox[{"forceComboPhase", "[", "None", "]"}], ":=", 
+                   "Identity"}]}], "CodeInput"], Cell[BoxData[
+                {RowBox[{"getIntensities", "//", "Clear"}], "\n", 
+                 RowBox[{RowBox[{"getIntensities", "[", RowBox[{"wfns_", ",", 
+                       " ", "states_", ",", " ", "gridTms_", ",", " ", "\n", 
+                       "  ", RowBox[{"basePhases", ":", RowBox[{RowBox[
+                          {"{", RowBox[{RowBox[{"(", RowBox[{"1", "|", RowBox[
+                          {"-", "1"}]}], ")"}], ".."}], "}"}], "|", RowBox[
+                          {"None", ":", "None"}]}]}], ",", "\n", "  ", 
+                       RowBox[{"problemStates", ":", RowBox[{"{", RowBox[
+                          {RowBox[{"(", RowBox[{"Alternatives", "@@", RowBox[
+                          {"Range", "[", RowBox[{"2", ",", " ", "10"}], 
+                          "]"}]}], ")"}], ".."}], "}"}], ":", RowBox[{"{", 
+                          RowBox[{"4", ",", " ", "5"}], "}"}]}]}], "\n", 
+                     "  ", "]"}], ":=", "\n", "\t", RowBox[{"Module", "[", 
+                     "\n", "\t\t", RowBox[{RowBox[{"{", "\n", "\t\t\t", 
+                         RowBox[{"baseTmoms", ",", "\n", "\t\t\t", 
+                          "tmomLists", ",", "\n", "\t\t\t", "tmGrid", ",", 
+                          "\n", "\t\t\t", "tmInterps", ",", "\n", "\t\t\t", 
+                          "tms", ",", "\n", "\t\t\t", "wfGrid"}], "\n", 
+                         "\t\t\t", "}"}], ",", "\n", "\t\t", RowBox[
+                        {RowBox[{"tmGrid", " ", "=", " ", RowBox[{"gridTms", 
+                          "[", "\"Grid\"", "]"}]}], ";", "\n", "\t\t", 
+                         RowBox[{"tmInterps", " ", "=", "\n", "\t\t\t", 
+                          RowBox[{"Transpose", "@", RowBox[{"Table", "[", 
+                          "\n", "\t\t\t\t", RowBox[{RowBox[{"lInter", "[", 
+                          " ", RowBox[{"(*", " ", RowBox[{RowBox[{"should", 
+                          " ", "definitely", " ", "check", " ", "my", " ", 
+                          "grid", " ", "though"}], "..."}], " ", "*)"}], 
+                          "\n", "\t\t\t\t  ", RowBox[{RowBox[{RowBox[{RowBox[
+                          {"If", "[", RowBox[{RowBox[{"i", "\[Equal]", "1"}], 
+                          ",", " ", RowBox[{"(*", " ", RowBox[{RowBox[{RowBox[
+                          {RowBox[{"it", "'"}], "s", " ", "crazy", " ", 
+                          "how", " ", "much", " ", "of", " ", "a", " ", 
+                          "hack", " ", "this", " ", "is", " ", "but", " ", 
+                          "I", " ", "am", " ", "currently", " ", "in", " ", 
+                          "get"}], "-", "something", "-", RowBox[{"out", " ", 
+                          "mode"}]}], "..."}], " ", "*)"}], "\n", 
+                          "\t\t\t\t    ", RowBox[{"dumpValue", "[", "\n", 
+                          "\t\t\t\t\t    ", RowBox[{RowBox[{"ToExpression", 
+                          "[", RowBox[{"\"smoothGridTMs$\"", "<>", RowBox[
+                          {"ToString", "@", "i"}], "<>", RowBox[{"ToString", 
+                          "[", "state", "]"}]}], "]"}], ",", "\n", 
+                          "  \t\t\t\t\t  ", RowBox[{"(*", RowBox[{RowBox[
+                          {"If", "[", RowBox[{RowBox[{"basePhases", "=!=", 
+                          "None"}], ",", "\n", "  \t\t\t\t\t    ", RowBox[
+                          {RowBox[{"forceBasePhase", "[", RowBox[{"#", ",", 
+                          " ", RowBox[{"basePhases", "[", RowBox[{"[", "i", 
+                          "]"}], "]"}]}], "]"}], "&"}], ",", "\n", 
+                          "  \t\t\t\t\t    ", "Identity"}], "\n", 
+                          "  \t\t\t\t\t    ", "]"}], "@"}], "*)"}], "\n", 
+                          "  \t\t\t\t\t    ", RowBox[{"If", "[", RowBox[
                           {RowBox[{"MemberQ", "[", RowBox[{"problemStates", 
                           ",", " ", "state"}], "]"}], ",", " ", RowBox[
                           {"correctRowFlips", "@", "#"}], ",", " ", "#"}], 
@@ -3137,21 +3209,20 @@ overlaps, `` functions, `` points\"", "~", "TemplateApply", "~", RowBox[{"{",
                           "3"}], "}"}], ",", "\n", "\t\t\t\t", RowBox[{"{", 
                           RowBox[{"state", ",", " ", "states"}], "}"}]}], 
                           "\n", "\t\t\t\t", "]"}]}]}], ";", "\n", "\t\t", 
-                        RowBox[{"wfGrid", " ", "=", " ", RowBox[{"Flatten", 
-                          "[", RowBox[{RowBox[{"Normal", "@", RowBox[
-                          {RowBox[{"wfns", "[", RowBox[{"[", "1", "]"}], 
-                          "]"}], "[", "\"Grid\"", "]"}]}], ",", " ", "1"}], 
-                          "]"}]}], ";", " ", RowBox[{"(*", " ", RowBox[
-                          {"for", " ", "some", " ", "reason", " ", 
-                          "\"Points\"", " ", "stopped", " ", RowBox[
-                          {"working", "?"}]}], " ", "*)"}], "\n", "\t\t", 
-                        RowBox[{"If", "[", RowBox[{RowBox[{"!", RowBox[
-                          {"ListQ", "@", "wfGrid"}]}], ",", " ", "\n", 
+                         RowBox[{"wfGrid", " ", "=", " ", RowBox[{"Flatten", 
+                          "[", RowBox[{RowBox[{"Normal", "@", RowBox[{RowBox[
+                          {"wfns", "[", RowBox[{"[", "1", "]"}], "]"}], "[", 
+                          "\"Grid\"", "]"}]}], ",", " ", "1"}], "]"}]}], ";", 
+                         " ", RowBox[{"(*", " ", RowBox[{"for", " ", "some", 
+                          " ", "reason", " ", "\"Points\"", " ", "stopped", 
+                          " ", RowBox[{"working", "?"}]}], " ", "*)"}], "\n", 
+                         "\t\t", RowBox[{"If", "[", RowBox[{RowBox[{"!", 
+                          RowBox[{"ListQ", "@", "wfGrid"}]}], ",", " ", "\n", 
                           "\t\t  ", RowBox[{RowBox[{"Throw", "[", RowBox[
                           {"StringForm", "[", 
                           "\"Head is not List for wfns[\\\"Grid\\\"]\"", 
                           "]"}], "]"}], ";"}]}], "\n", "\t\t  ", "]"}], ";", 
-                        "\n", "\t\t", RowBox[{"(*", RowBox[{RowBox[
+                         "\n", "\t\t", RowBox[{"(*", RowBox[{RowBox[
                           {"dumpSymbol", "[", "wfGrid", "]"}], ";", "\n", 
                           "\t\t", RowBox[{"dumpSymbol", "[", "tmInterps", 
                           "]"}], ";"}], "*)"}], "\n", "\t\t", RowBox[{"tms", 
@@ -3159,9 +3230,9 @@ overlaps, `` functions, `` points\"", "~", "TemplateApply", "~", RowBox[{"{",
                           "[", RowBox[{"Through", "[", RowBox[{"#", "@@", 
                           RowBox[{"Transpose", "[", "wfGrid", "]"}]}], "]"}], 
                           "]"}], "&"}], "/@", "tmInterps"}]}], ";", "\n", 
-                        "\t\t", RowBox[{"(*", RowBox[{RowBox[{"dumpSymbol", 
+                         "\t\t", RowBox[{"(*", RowBox[{RowBox[{"dumpSymbol", 
                           "[", "tms", "]"}], ";"}], "*)"}], "\n", "\t\t", 
-                        RowBox[{"baseTmoms", "=", "\n", "\t\t  ", RowBox[
+                         RowBox[{"baseTmoms", "=", "\n", "\t\t  ", RowBox[
                           {"Table", "[", "\n", "\t\t\t\t\t", RowBox[
                           {RowBox[{"wf", "@", RowBox[{
                           "\"TransitionMoments\"", "[", "\n", 
@@ -3177,25 +3248,31 @@ overlaps, `` functions, `` points\"", "~", "TemplateApply", "~", RowBox[{"{",
                           "}"}], ",", "\n", "\t\t\t\t\t", RowBox[{"{", RowBox[
                           {"tm", ",", " ", "tms"}], "}"}]}], "\n", 
                           "\t\t\t\t\t", "]"}]}], ";", "\n", "\t\t", RowBox[
-                         {"dumpValue", "[", "\n", "\t\t  ", RowBox[
+                          {"dumpValue", "[", "\n", "\t\t  ", RowBox[
                           {RowBox[{"ToExpression", "[", RowBox[
                           {"\"baseTmoms$\"", "<>", RowBox[{"Map", "[", RowBox[
                           {"ToString", ",", " ", "states"}], "]"}]}], "]"}], 
                           ",", "\n", "\t\t  ", "baseTmoms", ",", "\n", 
                           "\t\t  ", "False"}], "\n", "\t\t  ", "]"}], ";", 
-                        "\n", "\t\t", RowBox[{"(*", "\n", "\t\t", RowBox[
-                          {"Each", " ", "wavefunction", " ", "operates", " ", 
-                          "over", " ", "a", " ", "different", " ", RowBox[
-                          {"state", "."}]}], "\n", "\t\t", "*)"}], "\n", 
-                        "\t\t", RowBox[{"tmomLists", " ", "=", " ", "\n", 
-                          "\t\t  ", RowBox[{"MapIndexed", "[", RowBox[
+                         "\n", "\t\t", RowBox[{"(*", "\n", "\t\t", RowBox[
+                          {RowBox[{RowBox[{RowBox[{RowBox[{"Each", " ", 
+                          "wavefunction", " ", "operates", " ", "over", " ", 
+                          "a", " ", "different", " ", RowBox[{"state", ".", 
+                          "\n", "\t\t", "Phasing"}]}], "..."}], "not", " ", 
+                          "sure", " ", "exactly", " ", "what", " ", "should", 
+                          " ", "be", " ", "happening", " ", "here"}], 
+                          "..."}], "?"}], "\n", "\t\t", "*)"}], "\n", "\t\t", 
+                         RowBox[{"tmomLists", " ", "=", " ", "\n", "\t\t  ", 
+                          RowBox[{"(*", RowBox[{RowBox[{"forceComboPhase", 
+                          "[", "basePhases", "]"}], "@"}], "*)"}], "\n", 
+                          "\t\t    ", RowBox[{"MapIndexed", "[", RowBox[
                           {RowBox[{RowBox[{"#", "[", RowBox[{"[", RowBox[
                           {RowBox[{"#2", "[", RowBox[{"[", "1", "]"}], "]"}], 
                           ",", " ", "All", ",", " ", "1"}], "]"}], "]"}], 
                           "&"}], ",", " ", "baseTmoms"}], "]"}]}], ";", "\n", 
-                        "\t\t", RowBox[{RowBox[{"Total", "[", RowBox[{"Abs", 
+                         "\t\t", RowBox[{RowBox[{"Total", "[", RowBox[{"Abs", 
                           "@", "tmomLists"}], "]"}], "^", "2"}]}]}], "\n", 
-                    "\t\t", "]"}]}]], "CodeInput"]}, Open]], 
+                     "\t\t", "]"}]}]}], "CodeInput"]}, Open]], 
            Cell[CellGroupData[{Cell["\[LeftCeiling]getFreqs\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
                 RowBox[{RowBox[{"getFreqs", "[", RowBox[{"wfns_", ",", " ", 

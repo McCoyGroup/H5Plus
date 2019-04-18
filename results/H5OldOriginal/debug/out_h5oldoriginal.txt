@@ -1,0 +1,168 @@
+
+FrontEndObject::notavail: 
+   A front end is not available; certain operations require a front end.
+
+FrontEndObject::notavail: 
+   A front end is not available; certain operations require a front end.
+
+FrontEndObject::notavail: 
+   A front end is not available; certain operations require a front end.
+
+General::stop: Further output of FrontEndObject::notavail
+     will be suppressed during this calculation.
+StringForm["Initializing `1` indices ....", "IsotopeData"]
+StringForm["Initializing `1` indices ....", "IsotopeData"]
+StringForm["Initializing `1` indices ....", "IsotopeData"]
+StringForm["Initializing `1` indices ....", "IsotopeData"]
+StringForm["Initializing `1` indices ....", "IsotopeData"]
+"Generating r1/r2 wavefunctions..."
+"Generated r1/r2 wavefunctions"
+"Generating SCF coefficients..."
+"SCF coefficients calculated"
+"Rephasing SCF wavefunctions"
+"Rephasing SCF DVR wavefunctions"
+"Rephasing SCF SCF wavefunctions"
+"Got 3600 SCF wavefunctions"
+"Rephased SCF wavefunctions"
+"Generating one quantum overlap matrix"
+"Generating two quanta overlap matrix"
+"Generating 4D wavefunctions..."
+"Generating No Quanta Wavefunction"
+"Generating One Quantum Wavefunction"
+"Dimensions of coupling matrix {7200, 7200} of type List at 414720152 bytes"
+"Generating Two Quanta Wavefunction"
+"Dimensions of coupling matrix {10800, 10800} of type List at 933120152 \
+bytes"
+"Generating Adiabatic Wavefunctions"
+"4D wavefunctions generated"
+"Pulling projections from wavefunctions"
+"Projections pulled"
+"Rephasing wavefunctions...again..."
+"Generating dipole vectors..."
+"Generating transition moments..."
+"Generated transition moments"
+"Generating spectra"
+
+GatherBy::list: 
+   List expected at position 1 in 
+    GatherBy[SpectrumScriptPackage`Private`dumpValue[{{-2.68701, 0.636396, 
+        0.}, {-2.68701, 0.727481, 0.}, {-2.68701, 0.818566, 0.}, <<3596>>, 
+       {2.68701, 6.01041, 0.}}, <<1>>, False], {<<1>> & }].
+
+Part::partd: Part specification False[[2]] is longer than depth of object.
+
+Part::partw: Part 2 of Round[#1[[1]], 0.01] &  does not exist.
+
+GatherBy::list: 
+   List expected at position 1 in 
+    GatherBy[SpectrumScriptPackage`Private`dumpValue[{{-2.68701, 0.636396, 
+        0.}, {-2.68701, 0.727481, 0.}, {-2.68701, 0.818566, 0.}, <<3596>>, 
+       {2.68701, 6.01041, 0.}}, <<1>>, False], {<<1>> & }].
+
+Part::partw: Part 3 of Round[#1[[1]], 0.01] &  does not exist.
+
+Part::take: Cannot take positions 1 through 2 in 
+    {{Round[#1[[1]], 0.01] & , Round[#1[[1]], 0.01] & }}.
+
+Interpolation::innd: 
+   First argument in {{Round[#1[[1]], 0.01] & }}[[All,All,3]]
+     does not contain a list of data and coordinates.
+
+Transpose::nmtx: 
+   The first two levels of {ListInterpolation[{{Round[#1[[1]], 0.01] & }}[[
+        All,All,3]], {{Round[<<2>>] & , Round[<<2>>] & }}[[<<1>>]], 
+       {ExtrapolationHandler -> {0 & , WarningMessage -> False}}][<<2>>], 
+     <<2>>} cannot be transposed.
+
+Transpose::tperm: 
+   Permutation {2, 1} is longer than the dimensions {3600} of the expression.
+
+ChemTools`ChemTools::TransitionMoments: 
+   Too few dipole functions. Requires x, y, and z components.
+
+Part::partd: Part specification 
+    {Failure[ChemToolsTransitionMoments, 
+       <|MessageTemplate :> ChemTools`ChemTools::TransitionMoments, 
+        MessageParameters :> {}|>]}[[1,All,1]] is longer than depth of object.
+
+GatherBy::list: 
+   List expected at position 1 in 
+    GatherBy[SpectrumScriptPackage`Private`dumpValue[{{-2.68701, 0.636396, 
+        0.}, {-2.68701, 0.727481, 0.}, {-2.68701, 0.818566, 0.}, <<3596>>, 
+       {2.68701, 6.01041, 0.}}, <<1>>, False], {<<1>> & }].
+
+General::stop: Further output of GatherBy::list
+     will be suppressed during this calculation.
+
+Part::partd: Part specification False[[2]] is longer than depth of object.
+
+General::stop: Further output of Part::partd
+     will be suppressed during this calculation.
+
+Part::partw: Part 2 of Round[#1[[1]], 0.01] &  does not exist.
+
+General::stop: Further output of Part::partw
+     will be suppressed during this calculation.
+
+Part::take: Cannot take positions 1 through 2 in 
+    {{Round[#1[[1]], 0.01] & , Round[#1[[1]], 0.01] & }}.
+
+Interpolation::innd: 
+   First argument in {{Round[#1[[1]], 0.01] & }}[[All,All,3]]
+     does not contain a list of data and coordinates.
+
+Transpose::nmtx: 
+   The first two levels of {ListInterpolation[{{Round[#1[[1]], 0.01] & }}[[
+        All,All,3]], {{Round[<<2>>] & , Round[<<2>>] & }}[[<<1>>]], 
+       {ExtrapolationHandler -> {0 & , WarningMessage -> False}}][<<2>>], 
+     <<2>>} cannot be transposed.
+
+Transpose::tperm: 
+   Permutation {2, 1} is longer than the dimensions {3600} of the expression.
+
+ChemTools`ChemTools::TransitionMoments: 
+   Too few dipole functions. Requires x, y, and z components.
+
+Part::take: Cannot take positions 1 through 2 in 
+    {{Round[#1[[1]], 0.01] & , Round[#1[[1]], 0.01] & }}.
+
+General::stop: Further output of Part::take
+     will be suppressed during this calculation.
+
+Interpolation::innd: 
+   First argument in {{Round[#1[[1]], 0.01] & }}[[All,All,3]]
+     does not contain a list of data and coordinates.
+
+General::stop: Further output of Interpolation::innd
+     will be suppressed during this calculation.
+
+Transpose::nmtx: 
+   The first two levels of {ListInterpolation[{{Round[#1[[1]], 0.01] & }}[[
+        All,All,3]], {{Round[<<2>>] & , Round[<<2>>] & }}[[<<1>>]], 
+       {ExtrapolationHandler -> {0 & , WarningMessage -> False}}][<<2>>], 
+     <<2>>} cannot be transposed.
+
+General::stop: Further output of Transpose::nmtx
+     will be suppressed during this calculation.
+
+Transpose::tperm: 
+   Permutation {2, 1} is longer than the dimensions {3600} of the expression.
+
+General::stop: Further output of Transpose::tperm
+     will be suppressed during this calculation.
+
+ChemTools`ChemTools::TransitionMoments: 
+   Too few dipole functions. Requires x, y, and z components.
+
+General::stop: Further output of ChemTools`ChemTools::TransitionMoments
+     will be suppressed during this calculation.
+"Spectra generated"
+
+ChemTools`ChemTools::Spectrum: Spectral data must be real-valued numeric
+
+ChemTools`ChemTools::Spectrum: Spectral data must be real-valued numeric
+
+ChemTools`ChemTools::Spectrum: Spectral data must be real-valued numeric
+
+General::stop: Further output of ChemTools`ChemTools::Spectrum
+     will be suppressed during this calculation.

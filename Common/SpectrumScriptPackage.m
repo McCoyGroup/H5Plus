@@ -188,12 +188,14 @@ dumpValue[sym_Symbol, val_, unique:True:True]:=
   With[{u=Unique[sym]},
     u=val;
     dumpSymbol[u];
+    Clear[u];
     val
     ];
 dumpValue[sym_Symbol, val_, unique:False]:=
   With[{u=sym},
     u=val;
     dumpSymbol[u];
+    Clear[u];
     val
     ]
 
@@ -499,7 +501,8 @@ extrapolatedFunction[
       missing, patchedPts,
       gind1=Replace[direction, {First->1, Last->2}],
       gind2=Replace[direction, {First->2, Last->1}],
-      dv=def[[1]]
+      dv=def[[1]],
+      linearInterp
       },
     debugPrint["Extracting grids"];
     rotWfnGrid = 
@@ -572,7 +575,19 @@ extrapolatedFunction[
                #[[All, {2, 3}]], 
                {
                  "ExtrapolationHandler"->{
-                   Replace[dv, n_?NumberQ:>(n&)], 
+                   Replace[dv, 
+                     {
+                       n_?NumberQ:>(n&),
+                       (InterpolationOrder->n_):>
+                         Interpolation[
+                           #[[All, {2, 3}]],
+                           InterpolationOrder->n,
+                           {
+                             "ExtrapolationHandler"->{Automatic, "WarningMessage"->False}
+                             }
+                          ]
+                       }
+                     ], 
                    "WarningMessage"->False
                    }
                  }
@@ -599,7 +614,7 @@ extrapolatedFunction[
   a__,
   "Both",
   symmetry:1|-1|None:1,
-  def:DefaultValue[_]:DefaultValue[Automatic],
+  def:DefaultValue[_]:DefaultValue[InterpolationOrder->1],
   ops:OptionsPattern[]
   ]:=
   Module[{dv = 10.^9.5+2*Abs[Replace[def[[1]], Automatic:>5000]], d1, d2, d3, d},
@@ -2115,7 +2130,33 @@ getTransitionWavefunctions[projs_, gsData_]:=
 
 
 
-getIntensities[wfns_, states_, gridTms_, problemStates:{__Integer}:{4, 5}]:=
+forceBasePhase[surf_, phase_]:=
+  Module[{pts=surf[[All, {3}]]},
+    If[Sign[MaximalBy[pts, Abs][[1]]]=!=Sign[phase],
+      Join[surf[[All, ;;2]], -pts, 2],
+      surf
+      ]
+    ]
+
+
+forceComboPhase[tms_, phase_]:=
+  MapThread[
+    Sign[#]*Sign[#2]&,
+    {
+      tms[[All, 1]]+$MachineEpsilon,
+      phase
+      }
+    ]*tms;
+forceComboPhase[phase_][tms_]:=
+  forceComboPhase[tms, phase];
+forceComboPhase[None]:=Identity
+
+
+getIntensities//Clear
+getIntensities[wfns_, states_, gridTms_, 
+  basePhases:{(1|-1)..}|None:None,
+  problemStates:{(Alternatives@@Range[2, 10])..}:{4, 5}
+  ]:=
   Module[
     {
       baseTmoms,
@@ -2132,7 +2173,11 @@ getIntensities[wfns_, states_, gridTms_, problemStates:{__Integer}:{4, 5}]:=
           If[i==1, (* it's crazy how much of a hack this is but I am currently in get-something-out mode... *)
             dumpValue[
               ToExpression["smoothGridTMs$"<>ToString@i<>ToString[state]],
-              If[MemberQ[problemStates, state], correctRowFlips@#, #],
+              (*If[basePhases=!=None,
+  					    forceBasePhase[#, basePhases[[i]]]&,
+  					    Identity
+  					    ]@*)
+                If[MemberQ[problemStates, state], correctRowFlips@#, #],
               False
             ],
           #
@@ -2168,9 +2213,11 @@ getIntensities[wfns_, states_, gridTms_, problemStates:{__Integer}:{4, 5}]:=
       ];
     (*
 		Each wavefunction operates over a different state.
+		Phasing...not sure exactly what should be happening here...?
 		*)
     tmomLists = 
-      MapIndexed[#[[#2[[1]], All, 1]]&, baseTmoms];
+      (*forceComboPhase[basePhases]@*)
+        MapIndexed[#[[#2[[1]], All, 1]]&, baseTmoms];
     Total[Abs@tmomLists]^2
     ]
 
