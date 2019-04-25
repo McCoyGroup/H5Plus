@@ -1885,6 +1885,131 @@ getSCFOverlapMatrix[
     ]
 
 
+(* ::Subsubsubsection::Closed:: *)
+(*getOnlyDVROverlapMatrix*)
+
+
+
+(* ::Subsubsubsubsection::Closed:: *)
+(*New*)
+
+
+
+(* ::Text:: *)
+(*
+	A bit unclear on the best approach here. I want to just do the direct overlap (i.e. sans SCF stuff), but how continuous/extrapolatable this will be is not entirely clear. Also unclear what the phasing issues will look like...
+*)
+
+
+
+getOnlyDVROverlapMatrix//Clear
+getOnlyDVROverlapMatrix[
+  dvrWavefunctions_, 
+  states_, 
+  scalings_, 
+  grid_, extrapGrid_,
+  symmetries_,
+  coefficientProcessing_:None
+  ]:=
+  Module[
+    {
+      nstates, fleng, pickSpec, pickComp,
+      gg, blerp, blerpDVR, 
+      baseWfnsSCF, baseWfnsDVR, 
+      coeffs, coeffLists,
+      baseGrid, extrapCoeffs, 
+      coeffInterps, newCoeffs,
+      fuckTheseFuckingPointsFuckThisIDontWantToDoIt,
+      coeffList, overlapChunk
+      },
+    nstates = Length@states;
+    pickSpec = Pick[Range[Length[dvrWavefunctions]], #=!=$Failed&/@dvrWavefunctions];
+    pickComp = Pick[Range[Length[dvrWavefunctions]], #===$Failed&/@dvrWavefunctions];
+    fleng = Length[pickSpec];
+    blerpDVR=dvrWavefunctions[[pickSpec]];
+    gg = Join@@ConstantArray[grid[[pickSpec]], nstates];
+    baseWfnsDVR=
+      Table[Join@@Map[#[[{n}]]&, blerpDVR], {n, states}];
+    coeffs=
+      Table[
+        Table[
+          overlapChunk = baseWfnsDVR[[i]]@"Overlap"[baseWfnsDVR[[j]]];
+          ,
+          {j, i, Length@baseWfnsDVR}
+          ],
+        {i, Length@baseWfnsDVR}
+        ];
+    debugPrint["Extrapolating coefficients"];
+    coeffInterps = 
+      Table[
+        coeffList = coeffLists[[j]];
+        debugPrint["Loading base function data"];
+        baseGrid=
+          Join[
+            Join[grid[[pickComp]], ConstantArray[10^9, {Length@pickComp, 1}], 2],
+            coeffList[[1+(i-1)*fleng ;; i*fleng]]
+            ];
+        (*With[{u=Unique[coefficientsGrid]}, u=baseGrid;dumpSymbol[u]];*)
+        debugPrint["Extrapolating off grid"];
+        extrapCoeffs=
+          extrapolatedFunction[
+              baseGrid,
+              {2, 2},
+              {#^Range[1]&, #^Range[1]&},
+              "Both",
+              symmetries[[i]],
+              DefaultValue[0]
+              ];
+        (*dumpValue[
+				  ToExpression["extrapolatedCoeffs$"<>ToString@i<>ToString@j],
+				  extrapCoeffs,
+				  False
+				  ];*)
+        extrapCoeffs =
+          If[coefficientProcessing===None,
+            smoothOutCoeffs[extrapCoeffs],
+            Replace[Quiet@coefficientProcessing[[i, j]],
+              {
+                p_Part:>smoothOutCoeffs
+                }
+              ][extrapCoeffs]
+            ]; (* a total hack... *)
+        dumpValue[
+          ToExpression["extrapolatedCoeffs$"<>ToString@i<>ToString@j],
+          extrapCoeffs,
+          False
+          ];
+        debugPrint["Constructing interpolation off grid"];
+        fuckTheseFuckingPointsFuckThisIDontWantToDoIt=
+          DeleteDuplicatesBy[
+            Join[
+              extrapCoeffs[[All, ;;2]], 
+              List/@Clip[extrapCoeffs[[All, 3]]],
+              2
+              ],
+            Round[#[[;;2]], .01]&
+            ];
+      (*dumpSymbol[fuckTheseFuckingPointsFuckThisIDontWantToDoIt];*)
+        fuckTheseFuckingPointsFuckThisIDontWantToDoIt//Interpolation,
+        {j, Length@coeffLists},
+        {i, nstates}
+        ];
+    coeffs = 
+      Normalize/@Transpose[
+        Table[
+          Apply[
+            Join,
+            With[{interp=#},
+              interp@@Transpose[extrapGrid]
+              ]&/@interpList
+            ],
+          {interpList, coeffInterps}
+          ]
+        ];
+    coeffs.Transpose[coeffs]
+    ]
+
+
 (* ::Subsubsection::Closed:: *)
 (*Wavefunctions*)
 
