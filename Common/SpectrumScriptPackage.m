@@ -470,18 +470,85 @@ extrapFitForms=
 
 
 extrapolatedFunction//Clear
+Options[extrapolatedFunction]=
+  {
+    "Cutoffs"->{-10^8, 5*10^8}
+      (* "bad values" should be indicated by larger or smaller numbers than this *),
+    "FitPoints"->{Scaled[.1], Scaled[.2]}
+      (* the number of points used in the fit on each side *),
+    "SamplingDirection"->First,
+    "Symmetry"->1,
+    "Default"->Automatic,
+    "ForcePositive"->True
+    };
 extrapolatedFunction[
+   fn_, 
+   fitForms: {_Function, _Function} : extrapFitForms,
+   ops:OptionsPattern[]
+   ]:=
+  Module[
+    {
+      dv, d1, d2, d3, d,
+      cutoffs, fitPoints, dir, symm, def,
+      efo=Options[extrapolatedFunction]
+      },
+      {cutoffs, fitPoints, dir, symm, def}=
+        OptionValue[extrapolatedFunction, 
+          {
+            ops,
+            efo
+            },
+          Keys[efo]
+          ];
+      If[dir==="Both",
+        dv = 10.^9.5+2*Abs[Replace[def, Automatic:>5000]];
+        d1 = 
+          extrapolatedFunction[fn, fitForms, 
+            FilterRules[
+              {
+                "SamplingDirection"->First,
+                "Default"->
+                ops
+                }, 
+              Except[Alternatives@@Keys[efo]]
+              ]
+            ];
+        d2 = 
+          extrapolatedFunction[fn, fitForms, 
+            FilterRules[
+              {
+                "SamplingDirection"->Last,
+                ops
+                }, 
+              Except[Alternatives@@Keys[efo]]
+              ]
+            ];
+        d = DeleteDuplicatesBy[
+          Join[Pick[d1, UnitStep[(dv-10)-d1[[All, 3]]], 1], d2], Round[#[[;;2]], .001]&
+          ],
+        iExtrapolatedFunction[fn, fitForms,
+          cutoffs,
+          fitPoints,
+          dir,
+          symm,
+          def,
+          FilterRules[{ops}, Except[Alternatives@@Keys[efo]]]
+          ]
+        ]
+      ]
+
+
+iExtrapolatedFunction[
   fn_, 
+  fitForms: {_Function, _Function},
   cutOffs: {
     Except[_Integer?(0<#<1000&), _?NumericQ], 
     Except[_Integer?(0<#<1000&), _?NumericQ]
-    } : {-10^8, 5*10^8} 
-    (* "bad values" should be indicated by larger or smaller numbers than this *),
+    },
   pointSampling:{_Scaled|_Integer, _Scaled|_Integer}:{Scaled[.1], Scaled[.2]},
-  fitForms: {_Function, _Function} : extrapFitForms,
-  direction:First|Last:First,
-  symmetry:1|-1|None:1,
-  def:DefaultValue[_]:DefaultValue[Automatic],
+  direction:First|Last,
+  symmetry:1|-1|None,
+  def_,
   ops:OptionsPattern[]
   ]:=
   Module[
@@ -501,7 +568,7 @@ extrapolatedFunction[
       missing, patchedPts,
       gind1=Replace[direction, {First->1, Last->2}],
       gind2=Replace[direction, {First->2, Last->1}],
-      dv=def[[1]],
+      dv=def,
       linearInterp
       },
     debugPrint["Extracting grids"];
@@ -610,20 +677,6 @@ extrapolatedFunction[
        .0001
        ](*//Interpolation*)
     ];
-extrapolatedFunction[
-  a__,
-  "Both",
-  symmetry:1|-1|None:1,
-  def:DefaultValue[_]:DefaultValue[InterpolationOrder->1],
-  ops:OptionsPattern[]
-  ]:=
-  Module[{dv = 10.^9.5+2*Abs[Replace[def[[1]], Automatic:>5000]], d1, d2, d3, d},
-    d1 = extrapolatedFunction[a, First, None, DefaultValue[dv], ops];
-    d2 = extrapolatedFunction[a, Last, symmetry, def, ops];
-    d = DeleteDuplicatesBy[
-      Join[Pick[d1, UnitStep[(dv-10)-d1[[All, 3]]], 1], d2], Round[#[[;;2]], .001]&
-      ]
-    ]
 
 
 (* ::Subsubsubsection::Closed:: *)

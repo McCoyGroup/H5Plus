@@ -339,7 +339,7 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           "ops"}], "\n", "            ", "]"}], "[", 
                           "\"Function\"", "]"}]}], "\n", "          ", 
                           "]"}]}], "\n", "        ", "]"}]}]}], "\n", "    ", 
-                    "]"}]}]], "CodeInput"]}, Open]], 
+                    "]"}]}]], "CodeInput"]}, Closed]], 
            Cell[CellGroupData[
              {Cell["\[LeftCeiling]fitExtrapForms\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
@@ -456,7 +456,7 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           "]"}]}], "\n", "        ", "]"}], ",", "\n", 
                           "      ", "trueRotSubGrids"}], "\n", "      ", 
                           "]"}]}]}], "\n", "    ", "]"}]}]], "CodeInput"]}, 
-             Open]], Cell[CellGroupData[
+             Closed]], Cell[CellGroupData[
              {Cell["\[LeftCeiling]extraGridVals\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
                 RowBox[{RowBox[{RowBox[{"extraGridVals", "[", "\n", "  ", 
@@ -572,7 +572,7 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           {"KeyTake", "[", RowBox[{"rotSubGrids", ",", " ", 
                           RowBox[{"Keys", "[", "trueRotSubGrids", "]"}]}], 
                           "]"}]}], "\n", "      ", "}"}]}], "\n", "    ", 
-                      "]"}]}], ";"}]], "CodeInput"]}, Open]], 
+                      "]"}]}], ";"}]], "CodeInput"]}, Closed]], 
            Cell[CellGroupData[
              {Cell["\[LeftCeiling]extrapFitForms\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
@@ -612,50 +612,149 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           ")"}]}], ",", " ", RowBox[{"\"Parameters\"", 
                           "\[Rule]", RowBox[{"Array", "[", RowBox[{"C", ",", 
                           " ", "2"}], "]"}]}]}], "|>"}], "&"}]}], "\n", 
-                      "      ", "}"}]}], ";"}]], "CodeInput"]}, Open]], 
+                      "      ", "}"}]}], ";"}]], "CodeInput"]}, Closed]], 
            Cell[CellGroupData[
              {Cell["\[LeftCeiling]extrapolatedFunction\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
                 {RowBox[{"extrapolatedFunction", "//", "Clear"}], "\n", 
-                 RowBox[{RowBox[{RowBox[{"extrapolatedFunction", "[", "\n", 
-                       "  ", RowBox[{"fn_", ",", " ", "\n", "  ", RowBox[
-                          {"cutOffs", ":", " ", RowBox[{"{", "\n", "    ", 
-                          RowBox[{RowBox[{"Except", "[", RowBox[{RowBox[
-                          {"_Integer", "?", RowBox[{"(", RowBox[{RowBox[{"0", 
-                          "<", "#", "<", "1000"}], "&"}], ")"}]}], ",", " ", 
-                          RowBox[{"_", "?", "NumericQ"}]}], "]"}], ",", " ", 
-                          "\n", "    ", RowBox[{"Except", "[", RowBox[
-                          {RowBox[{"_Integer", "?", RowBox[{"(", RowBox[
-                          {RowBox[{"0", "<", "#", "<", "1000"}], "&"}], 
-                          ")"}]}], ",", " ", RowBox[{"_", "?", 
-                          "NumericQ"}]}], "]"}]}], "\n", "    ", "}"}], " ", 
-                          ":", " ", RowBox[{"{", RowBox[{RowBox[{"-", RowBox[
-                          {"10", "^", "8"}]}], ",", " ", RowBox[{"5", "*", 
-                          RowBox[{"10", "^", "8"}]}]}], "}"}]}], " ", "\n", 
-                         "    ", RowBox[{"(*", " ", RowBox[{"\"bad values\"", 
-                          " ", "should", " ", "be", " ", "indicated", " ", 
-                          "by", " ", "larger", " ", "or", " ", "smaller", 
-                          " ", "numbers", " ", "than", " ", "this"}], " ", 
-                          "*)"}], ",", "\n", "  ", RowBox[{"pointSampling", 
+                 RowBox[{RowBox[{RowBox[{"Options", "[", 
+                       "extrapolatedFunction", "]"}], "=", "\n", "  ", 
+                     RowBox[{"{", "\n", "    ", RowBox[{RowBox[
+                          {"\"Cutoffs\"", "->", RowBox[{"{", RowBox[
+                          {RowBox[{"-", RowBox[{"10", "^", "8"}]}], ",", " ", 
+                          RowBox[{"5", "*", RowBox[{"10", "^", "8"}]}]}], 
+                          "}"}]}], "\n", "      ", RowBox[{"(*", " ", RowBox[
+                          {"\"bad values\"", " ", "should", " ", "be", " ", 
+                          "indicated", " ", "by", " ", "larger", " ", "or", 
+                          " ", "smaller", " ", "numbers", " ", "than", " ", 
+                          "this"}], " ", "*)"}], ",", "\n", "    ", RowBox[
+                          {"\"FitPoints\"", "->", RowBox[{"{", RowBox[
+                          {RowBox[{"Scaled", "[", ".1", "]"}], ",", " ", 
+                          RowBox[{"Scaled", "[", ".2", "]"}]}], "}"}]}], 
+                         "\n", "      ", RowBox[{"(*", " ", RowBox[{"the", 
+                          " ", "number", " ", "of", " ", "points", " ", 
+                          "used", " ", "in", " ", "the", " ", "fit", " ", 
+                          "on", " ", "each", " ", "side"}], " ", "*)"}], ",", 
+                         "\n", "    ", RowBox[{"\"SamplingDirection\"", 
+                          "\[Rule]", "First"}], ",", "\n", "    ", RowBox[
+                          {"\"Symmetry\"", "\[Rule]", "1"}], ",", "\n", 
+                         "    ", RowBox[{"\"Default\"", "\[Rule]", 
+                          "Automatic"}], ",", "\n", "    ", RowBox[
+                          {"\"ForcePositive\"", "\[Rule]", "True"}]}], "\n", 
+                       "    ", "}"}]}], ";"}], "\n", RowBox[
+                  {RowBox[{"extrapolatedFunction", "[", "\n", "   ", 
+                     RowBox[{"fn_", ",", " ", "\n", "   ", RowBox[
+                        {"fitForms", ":", " ", RowBox[{"{", RowBox[
+                          {"_Function", ",", " ", "_Function"}], "}"}], " ", 
+                         ":", " ", "extrapFitForms"}], ",", "\n", "   ", 
+                       RowBox[{"ops", ":", RowBox[{"OptionsPattern", "[", 
+                          "]"}]}]}], "\n", "   ", "]"}], ":=", "\n", "  ", 
+                   RowBox[{"Module", "[", "\n", "    ", RowBox[
+                      {RowBox[{"{", "\n", "      ", RowBox[{"dv", ",", " ", 
+                          "d1", ",", " ", "d2", ",", " ", "d3", ",", " ", 
+                          "d", ",", "\n", "      ", "cutoffs", ",", " ", 
+                          "fitPoints", ",", " ", "dir", ",", " ", "symm", 
+                          ",", " ", "def", ",", "\n", "      ", RowBox[
+                          {"efo", "=", RowBox[{"Options", "[", 
+                          "extrapolatedFunction", "]"}]}]}], "\n", "      ", 
+                         "}"}], ",", "\n", "      ", RowBox[{RowBox[
+                          {RowBox[{"{", RowBox[{"cutoffs", ",", " ", 
+                          "fitPoints", ",", " ", "dir", ",", " ", "symm", 
+                          ",", " ", "def"}], "}"}], "=", "\n", "        ", 
+                          RowBox[{"OptionValue", "[", RowBox[
+                          {"extrapolatedFunction", ",", " ", "\n", 
+                          "          ", RowBox[{"{", "\n", "            ", 
+                          RowBox[{"ops", ",", "\n", "            ", "efo"}], 
+                          "\n", "            ", "}"}], ",", "\n", 
+                          "          ", RowBox[{"Keys", "[", "efo", "]"}]}], 
+                          "\n", "          ", "]"}]}], ";", "\n", "      ", 
+                         RowBox[{"If", "[", RowBox[{RowBox[{"dir", "===", 
+                          "\"Both\""}], ",", "\n", "        ", RowBox[
+                          {RowBox[{"dv", " ", "=", " ", RowBox[{RowBox[
+                          {"10.", "^", "9.5"}], "+", RowBox[{"2", "*", RowBox[
+                          {"Abs", "[", RowBox[{"Replace", "[", RowBox[{"def", 
+                          ",", " ", RowBox[{"Automatic", "\[RuleDelayed]", 
+                          "5000"}]}], "]"}], "]"}]}]}]}], ";", "\n", 
+                          "        ", RowBox[{"d1", " ", "=", " ", "\n", 
+                          "          ", RowBox[{"extrapolatedFunction", "[", 
+                          RowBox[{"fn", ",", " ", "fitForms", ",", " ", "\n", 
+                          "            ", RowBox[{"FilterRules", "[", "\n", 
+                          "              ", RowBox[{RowBox[{"{", "\n", 
+                          "                ", RowBox[{RowBox[{
+                          "\"SamplingDirection\"", "\[Rule]", "First"}], ",", 
+                          "\n", "                ", RowBox[{"\"Default\"", 
+                          "->", "\n", "                ", "ops"}]}], "\n", 
+                          "                ", "}"}], ",", " ", "\n", 
+                          "              ", RowBox[{"Except", "[", RowBox[
+                          {"Alternatives", "@@", RowBox[{"Keys", "[", "efo", 
+                          "]"}]}], "]"}]}], "\n", "              ", "]"}]}], 
+                          "\n", "            ", "]"}]}], ";", "\n", 
+                          "        ", RowBox[{"d2", " ", "=", " ", "\n", 
+                          "          ", RowBox[{"extrapolatedFunction", "[", 
+                          RowBox[{"fn", ",", " ", "fitForms", ",", " ", "\n", 
+                          "            ", RowBox[{"FilterRules", "[", "\n", 
+                          "              ", RowBox[{RowBox[{"{", "\n", 
+                          "                ", RowBox[{RowBox[{
+                          "\"SamplingDirection\"", "\[Rule]", "Last"}], ",", 
+                          "\n", "                ", "ops"}], "\n", 
+                          "                ", "}"}], ",", " ", "\n", 
+                          "              ", RowBox[{"Except", "[", RowBox[
+                          {"Alternatives", "@@", RowBox[{"Keys", "[", "efo", 
+                          "]"}]}], "]"}]}], "\n", "              ", "]"}]}], 
+                          "\n", "            ", "]"}]}], ";", "\n", "  ", 
+                          "  ", "    ", RowBox[{"d", " ", "=", " ", RowBox[
+                          {"DeleteDuplicatesBy", "[", "\n", "  ", "  ", 
+                          "      ", RowBox[{RowBox[{"Join", "[", RowBox[
+                          {RowBox[{"Pick", "[", RowBox[{"d1", ",", " ", 
+                          RowBox[{"UnitStep", "[", RowBox[{RowBox[{"(", 
+                          RowBox[{"dv", "-", "10"}], ")"}], "-", RowBox[
+                          {"d1", "[", RowBox[{"[", RowBox[{"All", ",", " ", 
+                          "3"}], "]"}], "]"}]}], "]"}], ",", " ", "1"}], 
+                          "]"}], ",", " ", "d2"}], "]"}], ",", " ", RowBox[
+                          {RowBox[{"Round", "[", RowBox[{RowBox[{"#", "[", 
+                          RowBox[{"[", RowBox[{";;", "2"}], "]"}], "]"}], 
+                          ",", " ", ".001"}], "]"}], "&"}]}], "\n", 
+                          "          ", "]"}]}]}], ",", "\n", "        ", 
+                          RowBox[{"iExtrapolatedFunction", "[", RowBox[{"fn", 
+                          ",", " ", "fitForms", ",", "\n", "          ", 
+                          "cutoffs", ",", "\n", "          ", "fitPoints", 
+                          ",", "\n", "          ", "dir", ",", "\n", 
+                          "          ", "symm", ",", "\n", "          ", 
+                          "def", ",", "\n", "          ", RowBox[
+                          {"FilterRules", "[", RowBox[{RowBox[{"{", "ops", 
+                          "}"}], ",", " ", RowBox[{"Except", "[", RowBox[
+                          {"Alternatives", "@@", RowBox[{"Keys", "[", "efo", 
+                          "]"}]}], "]"}]}], "]"}]}], "\n", "          ", 
+                          "]"}]}], "\n", "        ", "]"}]}]}], "\n", 
+                     "      ", "]"}]}]}], "CodeInput"], Cell[BoxData[
+                RowBox[{RowBox[{RowBox[{"iExtrapolatedFunction", "[", "\n", 
+                      "  ", RowBox[{"fn_", ",", " ", "\n", "  ", RowBox[
+                         {"fitForms", ":", " ", RowBox[{"{", RowBox[
+                          {"_Function", ",", " ", "_Function"}], "}"}]}], 
+                        ",", "\n", "  ", RowBox[{"cutOffs", ":", " ", 
+                          RowBox[{"{", "\n", "    ", RowBox[{RowBox[
+                          {"Except", "[", RowBox[{RowBox[{"_Integer", "?", 
+                          RowBox[{"(", RowBox[{RowBox[{"0", "<", "#", "<", 
+                          "1000"}], "&"}], ")"}]}], ",", " ", RowBox[{"_", 
+                          "?", "NumericQ"}]}], "]"}], ",", " ", "\n", "    ", 
+                          RowBox[{"Except", "[", RowBox[{RowBox[{"_Integer", 
+                          "?", RowBox[{"(", RowBox[{RowBox[{"0", "<", "#", 
+                          "<", "1000"}], "&"}], ")"}]}], ",", " ", RowBox[
+                          {"_", "?", "NumericQ"}]}], "]"}]}], "\n", "    ", 
+                          "}"}]}], ",", "\n", "  ", RowBox[{"pointSampling", 
                           ":", RowBox[{"{", RowBox[{RowBox[{"_Scaled", "|", 
                           "_Integer"}], ",", " ", RowBox[{"_Scaled", "|", 
                           "_Integer"}]}], "}"}], ":", RowBox[{"{", RowBox[
                           {RowBox[{"Scaled", "[", ".1", "]"}], ",", " ", 
                           RowBox[{"Scaled", "[", ".2", "]"}]}], "}"}]}], ",", 
-                         "\n", "  ", RowBox[{"fitForms", ":", " ", RowBox[
-                          {"{", RowBox[{"_Function", ",", " ", "_Function"}], 
-                          "}"}], " ", ":", " ", "extrapFitForms"}], ",", 
-                         "\n", "  ", RowBox[{"direction", ":", RowBox[
-                          {"First", "|", "Last"}], ":", "First"}], ",", "\n", 
-                         "  ", RowBox[{"symmetry", ":", RowBox[{"1", "|", 
-                          RowBox[{"-", "1"}], "|", "None"}], ":", "1"}], ",", 
-                         "\n", "  ", RowBox[{"def", ":", RowBox[
-                          {"DefaultValue", "[", "_", "]"}], ":", RowBox[
-                          {"DefaultValue", "[", "Automatic", "]"}]}], ",", 
-                         "\n", "  ", RowBox[{"ops", ":", RowBox[
+                        "\n", "  ", RowBox[{"direction", ":", RowBox[
+                          {"First", "|", "Last"}]}], ",", "\n", "  ", 
+                        RowBox[{"symmetry", ":", RowBox[{"1", "|", RowBox[
+                          {"-", "1"}], "|", "None"}]}], ",", "\n", "  ", 
+                        "def_", ",", "\n", "  ", RowBox[{"ops", ":", RowBox[
                           {"OptionsPattern", "[", "]"}]}]}], "\n", "  ", 
-                       "]"}], ":=", "\n", "  ", RowBox[{"Module", "[", "\n", 
-                       "    ", RowBox[{RowBox[{"{", "\n", "      ", RowBox[
+                      "]"}], ":=", "\n", "  ", RowBox[{"Module", "[", "\n", 
+                      "    ", RowBox[{RowBox[{"{", "\n", "      ", RowBox[
                           {RowBox[{"trueGridVals", " ", "=", " ", "\n", 
                           "        ", RowBox[{"Pick", "[", RowBox[{"fn", ",", 
                           "\n", "          ", RowBox[{RowBox[{"UnitStep", 
@@ -686,10 +785,9 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           RowBox[{RowBox[{"First", "\[Rule]", "2"}], ",", 
                           " ", RowBox[{"Last", "\[Rule]", "1"}]}], "}"}]}], 
                           "]"}]}], ",", "\n", "      ", RowBox[{"dv", "=", 
-                          RowBox[{"def", "[", RowBox[{"[", "1", "]"}], 
-                          "]"}]}], ",", "\n", "      ", "linearInterp"}], 
+                          "def"}], ",", "\n", "      ", "linearInterp"}], 
                           "\n", "      ", "}"}], ",", "\n", "    ", RowBox[
-                          {RowBox[{"debugPrint", "[", "\"Extracting grids\"", 
+                         {RowBox[{"debugPrint", "[", "\"Extracting grids\"", 
                           "]"}], ";", "\n", "    ", RowBox[{"rotWfnGrid", 
                           " ", "=", " ", "\n", "      ", RowBox[{RowBox[
                           {RowBox[{"fn", "[", RowBox[{"[", RowBox[{"All", 
@@ -902,48 +1000,8 @@ build the H5+ spectrum\n\[RightFloor]", "Text", Evaluatable -> True],
                           "]"}], ",", " ", ".005"}], "]"}], "&"}]}], "\n", 
                           "           ", "]"}]}], ",", "\n", "       ", 
                           ".0001"}], "\n", "       ", "]"}]}]}], RowBox[
-                        {"(*", RowBox[{"//", "Interpolation"}], "*)"}], "\n", 
-                       "    ", "]"}]}], ";"}], "\n", RowBox[
-                  {RowBox[{"extrapolatedFunction", "[", "\n", "  ", 
-                     RowBox[{"a__", ",", "\n", "  ", "\"Both\"", ",", "\n", 
-                       "  ", RowBox[{"symmetry", ":", RowBox[{"1", "|", 
-                          RowBox[{"-", "1"}], "|", "None"}], ":", "1"}], ",", 
-                       "\n", "  ", RowBox[{"def", ":", RowBox[
-                          {"DefaultValue", "[", "_", "]"}], ":", RowBox[
-                          {"DefaultValue", "[", RowBox[{"InterpolationOrder", 
-                          "\[Rule]", "1"}], "]"}]}], ",", "\n", "  ", 
-                       RowBox[{"ops", ":", RowBox[{"OptionsPattern", "[", 
-                          "]"}]}]}], "\n", "  ", "]"}], ":=", "\n", "  ", 
-                   RowBox[{"Module", "[", RowBox[{RowBox[{"{", RowBox[
-                          {RowBox[{"dv", " ", "=", " ", RowBox[{RowBox[
-                          {"10.", "^", "9.5"}], "+", RowBox[{"2", "*", RowBox[
-                          {"Abs", "[", RowBox[{"Replace", "[", RowBox[{RowBox[
-                          {"def", "[", RowBox[{"[", "1", "]"}], "]"}], ",", 
-                          " ", RowBox[{"Automatic", "\[RuleDelayed]", 
-                          "5000"}]}], "]"}], "]"}]}]}]}], ",", " ", "d1", 
-                          ",", " ", "d2", ",", " ", "d3", ",", " ", "d"}], 
-                         "}"}], ",", "\n", "    ", RowBox[{RowBox[{"d1", " ", 
-                          "=", " ", RowBox[{"extrapolatedFunction", "[", 
-                          RowBox[{"a", ",", " ", "First", ",", " ", "None", 
-                          ",", " ", RowBox[{"DefaultValue", "[", "dv", "]"}], 
-                          ",", " ", "ops"}], "]"}]}], ";", "\n", "    ", 
-                         RowBox[{"d2", " ", "=", " ", RowBox[
-                          {"extrapolatedFunction", "[", RowBox[{"a", ",", 
-                          " ", "Last", ",", " ", "symmetry", ",", " ", "def", 
-                          ",", " ", "ops"}], "]"}]}], ";", "\n", "    ", 
-                         RowBox[{"d", " ", "=", " ", RowBox[
-                          {"DeleteDuplicatesBy", "[", "\n", "      ", RowBox[
-                          {RowBox[{"Join", "[", RowBox[{RowBox[{"Pick", "[", 
-                          RowBox[{"d1", ",", " ", RowBox[{"UnitStep", "[", 
-                          RowBox[{RowBox[{"(", RowBox[{"dv", "-", "10"}], 
-                          ")"}], "-", RowBox[{"d1", "[", RowBox[{"[", RowBox[
-                          {"All", ",", " ", "3"}], "]"}], "]"}]}], "]"}], 
-                          ",", " ", "1"}], "]"}], ",", " ", "d2"}], "]"}], 
-                          ",", " ", RowBox[{RowBox[{"Round", "[", RowBox[
-                          {RowBox[{"#", "[", RowBox[{"[", RowBox[{";;", 
-                          "2"}], "]"}], "]"}], ",", " ", ".001"}], "]"}], 
-                          "&"}]}], "\n", "      ", "]"}]}]}]}], "\n", "    ", 
-                     "]"}]}]}], "CodeInput"]}, Open]], 
+                       {"(*", RowBox[{"//", "Interpolation"}], "*)"}], "\n", 
+                      "    ", "]"}]}], ";"}]], "CodeInput"]}, Open]], 
            Cell[CellGroupData[{Cell["\[LeftCeiling]lInter\[RightFloor]", 
                "CodeSubsubsubsection", Evaluatable -> True], Cell[BoxData[
                 {RowBox[{RowBox[{"lInter", "[", RowBox[{"grid_", ",", " ", 
