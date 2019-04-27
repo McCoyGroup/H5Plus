@@ -97,6 +97,7 @@ $fullDipoleSurf::usage = "The 4D dipole surfaces for the problem";
 
 
 $saBasisSize;
+$saExtendedBasisSize;
 $saExtendedBasisScaling;
 $r1r2BasisSize;
 $r1r2SCFBasisSize;
@@ -200,7 +201,7 @@ saGrid = saMainGrid["Points"];
 $saExtendedBasisSize=
   Replace[$saExtendedBasisSize, Except[_Integer|{_Integer, _Integer}]->$saBasisSize];
 If[IntegerQ[$saExtendedBasisSize], 
-  $saExtendedBasisSize = {$saBasisSize, $saBasisSize}
+  $saExtendedBasisSize = {$saExtendedBasisSize, $saExtendedBasisSize}
   ]
 
 
@@ -869,7 +870,7 @@ debugPrint["Pulling projections from wavefunctions"]
 
 
 oneQuantumProjections =
-  pullProjections[oneQuantumWfns, saMainGrid, {2, 3}];
+  pullProjections[oneQuantumWfns, saExtendedGridObject, {2, 3}];
 
 
 (* ::Subsubsubsection:: *)
@@ -877,7 +878,7 @@ oneQuantumProjections =
 
 
 twoQuantaProjections =
-  pullProjections[twoQuantaWfns, saMainGrid, {4, 5, 6}];
+  pullProjections[twoQuantaWfns, saExtendedGridObject, {4, 5, 6}];
 
 
 (* ::Subsubsubsection:: *)
